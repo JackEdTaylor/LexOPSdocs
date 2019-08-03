@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1 Introduction | LexOPS Walkthrough</title>
+  <title>3 Matching Individual Words | LexOPS Walkthrough</title>
   <meta name="description" content="An introduction to the LexOPS package and how to use it." />
   <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1 Introduction | LexOPS Walkthrough" />
+  <meta property="og:title" content="3 Matching Individual Words | LexOPS Walkthrough" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1 Introduction | LexOPS Walkthrough" />
+  <meta name="twitter:title" content="3 Matching Individual Words | LexOPS Walkthrough" />
   
   <meta name="twitter:description" content="An introduction to the LexOPS package and how to use it." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html">
-<link rel="next" href="the-generate-pipeline.html">
+<link rel="prev" href="the-generate-pipeline.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -163,59 +163,65 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="introduction" class="section level1">
-<h1><span class="header-section-number">1</span> Introduction</h1>
-<div id="what-is-lexops" class="section level2">
-<h2><span class="header-section-number">1.1</span> What is LexOPS?</h2>
-<p>LexOPS is an R package and shiny app for generating word stimuli that can be used in Psychology experiments. The package is designed to be as intuitive as possible, and is similar in style to the <a href="https://www.tidyverse.org/">tidyverse</a>. The shiny app is designed to be especially intuitive, and requires minimal knowledge of R to use.</p>
-<p>Here are 3 main advantages of using LexOPS to generate your word stimuli:</p>
-<ol style="list-style-type: decimal">
-<li><p><strong>Speed</strong>: It’s just much (much much) faster than creating well-controlled stimuli manually.</p></li>
-<li><p><strong>Reproducibility</strong>: if a random seed is set, LexOPS pipelines will generate the same stimuli each time the code is run. This means you can openly share the code that generated your stimuli, and anyone can reproduce your result.</p></li>
-<li><p><strong>Replicability</strong>: if no random seed is set, LexOPS pipelines will generate different stimuli each time the code is run. This means if you share your code, anyone can generate a novel set of stimuli for the same experimental design, that can be used to try and replicate any experimental result.</p></li>
-</ol>
-<p>The package began as a series of R scripts, written to automate tasks I found myself repeating again and again when designing experiments. I decided to make it into a fully-fledged package because despite the huge range of freely available lists of word norms and features, there were no task-general solutions for using such lists to generate word stimuli.</p>
+<div id="matching-individual-words" class="section level1">
+<h1><span class="header-section-number">3</span> Matching Individual Words</h1>
+<p>While the generate pipeline is usually sufficient, it’s sometimes important to tailor stimuli more precisely. For instance, it may be important that a matched word is a plausible replacement for a target word in a sentence. The <code>match_word()</code> function exists for this purpose.</p>
+<p>This function is currently more cumbersome to use than the generate pipeline, but might be updated to use similar tidyverse-style syntax in the future.</p>
+<p>Here’s an example usage of <code>match_word</code>, to suggest a word matched for “elephant” in terms of:</p>
+<ul>
+<li>Length (exactly)</li>
+<li>Frequency (within ±0.25 Zipf)</li>
+<li>Imageability (within ±1, on a 1-7 Likert rating scale)</li>
+<li>Part of Speech (i.e. is also a noun)</li>
+</ul>
+<div class="table">
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="kw">library</span>(LexOPS)</a>
+<a class="sourceLine" id="cb9-3" title="3"></a>
+<a class="sourceLine" id="cb9-4" title="4">lexops <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="st">  </span><span class="kw">match_word</span>(</a>
+<a class="sourceLine" id="cb9-6" title="6">    <span class="dt">target =</span> <span class="st">&quot;elephant&quot;</span>,</a>
+<a class="sourceLine" id="cb9-7" title="7">    <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb9-8" title="8">      <span class="st">&quot;Length&quot;</span>,</a>
+<a class="sourceLine" id="cb9-9" title="9">      <span class="kw">c</span>(<span class="st">&quot;Zipf.SUBTLEX_UK&quot;</span>, <span class="fl">-0.25</span>, <span class="fl">0.25</span>),</a>
+<a class="sourceLine" id="cb9-10" title="10">      <span class="kw">c</span>(<span class="st">&quot;IMAG.Glasgow_Norms&quot;</span>, <span class="dv">-1</span>, <span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb9-11" title="11">      <span class="st">&quot;PoS.SUBTLEX_UK&quot;</span></a>
+<a class="sourceLine" id="cb9-12" title="12">    )</a>
+<a class="sourceLine" id="cb9-13" title="13">  ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-14" title="14"><span class="st">  </span><span class="kw">select</span>(string, euclidean_distance, Length, Zipf.SUBTLEX_UK, IMAG.Glasgow_Norms, PoS.SUBTLEX_UK)</a></code></pre></div>
+<pre><code>## # A tibble: 18 x 6
+##    string euclidean_dista~ Length Zipf.SUBTLEX_UK IMAG.Glasgow_No~
+##    &lt;chr&gt;             &lt;dbl&gt;  &lt;int&gt;           &lt;dbl&gt;            &lt;dbl&gt;
+##  1 sandw~            0.128      8            4.25             6.76
+##  2 trous~            0.202      8            4.24             6.63
+##  3 wardr~            0.325      8            4.10             6.62
+##  4 cloth~            0.330      8            4.14             6.55
+##  5 calen~            0.336      8            4.33             6.4 
+##  6 magaz~            0.352      8            4.29             6.38
+##  7 bunga~            0.373      8            4.17             6.42
+##  8 envel~            0.400      8            4.10             6.47
+##  9 festi~            0.498      8            4.51             6.24
+## 10 motor~            0.531      8            4.11             6.23
+## 11 exerc~            0.555      8            4.45             6.12
+## 12 treas~            0.560      8            4.46             6.12
+## 13 portr~            0.586      8            4.18             6.10
+## 14 engin~            0.608      8            4.14             6.09
+## 15 docum~            0.631      8            4.18             6.03
+## 16 shoot~            0.701      8            4.39             5.90
+## 17 appla~            0.707      8            4.21             5.91
+## 18 darkn~            0.729      8            4.14             5.91
+## # ... with 1 more variable: PoS.SUBTLEX_UK &lt;fct&gt;</code></pre>
 </div>
-<div id="installation" class="section level2">
-<h2><span class="header-section-number">1.2</span> Installation</h2>
-<p>The latest version of LexOPS can be installed with the following R code:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&quot;devtools&quot;</span>)) <span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)</a>
-<a class="sourceLine" id="cb1-2" title="2">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;JackEdTaylor/LexOPS&quot;</span>)</a></code></pre></div>
-<p>Install R here: <a href="https://cloud.r-project.org/">https://cloud.r-project.org/</a></p>
-<p>Install RStudio (reccommended IDE) here: <a href="https://www.rstudio.com/products/rstudio/">https://www.rstudio.com/products/rstudio/</a></p>
-</div>
-<div id="the-shiny-app" class="section level2">
-<h2><span class="header-section-number">1.3</span> The Shiny App</h2>
-<p>LexOPS features an intuitive shiny app (for more on shiny apps, see <a href="https://shiny.rstudio.com/">https://shiny.rstudio.com/</a>). This features useful visualisations of data, and may be more friendly to users less familiar with R.</p>
-<p>Once LexOPS is installed, the shiny app can be run with:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">LexOPS<span class="op">::</span><span class="kw">run_shiny</span>()</a></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-4"></span>
-<img src="images/shiny-preview.png" alt="The Generate tab of the LexOPS Shiny App" width="75%" height="75%" />
-<p class="caption">
-Figure 1.1: The Generate tab of the LexOPS Shiny App
-</p>
-</div>
-<div class="info">
-<p>
-The shiny app is also available as a web app online, at <a href="https://jackt.shinyapps.io/lexops/">https://jackt.shinyapps.io/lexops/</a>, but it is usually more reliable to run it locally with the <code>run_shiny()</code> function.
-</p>
-</div>
-</div>
-<div id="the-lexops-dataset" class="section level2">
-<h2><span class="header-section-number">1.4</span> The LexOPS Dataset</h2>
-<p>LexOPS has a built-in dataset of English word features, which can be called with:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">LexOPS<span class="op">::</span>lexops</a></code></pre></div>
-<p>For details on the variables included, see <a href="https://rdrr.io/github/JackEdTaylor/LexOPS/man/lexops.html">https://rdrr.io/github/JackEdTaylor/LexOPS/man/lexops.html</a>.</p>
+<p>The suggested matches are returned in a dataframe, filtered to be within the specified tolerances, and ordered by euclidean distance from the target word (calculated using all the numeric variables used). The closest suggested match for “elephant” is “sandwich”.</p>
 
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="the-generate-pipeline.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="the-generate-pipeline.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
