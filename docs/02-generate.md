@@ -119,7 +119,7 @@ plot_design(stim)
 <p class="caption">(\#fig:unnamed-chunk-8)The results of the `plot_design()` function for the generated stimuli.</p>
 </div>
 
-Here, all the numeric variables used as independent variables or controls have their distributions plotted  for each condition. The points depict the values of individual words, and points of the same colour (and joined by lines) are matched by the controls. As we'd expect, our example stimuli show the expected differences in Bigram Probability and Concreteness, while Frequency is matched closely, and Length is matched exactly.
+Here, all the numeric variables used as independent variables or controls have their distributions plotted  for each condition (in a grey violin plot). The points depict the values of individual words, and points of the same colour (joined by lines) are matched items. As we'd expect, our example stimuli show the expected differences in Bigram Probability and Concreteness, while Frequency is matched closely, and Length is matched exactly.
 
 ## Generating as Many as Possible
 
@@ -154,4 +154,4 @@ plot_iterations(possible_stim)
 <p class="caption">(\#fig:unnamed-chunk-10)The cumulative number of items generated per iteration.</p>
 </div>
 
-Here, this shows a characteristic levelling-off; iterations become increasingly less likely to successfully generate items as n increases.
+Here, this shows a characteristic levelling-off; iterations become increasingly less likely to successfully generate items as the pool of possible combinations is gradually exhausted.
