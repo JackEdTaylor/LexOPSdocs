@@ -94,7 +94,7 @@ Here, all the numeric variables used as independent variables or controls have t
 
 ## Generating as Many as Possible
 
-Let's imagine that we're not entirely sure how many stimuli we could generate using our design. It may be that the `n = 25` [we used earlier](#Generating-Stimuli) is considerably fewer than the number of stimuli we could generate with no problems. One way to test this is to have LexOPS generate as many stimuli as possible. We can do this by setting `n = "all"`:
+Let's imagine that we're not entirely sure how many stimuli we could generate using our design. It may be that the `n = 25` [we used earlier](#generating-stimuli) is considerably fewer than the number of stimuli we could generate with no problems. One way to test this is to have LexOPS generate as many stimuli as possible. We can do this by setting `n = "all"`:
 
 ```{r, message=FALSE, results='hide'}
 possible_stim <- LexOPS::lexops %>%
