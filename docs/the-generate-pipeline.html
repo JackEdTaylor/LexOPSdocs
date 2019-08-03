@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 The Generate Pipeline | LexOPS Walkthrough</title>
+  <meta name="description" content="An introduction to the LexOPS package and how to use it." />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 The Generate Pipeline | LexOPS Walkthrough" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="An introduction to the LexOPS package and how to use it." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 The Generate Pipeline | LexOPS Walkthrough" />
+  
+  <meta name="twitter:description" content="An introduction to the LexOPS package and how to use it." />
+  
+
+<meta name="author" content="Jack Taylor" />
+
+
+<meta name="date" content="2019-08-03" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introduction.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="include\style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><b><a href="index.html">LexOPS Walkthrough</a></b></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#what-is-lexops"><i class="fa fa-check"></i><b>1.1</b> What is LexOPS?</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#installation"><i class="fa fa-check"></i><b>1.2</b> Installation</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#the-shiny-app"><i class="fa fa-check"></i><b>1.3</b> The Shiny App</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#the-lexops-dataset"><i class="fa fa-check"></i><b>1.4</b> The LexOPS Dataset</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html"><i class="fa fa-check"></i><b>2</b> The Generate Pipeline</a><ul>
+<li class="chapter" data-level="2.1" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#generating-stimuli"><i class="fa fa-check"></i><b>2.1</b> Generating Stimuli</a></li>
+<li class="chapter" data-level="2.2" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#converting-to-long-format"><i class="fa fa-check"></i><b>2.2</b> Converting to Long Format</a></li>
+<li class="chapter" data-level="2.3" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#plotting-the-design"><i class="fa fa-check"></i><b>2.3</b> Plotting the Design</a></li>
+<li class="chapter" data-level="2.4" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#generating-as-many-as-possible"><i class="fa fa-check"></i><b>2.4</b> Generating as Many as Possible</a></li>
+<li class="chapter" data-level="2.5" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#plotting-iterations"><i class="fa fa-check"></i><b>2.5</b> Plotting Iterations</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/JackEdTaylor/LexOPS" target="blank"><i class="fa fa-github"></i> LexOPS GitHub</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">LexOPS Walkthrough</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="the-generate-pipeline" class="section level1">
+<h1><span class="header-section-number">2</span> The Generate Pipeline</h1>
+<div id="generating-stimuli" class="section level2">
+<h2><span class="header-section-number">2.1</span> Generating Stimuli</h2>
+<p>One of the most noteworthy features of LexOPS is that it can generate controlled stimuli for any possible factorial design. This can be done in a pipeline using 3 main functions:</p>
+<ul>
+<li><code>split_by()</code> to specify “splits” (independent variables) in the experimental design</li>
+<li><code>control_for()</code> to specify variables that should be controlled for between conditions</li>
+<li><code>generate()</code> to run the algorithm and generate the stimuli</li>
+</ul>
+<p>As an example, we may want to generate stimuli for a 2x2 factorial design in a Lexical Decision Task, examining whether a possible effect of bigram probability interacts with concreteness.</p>
+<p>Let’s imagine that we want <strong>abstract and concrete words</strong> (according to Brysbaert, Warriner and Kuperman (2014)), of <strong>high and low bigram probability</strong> (based on SUBTLEX-UK (van Heuven, Mandera, Keuleers, &amp; Brysbaert, 2014)). We also want to filter the data, such that our stimuli only consist of words that at least 90% of people actually know (according to Brysbaert, Mandera, and Keuleers (2018)). Finally, we want to control for the potential confounds of word length exactly and word frequency (according to SUBTLEX-UK (van Heuven, Mandera, Keuleers, &amp; Brysbaert, 2014)) within ±0.2 Zipf, and would like 25 words per condition.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">library</span>(LexOPS)</a>
+<a class="sourceLine" id="cb4-2" title="2"></a>
+<a class="sourceLine" id="cb4-3" title="3">stim &lt;-<span class="st"> </span>LexOPS<span class="op">::</span>lexops <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="st">  </span><span class="kw">subset</span>(PK.Brysbaert <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.9</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="st">  </span><span class="kw">split_by</span>(CNC.Brysbaert, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span> <span class="op">~</span><span class="st"> </span><span class="dv">4</span><span class="op">:</span><span class="dv">5</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="st">  </span><span class="kw">split_by</span>(BG.SUBTLEX_UK, <span class="dv">0</span><span class="op">:</span><span class="fl">0.003</span> <span class="op">~</span><span class="st"> </span><span class="fl">0.009</span><span class="op">:</span><span class="fl">0.013</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="st">  </span><span class="kw">control_for</span>(Length, <span class="dv">0</span><span class="op">:</span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="st">  </span><span class="kw">control_for</span>(Zipf.SUBTLEX_UK, <span class="fl">-0.2</span><span class="op">:</span><span class="fl">0.2</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="st">  </span><span class="kw">generate</span>(<span class="dt">n =</span> <span class="dv">25</span>)</a></code></pre></div>
+<div class="info">
+<p>
+Important notes on LexOPS (non-standard) syntax:
+</p>
+<ul>
+<li>
+<p>
+As in the tidyverse, variables in the dataframe can be referenced outside of quotation marks.
+</p>
+</li>
+<li>
+<p>
+The <code>:</code> character is used in <code>split_by()</code> to specify numeric boundaries (e.g. <code>0.009:0.013</code> means any number from 0.009 to 0.013 is acceptable for this level of the variable), and in and <code>control_for()</code> to specify tolerances (e.g. <code>-0.2:0.2</code> means controls will be acceptable if within ±0.2 of the match null).
+</p>
+</li>
+<li>
+<p>
+The <code>~</code> character is used in <code>split_by()</code> to specify different levels of an independent variable (e.g. <code>1.5:2.5 ~ 3.5:4.5 ~ 5.5:6.5</code> would specify three levels of an independent variable).
+</p>
+</li>
+</ul>
+</div>
+<p>Let’s have a look at the first 5 rows of <code>stim</code> as an example:</p>
+<div class="table">
+<table>
+<thead>
+<tr class="header">
+<th align="right">item_nr</th>
+<th align="left">A1_B1</th>
+<th align="left">A1_B2</th>
+<th align="left">A2_B1</th>
+<th align="left">A2_B2</th>
+<th align="left">match_null</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">abide</td>
+<td align="left">merit</td>
+<td align="left">caddy</td>
+<td align="left">basin</td>
+<td align="left">A2_B1</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">acceptably</td>
+<td align="left">beseeching</td>
+<td align="left">typescript</td>
+<td align="left">fourteenth</td>
+<td align="left">A1_B2</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">snobby</td>
+<td align="left">relent</td>
+<td align="left">duffel</td>
+<td align="left">shelve</td>
+<td align="left">A1_B2</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">subtlety</td>
+<td align="left">riveting</td>
+<td align="left">bagpipes</td>
+<td align="left">headless</td>
+<td align="left">A2_B2</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="left">adequacy</td>
+<td align="left">endeared</td>
+<td align="left">typeface</td>
+<td align="left">whiteout</td>
+<td align="left">A2_B2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>We can see that we have 4 conditions:</p>
+<ul>
+<li><p><strong>A1_B1</strong> (abstract, low probability)</p></li>
+<li><p><strong>A1_B2</strong> (abstract, high probability)</p></li>
+<li><p><strong>A2_B1</strong> (concrete, low probability)</p></li>
+<li><p><strong>A2_B2</strong> (concrete, high probability)</p></li>
+</ul>
+<p>Each row of the table is controlled for in terms of frequency and length. The <code>match_null</code> variable tells us which condition stimuli were matched relative to. For instance, we can see that in row 3, items are matched relative to the word “snobby”. This means (for example) that all words for <code>item_nr</code> 3 are within ±0.2 Zipf of the Zipf value associated with the word snobby. By default, LexOPS will select the match_null for each item pseudo-randomly, such that each condition will be used as a match null an equal number of times, or as close to this ideal as is possible (e.g. the number of items requested may not be divisible by the number of conditions).</p>
+</div>
+<div id="converting-to-long-format" class="section level2">
+<h2><span class="header-section-number">2.2</span> Converting to Long Format</h2>
+<p>The table above shows the generated stimuli in wide format. This is a useful way to quickly view the stimuli and get a sense for what has been generated, but we often want to check our stimuli in more detail. The <code>long_format()</code> function is a quick way to convert stimuli generated in LexOPS into long format:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">stim_long &lt;-<span class="st"> </span><span class="kw">long_format</span>(stim)</a></code></pre></div>
+<p>Now we have the same stimuli in long format, with their associated values. Here are the same first 5 matched items from earlier, but in long format:</p>
+
+<div class="table">
+<table>
+<thead>
+<tr class="header">
+<th align="right">item_nr</th>
+<th align="left">condition</th>
+<th align="left">match_null</th>
+<th align="left">string</th>
+<th align="right">Zipf.SUBTLEX_UK</th>
+<th align="right">Length</th>
+<th align="right">BG.SUBTLEX_UK</th>
+<th align="right">CNC.Brysbaert</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">A1_B1</td>
+<td align="left">A2_B1</td>
+<td align="left">abide</td>
+<td align="right">3.453132</td>
+<td align="right">5</td>
+<td align="right">0.0029111</td>
+<td align="right">1.68</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">A1_B2</td>
+<td align="left">A2_B1</td>
+<td align="left">merit</td>
+<td align="right">3.577120</td>
+<td align="right">5</td>
+<td align="right">0.0122070</td>
+<td align="right">1.66</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">A2_B1</td>
+<td align="left">A2_B1</td>
+<td align="left">caddy</td>
+<td align="right">3.575405</td>
+<td align="right">5</td>
+<td align="right">0.0024618</td>
+<td align="right">4.32</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">A2_B2</td>
+<td align="left">A2_B1</td>
+<td align="left">basin</td>
+<td align="right">3.482487</td>
+<td align="right">5</td>
+<td align="right">0.0100465</td>
+<td align="right">4.63</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="left">A1_B1</td>
+<td align="left">A1_B2</td>
+<td align="left">acceptably</td>
+<td align="right">1.540834</td>
+<td align="right">10</td>
+<td align="right">0.0026093</td>
+<td align="right">1.48</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">A1_B2</td>
+<td align="left">A1_B2</td>
+<td align="left">beseeching</td>
+<td align="right">1.473887</td>
+<td align="right">10</td>
+<td align="right">0.0095482</td>
+<td align="right">1.88</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="left">A2_B1</td>
+<td align="left">A1_B2</td>
+<td align="left">typescript</td>
+<td align="right">1.297796</td>
+<td align="right">10</td>
+<td align="right">0.0027336</td>
+<td align="right">4.37</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">A2_B2</td>
+<td align="left">A1_B2</td>
+<td align="left">fourteenth</td>
+<td align="right">1.540834</td>
+<td align="right">10</td>
+<td align="right">0.0120087</td>
+<td align="right">4.21</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">A1_B1</td>
+<td align="left">A1_B2</td>
+<td align="left">snobby</td>
+<td align="right">2.564967</td>
+<td align="right">6</td>
+<td align="right">0.0017474</td>
+<td align="right">1.81</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="left">A1_B2</td>
+<td align="left">A1_B2</td>
+<td align="left">relent</td>
+<td align="right">2.376977</td>
+<td align="right">6</td>
+<td align="right">0.0108419</td>
+<td align="right">1.69</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">A2_B1</td>
+<td align="left">A1_B2</td>
+<td align="left">duffel</td>
+<td align="right">2.318985</td>
+<td align="right">6</td>
+<td align="right">0.0020055</td>
+<td align="right">4.12</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="left">A2_B2</td>
+<td align="left">A1_B2</td>
+<td align="left">shelve</td>
+<td align="right">2.459164</td>
+<td align="right">6</td>
+<td align="right">0.0105992</td>
+<td align="right">4.41</td>
+</tr>
+<tr class="odd">
+<td align="right">4</td>
+<td align="left">A1_B1</td>
+<td align="left">A2_B2</td>
+<td align="left">subtlety</td>
+<td align="right">2.913220</td>
+<td align="right">8</td>
+<td align="right">0.0025943</td>
+<td align="right">1.54</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">A1_B2</td>
+<td align="left">A2_B2</td>
+<td align="left">riveting</td>
+<td align="right">2.941248</td>
+<td align="right">8</td>
+<td align="right">0.0097598</td>
+<td align="right">1.85</td>
+</tr>
+<tr class="odd">
+<td align="right">4</td>
+<td align="left">A2_B1</td>
+<td align="left">A2_B2</td>
+<td align="left">bagpipes</td>
+<td align="right">3.162603</td>
+<td align="right">8</td>
+<td align="right">0.0028140</td>
+<td align="right">4.93</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">A2_B2</td>
+<td align="left">A2_B2</td>
+<td align="left">headless</td>
+<td align="right">3.040128</td>
+<td align="right">8</td>
+<td align="right">0.0093918</td>
+<td align="right">4.42</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="left">A1_B1</td>
+<td align="left">A2_B2</td>
+<td align="left">adequacy</td>
+<td align="right">2.158134</td>
+<td align="right">8</td>
+<td align="right">0.0020388</td>
+<td align="right">1.86</td>
+</tr>
+<tr class="even">
+<td align="right">5</td>
+<td align="left">A1_B2</td>
+<td align="left">A2_B2</td>
+<td align="left">endeared</td>
+<td align="right">2.348948</td>
+<td align="right">8</td>
+<td align="right">0.0107752</td>
+<td align="right">1.78</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="left">A2_B1</td>
+<td align="left">A2_B2</td>
+<td align="left">typeface</td>
+<td align="right">2.297796</td>
+<td align="right">8</td>
+<td align="right">0.0023554</td>
+<td align="right">4.21</td>
+</tr>
+<tr class="even">
+<td align="right">5</td>
+<td align="left">A2_B2</td>
+<td align="left">A2_B2</td>
+<td align="left">whiteout</td>
+<td align="right">2.172857</td>
+<td align="right">8</td>
+<td align="right">0.0092599</td>
+<td align="right">4.28</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>Here we can see that indeed, the different conditions are within the boundaries we set, and that the variables used as controls are matched for items with the same <code>item_nr</code>.</p>
+</div>
+<div id="plotting-the-design" class="section level2">
+<h2><span class="header-section-number">2.3</span> Plotting the Design</h2>
+<p>While having data in long format is undoubtably useful, it’s not very efficient if you want to check what your stimuli look like in a quick glance (especially if your stimuli number in the thousands). What you probably want to do is plot the long format data to see how your stimuli differ between conditions and across matched items. Thankfully, LexOPS has a handy function to do exactly that:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">plot_design</span>(stim)</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-8"></span>
+<img src="02-generate_files/figure-html/unnamed-chunk-8-1.png" alt="The results of the `plot_design()` function for the generated stimuli." width="100%" />
+<p class="caption">
+Figure 2.1: The results of the <code>plot_design()</code> function for the generated stimuli.
+</p>
+</div>
+<p>Here, all the numeric variables used as independent variables or controls have their distributions plotted for each condition. The points depict the values of individual words, and points of the same colour (and joined by lines) are matched by the controls. As we’d expect, our example stimuli show the expected differences in Bigram Probability and Concreteness, while Frequency is matched closely, and Length is matched exactly.</p>
+</div>
+<div id="generating-as-many-as-possible" class="section level2">
+<h2><span class="header-section-number">2.4</span> Generating as Many as Possible</h2>
+<p>Let’s imagine that we’re not entirely sure how many stimuli we could generate using our design. It may be that the <code>n = 25</code> <a href="#Generating-Stimuli">we used earlier</a> is considerably fewer than the number of stimuli we could generate with no problems. One way to test this is to have LexOPS generate as many stimuli as possible. We can do this by setting <code>n = "all"</code>:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">possible_stim &lt;-<span class="st"> </span>LexOPS<span class="op">::</span>lexops <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="st">  </span><span class="kw">subset</span>(PK.Brysbaert <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.9</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="st">  </span><span class="kw">split_by</span>(CNC.Brysbaert, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span> <span class="op">~</span><span class="st"> </span><span class="dv">4</span><span class="op">:</span><span class="dv">5</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-4" title="4"><span class="st">  </span><span class="kw">split_by</span>(BG.SUBTLEX_UK, <span class="dv">0</span><span class="op">:</span><span class="fl">0.003</span> <span class="op">~</span><span class="st"> </span><span class="fl">0.009</span><span class="op">:</span><span class="fl">0.013</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-5" title="5"><span class="st">  </span><span class="kw">control_for</span>(Length, <span class="dv">0</span><span class="op">:</span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-6" title="6"><span class="st">  </span><span class="kw">control_for</span>(Zipf.SUBTLEX_UK, <span class="fl">-0.2</span><span class="op">:</span><span class="fl">0.2</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-7" title="7"><span class="st">  </span><span class="kw">generate</span>(<span class="dt">n =</span> <span class="st">&quot;all&quot;</span>, <span class="dt">match_null =</span> <span class="st">&quot;random&quot;</span>)</a></code></pre></div>
+<p>This is much slower, as LexOPS will continue trying to generate combinations of words that fit the specified characteristics until it has exhausted all the possibilities. Nevertheless, we actually generated 102 words generated per condition. This number is likely to change slightly each time we run the pipeline, as different combinations are randomly made from all the possible combinations. That said, it <em>is</em> a fairly good indication of the number of possible stimuli we could generate.</p>
+<p>The 102 words we’ve managed to generate per condition here is quite a bit higher than the 25 we originally generated. Does this mean we should just request a larger stimulus list, such as <code>n = 80</code>? Well, it depends. If we want as many stimuli as are possible, then it may make sense to just set <code>n = "all"</code>, but often we only want to use as many stimuli as we need to find our effect. Also, if we use as many combinations as possible, experimenters who want to replicate our effect using a different set of stimuli will likely have fewer novel combinations available to them.</p>
+</div>
+<div id="plotting-iterations" class="section level2">
+<h2><span class="header-section-number">2.5</span> Plotting Iterations</h2>
+<p>It is also possible to check how well LexOPS performed when generating stimuli by plotting the cumulative item generation by iterations. To do this, we can use the <code>plot_iterations()</code> function. As an example, let’s see how well we generated the stimuli in the last section.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">plot_iterations</span>(possible_stim)</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-10"></span>
+<img src="02-generate_files/figure-html/unnamed-chunk-10-1.png" alt="The cumulative number of items generated per iteration." width="100%" />
+<p class="caption">
+Figure 2.2: The cumulative number of items generated per iteration.
+</p>
+</div>
+<p>Here, this shows a characteristic levelling-off; iterations become increasingly less likely to successfully generate items as n increases.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": {},
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+</body>
+
+</html>
