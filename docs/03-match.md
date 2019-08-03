@@ -14,7 +14,6 @@ Here's an example usage of `match_word`, to suggest a word matched for "elephant
 
 
 ```r
-library(tidyverse)
 library(LexOPS)
 
 suggested_matches <- lexops %>%
@@ -26,9 +25,10 @@ suggested_matches <- lexops %>%
       c("IMAG.Glasgow_Norms", -1, 1),
       "PoS.SUBTLEX_UK"
     )
-  ) %>%
-  select(string, euclidean_distance, Length, Zipf.SUBTLEX_UK, IMAG.Glasgow_Norms, PoS.SUBTLEX_UK)
+  )
 ```
+
+
 
 The suggested matches are returned in a dataframe, filtered to be within the specified tolerances, and ordered by euclidean distance from the target word (calculated using all the numeric variables used). The closest suggested match for "elephant" is "sandwich". If we are looking for a match to fit in a sentential context, we can choose the best suitable match from this list.
 
