@@ -28,6 +28,7 @@ stim <- LexOPS::lexops %>%
   generate(n = 25)
 ```
 
+<br>
 <div class="info">
 <p>Important notes on LexOPS (non-standard) syntax:</p>
 <ul>
@@ -36,6 +37,7 @@ stim <- LexOPS::lexops %>%
 <li><p>The <code>~</code> character is used in <code>split_by()</code> to specify different levels of an independent variable (e.g. <code>1.5:2.5 ~ 3.5:4.5 ~ 5.5:6.5</code> would specify three levels of an independent variable).</p></li>
 </ul>
 </div>
+<br>
 
 Let's have a look at the first 5 rows of `stim` as an example:
 
@@ -51,6 +53,7 @@ Let's have a look at the first 5 rows of `stim` as an example:
 
 </div>
 
+<br>
 We can see that we have 4 conditions:
 
 * **A1_B1** (abstract, low probability)
