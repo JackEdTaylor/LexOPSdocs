@@ -174,11 +174,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Imageability (within ±1, on a 1-7 Likert rating scale)</li>
 <li>Part of Speech (i.e. is also a noun)</li>
 </ul>
-<div class="table">
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">library</span>(tidyverse)</a>
 <a class="sourceLine" id="cb9-2" title="2"><span class="kw">library</span>(LexOPS)</a>
 <a class="sourceLine" id="cb9-3" title="3"></a>
-<a class="sourceLine" id="cb9-4" title="4">lexops <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-4" title="4">suggested_matches &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb9-5" title="5"><span class="st">  </span><span class="kw">match_word</span>(</a>
 <a class="sourceLine" id="cb9-6" title="6">    <span class="dt">target =</span> <span class="st">&quot;elephant&quot;</span>,</a>
 <a class="sourceLine" id="cb9-7" title="7">    <span class="kw">list</span>(</a>
@@ -189,30 +188,167 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb9-12" title="12">    )</a>
 <a class="sourceLine" id="cb9-13" title="13">  ) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb9-14" title="14"><span class="st">  </span><span class="kw">select</span>(string, euclidean_distance, Length, Zipf.SUBTLEX_UK, IMAG.Glasgow_Norms, PoS.SUBTLEX_UK)</a></code></pre></div>
-<pre><code>## # A tibble: 18 x 6
-##    string euclidean_dista~ Length Zipf.SUBTLEX_UK IMAG.Glasgow_No~
-##    &lt;chr&gt;             &lt;dbl&gt;  &lt;int&gt;           &lt;dbl&gt;            &lt;dbl&gt;
-##  1 sandw~            0.128      8            4.25             6.76
-##  2 trous~            0.202      8            4.24             6.63
-##  3 wardr~            0.325      8            4.10             6.62
-##  4 cloth~            0.330      8            4.14             6.55
-##  5 calen~            0.336      8            4.33             6.4 
-##  6 magaz~            0.352      8            4.29             6.38
-##  7 bunga~            0.373      8            4.17             6.42
-##  8 envel~            0.400      8            4.10             6.47
-##  9 festi~            0.498      8            4.51             6.24
-## 10 motor~            0.531      8            4.11             6.23
-## 11 exerc~            0.555      8            4.45             6.12
-## 12 treas~            0.560      8            4.46             6.12
-## 13 portr~            0.586      8            4.18             6.10
-## 14 engin~            0.608      8            4.14             6.09
-## 15 docum~            0.631      8            4.18             6.03
-## 16 shoot~            0.701      8            4.39             5.90
-## 17 appla~            0.707      8            4.21             5.91
-## 18 darkn~            0.729      8            4.14             5.91
-## # ... with 1 more variable: PoS.SUBTLEX_UK &lt;fct&gt;</code></pre>
+<p>The suggested matches are returned in a dataframe, filtered to be within the specified tolerances, and ordered by euclidean distance from the target word (calculated using all the numeric variables used). The closest suggested match for “elephant” is “sandwich”. If we are looking for a match to fit in a sentential context, we can choose the best suitable match from this list.</p>
+<div class="table">
+<table>
+<thead>
+<tr class="header">
+<th align="left">string</th>
+<th align="right">euclidean_distance</th>
+<th align="right">Length</th>
+<th align="right">Zipf.SUBTLEX_UK</th>
+<th align="right">IMAG.Glasgow_Norms</th>
+<th align="left">PoS.SUBTLEX_UK</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">sandwich</td>
+<td align="right">0.1277845</td>
+<td align="right">8</td>
+<td align="right">4.246820</td>
+<td align="right">6.7647</td>
+<td align="left">noun</td>
+</tr>
+<tr class="even">
+<td align="left">trousers</td>
+<td align="right">0.2015595</td>
+<td align="right">8</td>
+<td align="right">4.244371</td>
+<td align="right">6.6286</td>
+<td align="left">noun</td>
+</tr>
+<tr class="odd">
+<td align="left">wardrobe</td>
+<td align="right">0.3254995</td>
+<td align="right">8</td>
+<td align="right">4.104315</td>
+<td align="right">6.6176</td>
+<td align="left">noun</td>
+</tr>
+<tr class="even">
+<td align="left">clothing</td>
+<td align="right">0.3302426</td>
+<td align="right">8</td>
+<td align="right">4.135068</td>
+<td align="right">6.5455</td>
+<td align="left">noun</td>
+</tr>
+<tr class="odd">
+<td align="left">calendar</td>
+<td align="right">0.3359636</td>
+<td align="right">8</td>
+<td align="right">4.329810</td>
+<td align="right">6.4000</td>
+<td align="left">noun</td>
+</tr>
+<tr class="even">
+<td align="left">magazine</td>
+<td align="right">0.3522378</td>
+<td align="right">8</td>
+<td align="right">4.287246</td>
+<td align="right">6.3846</td>
+<td align="left">noun</td>
+</tr>
+<tr class="odd">
+<td align="left">bungalow</td>
+<td align="right">0.3726767</td>
+<td align="right">8</td>
+<td align="right">4.172277</td>
+<td align="right">6.4242</td>
+<td align="left">noun</td>
+</tr>
+<tr class="even">
+<td align="left">envelope</td>
+<td align="right">0.4004120</td>
+<td align="right">8</td>
+<td align="right">4.096792</td>
+<td align="right">6.4706</td>
+<td align="left">noun</td>
+</tr>
+<tr class="odd">
+<td align="left">festival</td>
+<td align="right">0.4979158</td>
+<td align="right">8</td>
+<td align="right">4.510449</td>
+<td align="right">6.2353</td>
+<td align="left">noun</td>
+</tr>
+<tr class="even">
+<td align="left">motorway</td>
+<td align="right">0.5312793</td>
+<td align="right">8</td>
+<td align="right">4.107187</td>
+<td align="right">6.2333</td>
+<td align="left">noun</td>
+</tr>
+<tr class="odd">
+<td align="left">exercise</td>
+<td align="right">0.5545788</td>
+<td align="right">8</td>
+<td align="right">4.449319</td>
+<td align="right">6.1212</td>
+<td align="left">noun</td>
+</tr>
+<tr class="even">
+<td align="left">treasure</td>
+<td align="right">0.5598275</td>
+<td align="right">8</td>
+<td align="right">4.458939</td>
+<td align="right">6.1176</td>
+<td align="left">noun</td>
+</tr>
+<tr class="odd">
+<td align="left">portrait</td>
+<td align="right">0.5860690</td>
+<td align="right">8</td>
+<td align="right">4.183298</td>
+<td align="right">6.0968</td>
+<td align="left">noun</td>
+</tr>
+<tr class="even">
+<td align="left">engineer</td>
+<td align="right">0.6080041</td>
+<td align="right">8</td>
+<td align="right">4.138999</td>
+<td align="right">6.0909</td>
+<td align="left">noun</td>
+</tr>
+<tr class="odd">
+<td align="left">document</td>
+<td align="right">0.6314306</td>
+<td align="right">8</td>
+<td align="right">4.182166</td>
+<td align="right">6.0323</td>
+<td align="left">noun</td>
+</tr>
+<tr class="even">
+<td align="left">shooting</td>
+<td align="right">0.7013990</td>
+<td align="right">8</td>
+<td align="right">4.391130</td>
+<td align="right">5.9032</td>
+<td align="left">noun</td>
+</tr>
+<tr class="odd">
+<td align="left">applause</td>
+<td align="right">0.7068316</td>
+<td align="right">8</td>
+<td align="right">4.209885</td>
+<td align="right">5.9143</td>
+<td align="left">noun</td>
+</tr>
+<tr class="even">
+<td align="left">darkness</td>
+<td align="right">0.7291090</td>
+<td align="right">8</td>
+<td align="right">4.143049</td>
+<td align="right">5.9118</td>
+<td align="left">noun</td>
+</tr>
+</tbody>
+</table>
 </div>
-<p>The suggested matches are returned in a dataframe, filtered to be within the specified tolerances, and ordered by euclidean distance from the target word (calculated using all the numeric variables used). The closest suggested match for “elephant” is “sandwich”.</p>
 
 </div>
             </section>

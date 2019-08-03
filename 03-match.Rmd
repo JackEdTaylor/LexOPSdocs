@@ -11,11 +11,11 @@ Here's an example usage of `match_word`, to suggest a word matched for "elephant
 * Imageability (within ±1, on a 1-7 Likert rating scale)
 * Part of Speech (i.e. is also a noun)
 
-```{r, class='table'}
+```{r}
 library(tidyverse)
 library(LexOPS)
 
-lexops %>%
+suggested_matches <- lexops %>%
   match_word(
     target = "elephant",
     list(
@@ -28,4 +28,9 @@ lexops %>%
   select(string, euclidean_distance, Length, Zipf.SUBTLEX_UK, IMAG.Glasgow_Norms, PoS.SUBTLEX_UK)
 ```
 
-The suggested matches are returned in a dataframe, filtered to be within the specified tolerances, and ordered by euclidean distance from the target word (calculated using all the numeric variables used). The closest suggested match for "elephant" is "sandwich".
+The suggested matches are returned in a dataframe, filtered to be within the specified tolerances, and ordered by euclidean distance from the target word (calculated using all the numeric variables used). The closest suggested match for "elephant" is "sandwich". If we are looking for a match to fit in a sentential context, we can choose the best suitable match from this list.
+
+```{r, echo=FALSE, class='table'}
+suggested_matches %>%
+  knitr::kable()
+```

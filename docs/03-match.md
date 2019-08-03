@@ -12,13 +12,12 @@ Here's an example usage of `match_word`, to suggest a word matched for "elephant
 * Imageability (within ±1, on a 1-7 Likert rating scale)
 * Part of Speech (i.e. is also a noun)
 
-<div class = 'table'>
 
 ```r
 library(tidyverse)
 library(LexOPS)
 
-lexops %>%
+suggested_matches <- lexops %>%
   match_word(
     target = "elephant",
     list(
@@ -31,31 +30,29 @@ lexops %>%
   select(string, euclidean_distance, Length, Zipf.SUBTLEX_UK, IMAG.Glasgow_Norms, PoS.SUBTLEX_UK)
 ```
 
-```
-## # A tibble: 18 x 6
-##    string euclidean_dista~ Length Zipf.SUBTLEX_UK IMAG.Glasgow_No~
-##    <chr>             <dbl>  <int>           <dbl>            <dbl>
-##  1 sandw~            0.128      8            4.25             6.76
-##  2 trous~            0.202      8            4.24             6.63
-##  3 wardr~            0.325      8            4.10             6.62
-##  4 cloth~            0.330      8            4.14             6.55
-##  5 calen~            0.336      8            4.33             6.4 
-##  6 magaz~            0.352      8            4.29             6.38
-##  7 bunga~            0.373      8            4.17             6.42
-##  8 envel~            0.400      8            4.10             6.47
-##  9 festi~            0.498      8            4.51             6.24
-## 10 motor~            0.531      8            4.11             6.23
-## 11 exerc~            0.555      8            4.45             6.12
-## 12 treas~            0.560      8            4.46             6.12
-## 13 portr~            0.586      8            4.18             6.10
-## 14 engin~            0.608      8            4.14             6.09
-## 15 docum~            0.631      8            4.18             6.03
-## 16 shoot~            0.701      8            4.39             5.90
-## 17 appla~            0.707      8            4.21             5.91
-## 18 darkn~            0.729      8            4.14             5.91
-## # ... with 1 more variable: PoS.SUBTLEX_UK <fct>
-```
+The suggested matches are returned in a dataframe, filtered to be within the specified tolerances, and ordered by euclidean distance from the target word (calculated using all the numeric variables used). The closest suggested match for "elephant" is "sandwich". If we are looking for a match to fit in a sentential context, we can choose the best suitable match from this list.
+
+<div class = 'table'>
+
+string      euclidean_distance   Length   Zipf.SUBTLEX_UK   IMAG.Glasgow_Norms  PoS.SUBTLEX_UK 
+---------  -------------------  -------  ----------------  -------------------  ---------------
+sandwich             0.1277845        8          4.246820               6.7647  noun           
+trousers             0.2015595        8          4.244371               6.6286  noun           
+wardrobe             0.3254995        8          4.104315               6.6176  noun           
+clothing             0.3302426        8          4.135068               6.5455  noun           
+calendar             0.3359636        8          4.329810               6.4000  noun           
+magazine             0.3522378        8          4.287246               6.3846  noun           
+bungalow             0.3726767        8          4.172277               6.4242  noun           
+envelope             0.4004120        8          4.096792               6.4706  noun           
+festival             0.4979158        8          4.510449               6.2353  noun           
+motorway             0.5312793        8          4.107187               6.2333  noun           
+exercise             0.5545788        8          4.449319               6.1212  noun           
+treasure             0.5598275        8          4.458939               6.1176  noun           
+portrait             0.5860690        8          4.183298               6.0968  noun           
+engineer             0.6080041        8          4.138999               6.0909  noun           
+document             0.6314306        8          4.182166               6.0323  noun           
+shooting             0.7013990        8          4.391130               5.9032  noun           
+applause             0.7068316        8          4.209885               5.9143  noun           
+darkness             0.7291090        8          4.143049               5.9118  noun           
 
 </div>
-
-The suggested matches are returned in a dataframe, filtered to be within the specified tolerances, and ordered by euclidean distance from the target word (calculated using all the numeric variables used). The closest suggested match for "elephant" is "sandwich".
