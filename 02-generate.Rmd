@@ -107,6 +107,10 @@ This is much slower, as LexOPS will continue trying to generate combinations of 
 
 The `r nrow(possible_stim)` words we've managed to generate per condition here is quite a bit higher than the 25 we originally generated. Does this mean we should just request a larger stimulus list, such as `n = 80`? Well, it depends. If we want as many stimuli as are possible, then it may make sense to just set `n = "all"`, but often we only want to use as many stimuli as we need to find our effect. Also, if we use as many combinations as possible, experimenters who want to replicate our effect using a different set of stimuli will likely have fewer novel combinations available to them.
 
+```{block, type="danger"}
+Note that when `n = "all"`, the default `match_null = "balanced"` is not recommended, as LexOPS will not know how many iterations will successfully generate items before the `generate()` function is actually run. LexOPS will give a warning if `n = "all"` and `match_null = "balanced"`, because the conditions selected as the match null will not actually be balanced in the generated stimuli.
+```
+
 ## Plotting Iterations
 
 It is also possible to check how well LexOPS performed when generating stimuli by plotting the cumulative item generation by iterations. To do this, we can use the `plot_iterations()` function. As an example, let's see how well we generated the stimuli in the last section.

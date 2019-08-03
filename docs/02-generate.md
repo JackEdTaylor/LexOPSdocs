@@ -140,6 +140,10 @@ This is much slower, as LexOPS will continue trying to generate combinations of 
 
 The 102 words we've managed to generate per condition here is quite a bit higher than the 25 we originally generated. Does this mean we should just request a larger stimulus list, such as `n = 80`? Well, it depends. If we want as many stimuli as are possible, then it may make sense to just set `n = "all"`, but often we only want to use as many stimuli as we need to find our effect. Also, if we use as many combinations as possible, experimenters who want to replicate our effect using a different set of stimuli will likely have fewer novel combinations available to them.
 
+<div class="danger">
+<p>Note that when <code>n = "all"</code>, the default <code>match_null = "balanced"</code> is not recommended, as LexOPS will not know how many iterations will successfully generate items before the <code>generate()</code> function is actually run. LexOPS will give a warning if <code>n = "all"</code> and <code>match_null = "balanced"</code>, because the conditions selected as the match null will not actually be balanced in the generated stimuli.</p>
+</div>
+
 ## Plotting Iterations
 
 It is also possible to check how well LexOPS performed when generating stimuli by plotting the cumulative item generation by iterations. To do this, we can use the `plot_iterations()` function. As an example, let's see how well we generated the stimuli in the last section.
@@ -150,8 +154,8 @@ plot_iterations(possible_stim)
 ```
 
 <div class="figure" style="text-align: center">
-<img src="02-generate_files/figure-html/unnamed-chunk-10-1.png" alt="The cumulative number of items generated per iteration." width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-10)The cumulative number of items generated per iteration.</p>
+<img src="02-generate_files/figure-html/unnamed-chunk-11-1.png" alt="The cumulative number of items generated per iteration." width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-11)The cumulative number of items generated per iteration.</p>
 </div>
 
 Here, this shows a characteristic levelling-off; iterations become increasingly less likely to successfully generate items as the pool of possible combinations is gradually exhausted.
