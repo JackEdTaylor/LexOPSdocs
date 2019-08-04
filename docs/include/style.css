@@ -145,3 +145,9 @@ a.glossary, a:visited.glossary {
   width:auto;
   font-size: 12px;
 }
+
+.skinny{
+  width:70%; 
+  margin-left:15%; 
+  margin-right:15%;
+}
