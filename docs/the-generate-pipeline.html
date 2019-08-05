@@ -141,6 +141,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#plotting-the-design"><i class="fa fa-check"></i><b>2.3</b> Plotting the Design</a></li>
 <li class="chapter" data-level="2.4" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#generating-as-many-as-possible"><i class="fa fa-check"></i><b>2.4</b> Generating as Many as Possible</a></li>
 <li class="chapter" data-level="2.5" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#plotting-iterations"><i class="fa fa-check"></i><b>2.5</b> Plotting Iterations</a></li>
+<li class="chapter" data-level="2.6" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#non-stimulus-splits"><i class="fa fa-check"></i><b>2.6</b> Non-Stimulus Splits</a></li>
+<li class="chapter" data-level="2.7" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#random-seeds"><i class="fa fa-check"></i><b>2.7</b> Random Seeds</a><ul>
+<li><a href="the-generate-pipeline.html#setting-the-seed-in-the-generate-function">Setting the seed in the <code>generate()</code> function</a></li>
+<li><a href="the-generate-pipeline.html#setting-the-seed-in-the-split_random-function">Setting the seed in the <code>split_random()</code> function</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="matching-individual-words.html"><a href="matching-individual-words.html"><i class="fa fa-check"></i><b>3</b> Matching Individual Words</a></li>
 <li class="chapter" data-level="4" data-path="lexops-shiny-app.html"><a href="lexops-shiny-app.html"><i class="fa fa-check"></i><b>4</b> LexOPS Shiny App</a><ul>
@@ -155,6 +160,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3" data-path="lexops-shiny-app.html"><a href="lexops-shiny-app.html#fetch"><i class="fa fa-check"></i><b>4.3</b> Fetch</a></li>
 <li class="chapter" data-level="4.4" data-path="lexops-shiny-app.html"><a href="lexops-shiny-app.html#visualise"><i class="fa fa-check"></i><b>4.4</b> Visualise</a></li>
 <li class="chapter" data-level="4.5" data-path="lexops-shiny-app.html"><a href="lexops-shiny-app.html#custom-variables"><i class="fa fa-check"></i><b>4.5</b> Custom Variables</a></li>
+<li class="chapter" data-level="4.6" data-path="lexops-shiny-app.html"><a href="lexops-shiny-app.html#random-seeds-1"><i class="fa fa-check"></i><b>4.6</b> Random Seeds</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="faq.html"><a href="faq.html"><i class="fa fa-check"></i><b>5</b> FAQ</a></li>
 <li class="divider"></li>
@@ -191,7 +197,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Let’s imagine that we want <strong>abstract and concrete words</strong> (according to Brysbaert, Warriner and Kuperman (2014)), of <strong>high and low bigram probability</strong> (based on SUBTLEX-UK (van Heuven, Mandera, Keuleers, &amp; Brysbaert, 2014)). We also want to filter the data, such that our stimuli only consist of words that at least 90% of people actually know (according to Brysbaert, Mandera, and Keuleers (2018)). Finally, we want to control for the potential confounds of word length exactly and word frequency (according to SUBTLEX-UK (van Heuven, Mandera, Keuleers, &amp; Brysbaert, 2014)) within ±0.2 Zipf, and would like 25 words per condition.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">library</span>(LexOPS)</a>
 <a class="sourceLine" id="cb4-2" title="2"></a>
-<a class="sourceLine" id="cb4-3" title="3">stim &lt;-<span class="st"> </span>LexOPS<span class="op">::</span>lexops <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-3" title="3">stim &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-4" title="4"><span class="st">  </span><span class="kw">subset</span>(PK.Brysbaert <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.9</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-5" title="5"><span class="st">  </span><span class="kw">split_by</span>(CNC.Brysbaert, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span> <span class="op">~</span><span class="st"> </span><span class="dv">4</span><span class="op">:</span><span class="dv">5</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-6" title="6"><span class="st">  </span><span class="kw">split_by</span>(BG.SUBTLEX_UK, <span class="dv">0</span><span class="op">:</span><span class="fl">0.003</span> <span class="op">~</span><span class="st"> </span><span class="fl">0.009</span><span class="op">:</span><span class="fl">0.013</span>) <span class="op">%&gt;%</span></a>
@@ -216,7 +222,7 @@ The <code>:</code> character is used in <code>split_by()</code> to specify numer
 </li>
 <li>
 <p>
-The <code>~</code> character is used in <code>split_by()</code> to specify different levels of an independent variable (e.g. <code>1.5:2.5 ~ 3.5:4.5 ~ 5.5:6.5</code> would specify three levels of an independent variable).
+The <code>~</code> character is used in <code>split_by()</code> to specify different levels of an independent variable (e.g. <code>1.5:2.5 ~ 3.5:4.5 ~ 5.5:6.5</code> would specify three levels).
 </p>
 </li>
 </ul>
@@ -557,7 +563,103 @@ Figure 2.2: The cumulative number of items generated per iteration.
 </p>
 </div>
 <p>Here, this shows a characteristic levelling-off; iterations become increasingly less likely to successfully generate items as the pool of possible combinations is gradually exhausted.</p>
+</div>
+<div id="non-stimulus-splits" class="section level2">
+<h2><span class="header-section-number">2.6</span> Non-Stimulus Splits</h2>
+<p>Sometimes it makes sense to use independent variables that are not related to features of the word stimuli you present. For example, you may be interested in a possible difference between tasks (such as comparing Word Naming to Lexical Decision). In this case, it makes sense to use a within-subject design, but to present different stimuli in each task. These different stimuli should still be matched across tasks. This is possible with the <code>split_random()</code> function.</p>
+<p>As an example, imagine we’re interested in a 2x2 interaction between the effect of words’ arousal ratings before and after a cup of coffee. We use <code>split_random()</code> to say that we want to create a random split in the data with two levels. Such a pipeline might look like this:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">stim &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="st">  </span><span class="kw">split_random</span>(<span class="dv">2</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="st">  </span><span class="kw">split_by</span>(AROU.Warriner, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span> <span class="op">~</span><span class="st"> </span><span class="dv">6</span><span class="op">:</span><span class="dv">8</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="st">  </span><span class="kw">control_for</span>(Length, <span class="dv">0</span><span class="op">:</span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="st">  </span><span class="kw">control_for</span>(Zipf.SUBTLEX_UK, <span class="fl">-0.1</span><span class="op">:</span><span class="fl">0.1</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-6" title="6"><span class="st">  </span><span class="kw">generate</span>(<span class="dv">50</span>)</a></code></pre></div>
+<p>This will create 4 conditions matched for length and frequency, where A1_B1 and A2_B1 are low arousal words, and A1_B2 and A2_B2 are high arousal words. Here are the first 5 items of each condition:</p>
+<div class="table">
+<table>
+<thead>
+<tr class="header">
+<th align="right">item_nr</th>
+<th align="left">A1_B1</th>
+<th align="left">A1_B2</th>
+<th align="left">A2_B1</th>
+<th align="left">A2_B2</th>
+<th align="left">match_null</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">proper</td>
+<td align="left">winner</td>
+<td align="left">normal</td>
+<td align="left">create</td>
+<td align="left">A1_B2</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">telegraph</td>
+<td align="left">terrorism</td>
+<td align="left">stability</td>
+<td align="left">terrified</td>
+<td align="left">A2_B2</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">polite</td>
+<td align="left">thrill</td>
+<td align="left">retain</td>
+<td align="left">lively</td>
+<td align="left">A2_B2</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">stool</td>
+<td align="left">lotto</td>
+<td align="left">prawn</td>
+<td align="left">rifle</td>
+<td align="left">A1_B1</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="left">tree</td>
+<td align="left">kill</td>
+<td align="left">list</td>
+<td align="left">sale</td>
+<td align="left">A1_B2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>These stimuli could then be used in combination with a counter-balanced design, alternating which level of B has its stimuli presented before the coffee, and which after. Note that the <code>split_random()</code> function will also need its own <a href="the-generate-pipeline.html#random-seeds">random seed</a> (<code>seed = ...</code>) to replicate a specific stimulus list.</p>
+</div>
+<div id="random-seeds" class="section level2">
+<h2><span class="header-section-number">2.7</span> Random Seeds</h2>
+<p>Random seeds allow for replicable results from functions that produce different results each time they are run. In R, this is usually done with the <code>set.seed()</code> function. The <code>set.seed()</code> function can be used with LexOPS to write reproducible pipelines, <strong>but</strong> will yield different results between LexOPS R code and the <a href="lexops-shiny-app.html">LexOPS shiny app</a>. To ensure that pipelines created with R code can be reproduced in the shiny app (and <a href="lexops-shiny-app.html#random-seeds">vice versa</a>) it is recommended to use the <code>seed</code> argument of the <code>generate()</code> function.</p>
+<div id="setting-the-seed-in-the-generate-function" class="section level3 unnumbered">
+<h3>Setting the seed in the <code>generate()</code> function</h3>
+<p>The following code will generate the same stimulus list each time it is run:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">stim &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="st">  </span><span class="kw">subset</span>(PK.Brysbaert <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.9</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="st">  </span><span class="kw">split_by</span>(CNC.Brysbaert, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span> <span class="op">~</span><span class="st"> </span><span class="dv">4</span><span class="op">:</span><span class="dv">5</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-4" title="4"><span class="st">  </span><span class="kw">split_by</span>(BG.SUBTLEX_UK, <span class="dv">0</span><span class="op">:</span><span class="fl">0.003</span> <span class="op">~</span><span class="st"> </span><span class="fl">0.009</span><span class="op">:</span><span class="fl">0.013</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-5" title="5"><span class="st">  </span><span class="kw">control_for</span>(Length, <span class="dv">0</span><span class="op">:</span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-6" title="6"><span class="st">  </span><span class="kw">control_for</span>(Zipf.SUBTLEX_UK, <span class="fl">-0.2</span><span class="op">:</span><span class="fl">0.2</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-7" title="7"><span class="st">  </span><span class="kw">generate</span>(<span class="dv">25</span>, <span class="dt">seed =</span> <span class="dv">42</span>)</a></code></pre></div>
+</div>
+<div id="setting-the-seed-in-the-split_random-function" class="section level3 unnumbered">
+<h3>Setting the seed in the <code>split_random()</code> function</h3>
+<p>If you use the <code>split_random()</code> function, this will also require a <code>seed</code> argument in order for the pipeline to be reproducible. This does not necessarily need to be the same as the <code>seed</code> value passed to <code>generate()</code>, but the shiny app will assume this is the case when <a href="lexops-shiny-app.html#codify">translating Shiny options into R code</a>. The following is an example of a reproducible pipeline that uses the <code>split_random()</code> function:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">my_seed &lt;-<span class="st"> </span><span class="dv">42</span></a>
+<a class="sourceLine" id="cb11-2" title="2"></a>
+<a class="sourceLine" id="cb11-3" title="3">stim &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-4" title="4"><span class="st">  </span><span class="kw">split_random</span>(<span class="dv">2</span>, <span class="dt">seed =</span> my_seed) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-5" title="5"><span class="st">  </span><span class="kw">split_by</span>(AROU.Warriner, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span> <span class="op">~</span><span class="st"> </span><span class="dv">6</span><span class="op">:</span><span class="dv">8</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-6" title="6"><span class="st">  </span><span class="kw">control_for</span>(Length, <span class="dv">0</span><span class="op">:</span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-7" title="7"><span class="st">  </span><span class="kw">control_for</span>(Zipf.SUBTLEX_UK, <span class="fl">-0.1</span><span class="op">:</span><span class="fl">0.1</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-8" title="8"><span class="st">  </span><span class="kw">generate</span>(<span class="dv">50</span>, <span class="dt">seed =</span> my_seed)</a></code></pre></div>
 
+</div>
 </div>
 </div>
             </section>

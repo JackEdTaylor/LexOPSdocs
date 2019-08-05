@@ -57,7 +57,7 @@ Once the stimuli have been generated, this section allows you to view a summary 
 
 ### Codify
 
-This is a handy feature that lets you translate the selected options into LexOPS R code to reproduce the design. To reproduce a specific stimulus list, set the seed in the Preferences tab.
+This is a handy feature that lets you translate the selected options into LexOPS R code to reproduce the design. To reproduce a specific stimulus list, [set the seed](#random-seeds) in the Preferences tab.
 
 <div class="figure" style="text-align: center">
 <img src="./images/shiny/generate-codify.png" alt="Translate selected options into LexOPS R code." width="75%" height="75%" />
@@ -119,3 +119,11 @@ Here is an example in which the variables from the [Leipzig Affective Norms for 
 </div>
 
 The Custom Variables tab uses [dplyr's join functions](https://dplyr.tidyverse.org/reference/join.html). An equivalent to using custom variables in R code would be to either join the custom variables to the LexOPS dataset using dplyr's join functions, or to just run the generate pipeline on a dataframe of custom variables.
+
+## Random Seeds
+
+The seed can be set in the Preferences tab to yield reproducible analyses. If you ["codify" your selected options](#codify), this will also set the seed, such that a stimulus list can be reproduced outside of the shiny app.
+
+<div class="danger">
+<p>Note that in order to reproduce stimulus lists generated with R code within the shiny app, the seed must be set using the <code>seed</code> argument of the <code>generate()</code> and <code>split_random()</code> functions. See <a href="the-generate-pipeline#random-seeds">this section</a> on random seeds in the generate pipeline for some examples.</p>
+</div>
