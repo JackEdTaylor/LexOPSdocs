@@ -17,6 +17,16 @@ The package began as a series of R scripts, written to automate tasks I found my
 
 ## Installation
 
+### Installing R {-}
+
+You can find the latest version of R here: [https://cloud.r-project.org/](https://cloud.r-project.org/).
+
+### Installing RStudio {-}
+
+RStudio is a free integrated development environment for working with R. Get the latest version of RStudio here: [https://www.rstudio.com/products/rstudio/](https://www.rstudio.com/products/rstudio/).
+
+### Installing LexOPS {-}
+
 The latest version of LexOPS can be installed with the following R code:
 
 
@@ -24,10 +34,6 @@ The latest version of LexOPS can be installed with the following R code:
 if (!require("devtools")) install.packages("devtools")
 devtools::install_github("JackEdTaylor/LexOPS")
 ```
-
-Install R here: [https://cloud.r-project.org/](https://cloud.r-project.org/)
-
-Install RStudio (reccommended IDE) here: [https://www.rstudio.com/products/rstudio/](https://www.rstudio.com/products/rstudio/)
 
 ## The Shiny App
 
