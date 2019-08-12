@@ -7,13 +7,43 @@
 
 One of the most noteworthy features of LexOPS is that it can generate controlled stimuli for any possible factorial design. This can be done in a pipeline using 3 main functions:
 
-* `split_by()` to specify "splits" (independent variables) in the experimental design
-* `control_for()` to specify variables that should be controlled for between conditions
-* `generate()` to run the algorithm and generate the stimuli
+<br>
+<div class="float-third-left">
+<p><code>split_by()</code></p>
+<p>to specify “splits” (independent variables) in the experimental design</p>
+</div>
 
-As an example, we may want to generate stimuli for a 2x2 factorial design in a Lexical Decision Task, examining whether a possible effect of bigram probability interacts with concreteness.
+<div class="float-third-centre">
+<p><code>control_for()</code></p>
+<p>to specify variables that should be controlled for between conditions</p>
+</div>
 
-Let's imagine that we want **abstract and concrete words** (according to Brysbaert, Warriner and Kuperman (2014)), of **high and low bigram probability** (based on SUBTLEX-UK (van Heuven, Mandera, Keuleers, & Brysbaert, 2014)). We also want to filter the data, such that our stimuli only consist of words that at least 90% of people actually know (according to Brysbaert, Mandera, and Keuleers (2018)). Finally, we want to control for the potential confounds of word length exactly and word frequency (according to SUBTLEX-UK (van Heuven, Mandera, Keuleers, & Brysbaert, 2014)) within ±0.2 Zipf, and would like 25 words per condition.
+<div class="float-third-right">
+<p><code>generate()</code></p>
+<p>to run the algorithm and generate the stimuli, using specified splits and controls</p>
+</div>
+<br>
+
+### A Practical Example {-}
+
+Imagine we want to generate stimuli for a 2x2 factorial design in a Lexical Decision Task, examining whether a possible effect of bigram probability interacts with concreteness.
+
+For this, we might decide we want a stimulus set with the following features:
+
+* Filtered such that **at least 90% of people know each word**, according to Brysbaert, Mandera, and Keuleers (2018).
+
+* **Two levels of Concreteness** (abstract and concrete words) according to Brysbaert, Warriner and Kuperman (2014).
+
+* **Two levels of Bigram Probability** (high and low probability) based on SUBTLEX-UK (van Heuven, Mandera, Keuleers, & Brysbaert, 2014).
+  
+* **Controlled for word length** (number of characters) exactly.
+
+* **Controlled for word frequency** within ±0.2 Zipf, according to according to SUBTLEX-UK (van Heuven, Mandera, Keuleers, & Brysbaert, 2014).
+
+* **25 words for each of the generated conditions** (100 stimuli in total).
+
+<br>
+We could generate this stimulus list with LexOPS like this:
 
 
 ```r
@@ -39,7 +69,9 @@ stim <- lexops %>%
 </div>
 <br>
 
-Let's have a look at the first 5 rows of `stim` as an example:
+### Output {-}
+
+Let's have a closer look at the first 5 rows of `stim`, which contains the output from above:
 
 <div class = 'table'>
 
@@ -64,7 +96,8 @@ We can see that we have 4 conditions:
 
 * **A2_B2** (concrete, high probability)
 
-Each row of the table is controlled for in terms of frequency and length. The `match_null` variable tells us which condition stimuli were matched relative to. For instance, we can see that in row 3, items are matched relative to the word "snobby". This means (for example) that all words for `item_nr` 3 are within ±0.2 Zipf of the Zipf value associated with the word snobby. By default, LexOPS will select the match_null for each item pseudo-randomly, such that each condition will be used as a match null an equal number of times, or as close to this ideal as is possible (e.g. the number of items requested may not be divisible by the number of conditions).
+<br>
+Each row of the dataframe is controlled for in terms of frequency and length. The `match_null` variable tells us which condition stimuli were matched relative to. For instance, we can see that in row 3, items are matched relative to the word "relent". This means (for example) that all words for `item_nr` 3 are within ±0.2 Zipf of the Zipf value associated with the word snobby. By default, LexOPS will select the match_null for each item pseudo-randomly, such that each condition will be used as a match null an equal number of times, or as close to this ideal as is possible (e.g. the number of items requested may not be divisible by the number of conditions).
 
 ## Converting to Long Format
 
@@ -118,11 +151,11 @@ plot_design(stim)
 ```
 
 <div class="figure" style="text-align: center">
-<img src="02-generate_files/figure-html/unnamed-chunk-8-1.png" alt="The results of the `plot_design()` function for the generated stimuli." width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-8)The results of the `plot_design()` function for the generated stimuli.</p>
+<img src="02-generate_files/figure-html/unnamed-chunk-11-1.png" alt="The results of the `plot_design()` function for the generated stimuli." width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-11)The results of the `plot_design()` function for the generated stimuli.</p>
 </div>
 
-Here, all the numeric variables used as independent variables or controls have their distributions plotted  for each condition (in a grey violin plot). The points depict the values of individual words, and points of the same colour (joined by lines) are matched items. As we'd expect, our example stimuli show the expected differences in Bigram Probability and Concreteness, while Frequency is matched closely, and Length is matched exactly.
+The distributions of all the numeric variables used as independent variables or controls are plotted for each condition (in a grey violin plot). The points depict the values of individual words, and points of the same colour (joined by lines) are matched items. As we'd expect, our example stimuli show the expected differences in Bigram Probability and Concreteness, while Frequency is matched closely, and Length is matched exactly.
 
 ## Generating as Many as Possible
 
@@ -157,11 +190,11 @@ plot_iterations(possible_stim)
 ```
 
 <div class="figure" style="text-align: center">
-<img src="02-generate_files/figure-html/unnamed-chunk-11-1.png" alt="The cumulative number of items generated per iteration." width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-11)The cumulative number of items generated per iteration.</p>
+<img src="02-generate_files/figure-html/unnamed-chunk-14-1.png" alt="The cumulative number of items generated per iteration." width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-14)The cumulative number of items generated per iteration.</p>
 </div>
 
-Here, this shows a characteristic levelling-off; iterations become increasingly less likely to successfully generate items as the pool of possible combinations is gradually exhausted.
+This shows a characteristic levelling-off; iterations become increasingly less likely to successfully generate items as the pool of possible combinations is gradually exhausted.
 
 ## Non-Stimulus Splits
 
@@ -229,3 +262,4 @@ stim <- lexops %>%
   control_for(Zipf.SUBTLEX_UK, -0.1:0.1) %>%
   generate(50, seed = my_seed)
 ```
+

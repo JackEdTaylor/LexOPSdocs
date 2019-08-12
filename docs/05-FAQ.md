@@ -1,7 +1,7 @@
 
 # FAQ
 
-##### What is a "match null"? {-}
+### What is a "match null"? {-}
 
 The "match null" is a term used in the [generate pipeline](the-generate-pipeline.html), specified as the `match_null` argument in the `generate()` function. Whenever you control for variables in the generate pipeline, items are always matched relative to one of the specified conditions.
 
@@ -12,3 +12,4 @@ Since `match_null = "balanced"` works by dividing `n` by the number of condition
 It is also possible to use a specific condition as the match null for each item. If you want to use condition A1_B2 as your null for instance, you can do this by specifying `match_null = "A1_B2"`.
 
 The match null used for each generated item is stored in the wide and long formats of the output from the generate pipeline, as the variable `match_null`.
+
