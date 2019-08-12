@@ -43,7 +43,7 @@ For this, we might decide we want a stimulus set with the following features:
 * **25 words for each of the generated conditions** (100 stimuli in total).
 
 <br>
-We could generate this stimulus list with LexOPS like this:
+We can use the following R code to generate a stimulus list like this with LexOPS:
 
 
 ```r
