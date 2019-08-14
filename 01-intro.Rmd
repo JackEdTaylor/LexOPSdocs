@@ -26,7 +26,7 @@ RStudio is a free integrated development environment for working with R. Get the
 
 ### Installing LexOPS {-}
 
-The latest version of LexOPS can be installed with the following R code:
+The latest version of LexOPS can be installed in R with the following code:
 
 ```{r, eval=FALSE}
 if (!require("devtools")) install.packages("devtools")
@@ -35,7 +35,7 @@ devtools::install_github("JackEdTaylor/LexOPS")
 
 ## The Shiny App
 
-LexOPS features an intuitive shiny app (for more on shiny apps, see [https://shiny.rstudio.com/](https://shiny.rstudio.com/)). This features useful visualisations of data, and may be more friendly to users less familiar with R.
+LexOPS features an intuitive graphical user interface, in the form of a shiny app (for more on shiny apps, see [https://shiny.rstudio.com/](https://shiny.rstudio.com/)). This features useful visualisations of data and selected options, and may be more friendly to users less familiar with R.
 
 Once LexOPS is installed, the shiny app can be run with:
 
