@@ -150,8 +150,6 @@ The `r nrow(possible_stim)` words we've managed to generate per condition here i
 Note that when `n = "all"`, the default `match_null = "balanced"` is not recommended, as LexOPS will not know how many iterations will successfully generate items before the `generate()` function is actually run. LexOPS will give a warning if `n = "all"` and `match_null = "balanced"`, because the conditions selected as the match null will not actually be balanced in the generated stimuli.
 ```
 
-It's also important to remember that when `n = "all"`, LexOPS will generate as many matched combinations of items, but will still generate different combinations each time the function is run.
-
 ## Plotting Iterations
 
 It is also possible to check how well LexOPS performed when generating stimuli by plotting the cumulative item generation by iterations. To do this, we can use the `plot_iterations()` function. As an example, let's see how well we generated the stimuli in the last section.
