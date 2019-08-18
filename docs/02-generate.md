@@ -180,8 +180,6 @@ The 102 words we've managed to generate per condition here is quite a bit higher
 <p>Note that when <code>n = "all"</code>, the default <code>match_null = "balanced"</code> is not recommended, as LexOPS will not know how many iterations will successfully generate items before the <code>generate()</code> function is actually run. LexOPS will give a warning if <code>n = "all"</code> and <code>match_null = "balanced"</code>, because the conditions selected as the match null will not actually be balanced in the generated stimuli.</p>
 </div>
 
-It's also important to remember that when `n = "all"`, LexOPS will generate as many matched combinations of items, but will still generate different combinations each time the function is run.
-
 ## Plotting Iterations
 
 It is also possible to check how well LexOPS performed when generating stimuli by plotting the cumulative item generation by iterations. To do this, we can use the `plot_iterations()` function. As an example, let's see how well we generated the stimuli in the last section.

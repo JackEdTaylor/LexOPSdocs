@@ -150,11 +150,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#plotting-iterations"><i class="fa fa-check"></i><b>2.5</b> Plotting Iterations</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="advanced-stimulus-generation.html"><a href="advanced-stimulus-generation.html"><i class="fa fa-check"></i><b>3</b> Advanced Stimulus Generation</a><ul>
-<li class="chapter" data-level="3.1" data-path="advanced-stimulus-generation.html"><a href="advanced-stimulus-generation.html#non-stimulus-splits"><i class="fa fa-check"></i><b>3.1</b> Non-Stimulus Splits</a></li>
-<li class="chapter" data-level="3.2" data-path="advanced-stimulus-generation.html"><a href="advanced-stimulus-generation.html#random-seeds"><i class="fa fa-check"></i><b>3.2</b> Random Seeds</a><ul>
+<li class="chapter" data-level="3.1" data-path="advanced-stimulus-generation.html"><a href="advanced-stimulus-generation.html#random-seeds"><i class="fa fa-check"></i><b>3.1</b> Random Seeds</a><ul>
 <li><a href="advanced-stimulus-generation.html#setting-the-seed-in-the-generate-function">Setting the seed in the <code>generate()</code> function</a></li>
 <li><a href="advanced-stimulus-generation.html#setting-the-seed-in-the-split_random-function">Setting the seed in the <code>split_random()</code> function</a></li>
 </ul></li>
+<li class="chapter" data-level="3.2" data-path="advanced-stimulus-generation.html"><a href="advanced-stimulus-generation.html#non-stimulus-splits"><i class="fa fa-check"></i><b>3.2</b> Non-Stimulus Splits</a></li>
 <li class="chapter" data-level="3.3" data-path="advanced-stimulus-generation.html"><a href="advanced-stimulus-generation.html#map-functions-as-controls"><i class="fa fa-check"></i><b>3.3</b> Map Functions as Controls</a><ul>
 <li class="chapter" data-level="3.3.1" data-path="advanced-stimulus-generation.html"><a href="advanced-stimulus-generation.html#orthographic-similarity"><i class="fa fa-check"></i><b>3.3.1</b> Orthographic Similarity</a></li>
 <li class="chapter" data-level="3.3.2" data-path="advanced-stimulus-generation.html"><a href="advanced-stimulus-generation.html#phonological-similarity"><i class="fa fa-check"></i><b>3.3.2</b> Phonological Similarity</a></li>
@@ -611,7 +611,6 @@ Figure 2.1: The results of the <code>plot_design()</code> function for the gener
 Note that when <code>n = “all”</code>, the default <code>match_null = “balanced”</code> is not recommended, as LexOPS will not know how many iterations will successfully generate items before the <code>generate()</code> function is actually run. LexOPS will give a warning if <code>n = “all”</code> and <code>match_null = “balanced”</code>, because the conditions selected as the match null will not actually be balanced in the generated stimuli.
 </p>
 </div>
-<p>It’s also important to remember that when <code>n = "all"</code>, LexOPS will generate as many matched combinations of items, but will still generate different combinations each time the function is run.</p>
 </div>
 <div id="plotting-iterations" class="section level2">
 <h2><span class="header-section-number">2.5</span> Plotting Iterations</h2>
