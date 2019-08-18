@@ -2,7 +2,7 @@
 --- 
 title: "LexOPS Walkthrough"
 author: "Jack Taylor"
-date: "2019-08-14"
+date: "2019-08-18"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
