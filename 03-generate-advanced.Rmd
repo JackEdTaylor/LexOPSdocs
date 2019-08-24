@@ -9,7 +9,7 @@ There are some cases when the default behaviour of the `split_by()`, `control_fo
 
 ## Non-Stimulus Splits
 
-Sometimes it makes sense to use independent variables that are not related to features of the word stimuli you present. For example, you may be interested in a possible difference between tasks (such as comparing Word Naming to Lexical Decision). In this case, it makes sense to use a within-subject design, but to present different stimuli in each task. These different stimuli should still be matched across tasks. This is possible with the `split_random()` function.
+Sometimes it makes sense to use independent variables that are not related to features of the word stimuli you present. For example, you may be interested in a possible difference between contexts or tasks (such as comparing Word Naming to Lexical Decision). In this case, it makes sense to use a within-subject design, but to present different stimuli in each context. These different stimuli should still be matched across contexts. This is possible with the `split_random()` function.
 
 As an example, imagine we're interested in a 2x2 interaction between the effect of words' arousal ratings before and after a cup of coffee. We use `split_random()` to say that we want to create a random split in the data with two levels. Such a pipeline might look like this:
 
