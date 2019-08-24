@@ -34,7 +34,7 @@ These stimuli could then be used in combination with a counter-balanced design, 
 
 ## Map Functions as Controls
 
-Imagine you want to generate a list of stimuli, controlling for a value of similarity to the match null. This would be very difficult using the `control_for()` function. The problem is that the similarity value would need to be calculated relative to the word currently being used as a match null. The `control_for_map()` function tells LexOPS to calculate a value to use as a control on each iteration of the `generate()` function.
+Imagine you want to generate a list of stimuli, controlling for a value of similarity to the match null. This would be very difficult using the `control_for()` function. The problem is that the similarity value would need to be calculated multiple times, relative each word currently being used as a match null. The `control_for_map()` function tells LexOPS to calculate a value to use as a control on each iteration of the `generate()` function.
 
 ### Orthographic Similarity
 

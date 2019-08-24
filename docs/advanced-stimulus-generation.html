@@ -279,7 +279,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="map-functions-as-controls" class="section level2">
 <h2><span class="header-section-number">3.2</span> Map Functions as Controls</h2>
-<p>Imagine you want to generate a list of stimuli, controlling for a value of similarity to the match null. This would be very difficult using the <code>control_for()</code> function. The problem is that the similarity value would need to be calculated relative to the word currently being used as a match null. The <code>control_for_map()</code> function tells LexOPS to calculate a value to use as a control on each iteration of the <code>generate()</code> function.</p>
+<p>Imagine you want to generate a list of stimuli, controlling for a value of similarity to the match null. This would be very difficult using the <code>control_for()</code> function. The problem is that the similarity value would need to be calculated multiple times, relative each word currently being used as a match null. The <code>control_for_map()</code> function tells LexOPS to calculate a value to use as a control on each iteration of the <code>generate()</code> function.</p>
 <div id="orthographic-similarity" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> Orthographic Similarity</h3>
 <p>Here is an example, using <code>control_for_map()</code> to match by orthographic Levenshtein distance from the match null (calculated using the <code>vwr</code> package). This means that each string will be a distance of between 0 and 3 character insertions, deletions or replacements from the word used as the match null.</p>
