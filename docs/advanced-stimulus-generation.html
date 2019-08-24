@@ -279,10 +279,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="map-functions-as-controls" class="section level2">
 <h2><span class="header-section-number">3.2</span> Map Functions as Controls</h2>
-<p>Imagine you want to generate a list of stimuli, controlling for a value of similarity to the match null. This would be very difficult using the <code>control_for()</code> function. The problem is that the similarity value needs to be calculated relative to each match null. We wanmt to “map” a function to each match null, and use that as a control. The <code>control_for_map()</code> allows you to do this.</p>
+<p>Imagine you want to generate a list of stimuli, controlling for a value of similarity to the match null. This would be very difficult using the <code>control_for()</code> function. The problem is that the similarity value would need to be calculated relative to the word currently being used as a match null. The <code>control_for_map()</code> function tells LexOPS to calculate a value to use as a control on each iteration of the <code>generate()</code> function.</p>
 <div id="orthographic-similarity" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> Orthographic Similarity</h3>
-<p>Here is an example, using <code>control_for_map()</code> to match by orthographic Levenshtein distance from the match null (calculated using the <code>vwr</code> package). This means that each string will be a distance of between 0 and 3 character insertions, deletions or replacements from the match null.</p>
+<p>Here is an example, using <code>control_for_map()</code> to match by orthographic Levenshtein distance from the match null (calculated using the <code>vwr</code> package). This means that each string will be a distance of between 0 and 3 character insertions, deletions or replacements from the word used as the match null.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">library</span>(vwr)</a>
 <a class="sourceLine" id="cb10-2" title="2"></a>
 <a class="sourceLine" id="cb10-3" title="3">stim &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
@@ -345,7 +345,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="phonological-similarity" class="section level3">
 <h3><span class="header-section-number">3.2.2</span> Phonological Similarity</h3>
-<p>We can use a similar pipeline to match by phonological similarity. Instead of giving the string column to the function, we just have to give a column where phonemes are represented by single letters. All the generated stimuli will be a distance of between 0 and 2 phonemic insertions, deletions or substitutions. For fun (and to show how <code>control_for_map()</code> can be combined with <code>control_for()</code>), let’s also control for rhyme.</p>
+<p>We can use a similar pipeline to match by phonological similarity. Instead of giving the string column to the function, we just have to give a column where phonemes are represented by single letters. All the generated stimuli will be within a distance of between 0 and 2 phonemic insertions, deletions, or substitutions from the word used as the match null. For fun (and to show how <code>control_for_map()</code> can be combined with <code>control_for()</code>), let’s also control for rhyme.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">library</span>(vwr)</a>
 <a class="sourceLine" id="cb11-2" title="2"></a>
 <a class="sourceLine" id="cb11-3" title="3">stim &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
@@ -409,13 +409,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="other-uses" class="section level3">
 <h3><span class="header-section-number">3.2.3</span> Other Uses</h3>
-<p>I originally wrote this function so I could match by similarity measures, but it can be used to control for any variable that needs to be calculated relative to the match null. The <code>fun</code> argument of <code>control_for_map()</code> should be a function that takes the data in the column contained in <code>var</code> as its first argument, and can take the match null’s value in tis column as the second argument, to return a vector of values for each entry. In addition, <code>tol</code> can be specified as in <code>control_for()</code> as either a numeric tolerance, or categorical tolerance if the function outputs character vectors. The <code>name</code> argument should just be a character vector to name the column in the long format of the generated stimuli.</p>
+<p>I originally wrote this function so I could match by similarity measures, but it can be used to control for any variable that needs to be calculated relative to the match null. The <code>fun</code> argument of <code>control_for_map()</code> should be a function that takes the data in the column contained in <code>var</code> as its first argument, and can take the match null’s value for <code>var</code> as the second argument, to return a vector of values for each entry. In addition, <code>tol</code> can be specified as it is in <code>control_for()</code>, as either a numeric tolerance, or categorical tolerance if the function outputs character vectors. The <code>name</code> argument should just be a character vector to name the column in the long format of the generated stimuli.</p>
 <p>See the package documentation (<code>?control_for_map</code>) for more details. If you’re wanting to write a function to use in <code>control_for_map()</code>, it may be a good idea to look at <a href="https://cran.r-project.org/web/packages/vwr/vwr.pdf">how the vwr functions work</a> for comparison, as it was written with these in mind.</p>
 </div>
 </div>
 <div id="random-seeds" class="section level2">
 <h2><span class="header-section-number">3.3</span> Random Seeds</h2>
-<p>By default, the generate pipeline will produce novel stimulus lists each time it is run. Sometimes you may want your ode to reproducible, however. To do this, we can use a random seed.</p>
+<p>By default, the generate pipeline will produce novel stimulus lists each time it is run. Often you’ll want your code to be reproducible, however. To do this, we can use a random seed.</p>
 <p>Random seeds allow for replicable results from functions that produce different results each time they are run. In R, this is usually done with the <code>set.seed()</code> function. The <code>set.seed()</code> function can be used with LexOPS to write reproducible pipelines, <strong>but</strong> will yield different results between LexOPS R code and the <a href="lexops-shiny-app.html">LexOPS shiny app</a>. To ensure that pipelines created with R code can be reproduced in the shiny app (and <a href="lexops-shiny-app.html#random-seeds">vice versa</a>) it is recommended to use the <code>seed</code> argument of the <code>generate()</code> function.</p>
 <div id="setting-the-seed-in-the-generate-function" class="section level3 unnumbered">
 <h3>Setting the seed in the <code>generate()</code> function</h3>

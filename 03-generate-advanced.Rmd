@@ -34,11 +34,11 @@ These stimuli could then be used in combination with a counter-balanced design, 
 
 ## Map Functions as Controls
 
-Imagine you want to generate a list of stimuli, controlling for a value of similarity to the match null. This would be very difficult using the `control_for()` function. The problem is that the similarity value needs to be calculated relative to each match null. We wanmt to "map" a function to each match null, and use that as a control. The `control_for_map()` allows you to do this.
+Imagine you want to generate a list of stimuli, controlling for a value of similarity to the match null. This would be very difficult using the `control_for()` function. The problem is that the similarity value would need to be calculated relative to the word currently being used as a match null. The `control_for_map()` function tells LexOPS to calculate a value to use as a control on each iteration of the `generate()` function.
 
 ### Orthographic Similarity
 
-Here is an example, using `control_for_map()` to match by orthographic Levenshtein distance from the match null (calculated using the `vwr` package). This means that each string will be a distance of between 0 and 3 character insertions, deletions or replacements from the match null.
+Here is an example, using `control_for_map()` to match by orthographic Levenshtein distance from the match null (calculated using the `vwr` package). This means that each string will be a distance of between 0 and 3 character insertions, deletions or replacements from the word used as the match null.
 
 ```{r, message=FALSE, results='hide'}
 library(vwr)
@@ -61,7 +61,7 @@ stim %>%
 
 ### Phonological Similarity
 
-We can use a similar pipeline to match by phonological similarity. Instead of giving the string column to the function, we just have to give a column where phonemes are represented by single letters. All the generated stimuli will be a distance of between 0 and 2 phonemic insertions, deletions or substitutions. For fun (and to show how `control_for_map()` can be combined with `control_for()`), let's also control for rhyme.
+We can use a similar pipeline to match by phonological similarity. Instead of giving the string column to the function, we just have to give a column where phonemes are represented by single letters. All the generated stimuli will be within a distance of between 0 and 2 phonemic insertions, deletions, or substitutions from the word used as the match null. For fun (and to show how `control_for_map()` can be combined with `control_for()`), let's also control for rhyme.
 
 ```{r, message=FALSE, results='hide'}
 library(vwr)
@@ -85,13 +85,13 @@ stim %>%
 
 ### Other Uses
 
-I originally wrote this function so I could match by similarity measures, but it can be used to control for any variable that needs to be calculated relative to the match null. The `fun` argument of `control_for_map()` should be a function that takes the data in the column contained in `var` as its first argument, and can take the match null's value in tis column as the second argument, to return a vector of values for each entry. In addition, `tol` can be specified as in `control_for()` as either a numeric tolerance, or categorical tolerance if the function outputs character vectors. The `name` argument should just be a character vector to name the column in the long format of the generated stimuli.
+I originally wrote this function so I could match by similarity measures, but it can be used to control for any variable that needs to be calculated relative to the match null. The `fun` argument of `control_for_map()` should be a function that takes the data in the column contained in `var` as its first argument, and can take the match null's value for `var` as the second argument, to return a vector of values for each entry. In addition, `tol` can be specified as it is in `control_for()`, as either a numeric tolerance, or categorical tolerance if the function outputs character vectors. The `name` argument should just be a character vector to name the column in the long format of the generated stimuli.
 
 See the package documentation (`?control_for_map`) for more details. If you're wanting to write a function to use in `control_for_map()`, it may be a good idea to look at [how the vwr functions work](https://cran.r-project.org/web/packages/vwr/vwr.pdf) for comparison, as it was written with these in mind.
 
 ## Random Seeds
 
-By default, the generate pipeline will produce novel stimulus lists each time it is run. Sometimes you may want your ode to reproducible, however. To do this, we can use a random seed.
+By default, the generate pipeline will produce novel stimulus lists each time it is run. Often you'll want your code to be reproducible, however. To do this, we can use a random seed.
 
 Random seeds allow for replicable results from functions that produce different results each time they are run. In R, this is usually done with the `set.seed()` function. The `set.seed()` function can be used with LexOPS to write reproducible pipelines, **but** will yield different results between LexOPS R code and the [LexOPS shiny app](lexops-shiny-app.html). To ensure that pipelines created with R code can be reproduced in the shiny app (and [vice versa](lexops-shiny-app.html#random-seeds)) it is recommended to use the `seed` argument of the `generate()` function.
 
