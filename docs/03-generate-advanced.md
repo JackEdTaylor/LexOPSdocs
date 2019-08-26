@@ -39,7 +39,7 @@ These stimuli could then be used in combination with a counter-balanced design, 
 
 ## Map Functions as Controls
 
-Imagine you want to generate a list of stimuli, controlling for a value of similarity to the match null. This would be very difficult using the `control_for()` function. The problem is that the similarity value would need to be calculated multiple times, relative each word currently being used as a match null. The `control_for_map()` function tells LexOPS to calculate a value to use as a control on each iteration of the `generate()` function.
+Imagine you want to generate a list of stimuli, controlling for a value of similarity to the match null. This would be very difficult using the `control_for()` function. The problem is that the similarity value would need to be calculated multiple times, relative each word currently being used as a match null. The `control_for_map()` function tells LexOPS to recalculate the value to use as a control on each iteration of the `generate()` function, relative to a value associated with the string currently selected as a match null.
 
 ### Orthographic Similarity
 
@@ -55,7 +55,7 @@ stim <- lexops %>%
   generate(20)
 ```
 
-Here are the first 5 items of each condition that we generated:
+Here are the first 5 items of each condition that we generated. Note that we have 3 levels of valence, with matched items that are orthographically similar to one another:
 
 \small
 <div class = 'table'>
@@ -86,7 +86,7 @@ stim <- lexops %>%
   generate(20)
 ```
 
-Here are the first 5 items of each condition that we generated:
+Here are the first 5 items of each condition that we generated. This time, all matched items are phonologically similar to one another:
 
 \small
 <div class = 'table'>
