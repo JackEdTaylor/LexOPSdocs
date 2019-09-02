@@ -122,7 +122,7 @@ The Custom Variables tab uses [dplyr's join functions](https://dplyr.tidyverse.o
 
 ## Random Seeds
 
-The seed can be set in the Preferences tab to yield reproducible analyses. This means that the exact same list of words will be generated each time you click "Regenerate".
+The seed can be set in the Preferences tab to reproduce specific lists of generated stimuli. This means that the exact same list of words will be generated each time you click "Regenerate".
 
 <div class="figure" style="text-align: center">
 <img src="./images/shiny/setting-seed.gif" alt="Setting the seed in the Shiny app." width="75%" height="75%" />
