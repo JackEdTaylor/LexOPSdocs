@@ -332,7 +332,7 @@ Figure 5.6: Fetching the features of a stimulus list.
 <div id="visualise" class="section level2">
 <h2><span class="header-section-number">5.4</span> Visualise</h2>
 <p>The Visualise tab provides many options for plotting useful information. As well as the variables included in the <a href="introduction.html#the-lexops-dataset">LexOPS dataset</a> and <a href="lexops-shiny-app.html#custom-variables">custom variables</a>, the Visualise tab can plot information from within the app, such as the generated condition.</p>
-<p>Here’s an example of application of the visualise tab to look at stimuli generated in the Generate tab (in a Bigram Probability x Concreteness design). Points can be coloured by things like generated condition, and individual words can be identified by hovering over the points.</p>
+<p>Here’s an example application of the visualise tab to look at stimuli generated in the Generate tab (in a Bigram Probability x Concreteness design). Points can be coloured by things like generated condition, and individual words can be identified by hovering over the points.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-11"></span>
 <img src="images/shiny/visualise.gif" alt="Example usage of the Visualise tab." width="75%" height="75%" />
 <p class="caption">
@@ -361,7 +361,7 @@ Figure 5.7: Using stimuli for languages other than English.
 Figure 5.8: Setting the seed in the Shiny app.
 </p>
 </div>
-<p>If you <a href="lexops-shiny-app.html#codify">“codify” your selected options</a>, this code will also set the seed as the same value, such that a stimulus list can be reproduced outside of the shiny app.</p>
+<p>If you <a href="lexops-shiny-app.html#codify">“codify” your selected options</a>, the generated code will also set the seed as the same value, such that a stimulus list can be reproduced outside of the shiny app.</p>
 <div class="danger">
 <p>
 Note that in order to reproduce stimulus lists generated with R code within the shiny app, the seed should be set using the <code>seed</code> argument of the <code>generate()</code> and <code>split_random()</code> functions. See <a href="advanced-stimulus-generation#random-seeds">this section</a> on random seeds in the generate pipeline for some examples.

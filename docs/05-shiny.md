@@ -100,7 +100,7 @@ I could then upload this to the Fetch tab. This will return the known values fro
 
 The Visualise tab provides many options for plotting useful information. As well as the variables included in the [LexOPS dataset](introduction.html#the-lexops-dataset) and [custom variables](#custom-variables), the Visualise tab can plot information from within the app, such as the generated condition.
 
-Here's an example of application of the visualise tab to look at stimuli generated in the Generate tab (in a Bigram Probability x Concreteness design). Points can be coloured by things like generated condition, and individual words can be identified by hovering over the points.
+Here's an example application of the visualise tab to look at stimuli generated in the Generate tab (in a Bigram Probability x Concreteness design). Points can be coloured by things like generated condition, and individual words can be identified by hovering over the points.
 
 <div class="figure" style="text-align: center">
 <img src="./images/shiny/visualise.gif" alt="Example usage of the Visualise tab." width="75%" height="75%" />
@@ -129,7 +129,7 @@ The seed can be set in the Preferences tab to yield reproducible analyses. This 
 <p class="caption">(\#fig:unnamed-chunk-13)Setting the seed in the Shiny app.</p>
 </div>
 
-If you ["codify" your selected options](#codify), this code will also set the seed as the same value, such that a stimulus list can be reproduced outside of the shiny app.
+If you ["codify" your selected options](#codify), the generated code will also set the seed as the same value, such that a stimulus list can be reproduced outside of the shiny app.
 
 <div class="danger">
 <p>Note that in order to reproduce stimulus lists generated with R code within the shiny app, the seed should be set using the <code>seed</code> argument of the <code>generate()</code> and <code>split_random()</code> functions. See <a href="advanced-stimulus-generation#random-seeds">this section</a> on random seeds in the generate pipeline for some examples.</p>
