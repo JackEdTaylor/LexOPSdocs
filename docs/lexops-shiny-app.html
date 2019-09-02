@@ -24,7 +24,7 @@
 <meta name="author" content="Jack Taylor" />
 
 
-<meta name="date" content="2019-08-26" />
+<meta name="date" content="2019-09-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -345,19 +345,26 @@ Figure 2.1: Example usage of the Visualise tab.
 <p>The Custom Variables tab is useful for integrating variables not in the LexOPS dataset to the app. Importantly, the words which have custom variables can be in any language. These variables can then be used within the app for generating stimuli. Custom variables are only available for the current session.</p>
 <p>Here is an example in which the variables from the <a href="http://doi.org/10.3758/BRM.42.4.987">Leipzig Affective Norms for German (LANG) (Kanske &amp; Kotz, 2010)</a> are added to the LexOPS shiny app. These variables can then be used in the Generate tab.</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-12"></span>
-<img src="images/shiny/custom-variables.gif" alt="Example usage of the Visualise tab." width="75%" height="75%" />
+<img src="images/shiny/custom-variables.gif" alt="Using stimuli for languages other than English." width="75%" height="75%" />
 <p class="caption">
-Figure 5.7: Example usage of the Visualise tab.
+Figure 5.7: Using stimuli for languages other than English.
 </p>
 </div>
 <p>The Custom Variables tab uses <a href="https://dplyr.tidyverse.org/reference/join.html">dplyr’s join functions</a>. An equivalent to using custom variables in R code would be to either join the custom variables to the LexOPS dataset using dplyr’s join functions, or to just run the generate pipeline on a dataframe of custom variables.</p>
 </div>
 <div id="random-seeds-1" class="section level2">
 <h2><span class="header-section-number">5.6</span> Random Seeds</h2>
-<p>The seed can be set in the Preferences tab to yield reproducible analyses. If you <a href="lexops-shiny-app.html#codify">“codify” your selected options</a>, this will also set the seed, such that a stimulus list can be reproduced outside of the shiny app.</p>
+<p>The seed can be set in the Preferences tab to yield reproducible analyses. This means that the exact same list of words will be generated each time you click “Regenerate”.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-13"></span>
+<img src="images/shiny/setting-seed.gif" alt="Setting the seed in the Shiny app." width="75%" height="75%" />
+<p class="caption">
+Figure 5.8: Setting the seed in the Shiny app.
+</p>
+</div>
+<p>If you <a href="lexops-shiny-app.html#codify">“codify” your selected options</a>, this code will also set the seed as the same value, such that a stimulus list can be reproduced outside of the shiny app.</p>
 <div class="danger">
 <p>
-Note that in order to reproduce stimulus lists generated with R code within the shiny app, the seed must be set using the <code>seed</code> argument of the <code>generate()</code> and <code>split_random()</code> functions. See <a href="advanced-stimulus-generation#random-seeds">this section</a> on random seeds in the generate pipeline for some examples.
+Note that in order to reproduce stimulus lists generated with R code within the shiny app, the seed should be set using the <code>seed</code> argument of the <code>generate()</code> and <code>split_random()</code> functions. See <a href="advanced-stimulus-generation#random-seeds">this section</a> on random seeds in the generate pipeline for some examples.
 </p>
 </div>
 

@@ -114,16 +114,23 @@ The Custom Variables tab is useful for integrating variables not in the LexOPS d
 Here is an example in which the variables from the [Leipzig Affective Norms for German (LANG) (Kanske & Kotz, 2010)](http://doi.org/10.3758/BRM.42.4.987) are added to the LexOPS shiny app. These variables can then be used in the Generate tab.
 
 <div class="figure" style="text-align: center">
-<img src="./images/shiny/custom-variables.gif" alt="Example usage of the Visualise tab." width="75%" height="75%" />
-<p class="caption">(\#fig:unnamed-chunk-12)Example usage of the Visualise tab.</p>
+<img src="./images/shiny/custom-variables.gif" alt="Using stimuli for languages other than English." width="75%" height="75%" />
+<p class="caption">(\#fig:unnamed-chunk-12)Using stimuli for languages other than English.</p>
 </div>
 
 The Custom Variables tab uses [dplyr's join functions](https://dplyr.tidyverse.org/reference/join.html). An equivalent to using custom variables in R code would be to either join the custom variables to the LexOPS dataset using dplyr's join functions, or to just run the generate pipeline on a dataframe of custom variables.
 
 ## Random Seeds
 
-The seed can be set in the Preferences tab to yield reproducible analyses. If you ["codify" your selected options](#codify), this will also set the seed, such that a stimulus list can be reproduced outside of the shiny app.
+The seed can be set in the Preferences tab to yield reproducible analyses. This means that the exact same list of words will be generated each time you click "Regenerate".
+
+<div class="figure" style="text-align: center">
+<img src="./images/shiny/setting-seed.gif" alt="Setting the seed in the Shiny app." width="75%" height="75%" />
+<p class="caption">(\#fig:unnamed-chunk-13)Setting the seed in the Shiny app.</p>
+</div>
+
+If you ["codify" your selected options](#codify), this code will also set the seed as the same value, such that a stimulus list can be reproduced outside of the shiny app.
 
 <div class="danger">
-<p>Note that in order to reproduce stimulus lists generated with R code within the shiny app, the seed must be set using the <code>seed</code> argument of the <code>generate()</code> and <code>split_random()</code> functions. See <a href="advanced-stimulus-generation#random-seeds">this section</a> on random seeds in the generate pipeline for some examples.</p>
+<p>Note that in order to reproduce stimulus lists generated with R code within the shiny app, the seed should be set using the <code>seed</code> argument of the <code>generate()</code> and <code>split_random()</code> functions. See <a href="advanced-stimulus-generation#random-seeds">this section</a> on random seeds in the generate pipeline for some examples.</p>
 </div>

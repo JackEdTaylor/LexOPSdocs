@@ -101,7 +101,7 @@ The Custom Variables tab is useful for integrating variables not in the LexOPS d
 
 Here is an example in which the variables from the [Leipzig Affective Norms for German (LANG) (Kanske & Kotz, 2010)](http://doi.org/10.3758/BRM.42.4.987) are added to the LexOPS shiny app. These variables can then be used in the Generate tab.
 
-```{r, echo=FALSE, fig.cap='Example usage of the Visualise tab.', out.width="75%", out.height="75%"}
+```{r, echo=FALSE, fig.cap='Using stimuli for languages other than English.', out.width="75%", out.height="75%"}
 knitr::include_graphics(path="./images/shiny/custom-variables.gif")
 ```
 
@@ -109,8 +109,14 @@ The Custom Variables tab uses [dplyr's join functions](https://dplyr.tidyverse.o
 
 ## Random Seeds
 
-The seed can be set in the Preferences tab to yield reproducible analyses. If you ["codify" your selected options](#codify), this will also set the seed, such that a stimulus list can be reproduced outside of the shiny app.
+The seed can be set in the Preferences tab to yield reproducible analyses. This means that the exact same list of words will be generated each time you click "Regenerate".
+
+```{r, echo=FALSE, fig.cap='Setting the seed in the Shiny app.', out.width="75%", out.height="75%"}
+knitr::include_graphics(path="./images/shiny/setting-seed.gif")
+```
+
+If you ["codify" your selected options](#codify), this code will also set the seed as the same value, such that a stimulus list can be reproduced outside of the shiny app.
 
 ```{block, type='danger'}
-Note that in order to reproduce stimulus lists generated with R code within the shiny app, the seed must be set using the `seed` argument of the `generate()` and `split_random()` functions. See [this section](advanced-stimulus-generation#random-seeds) on random seeds in the generate pipeline for some examples.
+Note that in order to reproduce stimulus lists generated with R code within the shiny app, the seed should be set using the `seed` argument of the `generate()` and `split_random()` functions. See [this section](advanced-stimulus-generation#random-seeds) on random seeds in the generate pipeline for some examples.
 ```
