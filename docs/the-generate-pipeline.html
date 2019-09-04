@@ -24,7 +24,7 @@
 <meta name="author" content="Jack Taylor" />
 
 
-<meta name="date" content="2019-09-02" />
+<meta name="date" content="2019-09-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -352,7 +352,7 @@ We can see that we have 4 conditions:</p>
 <li><p><strong>A2_B2</strong> (concrete, high probability)</p></li>
 </ul>
 <p><br>
-Each row of the dataframe is controlled for in terms of frequency and length. The <code>match_null</code> variable tells us which condition stimuli were matched relative to. For instance, we can see that in row 3, items are matched relative to the word “relent”. This means (for example) that all words for <code>item_nr</code> 3 are within ±0.2 Zipf of the Zipf value associated with the word snobby. By default, LexOPS will select the match_null for each item pseudo-randomly, such that each condition will be used as a match null an equal number of times, or as close to this ideal as is possible (e.g. the number of items requested may not be divisible by the number of conditions).</p>
+Each row of the dataframe is controlled for in terms of frequency and length. The <code>match_null</code> variable tells us which condition stimuli were matched relative to. For instance, we can see that in row 3, items are matched relative to the word “relent”. This means that all words for <code>item_nr</code> 3 are within ±0.2 Zipf of the Zipf value associated with the word “relent”. By default, LexOPS will select the match_null for each item pseudo-randomly, such that each condition will be used as a match null an equal number of times, or as close to this ideal as is possible (e.g. the number of items requested may not be divisible by the number of conditions). See <a href="faq.html#what-is-a-match-null">this FAQ section</a> for more information on match nulls.</p>
 </div>
 </div>
 <div id="converting-to-long-format" class="section level2">
