@@ -65,3 +65,5 @@ LexOPS::lexops
 ```
 
 For details on the variables included, see [https://rdrr.io/github/JackEdTaylor/LexOPS/man/lexops.html](https://rdrr.io/github/JackEdTaylor/LexOPS/man/lexops.html).
+
+Note that in addition to citing LexOPS, the sources for any materials you use must also be explicitly cited, regardless of whether they are included in the built-in dataset.
