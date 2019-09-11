@@ -24,7 +24,7 @@
 <meta name="author" content="Jack Taylor" />
 
 
-<meta name="date" content="2019-09-10" />
+<meta name="date" content="2019-09-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -209,7 +209,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">6</span> FAQ</h1>
 <div id="what-is-a-match-null" class="section level3 unnumbered">
 <h3>What is a “match null”?</h3>
-<p>The “match null” is a term used in the <a href="the-generate-pipeline.html">generate pipeline</a>, specified as the <code>match_null</code> argument in the <code>generate()</code> function. Whenever you control for variables in the generate pipeline, items are always matched relative to one of the specified conditions.</p>
+<p>The “match null” is a term used in the <a href="the-generate-pipeline.html">generate pipeline</a>, specified as the <code>match_null</code> argument in the <code>generate()</code> function. Whenever you control for variables in the generate pipeline, items are always matched relative to one of the specified conditions. The condition that items are matched relative to is referred to as the match null.</p>
 <p>The default for the <code>generate()</code> function is to use <code>match_null = "balanced"</code>. This means that each condition is used as a match null an equal number of times, or as close to this as possible, in a random order. For example, if you specify 4 conditions (A1_B1, A1_B2, A2_B1, A2_B2) and ask for 50 stimuli (<code>n = 50</code>), by default the algorithm will randomly select two conditions to be used 12 times as match nulls, and two conditions to be used 13 times.</p>
 <p>Since <code>match_null = "balanced"</code> works by dividing <code>n</code> by the number of conditions, this default will not work when <code>n = "all"</code> as the <code>generate()</code> function will not know how many stimuli will be generated in the stimulus list. This is why you’ll get a warning if these options are used together. One alternative may be to use <code>match_null = "random"</code>.</p>
 <p>It is also possible to use a specific condition as the match null for each item. If you want to use condition A1_B2 as your null for instance, you can do this by specifying <code>match_null = "A1_B2"</code>.</p>
