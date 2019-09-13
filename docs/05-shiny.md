@@ -118,7 +118,7 @@ Here is an example in which the variables from the [Leipzig Affective Norms for 
 <p class="caption">(\#fig:unnamed-chunk-12)Using stimuli for languages other than English.</p>
 </div>
 
-The Custom Variables tab uses [dplyr's join functions](https://dplyr.tidyverse.org/reference/join.html). An equivalent to using custom variables in R code would be to either join the custom variables to the LexOPS dataset using dplyr's join functions, or to just run the generate pipeline on a dataframe of custom variables.
+The Custom Variables tab uses [dplyr's join functions](https://dplyr.tidyverse.org/reference/join.html). An equivalent to using custom variables in R code would be to either join the custom variables to the LexOPS dataset using dplyr's join functions, or to just run the generate pipeline on a dataframe of custom variables (see [this section](the-generate-pipeline.html#custom-dataframes) for an example).
 
 ## Random Seeds
 

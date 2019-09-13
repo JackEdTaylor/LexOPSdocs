@@ -159,3 +159,36 @@ plot_iterations(possible_stim)
 ```
 
 This shows a characteristic levelling-off; iterations become increasingly less likely to successfully generate items as the pool of possible combinations is gradually exhausted.
+
+## Custom Dataframes
+
+While the [LexOPS Dataset](introduction.html#the-lexops-dataset) has lots of useful features for English, it isn't exhaustive, and other languages do exist! The LexOPS functions will actually work with any dataframe, with words from any language. As an example, here's how to generate a stimulus list of negative, neutral, and positive German words matched for length and frequency, based on the [Leipzig Affective Norms for German (LANG) (Kanske & Kotz, 2010)](http://doi.org/10.3758/BRM.42.4.987).
+
+```{r, eval=FALSE}
+library(readr)
+LANG <- read_csv("kanske_kotz_2010.csv", locale=locale(encoding = "latin1"))
+
+stim <- LANG %>%
+  split_by(valence_mean, 1:3.5 ~ 4.75:5.25 ~ 6.5:9) %>%
+  control_for(number_of_letters, 0:0) %>%
+  control_for(frequency, -1:1) %>%
+  generate(20, string_col = "word")
+```
+
+Here are the first five items generated for each condition:
+
+\small
+```{r, class='table', echo=FALSE}
+# pre-saved results to avoid needing permission for LANG dataset
+readRDS("data/LANG_stim.rds") %>%
+  knitr::kable()
+```
+\normalsize
+
+<br>
+```{block, type="info"}
+Note that if you're using your own dataframe, you'll have to specify which column contains the strings with the `string_col` argument of the `generate()` function (above, `string_col = "word"`).
+
+Custom variables can be neatly integrated with the inbuilt LexOPS dataset (or vice versa) with the [dplyr join functions](https://dplyr.tidyverse.org/reference/join.html). This is how custom variables are used in the Shiny app. See [this section](lexops-shiny-app.html#custom-variables) for a example using custom variables in the shiny app.
+```
+<br>

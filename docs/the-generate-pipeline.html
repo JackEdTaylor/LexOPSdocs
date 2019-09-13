@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2 The Generate Pipeline | LexOPS Walkthrough</title>
   <meta name="description" content="An introduction to the LexOPS package and how to use it." />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2 The Generate Pipeline | LexOPS Walkthrough" />
   <meta property="og:type" content="book" />
@@ -24,15 +24,15 @@
 <meta name="author" content="Jack Taylor" />
 
 
-<meta name="date" content="2019-09-11" />
+<meta name="date" content="2019-09-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="introduction.html">
-<link rel="next" href="advanced-stimulus-generation.html">
+<link rel="prev" href="introduction.html"/>
+<link rel="next" href="advanced-stimulus-generation.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -148,6 +148,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#plotting-the-design"><i class="fa fa-check"></i><b>2.3</b> Plotting the Design</a></li>
 <li class="chapter" data-level="2.4" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#generating-as-many-as-possible"><i class="fa fa-check"></i><b>2.4</b> Generating as Many as Possible</a></li>
 <li class="chapter" data-level="2.5" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#plotting-iterations"><i class="fa fa-check"></i><b>2.5</b> Plotting Iterations</a></li>
+<li class="chapter" data-level="2.6" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#custom-dataframes"><i class="fa fa-check"></i><b>2.6</b> Custom Dataframes</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="advanced-stimulus-generation.html"><a href="advanced-stimulus-generation.html"><i class="fa fa-check"></i><b>3</b> Advanced Stimulus Generation</a><ul>
 <li class="chapter" data-level="3.1" data-path="advanced-stimulus-generation.html"><a href="advanced-stimulus-generation.html#non-stimulus-splits"><i class="fa fa-check"></i><b>3.1</b> Non-Stimulus Splits</a></li>
@@ -623,6 +624,81 @@ Figure 2.2: The cumulative number of items generated per iteration.
 </p>
 </div>
 <p>This shows a characteristic levelling-off; iterations become increasingly less likely to successfully generate items as the pool of possible combinations is gradually exhausted.</p>
+</div>
+<div id="custom-dataframes" class="section level2">
+<h2><span class="header-section-number">2.6</span> Custom Dataframes</h2>
+<p>While the <a href="introduction.html#the-lexops-dataset">LexOPS Dataset</a> has lots of useful features for English, it isn’t exhaustive, and other languages do exist! The LexOPS functions will actually work with any dataframe, with words from any language. As an example, here’s how to generate a stimulus list of negative, neutral, and positive German words matched for length and frequency, based on the <a href="http://doi.org/10.3758/BRM.42.4.987">Leipzig Affective Norms for German (LANG) (Kanske &amp; Kotz, 2010)</a>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">library</span>(readr)</a>
+<a class="sourceLine" id="cb9-2" title="2">LANG &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;kanske_kotz_2010.csv&quot;</span>, <span class="dt">locale=</span><span class="kw">locale</span>(<span class="dt">encoding =</span> <span class="st">&quot;latin1&quot;</span>))</a>
+<a class="sourceLine" id="cb9-3" title="3"></a>
+<a class="sourceLine" id="cb9-4" title="4">stim &lt;-<span class="st"> </span>LANG <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="st">  </span><span class="kw">split_by</span>(valence_mean, <span class="dv">1</span><span class="op">:</span><span class="fl">3.5</span> <span class="op">~</span><span class="st"> </span><span class="fl">4.75</span><span class="op">:</span><span class="fl">5.25</span> <span class="op">~</span><span class="st"> </span><span class="fl">6.5</span><span class="op">:</span><span class="dv">9</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-6" title="6"><span class="st">  </span><span class="kw">control_for</span>(number_of_letters, <span class="dv">0</span><span class="op">:</span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-7" title="7"><span class="st">  </span><span class="kw">control_for</span>(frequency, <span class="dv">-1</span><span class="op">:</span><span class="dv">1</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-8" title="8"><span class="st">  </span><span class="kw">generate</span>(<span class="dv">20</span>, <span class="dt">string_col =</span> <span class="st">&quot;word&quot;</span>)</a></code></pre></div>
+<p>Here are the first five items generated for each condition:</p>
+
+<div class="table">
+<table>
+<thead>
+<tr class="header">
+<th align="right">item_nr</th>
+<th align="left">A1</th>
+<th align="left">A2</th>
+<th align="left">A3</th>
+<th align="left">match_null</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">hetze</td>
+<td align="left">blase</td>
+<td align="left">flirt</td>
+<td align="left">A2</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">bombe</td>
+<td align="left">stamm</td>
+<td align="left">komik</td>
+<td align="left">A3</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">pein</td>
+<td align="left">seil</td>
+<td align="left">kuss</td>
+<td align="left">A1</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">ärger</td>
+<td align="left">stein</td>
+<td align="left">humor</td>
+<td align="left">A3</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="left">terror</td>
+<td align="left">lehrer</td>
+<td align="left">gefühl</td>
+<td align="left">A1</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<br>
+<div class="info">
+<p>
+Note that if you’re using your own dataframe, you’ll have to specify which column contains the strings with the <code>string_col</code> argument of the <code>generate()</code> function (above, <code>string_col = “word”</code>).
+</p>
+<p>
+Custom variables can be neatly integrated with the inbuilt LexOPS dataset (or vice versa) with the <a href="https://dplyr.tidyverse.org/reference/join.html">dplyr join functions</a>. This is how custom variables are used in the Shiny app. See <a href="lexops-shiny-app.html#custom-variables">this section</a> for a example using custom variables in the shiny app.
+</p>
+</div>
+<p><br></p>
 
 </div>
 </div>

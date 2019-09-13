@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3 Advanced Stimulus Generation | LexOPS Walkthrough</title>
   <meta name="description" content="An introduction to the LexOPS package and how to use it." />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3 Advanced Stimulus Generation | LexOPS Walkthrough" />
   <meta property="og:type" content="book" />
@@ -24,15 +24,15 @@
 <meta name="author" content="Jack Taylor" />
 
 
-<meta name="date" content="2019-09-11" />
+<meta name="date" content="2019-09-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="the-generate-pipeline.html">
-<link rel="next" href="matching-individual-words.html">
+<link rel="prev" href="the-generate-pipeline.html"/>
+<link rel="next" href="matching-individual-words.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -148,6 +148,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#plotting-the-design"><i class="fa fa-check"></i><b>2.3</b> Plotting the Design</a></li>
 <li class="chapter" data-level="2.4" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#generating-as-many-as-possible"><i class="fa fa-check"></i><b>2.4</b> Generating as Many as Possible</a></li>
 <li class="chapter" data-level="2.5" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#plotting-iterations"><i class="fa fa-check"></i><b>2.5</b> Plotting Iterations</a></li>
+<li class="chapter" data-level="2.6" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#custom-dataframes"><i class="fa fa-check"></i><b>2.6</b> Custom Dataframes</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="advanced-stimulus-generation.html"><a href="advanced-stimulus-generation.html"><i class="fa fa-check"></i><b>3</b> Advanced Stimulus Generation</a><ul>
 <li class="chapter" data-level="3.1" data-path="advanced-stimulus-generation.html"><a href="advanced-stimulus-generation.html#non-stimulus-splits"><i class="fa fa-check"></i><b>3.1</b> Non-Stimulus Splits</a></li>
@@ -212,12 +213,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">3.1</span> Non-Stimulus Splits</h2>
 <p>Sometimes it makes sense to use independent variables that are not related to features of the word stimuli you present. For example, you may be interested in a possible difference between contexts or tasks (such as comparing Word Naming to Lexical Decision). In this case, it makes sense to use a within-subject design, but to present different stimuli in each context. These different stimuli should still be matched across contexts. This is possible with the <code>split_random()</code> function.</p>
 <p>As an example, imagine we’re interested in a 2x2 interaction between the effect of words’ arousal ratings before and after a cup of coffee. We use <code>split_random()</code> to say that we want to create a random split in the data with two levels. Such a pipeline might look like this:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">stim &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-2" title="2"><span class="st">  </span><span class="kw">split_random</span>(<span class="dv">2</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-3" title="3"><span class="st">  </span><span class="kw">split_by</span>(AROU.Warriner, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span> <span class="op">~</span><span class="st"> </span><span class="dv">6</span><span class="op">:</span><span class="dv">8</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-4" title="4"><span class="st">  </span><span class="kw">control_for</span>(Length, <span class="dv">0</span><span class="op">:</span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-5" title="5"><span class="st">  </span><span class="kw">control_for</span>(Zipf.SUBTLEX_UK, <span class="fl">-0.1</span><span class="op">:</span><span class="fl">0.1</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-6" title="6"><span class="st">  </span><span class="kw">generate</span>(<span class="dv">50</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">stim &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="st">  </span><span class="kw">split_random</span>(<span class="dv">2</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="st">  </span><span class="kw">split_by</span>(AROU.Warriner, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span> <span class="op">~</span><span class="st"> </span><span class="dv">6</span><span class="op">:</span><span class="dv">8</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-4" title="4"><span class="st">  </span><span class="kw">control_for</span>(Length, <span class="dv">0</span><span class="op">:</span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-5" title="5"><span class="st">  </span><span class="kw">control_for</span>(Zipf.SUBTLEX_UK, <span class="fl">-0.1</span><span class="op">:</span><span class="fl">0.1</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-6" title="6"><span class="st">  </span><span class="kw">generate</span>(<span class="dv">50</span>)</a></code></pre></div>
 <p>This will create 4 conditions matched for length and frequency, where A1_B1 and A2_B1 are low arousal words, and A1_B2 and A2_B2 are high arousal words. Here are the first 5 items of each condition:</p>
 <div class="table">
 <table>
@@ -283,12 +284,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="orthographic-similarity" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> Orthographic Similarity</h3>
 <p>Here is an example, using <code>control_for_map()</code> to match by orthographic Levenshtein distance from the match null (calculated using the <code>vwr</code> package). This means that each string will be a distance of between 0 and 3 character insertions, deletions or replacements from the word used as the match null.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">library</span>(vwr)</a>
-<a class="sourceLine" id="cb10-2" title="2"></a>
-<a class="sourceLine" id="cb10-3" title="3">stim &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb10-4" title="4"><span class="st">  </span><span class="kw">split_by</span>(VAL.Warriner, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span> <span class="op">~</span><span class="st"> </span><span class="fl">4.5</span><span class="op">:</span><span class="fl">5.5</span> <span class="op">~</span><span class="st"> </span><span class="dv">7</span><span class="op">:</span><span class="dv">9</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb10-5" title="5"><span class="st">  </span><span class="kw">control_for_map</span>(levenshtein.distance, string, <span class="dv">0</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">name=</span><span class="st">&quot;Orth_Dist&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb10-6" title="6"><span class="st">  </span><span class="kw">generate</span>(<span class="dv">20</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">library</span>(vwr)</a>
+<a class="sourceLine" id="cb11-2" title="2"></a>
+<a class="sourceLine" id="cb11-3" title="3">stim &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-4" title="4"><span class="st">  </span><span class="kw">split_by</span>(VAL.Warriner, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span> <span class="op">~</span><span class="st"> </span><span class="fl">4.5</span><span class="op">:</span><span class="fl">5.5</span> <span class="op">~</span><span class="st"> </span><span class="dv">7</span><span class="op">:</span><span class="dv">9</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-5" title="5"><span class="st">  </span><span class="kw">control_for_map</span>(levenshtein.distance, string, <span class="dv">0</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">name=</span><span class="st">&quot;Orth_Dist&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-6" title="6"><span class="st">  </span><span class="kw">generate</span>(<span class="dv">20</span>)</a></code></pre></div>
 <p>Here are the first 5 items of each condition that we generated. Note that we have 3 levels of valence, with matched items that are orthographically similar to one another:</p>
 
 <div class="table">
@@ -346,13 +347,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="phonological-similarity" class="section level3">
 <h3><span class="header-section-number">3.2.2</span> Phonological Similarity</h3>
 <p>We can use a similar pipeline to match by phonological similarity. Instead of giving the string column to the function, we just have to give a column where phonemes are represented by single letters. All the generated stimuli will be within a distance of between 0 and 2 phonemic insertions, deletions, or substitutions from the word used as the match null. For fun (and to show how <code>control_for_map()</code> can be combined with <code>control_for()</code>), let’s also control for rhyme.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">library</span>(vwr)</a>
-<a class="sourceLine" id="cb11-2" title="2"></a>
-<a class="sourceLine" id="cb11-3" title="3">stim &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb11-4" title="4"><span class="st">  </span><span class="kw">split_by</span>(VAL.Warriner, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span> <span class="op">~</span><span class="st"> </span><span class="fl">4.5</span><span class="op">:</span><span class="fl">5.5</span> <span class="op">~</span><span class="st"> </span><span class="dv">7</span><span class="op">:</span><span class="dv">9</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb11-5" title="5"><span class="st">  </span><span class="kw">control_for_map</span>(levenshtein.distance, eSpeak.br_1letter, <span class="dv">0</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">name=</span><span class="st">&quot;Phon_Dist&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb11-6" title="6"><span class="st">  </span><span class="kw">control_for</span>(Rhyme.eSpeak.br) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb11-7" title="7"><span class="st">  </span><span class="kw">generate</span>(<span class="dv">20</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">library</span>(vwr)</a>
+<a class="sourceLine" id="cb12-2" title="2"></a>
+<a class="sourceLine" id="cb12-3" title="3">stim &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-4" title="4"><span class="st">  </span><span class="kw">split_by</span>(VAL.Warriner, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span> <span class="op">~</span><span class="st"> </span><span class="fl">4.5</span><span class="op">:</span><span class="fl">5.5</span> <span class="op">~</span><span class="st"> </span><span class="dv">7</span><span class="op">:</span><span class="dv">9</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-5" title="5"><span class="st">  </span><span class="kw">control_for_map</span>(levenshtein.distance, eSpeak.br_1letter, <span class="dv">0</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">name=</span><span class="st">&quot;Phon_Dist&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-6" title="6"><span class="st">  </span><span class="kw">control_for</span>(Rhyme.eSpeak.br) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-7" title="7"><span class="st">  </span><span class="kw">generate</span>(<span class="dv">20</span>)</a></code></pre></div>
 <p>Here are the first 5 items of each condition that we generated. This time, all matched items are phonologically similar to one another:</p>
 
 <div class="table">
@@ -420,25 +421,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="setting-the-seed-in-the-generate-function" class="section level3 unnumbered">
 <h3>Setting the seed in the <code>generate()</code> function</h3>
 <p>The following code will generate the same stimulus list each time it is run:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">stim &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb12-2" title="2"><span class="st">  </span><span class="kw">subset</span>(PK.Brysbaert <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.9</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb12-3" title="3"><span class="st">  </span><span class="kw">split_by</span>(CNC.Brysbaert, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span> <span class="op">~</span><span class="st"> </span><span class="dv">4</span><span class="op">:</span><span class="dv">5</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb12-4" title="4"><span class="st">  </span><span class="kw">split_by</span>(BG.SUBTLEX_UK, <span class="dv">0</span><span class="op">:</span><span class="fl">0.003</span> <span class="op">~</span><span class="st"> </span><span class="fl">0.009</span><span class="op">:</span><span class="fl">0.013</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb12-5" title="5"><span class="st">  </span><span class="kw">control_for</span>(Length, <span class="dv">0</span><span class="op">:</span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb12-6" title="6"><span class="st">  </span><span class="kw">control_for</span>(Zipf.SUBTLEX_UK, <span class="fl">-0.2</span><span class="op">:</span><span class="fl">0.2</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb12-7" title="7"><span class="st">  </span><span class="kw">generate</span>(<span class="dv">25</span>, <span class="dt">seed =</span> <span class="dv">42</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">stim &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-2" title="2"><span class="st">  </span><span class="kw">subset</span>(PK.Brysbaert <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.9</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-3" title="3"><span class="st">  </span><span class="kw">split_by</span>(CNC.Brysbaert, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span> <span class="op">~</span><span class="st"> </span><span class="dv">4</span><span class="op">:</span><span class="dv">5</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-4" title="4"><span class="st">  </span><span class="kw">split_by</span>(BG.SUBTLEX_UK, <span class="dv">0</span><span class="op">:</span><span class="fl">0.003</span> <span class="op">~</span><span class="st"> </span><span class="fl">0.009</span><span class="op">:</span><span class="fl">0.013</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-5" title="5"><span class="st">  </span><span class="kw">control_for</span>(Length, <span class="dv">0</span><span class="op">:</span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-6" title="6"><span class="st">  </span><span class="kw">control_for</span>(Zipf.SUBTLEX_UK, <span class="fl">-0.2</span><span class="op">:</span><span class="fl">0.2</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb13-7" title="7"><span class="st">  </span><span class="kw">generate</span>(<span class="dv">25</span>, <span class="dt">seed =</span> <span class="dv">42</span>)</a></code></pre></div>
 </div>
 <div id="setting-the-seed-in-the-split_random-function" class="section level3 unnumbered">
 <h3>Setting the seed in the <code>split_random()</code> function</h3>
 <p>If you use the <code>split_random()</code> function, this will also require a <code>seed</code> argument in order for the pipeline to be reproducible. This does not necessarily need to be the same as the <code>seed</code> value passed to <code>generate()</code>, but the shiny app will assume this is the case when <a href="lexops-shiny-app.html#codify">translating Shiny options into R code</a>. The following is an example of a reproducible pipeline that uses the <code>split_random()</code> function:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">my_seed &lt;-<span class="st"> </span><span class="dv">42</span></a>
-<a class="sourceLine" id="cb13-2" title="2"></a>
-<a class="sourceLine" id="cb13-3" title="3">stim &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb13-4" title="4"><span class="st">  </span><span class="kw">split_random</span>(<span class="dv">2</span>, <span class="dt">seed =</span> my_seed) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb13-5" title="5"><span class="st">  </span><span class="kw">split_by</span>(AROU.Warriner, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span> <span class="op">~</span><span class="st"> </span><span class="dv">6</span><span class="op">:</span><span class="dv">8</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb13-6" title="6"><span class="st">  </span><span class="kw">control_for</span>(Length, <span class="dv">0</span><span class="op">:</span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb13-7" title="7"><span class="st">  </span><span class="kw">control_for</span>(Zipf.SUBTLEX_UK, <span class="fl">-0.1</span><span class="op">:</span><span class="fl">0.1</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb13-8" title="8"><span class="st">  </span><span class="kw">generate</span>(<span class="dv">50</span>, <span class="dt">seed =</span> my_seed)</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1">my_seed &lt;-<span class="st"> </span><span class="dv">42</span></a>
+<a class="sourceLine" id="cb14-2" title="2"></a>
+<a class="sourceLine" id="cb14-3" title="3">stim &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-4" title="4"><span class="st">  </span><span class="kw">split_random</span>(<span class="dv">2</span>, <span class="dt">seed =</span> my_seed) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-5" title="5"><span class="st">  </span><span class="kw">split_by</span>(AROU.Warriner, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span> <span class="op">~</span><span class="st"> </span><span class="dv">6</span><span class="op">:</span><span class="dv">8</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-6" title="6"><span class="st">  </span><span class="kw">control_for</span>(Length, <span class="dv">0</span><span class="op">:</span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-7" title="7"><span class="st">  </span><span class="kw">control_for</span>(Zipf.SUBTLEX_UK, <span class="fl">-0.1</span><span class="op">:</span><span class="fl">0.1</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb14-8" title="8"><span class="st">  </span><span class="kw">generate</span>(<span class="dv">50</span>, <span class="dt">seed =</span> my_seed)</a></code></pre></div>
 
 </div>
 </div>

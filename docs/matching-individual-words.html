@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4 Matching Individual Words | LexOPS Walkthrough</title>
   <meta name="description" content="An introduction to the LexOPS package and how to use it." />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4 Matching Individual Words | LexOPS Walkthrough" />
   <meta property="og:type" content="book" />
@@ -24,15 +24,15 @@
 <meta name="author" content="Jack Taylor" />
 
 
-<meta name="date" content="2019-09-11" />
+<meta name="date" content="2019-09-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="advanced-stimulus-generation.html">
-<link rel="next" href="lexops-shiny-app.html">
+<link rel="prev" href="advanced-stimulus-generation.html"/>
+<link rel="next" href="lexops-shiny-app.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -148,6 +148,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#plotting-the-design"><i class="fa fa-check"></i><b>2.3</b> Plotting the Design</a></li>
 <li class="chapter" data-level="2.4" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#generating-as-many-as-possible"><i class="fa fa-check"></i><b>2.4</b> Generating as Many as Possible</a></li>
 <li class="chapter" data-level="2.5" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#plotting-iterations"><i class="fa fa-check"></i><b>2.5</b> Plotting Iterations</a></li>
+<li class="chapter" data-level="2.6" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#custom-dataframes"><i class="fa fa-check"></i><b>2.6</b> Custom Dataframes</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="advanced-stimulus-generation.html"><a href="advanced-stimulus-generation.html"><i class="fa fa-check"></i><b>3</b> Advanced Stimulus Generation</a><ul>
 <li class="chapter" data-level="3.1" data-path="advanced-stimulus-generation.html"><a href="advanced-stimulus-generation.html#non-stimulus-splits"><i class="fa fa-check"></i><b>3.1</b> Non-Stimulus Splits</a></li>
@@ -218,18 +219,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Imageability (within ±1, on a 1-7 Likert rating scale)</li>
 <li>Part of Speech (i.e. is also a noun)</li>
 </ul>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw">library</span>(LexOPS)</a>
-<a class="sourceLine" id="cb14-2" title="2"></a>
-<a class="sourceLine" id="cb14-3" title="3">suggested_matches &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb14-4" title="4"><span class="st">  </span><span class="kw">match_word</span>(</a>
-<a class="sourceLine" id="cb14-5" title="5">    <span class="dt">target =</span> <span class="st">&quot;elephant&quot;</span>,</a>
-<a class="sourceLine" id="cb14-6" title="6">    <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb14-7" title="7">      <span class="st">&quot;Length&quot;</span>,</a>
-<a class="sourceLine" id="cb14-8" title="8">      <span class="kw">c</span>(<span class="st">&quot;Zipf.SUBTLEX_UK&quot;</span>, <span class="fl">-0.25</span>, <span class="fl">0.25</span>),</a>
-<a class="sourceLine" id="cb14-9" title="9">      <span class="kw">c</span>(<span class="st">&quot;IMAG.Glasgow_Norms&quot;</span>, <span class="dv">-1</span>, <span class="dv">1</span>),</a>
-<a class="sourceLine" id="cb14-10" title="10">      <span class="st">&quot;PoS.SUBTLEX_UK&quot;</span></a>
-<a class="sourceLine" id="cb14-11" title="11">    )</a>
-<a class="sourceLine" id="cb14-12" title="12">  )</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw">library</span>(LexOPS)</a>
+<a class="sourceLine" id="cb15-2" title="2"></a>
+<a class="sourceLine" id="cb15-3" title="3">suggested_matches &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb15-4" title="4"><span class="st">  </span><span class="kw">match_word</span>(</a>
+<a class="sourceLine" id="cb15-5" title="5">    <span class="dt">target =</span> <span class="st">&quot;elephant&quot;</span>,</a>
+<a class="sourceLine" id="cb15-6" title="6">    <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb15-7" title="7">      <span class="st">&quot;Length&quot;</span>,</a>
+<a class="sourceLine" id="cb15-8" title="8">      <span class="kw">c</span>(<span class="st">&quot;Zipf.SUBTLEX_UK&quot;</span>, <span class="fl">-0.25</span>, <span class="fl">0.25</span>),</a>
+<a class="sourceLine" id="cb15-9" title="9">      <span class="kw">c</span>(<span class="st">&quot;IMAG.Glasgow_Norms&quot;</span>, <span class="dv">-1</span>, <span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb15-10" title="10">      <span class="st">&quot;PoS.SUBTLEX_UK&quot;</span></a>
+<a class="sourceLine" id="cb15-11" title="11">    )</a>
+<a class="sourceLine" id="cb15-12" title="12">  )</a></code></pre></div>
 <p>The suggested matches are returned in a dataframe, filtered to be within the specified tolerances, and ordered by euclidean distance from the target word (calculated using all the numeric variables used). The closest suggested match for “elephant” is “sandwich”. If we are looking for a match to fit in a sentential context, we can choose the best suitable match from this list.</p>
 <div class="table">
 <table>
@@ -398,20 +399,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="orthographic-similarity-1" class="section level3">
 <h3><span class="header-section-number">4.2.1</span> Orthographic similarity</h3>
 <p>Here’s an example, matching “leaflet” by orthographic similarity. We just have to calculate the similarity measure before using the <code>match_word()</code> function.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw">library</span>(LexOPS)</a>
-<a class="sourceLine" id="cb15-2" title="2"><span class="kw">library</span>(vwr)</a>
-<a class="sourceLine" id="cb15-3" title="3"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb15-4" title="4"></a>
-<a class="sourceLine" id="cb15-5" title="5">target_word &lt;-<span class="st"> &quot;interesting&quot;</span></a>
-<a class="sourceLine" id="cb15-6" title="6"></a>
-<a class="sourceLine" id="cb15-7" title="7">suggested_matches &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb15-8" title="8"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">orth_sim =</span> <span class="kw">as.numeric</span>(<span class="kw">levenshtein.distance</span>(string, target_word))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb15-9" title="9"><span class="st">  </span><span class="kw">match_word</span>(</a>
-<a class="sourceLine" id="cb15-10" title="10">    <span class="dt">target =</span> target_word,</a>
-<a class="sourceLine" id="cb15-11" title="11">    <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb15-12" title="12">      <span class="kw">c</span>(<span class="st">&quot;orth_sim&quot;</span>, <span class="dv">0</span>, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb15-13" title="13">    )</a>
-<a class="sourceLine" id="cb15-14" title="14">  )</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw">library</span>(LexOPS)</a>
+<a class="sourceLine" id="cb16-2" title="2"><span class="kw">library</span>(vwr)</a>
+<a class="sourceLine" id="cb16-3" title="3"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb16-4" title="4"></a>
+<a class="sourceLine" id="cb16-5" title="5">target_word &lt;-<span class="st"> &quot;interesting&quot;</span></a>
+<a class="sourceLine" id="cb16-6" title="6"></a>
+<a class="sourceLine" id="cb16-7" title="7">suggested_matches &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb16-8" title="8"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">orth_sim =</span> <span class="kw">as.numeric</span>(<span class="kw">levenshtein.distance</span>(string, target_word))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb16-9" title="9"><span class="st">  </span><span class="kw">match_word</span>(</a>
+<a class="sourceLine" id="cb16-10" title="10">    <span class="dt">target =</span> target_word,</a>
+<a class="sourceLine" id="cb16-11" title="11">    <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb16-12" title="12">      <span class="kw">c</span>(<span class="st">&quot;orth_sim&quot;</span>, <span class="dv">0</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb16-13" title="13">    )</a>
+<a class="sourceLine" id="cb16-14" title="14">  )</a></code></pre></div>
 <p>Note that some of these are misspellings or unusual words, but we could remove these by filtering (e.g. with <code>dplyr::filter()</code>) or matching (with <code>match_word()</code>) by frequency, proportion known, or familiarity ratings.</p>
 <div class="table">
 <table>
@@ -480,26 +481,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="phonological-similarity-1" class="section level3">
 <h3><span class="header-section-number">4.2.2</span> Phonological Similarity</h3>
 <p>To match by phonological similarity, we just have to calculate the levenshtein distance on one-letter phonemic representations, e.g. with <code>CMU.1letter</code> or <code>eSpeak.br_1letter</code>. Here we find words that are only 0 to 2 phonemic insertions, deletions, or substitutions away from “interesting”.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw">library</span>(LexOPS)</a>
-<a class="sourceLine" id="cb16-2" title="2"><span class="kw">library</span>(vwr)</a>
-<a class="sourceLine" id="cb16-3" title="3"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb16-4" title="4"></a>
-<a class="sourceLine" id="cb16-5" title="5">target_word &lt;-<span class="st"> &quot;interesting&quot;</span></a>
-<a class="sourceLine" id="cb16-6" title="6"></a>
-<a class="sourceLine" id="cb16-7" title="7"><span class="co"># get the target word&#39;s pronunciation</span></a>
-<a class="sourceLine" id="cb16-8" title="8">target_word_pron &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb16-9" title="9"><span class="st">  </span><span class="kw">filter</span>(string <span class="op">==</span><span class="st"> </span>target_word) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb16-10" title="10"><span class="st">  </span><span class="kw">pull</span>(CMU<span class="fl">.1</span>letter)</a>
-<a class="sourceLine" id="cb16-11" title="11"></a>
-<a class="sourceLine" id="cb16-12" title="12"><span class="co"># find phonologically similar words</span></a>
-<a class="sourceLine" id="cb16-13" title="13">suggested_matches &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb16-14" title="14"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">phon_sim =</span> <span class="kw">as.numeric</span>(<span class="kw">levenshtein.distance</span>(CMU<span class="fl">.1</span>letter, target_word_pron))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb16-15" title="15"><span class="st">  </span><span class="kw">match_word</span>(</a>
-<a class="sourceLine" id="cb16-16" title="16">    <span class="dt">target =</span> target_word,</a>
-<a class="sourceLine" id="cb16-17" title="17">    <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb16-18" title="18">      <span class="kw">c</span>(<span class="st">&quot;phon_sim&quot;</span>, <span class="dv">0</span>, <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb16-19" title="19">    )</a>
-<a class="sourceLine" id="cb16-20" title="20">  )</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw">library</span>(LexOPS)</a>
+<a class="sourceLine" id="cb17-2" title="2"><span class="kw">library</span>(vwr)</a>
+<a class="sourceLine" id="cb17-3" title="3"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb17-4" title="4"></a>
+<a class="sourceLine" id="cb17-5" title="5">target_word &lt;-<span class="st"> &quot;interesting&quot;</span></a>
+<a class="sourceLine" id="cb17-6" title="6"></a>
+<a class="sourceLine" id="cb17-7" title="7"><span class="co"># get the target word&#39;s pronunciation</span></a>
+<a class="sourceLine" id="cb17-8" title="8">target_word_pron &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb17-9" title="9"><span class="st">  </span><span class="kw">filter</span>(string <span class="op">==</span><span class="st"> </span>target_word) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb17-10" title="10"><span class="st">  </span><span class="kw">pull</span>(CMU<span class="fl">.1</span>letter)</a>
+<a class="sourceLine" id="cb17-11" title="11"></a>
+<a class="sourceLine" id="cb17-12" title="12"><span class="co"># find phonologically similar words</span></a>
+<a class="sourceLine" id="cb17-13" title="13">suggested_matches &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb17-14" title="14"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">phon_sim =</span> <span class="kw">as.numeric</span>(<span class="kw">levenshtein.distance</span>(CMU<span class="fl">.1</span>letter, target_word_pron))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb17-15" title="15"><span class="st">  </span><span class="kw">match_word</span>(</a>
+<a class="sourceLine" id="cb17-16" title="16">    <span class="dt">target =</span> target_word,</a>
+<a class="sourceLine" id="cb17-17" title="17">    <span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb17-18" title="18">      <span class="kw">c</span>(<span class="st">&quot;phon_sim&quot;</span>, <span class="dv">0</span>, <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb17-19" title="19">    )</a>
+<a class="sourceLine" id="cb17-20" title="20">  )</a></code></pre></div>
 <p>Which gives us:</p>
 <div class="table">
 <table>
