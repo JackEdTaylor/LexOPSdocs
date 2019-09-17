@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>1 Introduction | LexOPS Walkthrough</title>
   <meta name="description" content="An introduction to the LexOPS package and how to use it." />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
   <meta property="og:title" content="1 Introduction | LexOPS Walkthrough" />
   <meta property="og:type" content="book" />
@@ -24,15 +24,15 @@
 <meta name="author" content="Jack Taylor" />
 
 
-<meta name="date" content="2019-09-11" />
+<meta name="date" content="2019-09-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html">
-<link rel="next" href="the-generate-pipeline.html">
+<link rel="prev" href="index.html"/>
+<link rel="next" href="the-generate-pipeline.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -148,6 +148,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#plotting-the-design"><i class="fa fa-check"></i><b>2.3</b> Plotting the Design</a></li>
 <li class="chapter" data-level="2.4" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#generating-as-many-as-possible"><i class="fa fa-check"></i><b>2.4</b> Generating as Many as Possible</a></li>
 <li class="chapter" data-level="2.5" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#plotting-iterations"><i class="fa fa-check"></i><b>2.5</b> Plotting Iterations</a></li>
+<li class="chapter" data-level="2.6" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#custom-dataframes"><i class="fa fa-check"></i><b>2.6</b> Custom Dataframes</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="advanced-stimulus-generation.html"><a href="advanced-stimulus-generation.html"><i class="fa fa-check"></i><b>3</b> Advanced Stimulus Generation</a><ul>
 <li class="chapter" data-level="3.1" data-path="advanced-stimulus-generation.html"><a href="advanced-stimulus-generation.html#non-stimulus-splits"><i class="fa fa-check"></i><b>3.1</b> Non-Stimulus Splits</a></li>
@@ -254,7 +255,7 @@ The shiny app is also available as a web app online, at <a href="https://jackt.s
 </div>
 <div id="the-lexops-dataset" class="section level2">
 <h2><span class="header-section-number">1.4</span> The LexOPS Dataset</h2>
-<p>LexOPS has a built-in dataset of English word features, which can be called with:</p>
+<p>LexOPS works can work with any list of features from any language (see <a href="the-generate-pipeline.html#custom-dataframes">this section</a> for an example with code, and <a href="lexops-shiny-app.html#custom-variables">this section</a> for an example in the shiny app). Even so, LexOPS has inbuilt dataset with some useful features for English. This can be called with:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">LexOPS<span class="op">::</span>lexops</a></code></pre></div>
 <p>For details on the variables included, see <a href="https://rdrr.io/github/JackEdTaylor/LexOPS/man/lexops.html">https://rdrr.io/github/JackEdTaylor/LexOPS/man/lexops.html</a>.</p>
 <p>Note that in addition to citing LexOPS, the sources for any materials you use must also be explicitly cited, regardless of whether they are included in the built-in dataset.</p>

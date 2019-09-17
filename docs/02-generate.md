@@ -195,3 +195,42 @@ plot_iterations(possible_stim)
 </div>
 
 This shows a characteristic levelling-off; iterations become increasingly less likely to successfully generate items as the pool of possible combinations is gradually exhausted.
+
+## Custom Dataframes
+
+While the [LexOPS Dataset](introduction.html#the-lexops-dataset) has lots of useful features for English, it isn't exhaustive, and other languages do exist! The LexOPS functions will actually work with any dataframe, with words from any language. As an example, here's how to generate a stimulus list of negative, neutral, and positive German words matched for length and frequency, based on the [Leipzig Affective Norms for German (LANG) (Kanske & Kotz, 2010)](http://doi.org/10.3758/BRM.42.4.987).
+
+
+```r
+library(readr)
+LANG <- read_csv("kanske_kotz_2010.csv", locale=locale(encoding = "latin1"))
+
+stim <- LANG %>%
+  split_by(valence_mean, 1:3.5 ~ 4.75:5.25 ~ 6.5:9) %>%
+  control_for(number_of_letters, 0:0) %>%
+  control_for(frequency, -1:1) %>%
+  generate(20, string_col = "word")
+```
+
+Here are the first five items generated for each condition:
+
+\small
+<div class = 'table'>
+
+ item_nr  A1       A2       A3       match_null 
+--------  -------  -------  -------  -----------
+       1  hetze    blase    flirt    A2         
+       2  bombe    stamm    komik    A3         
+       3  pein     seil     kuss     A1         
+       4  ärger    stein    humor    A3         
+       5  terror   lehrer   gefühl   A1         
+
+</div>
+\normalsize
+
+<br>
+<div class="info">
+<p>Note that if you’re using your own dataframe, you’ll have to specify which column contains the strings with the <code>string_col</code> argument of the <code>generate()</code> function (above, <code>string_col = "word"</code>).</p>
+<p>Custom variables can be neatly integrated with the inbuilt LexOPS dataset (or vice versa) with the <a href="https://dplyr.tidyverse.org/reference/join.html">dplyr join functions</a>. This is how custom variables are used in the Shiny app. See <a href="lexops-shiny-app.html#custom-variables">this section</a> for a example using custom variables in the shiny app.</p>
+</div>
+<br>
