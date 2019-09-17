@@ -1,16 +1,6 @@
 
 # FAQ
 
-### How should I cite LexOPS? {-}
-
-If you use LexOPS to generate your stimuli, please cite it! Make sure you also cite the sources for any datasets you use, regardless of whether they are included the LexOPS in-built dataset.
-
-Here is how to cite LexOPS:
-
-<div class="cite">
-<p>Taylor, J. E., Beith, A., &amp; Sereno, S. C. (2019, September 17). LexOPS: An R Package and User Interface for the Controlled Generation of Word Stimuli. <a href="https://doi.org/10.31234/osf.io/7sudw" class="uri">https://doi.org/10.31234/osf.io/7sudw</a></p>
-</div>
-
 ### What is a "match null"? {-}
 
 The "match null" is a term used in the [generate pipeline](the-generate-pipeline.html), specified as the `match_null` argument in the `generate()` function. Whenever you control for variables in the generate pipeline, items are always matched relative to one of the specified conditions. The condition that items are matched relative to is referred to as the match null.
@@ -22,3 +12,4 @@ Since `match_null = "balanced"` works by dividing `n` by the number of condition
 It is also possible to use a specific condition as the match null for each item. If you want to use condition A1_B2 as your null for instance, you can do this by specifying `match_null = "A1_B2"`.
 
 The match null used for each generated item is stored in the wide and long formats of the output from the generate pipeline, as the variable `match_null`.
+
