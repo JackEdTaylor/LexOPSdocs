@@ -55,7 +55,7 @@ div.color-theme-2 .book-body .page-wrapper .page-inner section.normal strong cod
 
 /* set styles for alert boxes */
 
-.danger, .warning, .info , .alert, .try, .quote {
+.danger, .warning, .info , .alert, .try, .cite {
   padding: 1em 1em 0.25em 3.5em;
   margin-bottom: 10px;
   background-color: hsla(0, 0%, 100%, .1);
@@ -90,10 +90,10 @@ div.color-theme-2 .book-body .page-wrapper .page-inner section.normal strong cod
   background-position: 0.5em -.25em;
 }
 
-.quote {
-  background-image: url("../images/alerts/quote.svg");
-  background-size: 30px;
-  background-color: hsla(49, 87%, 70%, .1);
+.cite {
+  padding-left: 22px ;
+  text-indent: -22px ;
+  background-color: hsla(0, 0%, 98%, 1);
   border: 1px solid var(--yellow);
 }
 

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1 Introduction | LexOPS Walkthrough</title>
+  <title>Useful Links | LexOPS Walkthrough</title>
   <meta name="description" content="An introduction to the LexOPS package and how to use it." />
   <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1 Introduction | LexOPS Walkthrough" />
+  <meta property="og:title" content="Useful Links | LexOPS Walkthrough" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1 Introduction | LexOPS Walkthrough" />
+  <meta name="twitter:title" content="Useful Links | LexOPS Walkthrough" />
   
   <meta name="twitter:description" content="An introduction to the LexOPS package and how to use it." />
   
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="index.html">
-<link rel="next" href="the-generate-pipeline.html">
+<link rel="next" href="introduction.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -128,9 +128,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><b><a href="index.html">LexOPS Walkthrough</a></b></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a><ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#useful-links"><i class="fa fa-check"></i>Useful Links</a></li>
-</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="chapter" data-level="" data-path="useful-links.html"><a href="useful-links.html"><i class="fa fa-check"></i>Useful Links</a></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#what-is-lexops"><i class="fa fa-check"></i><b>1.1</b> What is LexOPS?</a></li>
 <li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#installation"><i class="fa fa-check"></i><b>1.2</b> Installation</a><ul>
@@ -185,7 +184,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.6" data-path="lexops-shiny-app.html"><a href="lexops-shiny-app.html#random-seeds-1"><i class="fa fa-check"></i><b>5.6</b> Random Seeds</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="faq.html"><a href="faq.html"><i class="fa fa-check"></i><b>6</b> FAQ</a><ul>
-<li class="chapter" data-level="" data-path="faq.html"><a href="faq.html#how-should-i-cite-lexops"><i class="fa fa-check"></i>How should I cite LexOPS?</a></li>
 <li class="chapter" data-level="" data-path="faq.html"><a href="faq.html#what-is-a-match-null"><i class="fa fa-check"></i>What is a “match null”?</a></li>
 </ul></li>
 <li class="divider"></li>
@@ -208,61 +206,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="introduction" class="section level1">
-<h1><span class="header-section-number">1</span> Introduction</h1>
-<div id="what-is-lexops" class="section level2">
-<h2><span class="header-section-number">1.1</span> What is LexOPS?</h2>
-<p>LexOPS is an R package and shiny app for generating word stimuli that can be used in Psychology experiments. The package is designed to be as intuitive as possible, and is similar in style to the <a href="https://www.tidyverse.org/">tidyverse</a>. The shiny app is designed to be especially intuitive, and requires minimal knowledge of R to use.</p>
-<p>Here are 3 main advantages of using LexOPS to generate your word stimuli:</p>
-<ol style="list-style-type: decimal">
-<li><p><strong>Speed</strong>: It’s just much (much much) faster than creating well-controlled stimuli manually.</p></li>
-<li><p><strong>Reproducibility</strong>: if a random seed is set, LexOPS pipelines will generate the same stimuli each time the code is run. This means you can openly share the code that generated your stimuli, and anyone can reproduce your result.</p></li>
-<li><p><strong>Replicability</strong>: if no random seed is set, LexOPS pipelines will generate different stimuli each time the code is run. This means if you share your code, anyone can generate a novel set of stimuli for the same experimental design, that can be used to try and replicate any experimental result.</p></li>
-</ol>
-<p>The package began as a series of R scripts, written to automate tasks I found myself repeating again and again when designing experiments. I decided to make it into a fully-fledged package because despite the huge range of freely available lists of word norms and features, there were no task-general solutions for using such lists to generate word stimuli.</p>
-</div>
-<div id="installation" class="section level2">
-<h2><span class="header-section-number">1.2</span> Installation</h2>
-<div id="installing-r" class="section level3 unnumbered">
-<h3>Installing R</h3>
-<p>You can find the latest version of R here: <a href="https://cloud.r-project.org/">https://cloud.r-project.org/</a>.</p>
-</div>
-<div id="installing-rstudio" class="section level3 unnumbered">
-<h3>Installing RStudio</h3>
-<p>RStudio is a free integrated development environment for working with R. Get the latest version of RStudio here: <a href="https://www.rstudio.com/products/rstudio/">https://www.rstudio.com/products/rstudio/</a>.</p>
-</div>
-<div id="installing-lexops" class="section level3 unnumbered">
-<h3>Installing LexOPS</h3>
-<p>The latest version of LexOPS can be installed in R with the following code:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">&quot;devtools&quot;</span>)) <span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)</a>
-<a class="sourceLine" id="cb1-2" title="2">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;JackEdTaylor/LexOPS@*release&quot;</span>)</a></code></pre></div>
-</div>
-</div>
-<div id="the-shiny-app" class="section level2">
-<h2><span class="header-section-number">1.3</span> The Shiny App</h2>
-<p>LexOPS features an intuitive graphical user interface, in the form of a shiny app (for more on shiny apps, see <a href="https://shiny.rstudio.com/">https://shiny.rstudio.com/</a>). This features useful visualisations of data and selected options, and may be more friendly to users less familiar with R.</p>
-<p>Once LexOPS is installed, the shiny app can be run with:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">LexOPS<span class="op">::</span><span class="kw">run_shiny</span>()</a></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-4"></span>
-<img src="images/shiny-preview.png" alt="The Generate tab of the LexOPS Shiny App" width="75%" height="75%" />
-<p class="caption">
-Figure 1.1: The Generate tab of the LexOPS Shiny App
-</p>
-</div>
-<div class="info">
-<p>
-The shiny app is also available as a web app online, at <a href="https://jackt.shinyapps.io/lexops/">https://jackt.shinyapps.io/lexops/</a>, but it is usually more reliable to run it locally with the <code>run_shiny()</code> function.
-</p>
-</div>
-</div>
-<div id="the-lexops-dataset" class="section level2">
-<h2><span class="header-section-number">1.4</span> The LexOPS Dataset</h2>
-<p>LexOPS has a built-in dataset of English word features, which can be called with:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">LexOPS<span class="op">::</span>lexops</a></code></pre></div>
-<p>For details on the variables included, see <a href="https://rdrr.io/github/JackEdTaylor/LexOPS/man/lexops.html">https://rdrr.io/github/JackEdTaylor/LexOPS/man/lexops.html</a>.</p>
-<p>Note that in addition to citing LexOPS, the sources for any materials you use must also be explicitly cited, regardless of whether they are included in the built-in dataset.</p>
+<div id="useful-links" class="section level1 unnumbered">
+<h1>Useful Links</h1>
+<ul>
+<li><a href="https://github.com/JackEdTaylor/LexOPS" target="blank"><i class="fa fa-scroll"></i></a> Preprint about LexOPS: <a href="https://psyarxiv.com/7sudw" class="uri">https://psyarxiv.com/7sudw</a></li>
+<li><a href="https://github.com/JackEdTaylor/LexOPS" target="blank"><i class="fa fa-github"></i></a> GitHub Repository: <a href="https://github.com/JackEdTaylor/LexOPS" class="uri">https://github.com/JackEdTaylor/LexOPS</a></li>
+</ul>
 
-</div>
 </div>
             </section>
 
@@ -270,7 +220,7 @@ The shiny app is also available as a web app online, at <a href="https://jackt.s
         </div>
       </div>
 <a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="the-generate-pipeline.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="introduction.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
