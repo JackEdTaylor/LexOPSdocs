@@ -34,7 +34,7 @@ For this, we might decide we want a stimulus set with the following features:
 
 * **Two levels of Concreteness** (abstract and concrete words) according to Brysbaert, Warriner and Kuperman (2014).
 
-* **Two levels of Bigram Probability** (high and low probability) based on SUBTLEX-UK (van Heuven, Mandera, Keuleers, & Brysbaert, 2014).
+* **Two levels of Bigram Probability** (low and high probability) based on SUBTLEX-UK (van Heuven, Mandera, Keuleers, & Brysbaert, 2014).
   
 * **Controlled for word length** (number of characters) exactly.
 
@@ -63,7 +63,7 @@ stim <- lexops %>%
 <p>Important notes on LexOPS (non-standard) syntax:</p>
 <ul>
 <li><p>As in the tidyverse, variables in the dataframe can be referenced outside of quotation marks.</p></li>
-<li><p>The <code>:</code> character is used in <code>split_by()</code> to specify numeric boundaries (e.g. <code>0.009:0.013</code> means any number from 0.009 to 0.013 is acceptable for this level of the variable), and in and <code>control_for()</code> to specify tolerances (e.g. <code>-0.2:0.2</code> means controls will be acceptable if within ±0.2 of the match null).</p></li>
+<li><p>The <code>:</code> character is used in <code>split_by()</code> to specify numeric boundaries (e.g. <code>0.009:0.013</code> means any number from 0.009 to 0.013 is acceptable for this level of the variable), and in <code>control_for()</code> to specify tolerances (e.g. <code>-0.2:0.2</code> means controls will be acceptable if within ±0.2 of the match null).</p></li>
 <li><p>The <code>~</code> character is used in <code>split_by()</code> to specify different levels of an independent variable (e.g. <code>1.5:2.5 ~ 3.5:4.5 ~ 5.5:6.5</code> would specify three levels).</p></li>
 </ul>
 </div>
@@ -97,7 +97,7 @@ We can see that we have 4 conditions:
 * **A2_B2** (concrete, high probability)
 
 <br>
-Each row of the dataframe is controlled for in terms of frequency and length. The `match_null` variable tells us which condition stimuli were matched relative to. For instance, we can see that in row 3, items are matched relative to the word "relent". This means that all words for `item_nr` 3 are within ±0.2 Zipf of the Zipf value associated with the word "relent". By default, LexOPS will select the match_null for each item pseudo-randomly, such that each condition will be used as a match null an equal number of times, or as close to this ideal as is possible (e.g. the number of items requested may not be divisible by the number of conditions). See [this FAQ section](faq.html#what-is-a-match-null) for more information on match nulls.
+Each row of the dataframe is controlled for in terms of frequency and length. The `match_null` variable tells us which condition stimuli were matched relative to. For instance, we can see that in row 3, items are matched relative to the word "relent". This means that all words for `item_nr` 3 are within ±0.2 Zipf of the Zipf value associated with the word "relent". By default, LexOPS will select the match_null for each item pseudo-randomly, such that each condition will be used as a match null an equal number of times (`match_null = "balanced"`), or as close to this ideal as is possible (e.g. the number of items requested may not be divisible by the number of conditions). See [this FAQ section](faq.html#what-is-a-match-null) for more information on match nulls.
 
 ## Converting to Long Format
 
@@ -143,7 +143,7 @@ Here we can see that indeed, the different conditions are within the boundaries 
 
 ## Plotting the Design
 
-While having data in long format is undoubtably useful, it's not very efficient if you want to check what your stimuli look like in a quick glance (especially if your stimuli number in the thousands). What you probably want to do is plot the long format data to see how your stimuli differ between conditions and across matched items. Thankfully, LexOPS has a handy function to do exactly that:
+While having data in long format is undoubtably useful, it's not very efficient if you want to check what your stimuli look like in a quick glance (especially if your stimuli number in the thousands). What you probably want to do is create a plot to see how your stimuli differ between conditions and across matched items. Thankfully, LexOPS has a handy function to do exactly that:
 
 
 ```r
@@ -172,17 +172,17 @@ possible_stim <- LexOPS::lexops %>%
   generate(n = "all", match_null = "random")
 ```
 
-This is much slower, as LexOPS will continue trying to generate combinations of words that fit the specified characteristics until it has exhausted all the possibilities. Nevertheless, we actually generated 102 words generated per condition. This number is likely to change slightly each time we run the pipeline, as different combinations are randomly made from all the possible combinations. That said, it *is* a fairly good indication of the number of possible stimuli we could generate.
+This is much slower, as LexOPS will continue trying to generate combinations of words that fit the specified characteristics until it has exhausted all the possibilities. Nevertheless, we actually generated 102 words generated per condition with the code above. This number is likely to change slightly each time we run the pipeline, as different combinations are randomly made from all the possible combinations. That said, it is a fairly good *indication* of the number of possible stimuli we could generate.
 
-The 102 words we've managed to generate per condition here is quite a bit higher than the 25 we originally generated. Does this mean we should just request a larger stimulus list, such as `n = 80`? Well, it depends. If we want as many stimuli as are possible, then it may make sense to just set `n = "all"`, but often we only want to use as many stimuli as we need to find our effect. Also, if we use as many combinations as possible, experimenters who want to replicate our effect using a different set of stimuli will likely have fewer novel combinations available to them.
+The 102 words we've managed to generate per condition here is quite a bit higher than the 25 we originally generated. Does this mean we should just request a larger stimulus list, such as `n = 80`, or even `n = 100`? Well, it depends. If we want as many stimuli as are possible, then it may make sense to just set `n = "all"`, but often we only want to use as many stimuli as we need to find our effect. Also, if we use as many combinations as possible, experimenters who want to replicate our effect using a different set of stimuli will likely have fewer novel combinations available to them.
 
 <div class="danger">
-<p>Note that when <code>n = "all"</code>, the default <code>match_null = "balanced"</code> is not recommended, as LexOPS will not know how many iterations will successfully generate items before the <code>generate()</code> function is actually run. LexOPS will give a warning if <code>n = "all"</code> and <code>match_null = "balanced"</code>, because the conditions selected as the match null will not actually be balanced in the generated stimuli.</p>
+<p>Note that when <code>n = "all"</code>, you will get a warning if you also keep the default match null setting, <code>match_null = "balanced"</code>. The reason for this is explained in <a href="faq.html#what-is-a-match-null">this FAQ section</a>.</p>
 </div>
 
 ## Plotting Iterations
 
-It is also possible to check how well LexOPS performed when generating stimuli by plotting the cumulative item generation by iterations. To do this, we can use the `plot_iterations()` function. As an example, let's see how well we generated the stimuli in the last section.
+It is also possible to check how well LexOPS performed when generating stimuli by plotting the cumulative item generation by iterations. To do this, we can use the `plot_iterations()` function. As an example, let's see how well we generated as many stimuli as we could in the last section.
 
 
 ```r
@@ -230,7 +230,7 @@ Here are the first five items generated for each condition:
 
 <br>
 <div class="info">
-<p>Note that if you’re using your own dataframe, you’ll have to specify which column contains the strings with the <code>string_col</code> argument of the <code>generate()</code> function (above, <code>string_col = "word"</code>).</p>
+<p>Note that if you’re using your own dataframe, you’ll have to specify which column contains the strings with the <code>string_col</code> argument of the <code>generate()</code> function (above, <code>string_col = "word"</code>), or else rename the column to be “string”.</p>
 <p>Custom variables can be neatly integrated with the inbuilt LexOPS dataset (or vice versa) with the <a href="https://dplyr.tidyverse.org/reference/join.html">dplyr join functions</a>. This is how custom variables are used in the Shiny app. See <a href="lexops-shiny-app.html#custom-variables">this section</a> for a example using custom variables in the shiny app.</p>
 </div>
 <br>

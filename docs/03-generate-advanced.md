@@ -39,11 +39,11 @@ These stimuli could then be used in combination with a counter-balanced design, 
 
 ## Map Functions as Controls
 
-Imagine you want to generate a list of stimuli, controlling for a value of similarity to the match null. This would be very difficult using the `control_for()` function. The problem is that the similarity value would need to be calculated multiple times, relative each word currently being used as a match null. The `control_for_map()` function tells LexOPS to recalculate the value to use as a control on each iteration of the `generate()` function, relative to a value associated with the string currently selected as a match null.
+Imagine you want to generate a list of stimuli, controlling for a value of similarity to the match null. This would be very difficult using the `control_for()` function. The problem is that the similarity values would need to be calculated *n* times, relative each word currently being used as a match null. The `control_for_map()` function tells LexOPS to recalculate the value to use as a control on each iteration of the `generate()` function, relative to a value associated with the string currently selected as a match null.
 
 ### Orthographic Similarity
 
-Here is an example, using `control_for_map()` to match by orthographic Levenshtein distance from the match null (calculated using the `vwr` package). This means that each string will be a distance of between 0 and 3 character insertions, deletions or replacements from the word used as the match null.
+Here is an example, using `control_for_map()` to control for orthographic Levenshtein distance from the match null (calculated using the `vwr` package). This means that each string will be a distance of between 0 and 3 character insertions, deletions or replacements from the word used as the match null.
 
 
 ```r
@@ -70,6 +70,12 @@ Here are the first 5 items of each condition that we generated. Note that we hav
 
 </div>
 \normalsize
+
+<br>
+<div class="info">
+<p>The name argument (<code>name = ...</code>) of the <code>control_for_map()</code> function will simply specify the name of the column that the calculated values should be stored as when the stimuli are in long format (from the code above, <code>long_format(stim)</code> will contain a column called “Orth_Dist”, containing the orthographic distances from the match null).</p>
+</div>
+<br>
 
 ### Phonological Similarity
 
@@ -107,6 +113,8 @@ Here are the first 5 items of each condition that we generated. This time, all m
 I originally wrote this function so I could match by similarity measures, but it can be used to control for any variable that needs to be calculated relative to the match null. The `fun` argument of `control_for_map()` should be a function that takes the data in the column contained in `var` as its first argument, and can take the match null's value for `var` as the second argument, to return a vector of values for each entry. In addition, `tol` can be specified as it is in `control_for()`, as either a numeric tolerance, or categorical tolerance if the function outputs character vectors. The `name` argument should just be a character vector to name the column in the long format of the generated stimuli.
 
 See the package documentation (`?control_for_map`) for more details. If you're wanting to write a function to use in `control_for_map()`, it may be a good idea to look at [how the vwr functions work](https://cran.r-project.org/web/packages/vwr/vwr.pdf) for comparison, as it was written with these in mind.
+
+If you're wanting to use `control_for_map()` on your own function or data, the following example might be useful, which shows one solution for controlling for semantic relatedness: https://github.com/JackEdTaylor/LexOPS_sem_cont_example/blob/master/semantic_demo.R
 
 ## Random Seeds
 

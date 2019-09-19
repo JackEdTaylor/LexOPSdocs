@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3 Advanced Stimulus Generation | LexOPS Walkthrough</title>
   <meta name="description" content="An introduction to the LexOPS package and how to use it." />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3 Advanced Stimulus Generation | LexOPS Walkthrough" />
   <meta property="og:type" content="book" />
@@ -24,15 +24,15 @@
 <meta name="author" content="Jack Taylor" />
 
 
-<meta name="date" content="2019-09-17" />
+<meta name="date" content="2019-09-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="the-generate-pipeline.html">
-<link rel="next" href="matching-individual-words.html">
+<link rel="prev" href="the-generate-pipeline.html"/>
+<link rel="next" href="matching-individual-words.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -283,10 +283,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="map-functions-as-controls" class="section level2">
 <h2><span class="header-section-number">3.2</span> Map Functions as Controls</h2>
-<p>Imagine you want to generate a list of stimuli, controlling for a value of similarity to the match null. This would be very difficult using the <code>control_for()</code> function. The problem is that the similarity value would need to be calculated multiple times, relative each word currently being used as a match null. The <code>control_for_map()</code> function tells LexOPS to recalculate the value to use as a control on each iteration of the <code>generate()</code> function, relative to a value associated with the string currently selected as a match null.</p>
+<p>Imagine you want to generate a list of stimuli, controlling for a value of similarity to the match null. This would be very difficult using the <code>control_for()</code> function. The problem is that the similarity values would need to be calculated <em>n</em> times, relative each word currently being used as a match null. The <code>control_for_map()</code> function tells LexOPS to recalculate the value to use as a control on each iteration of the <code>generate()</code> function, relative to a value associated with the string currently selected as a match null.</p>
 <div id="orthographic-similarity" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> Orthographic Similarity</h3>
-<p>Here is an example, using <code>control_for_map()</code> to match by orthographic Levenshtein distance from the match null (calculated using the <code>vwr</code> package). This means that each string will be a distance of between 0 and 3 character insertions, deletions or replacements from the word used as the match null.</p>
+<p>Here is an example, using <code>control_for_map()</code> to control for orthographic Levenshtein distance from the match null (calculated using the <code>vwr</code> package). This means that each string will be a distance of between 0 and 3 character insertions, deletions or replacements from the word used as the match null.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">library</span>(vwr)</a>
 <a class="sourceLine" id="cb11-2" title="2"></a>
 <a class="sourceLine" id="cb11-3" title="3">stim &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
@@ -346,6 +346,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 </div>
 
+<br>
+<div class="info">
+<p>
+The name argument (<code>name = …</code>) of the <code>control_for_map()</code> function will simply specify the name of the column that the calculated values should be stored as when the stimuli are in long format (from the code above, <code>long_format(stim)</code> will contain a column called “Orth_Dist”, containing the orthographic distances from the match null).
+</p>
+</div>
+<p><br></p>
 </div>
 <div id="phonological-similarity" class="section level3">
 <h3><span class="header-section-number">3.2.2</span> Phonological Similarity</h3>
@@ -415,6 +422,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">3.2.3</span> Other Uses</h3>
 <p>I originally wrote this function so I could match by similarity measures, but it can be used to control for any variable that needs to be calculated relative to the match null. The <code>fun</code> argument of <code>control_for_map()</code> should be a function that takes the data in the column contained in <code>var</code> as its first argument, and can take the match null’s value for <code>var</code> as the second argument, to return a vector of values for each entry. In addition, <code>tol</code> can be specified as it is in <code>control_for()</code>, as either a numeric tolerance, or categorical tolerance if the function outputs character vectors. The <code>name</code> argument should just be a character vector to name the column in the long format of the generated stimuli.</p>
 <p>See the package documentation (<code>?control_for_map</code>) for more details. If you’re wanting to write a function to use in <code>control_for_map()</code>, it may be a good idea to look at <a href="https://cran.r-project.org/web/packages/vwr/vwr.pdf">how the vwr functions work</a> for comparison, as it was written with these in mind.</p>
+<p>If you’re wanting to use <code>control_for_map()</code> on your own function or data, the following example might be useful, which shows one solution for controlling for semantic relatedness: <a href="https://github.com/JackEdTaylor/LexOPS_sem_cont_example/blob/master/semantic_demo.R" class="uri">https://github.com/JackEdTaylor/LexOPS_sem_cont_example/blob/master/semantic_demo.R</a></p>
 </div>
 </div>
 <div id="random-seeds" class="section level2">

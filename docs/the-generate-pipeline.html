@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2 The Generate Pipeline | LexOPS Walkthrough</title>
   <meta name="description" content="An introduction to the LexOPS package and how to use it." />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2 The Generate Pipeline | LexOPS Walkthrough" />
   <meta property="og:type" content="book" />
@@ -24,15 +24,15 @@
 <meta name="author" content="Jack Taylor" />
 
 
-<meta name="date" content="2019-09-17" />
+<meta name="date" content="2019-09-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="introduction.html">
-<link rel="next" href="advanced-stimulus-generation.html">
+<link rel="prev" href="introduction.html"/>
+<link rel="next" href="advanced-stimulus-generation.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -247,7 +247,7 @@ to run the algorithm and generate the stimuli, using specified splits and contro
 <ul>
 <li><p>Filtered such that <strong>at least 90% of people know each word</strong>, according to Brysbaert, Mandera, and Keuleers (2018).</p></li>
 <li><p><strong>Two levels of Concreteness</strong> (abstract and concrete words) according to Brysbaert, Warriner and Kuperman (2014).</p></li>
-<li><p><strong>Two levels of Bigram Probability</strong> (high and low probability) based on SUBTLEX-UK (van Heuven, Mandera, Keuleers, &amp; Brysbaert, 2014).</p></li>
+<li><p><strong>Two levels of Bigram Probability</strong> (low and high probability) based on SUBTLEX-UK (van Heuven, Mandera, Keuleers, &amp; Brysbaert, 2014).</p></li>
 <li><p><strong>Controlled for word length</strong> (number of characters) exactly.</p></li>
 <li><p><strong>Controlled for word frequency</strong> within ±0.2 Zipf, according to according to SUBTLEX-UK (van Heuven, Mandera, Keuleers, &amp; Brysbaert, 2014).</p></li>
 <li><p><strong>25 words for each of the generated conditions</strong> (100 stimuli in total).</p></li>
@@ -276,7 +276,7 @@ As in the tidyverse, variables in the dataframe can be referenced outside of quo
 </li>
 <li>
 <p>
-The <code>:</code> character is used in <code>split_by()</code> to specify numeric boundaries (e.g. <code>0.009:0.013</code> means any number from 0.009 to 0.013 is acceptable for this level of the variable), and in and <code>control_for()</code> to specify tolerances (e.g. <code>-0.2:0.2</code> means controls will be acceptable if within ±0.2 of the match null).
+The <code>:</code> character is used in <code>split_by()</code> to specify numeric boundaries (e.g. <code>0.009:0.013</code> means any number from 0.009 to 0.013 is acceptable for this level of the variable), and in <code>control_for()</code> to specify tolerances (e.g. <code>-0.2:0.2</code> means controls will be acceptable if within ±0.2 of the match null).
 </p>
 </li>
 <li>
@@ -356,7 +356,7 @@ We can see that we have 4 conditions:</p>
 <li><p><strong>A2_B2</strong> (concrete, high probability)</p></li>
 </ul>
 <p><br>
-Each row of the dataframe is controlled for in terms of frequency and length. The <code>match_null</code> variable tells us which condition stimuli were matched relative to. For instance, we can see that in row 3, items are matched relative to the word “relent”. This means that all words for <code>item_nr</code> 3 are within ±0.2 Zipf of the Zipf value associated with the word “relent”. By default, LexOPS will select the match_null for each item pseudo-randomly, such that each condition will be used as a match null an equal number of times, or as close to this ideal as is possible (e.g. the number of items requested may not be divisible by the number of conditions). See <a href="faq.html#what-is-a-match-null">this FAQ section</a> for more information on match nulls.</p>
+Each row of the dataframe is controlled for in terms of frequency and length. The <code>match_null</code> variable tells us which condition stimuli were matched relative to. For instance, we can see that in row 3, items are matched relative to the word “relent”. This means that all words for <code>item_nr</code> 3 are within ±0.2 Zipf of the Zipf value associated with the word “relent”. By default, LexOPS will select the match_null for each item pseudo-randomly, such that each condition will be used as a match null an equal number of times (<code>match_null = "balanced"</code>), or as close to this ideal as is possible (e.g. the number of items requested may not be divisible by the number of conditions). See <a href="faq.html#what-is-a-match-null">this FAQ section</a> for more information on match nulls.</p>
 </div>
 </div>
 <div id="converting-to-long-format" class="section level2">
@@ -588,7 +588,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 </div>
 <div id="plotting-the-design" class="section level2">
 <h2><span class="header-section-number">2.3</span> Plotting the Design</h2>
-<p>While having data in long format is undoubtably useful, it’s not very efficient if you want to check what your stimuli look like in a quick glance (especially if your stimuli number in the thousands). What you probably want to do is plot the long format data to see how your stimuli differ between conditions and across matched items. Thankfully, LexOPS has a handy function to do exactly that:</p>
+<p>While having data in long format is undoubtably useful, it’s not very efficient if you want to check what your stimuli look like in a quick glance (especially if your stimuli number in the thousands). What you probably want to do is create a plot to see how your stimuli differ between conditions and across matched items. Thankfully, LexOPS has a handy function to do exactly that:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">plot_design</span>(stim)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-11"></span>
 <img src="02-generate_files/figure-html/unnamed-chunk-11-1.png" alt="The results of the `plot_design()` function for the generated stimuli." width="100%" />
@@ -608,17 +608,17 @@ Figure 2.1: The results of the <code>plot_design()</code> function for the gener
 <a class="sourceLine" id="cb7-5" title="5"><span class="st">  </span><span class="kw">control_for</span>(Length, <span class="dv">0</span><span class="op">:</span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb7-6" title="6"><span class="st">  </span><span class="kw">control_for</span>(Zipf.SUBTLEX_UK, <span class="fl">-0.2</span><span class="op">:</span><span class="fl">0.2</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb7-7" title="7"><span class="st">  </span><span class="kw">generate</span>(<span class="dt">n =</span> <span class="st">&quot;all&quot;</span>, <span class="dt">match_null =</span> <span class="st">&quot;random&quot;</span>)</a></code></pre></div>
-<p>This is much slower, as LexOPS will continue trying to generate combinations of words that fit the specified characteristics until it has exhausted all the possibilities. Nevertheless, we actually generated 102 words generated per condition. This number is likely to change slightly each time we run the pipeline, as different combinations are randomly made from all the possible combinations. That said, it <em>is</em> a fairly good indication of the number of possible stimuli we could generate.</p>
-<p>The 102 words we’ve managed to generate per condition here is quite a bit higher than the 25 we originally generated. Does this mean we should just request a larger stimulus list, such as <code>n = 80</code>? Well, it depends. If we want as many stimuli as are possible, then it may make sense to just set <code>n = "all"</code>, but often we only want to use as many stimuli as we need to find our effect. Also, if we use as many combinations as possible, experimenters who want to replicate our effect using a different set of stimuli will likely have fewer novel combinations available to them.</p>
+<p>This is much slower, as LexOPS will continue trying to generate combinations of words that fit the specified characteristics until it has exhausted all the possibilities. Nevertheless, we actually generated 102 words generated per condition with the code above. This number is likely to change slightly each time we run the pipeline, as different combinations are randomly made from all the possible combinations. That said, it is a fairly good <em>indication</em> of the number of possible stimuli we could generate.</p>
+<p>The 102 words we’ve managed to generate per condition here is quite a bit higher than the 25 we originally generated. Does this mean we should just request a larger stimulus list, such as <code>n = 80</code>, or even <code>n = 100</code>? Well, it depends. If we want as many stimuli as are possible, then it may make sense to just set <code>n = "all"</code>, but often we only want to use as many stimuli as we need to find our effect. Also, if we use as many combinations as possible, experimenters who want to replicate our effect using a different set of stimuli will likely have fewer novel combinations available to them.</p>
 <div class="danger">
 <p>
-Note that when <code>n = “all”</code>, the default <code>match_null = “balanced”</code> is not recommended, as LexOPS will not know how many iterations will successfully generate items before the <code>generate()</code> function is actually run. LexOPS will give a warning if <code>n = “all”</code> and <code>match_null = “balanced”</code>, because the conditions selected as the match null will not actually be balanced in the generated stimuli.
+Note that when <code>n = “all”</code>, you will get a warning if you also keep the default match null setting, <code>match_null = “balanced”</code>. The reason for this is explained in <a href="faq.html#what-is-a-match-null">this FAQ section</a>.
 </p>
 </div>
 </div>
 <div id="plotting-iterations" class="section level2">
 <h2><span class="header-section-number">2.5</span> Plotting Iterations</h2>
-<p>It is also possible to check how well LexOPS performed when generating stimuli by plotting the cumulative item generation by iterations. To do this, we can use the <code>plot_iterations()</code> function. As an example, let’s see how well we generated the stimuli in the last section.</p>
+<p>It is also possible to check how well LexOPS performed when generating stimuli by plotting the cumulative item generation by iterations. To do this, we can use the <code>plot_iterations()</code> function. As an example, let’s see how well we generated as many stimuli as we could in the last section.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">plot_iterations</span>(possible_stim)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-14"></span>
 <img src="02-generate_files/figure-html/unnamed-chunk-14-1.png" alt="The cumulative number of items generated per iteration." width="100%" />
@@ -695,7 +695,7 @@ Figure 2.2: The cumulative number of items generated per iteration.
 <br>
 <div class="info">
 <p>
-Note that if you’re using your own dataframe, you’ll have to specify which column contains the strings with the <code>string_col</code> argument of the <code>generate()</code> function (above, <code>string_col = “word”</code>).
+Note that if you’re using your own dataframe, you’ll have to specify which column contains the strings with the <code>string_col</code> argument of the <code>generate()</code> function (above, <code>string_col = “word”</code>), or else rename the column to be “string”.
 </p>
 <p>
 Custom variables can be neatly integrated with the inbuilt LexOPS dataset (or vice versa) with the <a href="https://dplyr.tidyverse.org/reference/join.html">dplyr join functions</a>. This is how custom variables are used in the Shiny app. See <a href="lexops-shiny-app.html#custom-variables">this section</a> for a example using custom variables in the shiny app.
