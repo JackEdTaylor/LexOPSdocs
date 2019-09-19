@@ -182,7 +182,7 @@ The 102 words we've managed to generate per condition here is quite a bit higher
 
 ## Plotting Iterations
 
-It is also possible to check how well LexOPS performed when generating stimuli by plotting the cumulative item generation by iterations. To do this, we can use the `plot_iterations()` function. As an example, let's the algorithm's iterations when we generated as many stimuli as we could in the last section.
+It is also possible to check how well LexOPS performed when generating stimuli by plotting the cumulative item generation by iterations. To do this, we can use the `plot_iterations()` function. As an example, let's visualise the algorithm's iterations when we generated as many stimuli as we could in the last section.
 
 
 ```r
