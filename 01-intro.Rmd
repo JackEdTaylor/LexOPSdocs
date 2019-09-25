@@ -48,7 +48,7 @@ knitr::include_graphics(path="./images/shiny-preview.png")
 ```
 
 ```{block, type="info"}
-The shiny app is also available as a web app online, at [https://jackt.shinyapps.io/lexops/](https://jackt.shinyapps.io/lexops/), but it is usually more reliable to run it locally with the `run_shiny()` function.
+A demo version of the shiny app is also available as a web app online, at [https://jackt.shinyapps.io/lexops/](https://jackt.shinyapps.io/lexops/), but it is much faster and more reliable to run it locally with the `run_shiny()` function.
 ```
 
 ## The LexOPS Dataset
