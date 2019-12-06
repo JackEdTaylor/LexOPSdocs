@@ -2,8 +2,6 @@
 
 While the generate pipeline is usually sufficient, it's sometimes important to tailor stimuli more precisely. For instance, it may be important that a matched word is a plausible replacement for a target word in a sentence. The `match_word()` function exists for this purpose.
 
-This function is currently more cumbersome to use than the generate pipeline, but might be updated to use similar tidyverse-style syntax in the future.
-
 ## Example
 
 Here's an example usage of `match_word`, to suggest a word matched for "elephant" in terms of:
@@ -18,13 +16,11 @@ library(LexOPS)
 
 suggested_matches <- lexops %>%
   match_word(
-    target = "elephant",
-    list(
-      "Length",
-      c("Zipf.SUBTLEX_UK", -0.25, 0.25),
-      c("IMAG.Glasgow_Norms", -1, 1),
-      "PoS.SUBTLEX_UK"
-    )
+    "elephant",
+    Length,
+    Zipf.SUBTLEX_UK = -0.25:0.25,
+    IMAG.Glasgow_Norms = -1:1,
+    PoS.SUBTLEX_UK
   )
 ```
 
@@ -33,13 +29,11 @@ library(LexOPS)
 
 suggested_matches <- lexops %>%
   match_word(
-    target = "elephant",
-    list(
-      "Length",
-      c("Zipf.SUBTLEX_UK", -0.25, 0.25),
-      c("IMAG.Glasgow_Norms", -1, 1),
-      "PoS.SUBTLEX_UK"
-    )
+    "elephant",
+    Length,
+    Zipf.SUBTLEX_UK = -0.25:0.25,
+    IMAG.Glasgow_Norms = -1:1,
+    PoS.SUBTLEX_UK
   ) %>%
   dplyr::select(string, euclidean_distance, Length, Zipf.SUBTLEX_UK, IMAG.Glasgow_Norms, PoS.SUBTLEX_UK)
 ```
@@ -68,12 +62,7 @@ target_word <- "interesting"
 
 suggested_matches <- lexops %>%
   mutate(orth_sim = as.numeric(levenshtein.distance(string, target_word))) %>%
-  match_word(
-    target = target_word,
-    list(
-      c("orth_sim", 0, 3)
-    )
-  )
+  match_word(target = target_word, orth_sim = 0:3)
 ```
 
 Note that some of these are misspellings or unusual words, but we could remove these by filtering (e.g. with `dplyr::filter()`) or matching (with `match_word()`) by frequency, proportion known, or familiarity ratings.
@@ -104,12 +93,7 @@ target_word_pron <- lexops %>%
 # find phonologically similar words
 suggested_matches <- lexops %>%
   mutate(phon_sim = as.numeric(levenshtein.distance(CMU.1letter, target_word_pron))) %>%
-  match_word(
-    target = target_word,
-    list(
-      c("phon_sim", 0, 2)
-    )
-  )
+  match_word(target_word, phon_sim = 0:2)
 ```
 
 Which gives us:
