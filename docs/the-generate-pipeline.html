@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2 The Generate Pipeline | LexOPS Walkthrough</title>
   <meta name="description" content="An introduction to the LexOPS package and how to use it." />
-  <meta name="generator" content="bookdown 0.15 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2 The Generate Pipeline | LexOPS Walkthrough" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Jack Taylor" />
 
 
-<meta name="date" content="2019-11-15" />
+<meta name="date" content="2019-12-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -248,7 +248,7 @@ to run the algorithm and generate the stimuli, using specified splits and contro
 <p>Imagine we want to generate stimuli for a 2x2 factorial design in a Lexical Decision Task, examining whether a possible effect of bigram probability interacts with concreteness.</p>
 <p>For this, we might decide we want a stimulus set with the following features:</p>
 <ul>
-<li><p>Filtered such that <strong>at least 90% of people know each word</strong>, according to Brysbaert, Mandera, and Keuleers (2018).</p></li>
+<li><p>Filtered such that <strong>at least 90% of people know each word</strong>, according to Brysbaert, Mandera, McCormick, and Keuleers (2019).</p></li>
 <li><p><strong>Two levels of Concreteness</strong> (abstract and concrete words) according to Brysbaert, Warriner and Kuperman (2014).</p></li>
 <li><p><strong>Two levels of Bigram Probability</strong> (low and high probability) based on SUBTLEX-UK (van Heuven, Mandera, Keuleers, &amp; Brysbaert, 2014).</p></li>
 <li><p><strong>Controlled for word length</strong> (number of characters) exactly.</p></li>
@@ -317,34 +317,34 @@ The <code>~</code> character is used in <code>split_by()</code> to specify diffe
 </tr>
 <tr class="even">
 <td align="right">2</td>
-<td align="left">acceptably</td>
-<td align="left">beseeching</td>
+<td align="left">unspecific</td>
+<td align="left">sinisterly</td>
 <td align="left">typescript</td>
-<td align="left">fourteenth</td>
+<td align="left">storefront</td>
 <td align="left">A1_B2</td>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
-<td align="left">snobby</td>
-<td align="left">relent</td>
-<td align="left">duffel</td>
-<td align="left">shelve</td>
+<td align="left">broadly</td>
+<td align="left">reliant</td>
+<td align="left">giraffe</td>
+<td align="left">coroner</td>
 <td align="left">A1_B2</td>
 </tr>
 <tr class="even">
 <td align="right">4</td>
-<td align="left">subtlety</td>
-<td align="left">riveting</td>
-<td align="left">bagpipes</td>
-<td align="left">headless</td>
+<td align="left">deftly</td>
+<td align="left">pathos</td>
+<td align="left">smooch</td>
+<td align="left">sandal</td>
 <td align="left">A2_B2</td>
 </tr>
 <tr class="odd">
 <td align="right">5</td>
-<td align="left">adequacy</td>
-<td align="left">endeared</td>
-<td align="left">typeface</td>
-<td align="left">whiteout</td>
+<td align="left">ultra</td>
+<td align="left">revel</td>
+<td align="left">pluck</td>
+<td align="left">minty</td>
 <td align="left">A2_B2</td>
 </tr>
 </tbody>
@@ -427,21 +427,21 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <td align="right">2</td>
 <td align="left">A1_B1</td>
 <td align="left">A1_B2</td>
-<td align="left">acceptably</td>
+<td align="left">unspecific</td>
 <td align="right">1.540834</td>
 <td align="right">10</td>
-<td align="right">0.0026093</td>
-<td align="right">1.48</td>
+<td align="right">0.0029410</td>
+<td align="right">1.41</td>
 </tr>
 <tr class="even">
 <td align="right">2</td>
 <td align="left">A1_B2</td>
 <td align="left">A1_B2</td>
-<td align="left">beseeching</td>
+<td align="left">sinisterly</td>
 <td align="right">1.473887</td>
 <td align="right">10</td>
-<td align="right">0.0095482</td>
-<td align="right">1.88</td>
+<td align="right">0.0098809</td>
+<td align="right">1.75</td>
 </tr>
 <tr class="odd">
 <td align="right">2</td>
@@ -457,131 +457,131 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <td align="right">2</td>
 <td align="left">A2_B2</td>
 <td align="left">A1_B2</td>
-<td align="left">fourteenth</td>
-<td align="right">1.540834</td>
+<td align="left">storefront</td>
+<td align="right">1.473887</td>
 <td align="right">10</td>
-<td align="right">0.0120087</td>
-<td align="right">4.21</td>
+<td align="right">0.0096897</td>
+<td align="right">4.00</td>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
 <td align="left">A1_B1</td>
 <td align="left">A1_B2</td>
-<td align="left">snobby</td>
-<td align="right">2.564967</td>
-<td align="right">6</td>
-<td align="right">0.0017474</td>
-<td align="right">1.81</td>
+<td align="left">broadly</td>
+<td align="right">3.648528</td>
+<td align="right">7</td>
+<td align="right">0.0028142</td>
+<td align="right">1.68</td>
 </tr>
 <tr class="even">
 <td align="right">3</td>
 <td align="left">A1_B2</td>
 <td align="left">A1_B2</td>
-<td align="left">relent</td>
-<td align="right">2.376977</td>
+<td align="left">reliant</td>
+<td align="right">3.602609</td>
+<td align="right">7</td>
+<td align="right">0.0103099</td>
+<td align="right">1.83</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">A2_B1</td>
+<td align="left">A1_B2</td>
+<td align="left">giraffe</td>
+<td align="right">3.777083</td>
+<td align="right">7</td>
+<td align="right">0.0021165</td>
+<td align="right">4.73</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="left">A2_B2</td>
+<td align="left">A1_B2</td>
+<td align="left">coroner</td>
+<td align="right">3.726335</td>
+<td align="right">7</td>
+<td align="right">0.0107999</td>
+<td align="right">4.34</td>
+</tr>
+<tr class="odd">
+<td align="right">4</td>
+<td align="left">A1_B1</td>
+<td align="left">A2_B2</td>
+<td align="left">deftly</td>
+<td align="right">2.329204</td>
 <td align="right">6</td>
-<td align="right">0.0108419</td>
+<td align="right">0.0025051</td>
+<td align="right">1.96</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">A1_B2</td>
+<td align="left">A2_B2</td>
+<td align="left">pathos</td>
+<td align="right">2.620015</td>
+<td align="right">6</td>
+<td align="right">0.0121742</td>
+<td align="right">1.48</td>
+</tr>
+<tr class="odd">
+<td align="right">4</td>
+<td align="left">A2_B1</td>
+<td align="left">A2_B2</td>
+<td align="left">smooch</td>
+<td align="right">2.263937</td>
+<td align="right">6</td>
+<td align="right">0.0028086</td>
+<td align="right">4.21</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">A2_B2</td>
+<td align="left">A2_B2</td>
+<td align="left">sandal</td>
+<td align="right">2.443924</td>
+<td align="right">6</td>
+<td align="right">0.0091593</td>
+<td align="right">4.68</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="left">A1_B1</td>
+<td align="left">A2_B2</td>
+<td align="left">ultra</td>
+<td align="right">3.572531</td>
+<td align="right">5</td>
+<td align="right">0.0029273</td>
+<td align="right">1.55</td>
+</tr>
+<tr class="even">
+<td align="right">5</td>
+<td align="left">A1_B2</td>
+<td align="left">A2_B2</td>
+<td align="left">revel</td>
+<td align="right">3.254444</td>
+<td align="right">5</td>
+<td align="right">0.0093859</td>
 <td align="right">1.69</td>
 </tr>
 <tr class="odd">
-<td align="right">3</td>
-<td align="left">A2_B1</td>
-<td align="left">A1_B2</td>
-<td align="left">duffel</td>
-<td align="right">2.318985</td>
-<td align="right">6</td>
-<td align="right">0.0020055</td>
-<td align="right">4.12</td>
-</tr>
-<tr class="even">
-<td align="right">3</td>
-<td align="left">A2_B2</td>
-<td align="left">A1_B2</td>
-<td align="left">shelve</td>
-<td align="right">2.459164</td>
-<td align="right">6</td>
-<td align="right">0.0105992</td>
-<td align="right">4.41</td>
-</tr>
-<tr class="odd">
-<td align="right">4</td>
-<td align="left">A1_B1</td>
-<td align="left">A2_B2</td>
-<td align="left">subtlety</td>
-<td align="right">2.913220</td>
-<td align="right">8</td>
-<td align="right">0.0025943</td>
-<td align="right">1.54</td>
-</tr>
-<tr class="even">
-<td align="right">4</td>
-<td align="left">A1_B2</td>
-<td align="left">A2_B2</td>
-<td align="left">riveting</td>
-<td align="right">2.941248</td>
-<td align="right">8</td>
-<td align="right">0.0097598</td>
-<td align="right">1.85</td>
-</tr>
-<tr class="odd">
-<td align="right">4</td>
-<td align="left">A2_B1</td>
-<td align="left">A2_B2</td>
-<td align="left">bagpipes</td>
-<td align="right">3.162603</td>
-<td align="right">8</td>
-<td align="right">0.0028140</td>
-<td align="right">4.93</td>
-</tr>
-<tr class="even">
-<td align="right">4</td>
-<td align="left">A2_B2</td>
-<td align="left">A2_B2</td>
-<td align="left">headless</td>
-<td align="right">3.040128</td>
-<td align="right">8</td>
-<td align="right">0.0093918</td>
-<td align="right">4.42</td>
-</tr>
-<tr class="odd">
-<td align="right">5</td>
-<td align="left">A1_B1</td>
-<td align="left">A2_B2</td>
-<td align="left">adequacy</td>
-<td align="right">2.158134</td>
-<td align="right">8</td>
-<td align="right">0.0020388</td>
-<td align="right">1.86</td>
-</tr>
-<tr class="even">
-<td align="right">5</td>
-<td align="left">A1_B2</td>
-<td align="left">A2_B2</td>
-<td align="left">endeared</td>
-<td align="right">2.348948</td>
-<td align="right">8</td>
-<td align="right">0.0107752</td>
-<td align="right">1.78</td>
-</tr>
-<tr class="odd">
 <td align="right">5</td>
 <td align="left">A2_B1</td>
 <td align="left">A2_B2</td>
-<td align="left">typeface</td>
-<td align="right">2.297796</td>
-<td align="right">8</td>
-<td align="right">0.0023554</td>
-<td align="right">4.21</td>
+<td align="left">pluck</td>
+<td align="right">3.377881</td>
+<td align="right">5</td>
+<td align="right">0.0019315</td>
+<td align="right">4.00</td>
 </tr>
 <tr class="even">
 <td align="right">5</td>
 <td align="left">A2_B2</td>
 <td align="left">A2_B2</td>
-<td align="left">whiteout</td>
-<td align="right">2.172857</td>
-<td align="right">8</td>
-<td align="right">0.0092599</td>
-<td align="right">4.28</td>
+<td align="left">minty</td>
+<td align="right">3.421647</td>
+<td align="right">5</td>
+<td align="right">0.0099473</td>
+<td align="right">4.11</td>
 </tr>
 </tbody>
 </table>
@@ -611,8 +611,8 @@ Figure 2.1: The results of the <code>plot_design()</code> function for the gener
 <a class="sourceLine" id="cb7-5" title="5"><span class="st">  </span><span class="kw">control_for</span>(Length, <span class="dv">0</span><span class="op">:</span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb7-6" title="6"><span class="st">  </span><span class="kw">control_for</span>(Zipf.SUBTLEX_UK, <span class="fl">-0.2</span><span class="op">:</span><span class="fl">0.2</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb7-7" title="7"><span class="st">  </span><span class="kw">generate</span>(<span class="dt">n =</span> <span class="st">&quot;all&quot;</span>, <span class="dt">match_null =</span> <span class="st">&quot;random&quot;</span>)</a></code></pre></div>
-<p>This is much slower, as LexOPS will continue trying to generate combinations of words that fit the specified characteristics until it has exhausted all the possibilities. Nevertheless, we actually generated 102 words generated per condition with the code above. This number is likely to change slightly each time we run the pipeline, as different combinations are randomly made from all the possible combinations. That said, it is a fairly good <em>indication</em> of the number of possible stimuli we could generate.</p>
-<p>The 102 words we’ve managed to generate per condition here is quite a bit higher than the 25 we originally generated. Does this mean we should just request a larger stimulus list, such as <code>n = 80</code>, or even <code>n = 100</code>? Well, it depends. If we want as many stimuli as are possible, then it may make sense to just set <code>n = "all"</code>, but often we only want to use as many stimuli as we need to find our effect. Also, if we use as many combinations as possible, experimenters who want to replicate our effect using a different set of stimuli will likely have fewer novel combinations available to them.</p>
+<p>This is much slower, as LexOPS will continue trying to generate combinations of words that fit the specified characteristics until it has exhausted all the possibilities. Nevertheless, we actually generated 101 words generated per condition with the code above. This number is likely to change slightly each time we run the pipeline, as different combinations are randomly made from all the possible combinations. That said, it is a fairly good <em>indication</em> of the number of possible stimuli we could generate.</p>
+<p>The 101 words we’ve managed to generate per condition here is quite a bit higher than the 25 we originally generated. Does this mean we should just request a larger stimulus list, such as <code>n = 80</code>, or even <code>n = 100</code>? Well, it depends. If we want as many stimuli as are possible, then it may make sense to just set <code>n = "all"</code>, but often we only want to use as many stimuli as we need to find our effect. Also, if we use as many combinations as possible, experimenters who want to replicate our effect using a different set of stimuli will likely have fewer novel combinations available to them.</p>
 <div class="danger">
 <p>
 Note that when <code>n = “all”</code>, you will get a warning if you also keep the default match null setting, <code>match_null = “balanced”</code>. The reason for this is explained in <a href="faq.html#what-is-a-match-null">this FAQ section</a>.
@@ -730,6 +730,7 @@ Custom variables can be neatly integrated with the inbuilt LexOPS dataset (or vi
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
+"github": false,
 "facebook": true,
 "twitter": true,
 "linkedin": false,
@@ -749,6 +750,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },

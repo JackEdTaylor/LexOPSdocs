@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4 Matching Individual Words | LexOPS Walkthrough</title>
   <meta name="description" content="An introduction to the LexOPS package and how to use it." />
-  <meta name="generator" content="bookdown 0.15 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4 Matching Individual Words | LexOPS Walkthrough" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Jack Taylor" />
 
 
-<meta name="date" content="2019-11-15" />
+<meta name="date" content="2019-12-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -215,7 +215,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="matching-individual-words" class="section level1">
 <h1><span class="header-section-number">4</span> Matching Individual Words</h1>
 <p>While the generate pipeline is usually sufficient, it’s sometimes important to tailor stimuli more precisely. For instance, it may be important that a matched word is a plausible replacement for a target word in a sentence. The <code>match_word()</code> function exists for this purpose.</p>
-<p>This function is currently more cumbersome to use than the generate pipeline, but might be updated to use similar tidyverse-style syntax in the future.</p>
 <div id="example" class="section level2">
 <h2><span class="header-section-number">4.1</span> Example</h2>
 <p>Here’s an example usage of <code>match_word</code>, to suggest a word matched for “elephant” in terms of:</p>
@@ -229,14 +228,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb15-2" title="2"></a>
 <a class="sourceLine" id="cb15-3" title="3">suggested_matches &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb15-4" title="4"><span class="st">  </span><span class="kw">match_word</span>(</a>
-<a class="sourceLine" id="cb15-5" title="5">    <span class="dt">target =</span> <span class="st">&quot;elephant&quot;</span>,</a>
-<a class="sourceLine" id="cb15-6" title="6">    <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb15-7" title="7">      <span class="st">&quot;Length&quot;</span>,</a>
-<a class="sourceLine" id="cb15-8" title="8">      <span class="kw">c</span>(<span class="st">&quot;Zipf.SUBTLEX_UK&quot;</span>, <span class="fl">-0.25</span>, <span class="fl">0.25</span>),</a>
-<a class="sourceLine" id="cb15-9" title="9">      <span class="kw">c</span>(<span class="st">&quot;IMAG.Glasgow_Norms&quot;</span>, <span class="dv">-1</span>, <span class="dv">1</span>),</a>
-<a class="sourceLine" id="cb15-10" title="10">      <span class="st">&quot;PoS.SUBTLEX_UK&quot;</span></a>
-<a class="sourceLine" id="cb15-11" title="11">    )</a>
-<a class="sourceLine" id="cb15-12" title="12">  )</a></code></pre></div>
+<a class="sourceLine" id="cb15-5" title="5">    <span class="st">&quot;elephant&quot;</span>,</a>
+<a class="sourceLine" id="cb15-6" title="6">    Length,</a>
+<a class="sourceLine" id="cb15-7" title="7">    <span class="dt">Zipf.SUBTLEX_UK =</span> <span class="fl">-0.25</span><span class="op">:</span><span class="fl">0.25</span>,</a>
+<a class="sourceLine" id="cb15-8" title="8">    <span class="dt">IMAG.Glasgow_Norms =</span> <span class="dv">-1</span><span class="op">:</span><span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb15-9" title="9">    PoS.SUBTLEX_UK</a>
+<a class="sourceLine" id="cb15-10" title="10">  )</a></code></pre></div>
 <p>The suggested matches are returned in a dataframe, filtered to be within the specified tolerances, and ordered by euclidean distance from the target word (calculated using all the numeric variables used). The closest suggested match for “elephant” is “sandwich”. If we are looking for a match to fit in a sentential context, we can choose the best suitable match from this list.</p>
 <div class="table">
 <table>
@@ -253,7 +250,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td align="left">sandwich</td>
-<td align="right">0.1277845</td>
+<td align="right">0.1277847</td>
 <td align="right">8</td>
 <td align="right">4.246820</td>
 <td align="right">6.7647</td>
@@ -261,7 +258,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="even">
 <td align="left">trousers</td>
-<td align="right">0.2015595</td>
+<td align="right">0.2015596</td>
 <td align="right">8</td>
 <td align="right">4.244371</td>
 <td align="right">6.6286</td>
@@ -269,7 +266,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td align="left">wardrobe</td>
-<td align="right">0.3254995</td>
+<td align="right">0.3255001</td>
 <td align="right">8</td>
 <td align="right">4.104315</td>
 <td align="right">6.6176</td>
@@ -277,7 +274,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="even">
 <td align="left">clothing</td>
-<td align="right">0.3302426</td>
+<td align="right">0.3302431</td>
 <td align="right">8</td>
 <td align="right">4.135068</td>
 <td align="right">6.5455</td>
@@ -293,7 +290,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="even">
 <td align="left">magazine</td>
-<td align="right">0.3522378</td>
+<td align="right">0.3522379</td>
 <td align="right">8</td>
 <td align="right">4.287246</td>
 <td align="right">6.3846</td>
@@ -301,7 +298,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td align="left">bungalow</td>
-<td align="right">0.3726767</td>
+<td align="right">0.3726770</td>
 <td align="right">8</td>
 <td align="right">4.172277</td>
 <td align="right">6.4242</td>
@@ -309,7 +306,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="even">
 <td align="left">envelope</td>
-<td align="right">0.4004120</td>
+<td align="right">0.4004126</td>
 <td align="right">8</td>
 <td align="right">4.096792</td>
 <td align="right">6.4706</td>
@@ -317,7 +314,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td align="left">festival</td>
-<td align="right">0.4979158</td>
+<td align="right">0.4979160</td>
 <td align="right">8</td>
 <td align="right">4.510449</td>
 <td align="right">6.2353</td>
@@ -325,7 +322,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="even">
 <td align="left">motorway</td>
-<td align="right">0.5312793</td>
+<td align="right">0.5312797</td>
 <td align="right">8</td>
 <td align="right">4.107187</td>
 <td align="right">6.2333</td>
@@ -333,7 +330,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td align="left">exercise</td>
-<td align="right">0.5545788</td>
+<td align="right">0.5545789</td>
 <td align="right">8</td>
 <td align="right">4.449319</td>
 <td align="right">6.1212</td>
@@ -341,7 +338,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="even">
 <td align="left">treasure</td>
-<td align="right">0.5598275</td>
+<td align="right">0.5598276</td>
 <td align="right">8</td>
 <td align="right">4.458939</td>
 <td align="right">6.1176</td>
@@ -349,7 +346,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td align="left">portrait</td>
-<td align="right">0.5860690</td>
+<td align="right">0.5860691</td>
 <td align="right">8</td>
 <td align="right">4.183298</td>
 <td align="right">6.0968</td>
@@ -357,7 +354,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="even">
 <td align="left">engineer</td>
-<td align="right">0.6080041</td>
+<td align="right">0.6080043</td>
 <td align="right">8</td>
 <td align="right">4.138999</td>
 <td align="right">6.0909</td>
@@ -365,7 +362,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td align="left">document</td>
-<td align="right">0.6314306</td>
+<td align="right">0.6314308</td>
 <td align="right">8</td>
 <td align="right">4.182166</td>
 <td align="right">6.0323</td>
@@ -381,7 +378,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td align="left">applause</td>
-<td align="right">0.7068316</td>
+<td align="right">0.7068317</td>
 <td align="right">8</td>
 <td align="right">4.209885</td>
 <td align="right">5.9143</td>
@@ -389,7 +386,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="even">
 <td align="left">darkness</td>
-<td align="right">0.7291090</td>
+<td align="right">0.7291092</td>
 <td align="right">8</td>
 <td align="right">4.143049</td>
 <td align="right">5.9118</td>
@@ -413,12 +410,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb16-6" title="6"></a>
 <a class="sourceLine" id="cb16-7" title="7">suggested_matches &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb16-8" title="8"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">orth_sim =</span> <span class="kw">as.numeric</span>(<span class="kw">levenshtein.distance</span>(string, target_word))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb16-9" title="9"><span class="st">  </span><span class="kw">match_word</span>(</a>
-<a class="sourceLine" id="cb16-10" title="10">    <span class="dt">target =</span> target_word,</a>
-<a class="sourceLine" id="cb16-11" title="11">    <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb16-12" title="12">      <span class="kw">c</span>(<span class="st">&quot;orth_sim&quot;</span>, <span class="dv">0</span>, <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb16-13" title="13">    )</a>
-<a class="sourceLine" id="cb16-14" title="14">  )</a></code></pre></div>
+<a class="sourceLine" id="cb16-9" title="9"><span class="st">  </span><span class="kw">match_word</span>(<span class="dt">target =</span> target_word, <span class="dt">orth_sim =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">3</span>)</a></code></pre></div>
 <p>Note that some of these are misspellings or unusual words, but we could remove these by filtering (e.g. with <code>dplyr::filter()</code>) or matching (with <code>match_word()</code>) by frequency, proportion known, or familiarity ratings.</p>
 <div class="table">
 <table>
@@ -432,52 +424,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td align="left">interestin</td>
-<td align="right">0.8300026</td>
+<td align="right">0.8288949</td>
 <td align="right">1</td>
 </tr>
 <tr class="even">
 <td align="left">interacting</td>
-<td align="right">1.6600052</td>
+<td align="right">1.6577897</td>
 <td align="right">2</td>
 </tr>
 <tr class="odd">
 <td align="left">intercepting</td>
-<td align="right">1.6600052</td>
+<td align="right">1.6577897</td>
 <td align="right">2</td>
 </tr>
 <tr class="even">
 <td align="left">interestingay</td>
-<td align="right">1.6600052</td>
+<td align="right">1.6577897</td>
 <td align="right">2</td>
 </tr>
 <tr class="odd">
 <td align="left">interestingly</td>
-<td align="right">1.6600052</td>
+<td align="right">1.6577897</td>
 <td align="right">2</td>
 </tr>
 <tr class="even">
 <td align="left">interjecting</td>
-<td align="right">1.6600052</td>
+<td align="right">1.6577897</td>
 <td align="right">2</td>
 </tr>
 <tr class="odd">
 <td align="left">intermeshing</td>
-<td align="right">1.6600052</td>
+<td align="right">1.6577897</td>
 <td align="right">2</td>
 </tr>
 <tr class="even">
 <td align="left">intersecting</td>
-<td align="right">1.6600052</td>
+<td align="right">1.6577897</td>
 <td align="right">2</td>
 </tr>
 <tr class="odd">
 <td align="left">uninteresting</td>
-<td align="right">1.6600052</td>
+<td align="right">1.6577897</td>
 <td align="right">2</td>
 </tr>
 <tr class="even">
 <td align="left">entreating</td>
-<td align="right">2.4900077</td>
+<td align="right">2.4866846</td>
 <td align="right">3</td>
 </tr>
 </tbody>
@@ -501,12 +493,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb17-12" title="12"><span class="co"># find phonologically similar words</span></a>
 <a class="sourceLine" id="cb17-13" title="13">suggested_matches &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb17-14" title="14"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">phon_sim =</span> <span class="kw">as.numeric</span>(<span class="kw">levenshtein.distance</span>(CMU<span class="fl">.1</span>letter, target_word_pron))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb17-15" title="15"><span class="st">  </span><span class="kw">match_word</span>(</a>
-<a class="sourceLine" id="cb17-16" title="16">    <span class="dt">target =</span> target_word,</a>
-<a class="sourceLine" id="cb17-17" title="17">    <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb17-18" title="18">      <span class="kw">c</span>(<span class="st">&quot;phon_sim&quot;</span>, <span class="dv">0</span>, <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb17-19" title="19">    )</a>
-<a class="sourceLine" id="cb17-20" title="20">  )</a></code></pre></div>
+<a class="sourceLine" id="cb17-15" title="15"><span class="st">  </span><span class="kw">match_word</span>(target_word, <span class="dt">phon_sim =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">2</span>)</a></code></pre></div>
 <p>Which gives us:</p>
 <div class="table">
 <table>
@@ -521,61 +508,61 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td align="left">entrusting</td>
-<td align="right">0.9528806</td>
+<td align="right">0.9515925</td>
 <td align="right">1</td>
 <td align="left">EntrAstIG</td>
 </tr>
 <tr class="even">
 <td align="left">encrusting</td>
-<td align="right">1.9057612</td>
+<td align="right">1.9031850</td>
 <td align="right">2</td>
 <td align="left">EnkrAstIG</td>
 </tr>
 <tr class="odd">
 <td align="left">entrusted</td>
-<td align="right">1.9057612</td>
+<td align="right">1.9031850</td>
 <td align="right">2</td>
 <td align="left">EntrAstId</td>
 </tr>
 <tr class="even">
 <td align="left">instructing</td>
-<td align="right">1.9057612</td>
+<td align="right">1.9031850</td>
 <td align="right">2</td>
 <td align="left">InstrAktIG</td>
 </tr>
 <tr class="odd">
 <td align="left">interest</td>
-<td align="right">1.9057612</td>
+<td align="right">1.9031850</td>
 <td align="right">2</td>
 <td align="left">IntrAst</td>
 </tr>
 <tr class="even">
 <td align="left">interested</td>
-<td align="right">1.9057612</td>
+<td align="right">1.9031850</td>
 <td align="right">2</td>
 <td align="left">IntrAstAd</td>
 </tr>
 <tr class="odd">
 <td align="left">interests</td>
-<td align="right">1.9057612</td>
+<td align="right">1.9031850</td>
 <td align="right">2</td>
 <td align="left">IntrAsts</td>
 </tr>
 <tr class="even">
 <td align="left">interrupting</td>
-<td align="right">1.9057612</td>
+<td align="right">1.9031850</td>
 <td align="right">2</td>
 <td align="left">IntRAptIG</td>
 </tr>
 <tr class="odd">
 <td align="left">intrastate</td>
-<td align="right">1.9057612</td>
+<td align="right">1.9031850</td>
 <td align="right">2</td>
 <td align="left">IntrAstet</td>
 </tr>
 <tr class="even">
 <td align="left">mistrusting</td>
-<td align="right">1.9057612</td>
+<td align="right">1.9031850</td>
 <td align="right">2</td>
 <td align="left">mIstrAstIG</td>
 </tr>
@@ -608,6 +595,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
+"github": false,
 "facebook": true,
 "twitter": true,
 "linkedin": false,
@@ -627,6 +615,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },

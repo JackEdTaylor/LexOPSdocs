@@ -30,7 +30,7 @@ Imagine we want to generate stimuli for a 2x2 factorial design in a Lexical Deci
 
 For this, we might decide we want a stimulus set with the following features:
 
-* Filtered such that **at least 90% of people know each word**, according to Brysbaert, Mandera, and Keuleers (2018).
+* Filtered such that **at least 90% of people know each word**, according to Brysbaert, Mandera, McCormick, and Keuleers (2019).
 
 * **Two levels of Concreteness** (abstract and concrete words) according to Brysbaert, Warriner and Kuperman (2014).
 
@@ -78,10 +78,10 @@ Let's have a closer look at the first 5 rows of `stim`, which contains the outpu
  item_nr  A1_B1        A1_B2        A2_B1        A2_B2        match_null 
 --------  -----------  -----------  -----------  -----------  -----------
        1  abide        merit        caddy        basin        A2_B1      
-       2  acceptably   beseeching   typescript   fourteenth   A1_B2      
-       3  snobby       relent       duffel       shelve       A1_B2      
-       4  subtlety     riveting     bagpipes     headless     A2_B2      
-       5  adequacy     endeared     typeface     whiteout     A2_B2      
+       2  unspecific   sinisterly   typescript   storefront   A1_B2      
+       3  broadly      reliant      giraffe      coroner      A1_B2      
+       4  deftly       pathos       smooch       sandal       A2_B2      
+       5  ultra        revel        pluck        minty        A2_B2      
 
 </div>
 
@@ -119,22 +119,22 @@ Now we have the same stimuli in long format, with their associated values. Here 
        1  A1_B2       A2_B1        merit                3.577120        5       0.0122070            1.66
        1  A2_B1       A2_B1        caddy                3.575405        5       0.0024618            4.32
        1  A2_B2       A2_B1        basin                3.482487        5       0.0100465            4.63
-       2  A1_B1       A1_B2        acceptably           1.540834       10       0.0026093            1.48
-       2  A1_B2       A1_B2        beseeching           1.473887       10       0.0095482            1.88
+       2  A1_B1       A1_B2        unspecific           1.540834       10       0.0029410            1.41
+       2  A1_B2       A1_B2        sinisterly           1.473887       10       0.0098809            1.75
        2  A2_B1       A1_B2        typescript           1.297796       10       0.0027336            4.37
-       2  A2_B2       A1_B2        fourteenth           1.540834       10       0.0120087            4.21
-       3  A1_B1       A1_B2        snobby               2.564967        6       0.0017474            1.81
-       3  A1_B2       A1_B2        relent               2.376977        6       0.0108419            1.69
-       3  A2_B1       A1_B2        duffel               2.318985        6       0.0020055            4.12
-       3  A2_B2       A1_B2        shelve               2.459164        6       0.0105992            4.41
-       4  A1_B1       A2_B2        subtlety             2.913220        8       0.0025943            1.54
-       4  A1_B2       A2_B2        riveting             2.941248        8       0.0097598            1.85
-       4  A2_B1       A2_B2        bagpipes             3.162603        8       0.0028140            4.93
-       4  A2_B2       A2_B2        headless             3.040128        8       0.0093918            4.42
-       5  A1_B1       A2_B2        adequacy             2.158134        8       0.0020388            1.86
-       5  A1_B2       A2_B2        endeared             2.348948        8       0.0107752            1.78
-       5  A2_B1       A2_B2        typeface             2.297796        8       0.0023554            4.21
-       5  A2_B2       A2_B2        whiteout             2.172857        8       0.0092599            4.28
+       2  A2_B2       A1_B2        storefront           1.473887       10       0.0096897            4.00
+       3  A1_B1       A1_B2        broadly              3.648528        7       0.0028142            1.68
+       3  A1_B2       A1_B2        reliant              3.602609        7       0.0103099            1.83
+       3  A2_B1       A1_B2        giraffe              3.777083        7       0.0021165            4.73
+       3  A2_B2       A1_B2        coroner              3.726335        7       0.0107999            4.34
+       4  A1_B1       A2_B2        deftly               2.329204        6       0.0025051            1.96
+       4  A1_B2       A2_B2        pathos               2.620015        6       0.0121742            1.48
+       4  A2_B1       A2_B2        smooch               2.263937        6       0.0028086            4.21
+       4  A2_B2       A2_B2        sandal               2.443924        6       0.0091593            4.68
+       5  A1_B1       A2_B2        ultra                3.572531        5       0.0029273            1.55
+       5  A1_B2       A2_B2        revel                3.254444        5       0.0093859            1.69
+       5  A2_B1       A2_B2        pluck                3.377881        5       0.0019315            4.00
+       5  A2_B2       A2_B2        minty                3.421647        5       0.0099473            4.11
 
 </div>
 \normalsize
@@ -172,9 +172,9 @@ possible_stim <- LexOPS::lexops %>%
   generate(n = "all", match_null = "random")
 ```
 
-This is much slower, as LexOPS will continue trying to generate combinations of words that fit the specified characteristics until it has exhausted all the possibilities. Nevertheless, we actually generated 102 words generated per condition with the code above. This number is likely to change slightly each time we run the pipeline, as different combinations are randomly made from all the possible combinations. That said, it is a fairly good *indication* of the number of possible stimuli we could generate.
+This is much slower, as LexOPS will continue trying to generate combinations of words that fit the specified characteristics until it has exhausted all the possibilities. Nevertheless, we actually generated 101 words generated per condition with the code above. This number is likely to change slightly each time we run the pipeline, as different combinations are randomly made from all the possible combinations. That said, it is a fairly good *indication* of the number of possible stimuli we could generate.
 
-The 102 words we've managed to generate per condition here is quite a bit higher than the 25 we originally generated. Does this mean we should just request a larger stimulus list, such as `n = 80`, or even `n = 100`? Well, it depends. If we want as many stimuli as are possible, then it may make sense to just set `n = "all"`, but often we only want to use as many stimuli as we need to find our effect. Also, if we use as many combinations as possible, experimenters who want to replicate our effect using a different set of stimuli will likely have fewer novel combinations available to them.
+The 101 words we've managed to generate per condition here is quite a bit higher than the 25 we originally generated. Does this mean we should just request a larger stimulus list, such as `n = 80`, or even `n = 100`? Well, it depends. If we want as many stimuli as are possible, then it may make sense to just set `n = "all"`, but often we only want to use as many stimuli as we need to find our effect. Also, if we use as many combinations as possible, experimenters who want to replicate our effect using a different set of stimuli will likely have fewer novel combinations available to them.
 
 <div class="danger">
 <p>Note that when <code>n = "all"</code>, you will get a warning if you also keep the default match null setting, <code>match_null = "balanced"</code>. The reason for this is explained in <a href="faq.html#what-is-a-match-null">this FAQ section</a>.</p>
