@@ -18,6 +18,8 @@ The default for the `generate()` function is to use `match_null = "balanced"`. T
 
 Since `match_null = "balanced"` works by dividing `n` by the number of conditions, this default will not work when `n = "all"` as the `generate()` function will not know how many stimuli will be generated in the stimulus list. This is why you'll get a warning if these options are used together. One alternative may be to use `match_null = "random"`.
 
+Inclusive match nulls are also possible with `match_null = "inclusive"`, where stimuli will only be produced which are within the specified tolerances of each other stimulus they are matched to.
+
 It is also possible to use a specific condition as the match null for each item. If you want to use condition A1_B2 as your null for instance, you can do this by specifying `match_null = "A1_B2"`.
 
 The match null used for each generated item is stored in the wide and long formats of the output from the generate pipeline, as the variable `match_null`.
