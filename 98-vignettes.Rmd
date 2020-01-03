@@ -4,6 +4,7 @@ These vignettes have been written to demonstrate in more detail how common probl
 
 ```{r render-vignettes, include=FALSE, eval=FALSE}
 # run this file to re-render the vignettes (when they change)
+# (issues when running with `source()`, so open file to run, rather than using this chunk)
 source("render-vignettes.R", local = FALSE)
 ```
 
