@@ -53,6 +53,6 @@ links <- lapply(v_files, function(v) {
 # save the resulting html to vignettes-boxes.rds
 links %>%
   unlist() %>%
-  paste(collapse="\n") %>%
+  paste(collapse="\n</br>") %>%
   htmltools::HTML() %>%
   saveRDS("vignettes-boxes.rds")
