@@ -110,11 +110,9 @@ Here are the first 5 items of each condition that we generated. This time, all m
 
 ### Other Uses
 
-I originally wrote this function so I could match by similarity measures, but it can be used to control for any variable that needs to be calculated relative to the match null. The `fun` argument of `control_for_map()` should be a function that takes the data in the column contained in `var` as its first argument, and can take the match null's value for `var` as the second argument, to return a vector of values for each entry. In addition, `tol` can be specified as it is in `control_for()`, as either a numeric tolerance, or categorical tolerance if the function outputs character vectors. The `name` argument should just be a character vector to name the column in the long format of the generated stimuli.
+The `control_for_map()` function can be used to control for any variable that needs to be calculated relative to the match null. The `fun` argument of `control_for_map()` should be a function that takes the data in the column contained in `var` as its first argument, and can take the match null's value for `var` as the second argument, to return a vector of values for each entry. In addition, `tol` can be specified as it is in `control_for()`, as either a numeric tolerance, or categorical tolerance if the function outputs character vectors. The `name` argument should just be a character vector to name the column in the long format of the generated stimuli.
 
-See the package documentation (`?control_for_map`) for more details. If you're wanting to write a function to use in `control_for_map()`, it may be a good idea to look at [how the vwr functions work](https://cran.r-project.org/web/packages/vwr/vwr.pdf) for comparison, as it was written with these in mind.
-
-If you're wanting to use `control_for_map()` on your own function or data, the following example might be useful, which shows one solution for controlling for semantic relatedness: https://github.com/JackEdTaylor/LexOPS_sem_cont_example/blob/master/semantic_demo.R
+If you're wanting to use `control_for_map()` on your own function or data, see this [vignette on controlling for semantic relatedness](vignettes/control_for_map.html). The function's documentation in the package ([`?control_for_map`](https://rdrr.io/github/JackEdTaylor/LexOPS/man/control_for_map.html)) might also be useful. It might also be a good idea to look at [how the vwr functions work](https://cran.r-project.org/web/packages/vwr/vwr.pdf) for comparison, as `control_for_map()` was originally written with these in mind.
 
 ## Random Seeds
 

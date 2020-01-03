@@ -24,7 +24,7 @@
 <meta name="author" content="Jack Taylor" />
 
 
-<meta name="date" content="2019-12-06" />
+<meta name="date" content="2020-01-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,9 +53,9 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -64,14 +64,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +82,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -188,7 +190,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="lexops-shiny-app.html"><a href="lexops-shiny-app.html#custom-variables"><i class="fa fa-check"></i><b>5.5</b> Custom Variables</a></li>
 <li class="chapter" data-level="5.6" data-path="lexops-shiny-app.html"><a href="lexops-shiny-app.html#random-seeds-1"><i class="fa fa-check"></i><b>5.6</b> Random Seeds</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="faq.html"><a href="faq.html"><i class="fa fa-check"></i><b>6</b> FAQ</a><ul>
+<li class="chapter" data-level="6" data-path="vignettes.html"><a href="vignettes.html"><i class="fa fa-check"></i><b>6</b> Vignettes</a></li>
+<li class="chapter" data-level="7" data-path="faq.html"><a href="faq.html"><i class="fa fa-check"></i><b>7</b> FAQ</a><ul>
 <li class="chapter" data-level="" data-path="faq.html"><a href="faq.html#how-should-i-cite-lexops"><i class="fa fa-check"></i>How should I cite LexOPS?</a></li>
 <li class="chapter" data-level="" data-path="faq.html"><a href="faq.html#what-is-a-match-null"><i class="fa fa-check"></i>What is a “match null”?</a></li>
 </ul></li>
@@ -257,15 +260,15 @@ to run the algorithm and generate the stimuli, using specified splits and contro
 </ul>
 <p><br>
 We can use the following R code to generate a stimulus list like this with LexOPS:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">library</span>(LexOPS)</a>
-<a class="sourceLine" id="cb4-2" title="2"></a>
-<a class="sourceLine" id="cb4-3" title="3">stim &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-4" title="4"><span class="st">  </span><span class="kw">subset</span>(PK.Brysbaert <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.9</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-5" title="5"><span class="st">  </span><span class="kw">split_by</span>(CNC.Brysbaert, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span> <span class="op">~</span><span class="st"> </span><span class="dv">4</span><span class="op">:</span><span class="dv">5</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="st">  </span><span class="kw">split_by</span>(BG.SUBTLEX_UK, <span class="dv">0</span><span class="op">:</span><span class="fl">0.003</span> <span class="op">~</span><span class="st"> </span><span class="fl">0.009</span><span class="op">:</span><span class="fl">0.013</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="st">  </span><span class="kw">control_for</span>(Length, <span class="dv">0</span><span class="op">:</span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-8" title="8"><span class="st">  </span><span class="kw">control_for</span>(Zipf.SUBTLEX_UK, <span class="fl">-0.2</span><span class="op">:</span><span class="fl">0.2</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-9" title="9"><span class="st">  </span><span class="kw">generate</span>(<span class="dt">n =</span> <span class="dv">25</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="the-generate-pipeline.html#cb4-1"></a><span class="kw">library</span>(LexOPS)</span>
+<span id="cb4-2"><a href="the-generate-pipeline.html#cb4-2"></a></span>
+<span id="cb4-3"><a href="the-generate-pipeline.html#cb4-3"></a>stim &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></span>
+<span id="cb4-4"><a href="the-generate-pipeline.html#cb4-4"></a><span class="st">  </span><span class="kw">subset</span>(PK.Brysbaert <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.9</span>) <span class="op">%&gt;%</span></span>
+<span id="cb4-5"><a href="the-generate-pipeline.html#cb4-5"></a><span class="st">  </span><span class="kw">split_by</span>(CNC.Brysbaert, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span> <span class="op">~</span><span class="st"> </span><span class="dv">4</span><span class="op">:</span><span class="dv">5</span>) <span class="op">%&gt;%</span></span>
+<span id="cb4-6"><a href="the-generate-pipeline.html#cb4-6"></a><span class="st">  </span><span class="kw">split_by</span>(BG.SUBTLEX_UK, <span class="dv">0</span><span class="op">:</span><span class="fl">0.003</span> <span class="op">~</span><span class="st"> </span><span class="fl">0.009</span><span class="op">:</span><span class="fl">0.013</span>) <span class="op">%&gt;%</span></span>
+<span id="cb4-7"><a href="the-generate-pipeline.html#cb4-7"></a><span class="st">  </span><span class="kw">control_for</span>(Length, <span class="dv">0</span><span class="op">:</span><span class="dv">0</span>) <span class="op">%&gt;%</span></span>
+<span id="cb4-8"><a href="the-generate-pipeline.html#cb4-8"></a><span class="st">  </span><span class="kw">control_for</span>(Zipf.SUBTLEX_UK, <span class="fl">-0.2</span><span class="op">:</span><span class="fl">0.2</span>) <span class="op">%&gt;%</span></span>
+<span id="cb4-9"><a href="the-generate-pipeline.html#cb4-9"></a><span class="st">  </span><span class="kw">generate</span>(<span class="dt">n =</span> <span class="dv">25</span>)</span></code></pre></div>
 <br>
 <div class="info">
 <p>
@@ -365,7 +368,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <div id="converting-to-long-format" class="section level2">
 <h2><span class="header-section-number">2.2</span> Converting to Long Format</h2>
 <p>The table above shows the generated stimuli in wide format. This is a useful way to quickly view the stimuli and get a sense for what has been generated, but we often want to check our stimuli in more detail. The <code>long_format()</code> function is a quick way to convert stimuli generated in LexOPS into long format:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">stim_long &lt;-<span class="st"> </span><span class="kw">long_format</span>(stim)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="the-generate-pipeline.html#cb5-1"></a>stim_long &lt;-<span class="st"> </span><span class="kw">long_format</span>(stim)</span></code></pre></div>
 <p>Now we have the same stimuli in long format, with their associated values. Here are the same first 5 matched items from earlier, but in long format:</p>
 
 <div class="table">
@@ -592,7 +595,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <div id="plotting-the-design" class="section level2">
 <h2><span class="header-section-number">2.3</span> Plotting the Design</h2>
 <p>While having data in long format is undoubtably useful, it’s not very efficient if you want to check what your stimuli look like in a quick glance (especially if your stimuli number in the thousands). What you probably want to do is create a plot to see how your stimuli differ between conditions and across matched items. Thankfully, LexOPS has a handy function to do exactly that:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">plot_design</span>(stim)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="the-generate-pipeline.html#cb6-1"></a><span class="kw">plot_design</span>(stim)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-11"></span>
 <img src="02-generate_files/figure-html/unnamed-chunk-11-1.png" alt="The results of the `plot_design()` function for the generated stimuli." width="100%" />
 <p class="caption">
@@ -604,13 +607,13 @@ Figure 2.1: The results of the <code>plot_design()</code> function for the gener
 <div id="generating-as-many-as-possible" class="section level2">
 <h2><span class="header-section-number">2.4</span> Generating as Many as Possible</h2>
 <p>Let’s imagine that we’re not entirely sure how many stimuli we could generate using our design. It may be that the <code>n = 25</code> <a href="the-generate-pipeline.html#generating-stimuli">we used earlier</a> is considerably fewer than the number of stimuli we could generate with no problems. One way to test this is to have LexOPS generate as many stimuli as possible. We can do this by setting <code>n = "all"</code>:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">possible_stim &lt;-<span class="st"> </span>LexOPS<span class="op">::</span>lexops <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-2" title="2"><span class="st">  </span><span class="kw">subset</span>(PK.Brysbaert <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.9</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-3" title="3"><span class="st">  </span><span class="kw">split_by</span>(CNC.Brysbaert, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span> <span class="op">~</span><span class="st"> </span><span class="dv">4</span><span class="op">:</span><span class="dv">5</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-4" title="4"><span class="st">  </span><span class="kw">split_by</span>(BG.SUBTLEX_UK, <span class="dv">0</span><span class="op">:</span><span class="fl">0.003</span> <span class="op">~</span><span class="st"> </span><span class="fl">0.009</span><span class="op">:</span><span class="fl">0.013</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-5" title="5"><span class="st">  </span><span class="kw">control_for</span>(Length, <span class="dv">0</span><span class="op">:</span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-6" title="6"><span class="st">  </span><span class="kw">control_for</span>(Zipf.SUBTLEX_UK, <span class="fl">-0.2</span><span class="op">:</span><span class="fl">0.2</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-7" title="7"><span class="st">  </span><span class="kw">generate</span>(<span class="dt">n =</span> <span class="st">&quot;all&quot;</span>, <span class="dt">match_null =</span> <span class="st">&quot;random&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="the-generate-pipeline.html#cb7-1"></a>possible_stim &lt;-<span class="st"> </span>LexOPS<span class="op">::</span>lexops <span class="op">%&gt;%</span></span>
+<span id="cb7-2"><a href="the-generate-pipeline.html#cb7-2"></a><span class="st">  </span><span class="kw">subset</span>(PK.Brysbaert <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.9</span>) <span class="op">%&gt;%</span></span>
+<span id="cb7-3"><a href="the-generate-pipeline.html#cb7-3"></a><span class="st">  </span><span class="kw">split_by</span>(CNC.Brysbaert, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span> <span class="op">~</span><span class="st"> </span><span class="dv">4</span><span class="op">:</span><span class="dv">5</span>) <span class="op">%&gt;%</span></span>
+<span id="cb7-4"><a href="the-generate-pipeline.html#cb7-4"></a><span class="st">  </span><span class="kw">split_by</span>(BG.SUBTLEX_UK, <span class="dv">0</span><span class="op">:</span><span class="fl">0.003</span> <span class="op">~</span><span class="st"> </span><span class="fl">0.009</span><span class="op">:</span><span class="fl">0.013</span>) <span class="op">%&gt;%</span></span>
+<span id="cb7-5"><a href="the-generate-pipeline.html#cb7-5"></a><span class="st">  </span><span class="kw">control_for</span>(Length, <span class="dv">0</span><span class="op">:</span><span class="dv">0</span>) <span class="op">%&gt;%</span></span>
+<span id="cb7-6"><a href="the-generate-pipeline.html#cb7-6"></a><span class="st">  </span><span class="kw">control_for</span>(Zipf.SUBTLEX_UK, <span class="fl">-0.2</span><span class="op">:</span><span class="fl">0.2</span>) <span class="op">%&gt;%</span></span>
+<span id="cb7-7"><a href="the-generate-pipeline.html#cb7-7"></a><span class="st">  </span><span class="kw">generate</span>(<span class="dt">n =</span> <span class="st">&quot;all&quot;</span>, <span class="dt">match_null =</span> <span class="st">&quot;random&quot;</span>)</span></code></pre></div>
 <p>This is much slower, as LexOPS will continue trying to generate combinations of words that fit the specified characteristics until it has exhausted all the possibilities. Nevertheless, we actually generated 101 words generated per condition with the code above. This number is likely to change slightly each time we run the pipeline, as different combinations are randomly made from all the possible combinations. That said, it is a fairly good <em>indication</em> of the number of possible stimuli we could generate.</p>
 <p>The 101 words we’ve managed to generate per condition here is quite a bit higher than the 25 we originally generated. Does this mean we should just request a larger stimulus list, such as <code>n = 80</code>, or even <code>n = 100</code>? Well, it depends. If we want as many stimuli as are possible, then it may make sense to just set <code>n = "all"</code>, but often we only want to use as many stimuli as we need to find our effect. Also, if we use as many combinations as possible, experimenters who want to replicate our effect using a different set of stimuli will likely have fewer novel combinations available to them.</p>
 <div class="danger">
@@ -622,7 +625,7 @@ Note that when <code>n = “all”</code>, you will get a warning if you also ke
 <div id="plotting-iterations" class="section level2">
 <h2><span class="header-section-number">2.5</span> Plotting Iterations</h2>
 <p>It is also possible to check how well LexOPS performed when generating stimuli by plotting the cumulative item generation by iterations. To do this, we can use the <code>plot_iterations()</code> function. As an example, let’s visualise the algorithm’s iterations when we generated as many stimuli as we could in the last section.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">plot_iterations</span>(possible_stim)</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="the-generate-pipeline.html#cb8-1"></a><span class="kw">plot_iterations</span>(possible_stim)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-14"></span>
 <img src="02-generate_files/figure-html/unnamed-chunk-14-1.png" alt="The cumulative number of items generated per iteration." width="100%" />
 <p class="caption">
@@ -634,14 +637,14 @@ Figure 2.2: The cumulative number of items generated per iteration.
 <div id="custom-dataframes" class="section level2">
 <h2><span class="header-section-number">2.6</span> Custom Dataframes</h2>
 <p>While the <a href="introduction.html#the-lexops-dataset">LexOPS Dataset</a> has lots of useful features for English, it isn’t exhaustive, and other languages do exist! The LexOPS functions will actually work with any dataframe, with words from any language. As an example, here’s how to generate a stimulus list of negative, neutral, and positive German words matched for length and frequency, based on the <a href="http://doi.org/10.3758/BRM.42.4.987">Leipzig Affective Norms for German (LANG) (Kanske &amp; Kotz, 2010)</a>.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">library</span>(readr)</a>
-<a class="sourceLine" id="cb9-2" title="2">LANG &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;kanske_kotz_2010.csv&quot;</span>, <span class="dt">locale=</span><span class="kw">locale</span>(<span class="dt">encoding =</span> <span class="st">&quot;latin1&quot;</span>))</a>
-<a class="sourceLine" id="cb9-3" title="3"></a>
-<a class="sourceLine" id="cb9-4" title="4">stim &lt;-<span class="st"> </span>LANG <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-5" title="5"><span class="st">  </span><span class="kw">split_by</span>(valence_mean, <span class="dv">1</span><span class="op">:</span><span class="fl">3.5</span> <span class="op">~</span><span class="st"> </span><span class="fl">4.75</span><span class="op">:</span><span class="fl">5.25</span> <span class="op">~</span><span class="st"> </span><span class="fl">6.5</span><span class="op">:</span><span class="dv">9</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-6" title="6"><span class="st">  </span><span class="kw">control_for</span>(number_of_letters, <span class="dv">0</span><span class="op">:</span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-7" title="7"><span class="st">  </span><span class="kw">control_for</span>(frequency, <span class="dv">-1</span><span class="op">:</span><span class="dv">1</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-8" title="8"><span class="st">  </span><span class="kw">generate</span>(<span class="dv">20</span>, <span class="dt">string_col =</span> <span class="st">&quot;word&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="the-generate-pipeline.html#cb9-1"></a><span class="kw">library</span>(readr)</span>
+<span id="cb9-2"><a href="the-generate-pipeline.html#cb9-2"></a>LANG &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;kanske_kotz_2010.csv&quot;</span>, <span class="dt">locale=</span><span class="kw">locale</span>(<span class="dt">encoding =</span> <span class="st">&quot;latin1&quot;</span>))</span>
+<span id="cb9-3"><a href="the-generate-pipeline.html#cb9-3"></a></span>
+<span id="cb9-4"><a href="the-generate-pipeline.html#cb9-4"></a>stim &lt;-<span class="st"> </span>LANG <span class="op">%&gt;%</span></span>
+<span id="cb9-5"><a href="the-generate-pipeline.html#cb9-5"></a><span class="st">  </span><span class="kw">split_by</span>(valence_mean, <span class="dv">1</span><span class="op">:</span><span class="fl">3.5</span> <span class="op">~</span><span class="st"> </span><span class="fl">4.75</span><span class="op">:</span><span class="fl">5.25</span> <span class="op">~</span><span class="st"> </span><span class="fl">6.5</span><span class="op">:</span><span class="dv">9</span>) <span class="op">%&gt;%</span></span>
+<span id="cb9-6"><a href="the-generate-pipeline.html#cb9-6"></a><span class="st">  </span><span class="kw">control_for</span>(number_of_letters, <span class="dv">0</span><span class="op">:</span><span class="dv">0</span>) <span class="op">%&gt;%</span></span>
+<span id="cb9-7"><a href="the-generate-pipeline.html#cb9-7"></a><span class="st">  </span><span class="kw">control_for</span>(frequency, <span class="dv">-1</span><span class="op">:</span><span class="dv">1</span>) <span class="op">%&gt;%</span></span>
+<span id="cb9-8"><a href="the-generate-pipeline.html#cb9-8"></a><span class="st">  </span><span class="kw">generate</span>(<span class="dv">20</span>, <span class="dt">string_col =</span> <span class="st">&quot;word&quot;</span>)</span></code></pre></div>
 <p>Here are the first five items generated for each condition:</p>
 
 <div class="table">

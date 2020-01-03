@@ -57,7 +57,7 @@ LexOPS::run_shiny()
 
 ## The LexOPS Dataset
 
-LexOPS works can work with any list of features from any language (see [this section](the-generate-pipeline.html#custom-dataframes) for an example with code, and [this section](lexops-shiny-app.html#custom-variables) for an example in the shiny app). Even so, LexOPS has inbuilt dataset with some useful features for English. This can be called with:
+LexOPS works can work with any list of features from any language (see [this vignette](vignettes/custom-data.html) for an example using other datasets, or [this section](the-generate-pipeline.html#custom-dataframes) for an example using non-English words). Even so, LexOPS has inbuilt dataset with some useful features for English. This can be called with:
 
 
 ```r

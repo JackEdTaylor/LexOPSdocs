@@ -1,0 +1,12 @@
+# Vignettes
+
+These vignettes have been written to demonstrate in more detail how common problems can be solved with LexOPS. Click on a vignette to find out more.
+
+```{r render-vignettes, include=FALSE, eval=FALSE}
+# run this file to re-render the vignettes (when they change)
+source("render-vignettes.R", local = FALSE)
+```
+
+```{r vignettes-boxes, echo=FALSE, message=FALSE, warning=FALSE}
+readRDS("vignettes-boxes.rds")
+```

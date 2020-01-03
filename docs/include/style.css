@@ -55,7 +55,7 @@ div.color-theme-2 .book-body .page-wrapper .page-inner section.normal strong cod
 
 /* set styles for alert boxes */
 
-.danger, .warning, .info , .alert, .try, .cite {
+.danger, .warning, .info , .alert, .code-link, .cite {
   padding: 1em 1em 0.25em 3.5em;
   margin-bottom: 10px;
   background-color: hsla(0, 0%, 100%, .1);
@@ -83,11 +83,10 @@ div.color-theme-2 .book-body .page-wrapper .page-inner section.normal strong cod
   border: 1px solid var(--blue);
 }
 
-.try {
-  background-image: url("../images/alerts/rainbow.svg");
+.code-link {
+  background-image: url("../images/alerts/r-project.svg");
   background-color: hsla(248, 28%, 48%, .1);
   border: 1px solid var(--purple);
-  background-position: 0.5em -.25em;
 }
 
 .cite {
