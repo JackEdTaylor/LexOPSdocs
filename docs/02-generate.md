@@ -157,6 +157,24 @@ plot_design(stim)
 
 The distributions of all the numeric variables used as independent variables or controls are plotted for each condition (in a grey violin plot). The points depict the values of individual words, and points of the same colour (joined by lines) are matched items. As we'd expect, our example stimuli show the expected differences in Bigram Probability and Concreteness, while Frequency is matched closely, and Length is matched exactly.
 
+## Checking Representativeness
+
+We can also visualise how representative our stimuli are. This shows the distributions of our generated stimuli on variables, relative to possible but unused candidates.
+
+
+```r
+plot_sample(stim)
+```
+
+```
+## Warning: Removed 74 rows containing non-finite values (stat_density).
+```
+
+<div class="figure" style="text-align: center">
+<img src="02-generate_files/figure-html/unnamed-chunk-12-1.png" alt="**CAPTION THIS FIGURE!!**" width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-12)**CAPTION THIS FIGURE!!**</p>
+</div>
+
 ## Generating as Many as Possible
 
 Let's imagine that we're not entirely sure how many stimuli we could generate using our design. It may be that the `n = 25` [we used earlier](#generating-stimuli) is considerably fewer than the number of stimuli we could generate with no problems. One way to test this is to have LexOPS generate as many stimuli as possible. We can do this by setting `n = "all"`:
@@ -190,8 +208,8 @@ plot_iterations(possible_stim)
 ```
 
 <div class="figure" style="text-align: center">
-<img src="02-generate_files/figure-html/unnamed-chunk-14-1.png" alt="The cumulative number of items generated per iteration." width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-14)The cumulative number of items generated per iteration.</p>
+<img src="02-generate_files/figure-html/unnamed-chunk-15-1.png" alt="The cumulative number of items generated per iteration." width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-15)The cumulative number of items generated per iteration.</p>
 </div>
 
 This shows a characteristic levelling-off; iterations become increasingly less likely to successfully generate items as the pool of possible combinations is gradually exhausted.

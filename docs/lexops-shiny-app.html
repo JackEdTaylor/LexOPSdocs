@@ -151,9 +151,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#converting-to-long-format"><i class="fa fa-check"></i><b>2.2</b> Converting to Long Format</a></li>
 <li class="chapter" data-level="2.3" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#plotting-the-design"><i class="fa fa-check"></i><b>2.3</b> Plotting the Design</a></li>
-<li class="chapter" data-level="2.4" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#generating-as-many-as-possible"><i class="fa fa-check"></i><b>2.4</b> Generating as Many as Possible</a></li>
-<li class="chapter" data-level="2.5" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#plotting-iterations"><i class="fa fa-check"></i><b>2.5</b> Plotting Iterations</a></li>
-<li class="chapter" data-level="2.6" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#custom-dataframes"><i class="fa fa-check"></i><b>2.6</b> Custom Dataframes</a></li>
+<li class="chapter" data-level="2.4" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#checking-representativeness"><i class="fa fa-check"></i><b>2.4</b> Checking Representativeness</a></li>
+<li class="chapter" data-level="2.5" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#generating-as-many-as-possible"><i class="fa fa-check"></i><b>2.5</b> Generating as Many as Possible</a></li>
+<li class="chapter" data-level="2.6" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#plotting-iterations"><i class="fa fa-check"></i><b>2.6</b> Plotting Iterations</a></li>
+<li class="chapter" data-level="2.7" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#custom-dataframes"><i class="fa fa-check"></i><b>2.7</b> Custom Dataframes</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="advanced-stimulus-generation.html"><a href="advanced-stimulus-generation.html"><i class="fa fa-check"></i><b>3</b> Advanced Stimulus Generation</a><ul>
 <li class="chapter" data-level="3.1" data-path="advanced-stimulus-generation.html"><a href="advanced-stimulus-generation.html#non-stimulus-splits"><i class="fa fa-check"></i><b>3.1</b> Non-Stimulus Splits</a></li>
@@ -216,7 +217,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="lexops-shiny-app" class="section level1">
 <h1><span class="header-section-number">5</span> LexOPS Shiny App</h1>
 <p>The Shiny app is an interactive user interface for LexOPS, with informative visualisations and illustrations of selected options. The LexOPS Shiny app can be run locally with:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1">LexOPS<span class="op">::</span><span class="kw">run_shiny</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1">LexOPS<span class="op">::</span><span class="kw">run_shiny</span>()</a></code></pre></div>
 <p>The Shiny app is also available as a web app at <a href="https://jackt.shinyapps.io/lexops/" class="uri">https://jackt.shinyapps.io/lexops/</a>, but running the app locally is recommended for reliability and speed.</p>
 <div id="generate" class="section level2">
 <h2><span class="header-section-number">5.1</span> Generate</h2>
@@ -355,7 +356,7 @@ Figure 2.1: Example usage of the Visualise tab.
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-12"></span>
 <img src="images/shiny/custom-variables.gif" alt="Using stimuli for languages other than English." width="75%" height="75%" />
 <p class="caption">
-Figure 5.7: Using stimuli for languages other than English.
+Figure 2.2: Using stimuli for languages other than English.
 </p>
 </div>
 <p>The Custom Variables tab uses <a href="https://dplyr.tidyverse.org/reference/join.html">dplyr’s join functions</a>. An equivalent to using custom variables in R code would be to either join the custom variables to the LexOPS dataset using dplyr’s join functions, or to just run the generate pipeline on a dataframe of custom variables (see <a href="the-generate-pipeline.html#custom-dataframes">this section</a> for an example).</p>
@@ -366,7 +367,7 @@ Figure 5.7: Using stimuli for languages other than English.
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-13"></span>
 <img src="images/shiny/setting-seed.gif" alt="Setting the seed in the Shiny app." width="75%" height="75%" />
 <p class="caption">
-Figure 5.8: Setting the seed in the Shiny app.
+Figure 5.7: Setting the seed in the Shiny app.
 </p>
 </div>
 <p>If you <a href="lexops-shiny-app.html#codify">“codify” your selected options</a>, the generated code will also set the seed as the same value, such that a stimulus list can be reproduced outside of the shiny app.</p>
