@@ -19,7 +19,9 @@ v_files <- unlist(lapply(content(vignette_repo)$tree, "[", "path"), use.names=F)
   grep("vignettes/.+\\.Rmd", ., value=TRUE) %>%
   basename()
 
-links <- lapply(v_files, function(v) {
+links <- lapply(1:length(v_files), function(v_nr) {
+  
+  v <- v_files[[v_nr]]
   v_path <- file.path("vignettes", v)
   
   # download
@@ -47,7 +49,7 @@ links <- lapply(v_files, function(v) {
     dplyr::first() %>%
     html_text()
   
-  sprintf("<a style=\"text-decoration:none;color:black;\" href=\"%s\"><div class=\"code-link\"><b>%s: </b>%s</div></a>", v_html, v_title, v_intro)
+  sprintf("<a style=\"text-decoration:none;color:black;\" href=\"%s\"><div class=\"code-link\"><b>%s) %s: </b>%s</div></a>", v_html, v_nr, v_title, v_intro)
 })
 
 # save the resulting html to vignettes-boxes.rds

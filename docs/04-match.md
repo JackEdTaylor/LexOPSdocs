@@ -1,11 +1,11 @@
 
 # Matching Individual Words
 
-While the generate pipeline is usually sufficient, it's sometimes important to tailor stimuli more precisely. For instance, it may be important that a matched word is a plausible replacement for a target word in a sentence. The `match_word()` function exists for this purpose.
+While the generate pipeline is usually sufficient, it's sometimes important to tailor stimuli more precisely. For instance, it may be important that a matched word is a plausible replacement for a target word in a sentence. The `match_item()` function exists for this purpose.
 
 ## Example
 
-Here's an example usage of `match_word`, to suggest a word matched for "elephant" in terms of:
+Here's an example usage of `match_item()`, to suggest a word matched for "elephant" in terms of:
 
 * Length (exactly)
 * Frequency (within ±0.25 Zipf)
@@ -17,7 +17,7 @@ Here's an example usage of `match_word`, to suggest a word matched for "elephant
 library(LexOPS)
 
 suggested_matches <- lexops %>%
-  match_word(
+  match_item(
     "elephant",
     Length,
     Zipf.SUBTLEX_UK = -0.25:0.25,
@@ -61,7 +61,7 @@ You may want to match by similarity to the target word. Thankfully this is more 
 
 ### Orthographic similarity
 
-Here's an example, matching "leaflet" by orthographic similarity. We just have to calculate the similarity measure before using the `match_word()` function.
+Here's an example, matching "leaflet" by orthographic similarity. We just have to calculate the similarity measure before using the `match_item()` function.
 
 
 ```r
@@ -73,10 +73,10 @@ target_word <- "interesting"
 
 suggested_matches <- lexops %>%
   mutate(orth_sim = as.numeric(levenshtein.distance(string, target_word))) %>%
-  match_word(target = target_word, orth_sim = 0:3)
+  match_item(target = target_word, orth_sim = 0:3)
 ```
 
-Note that some of these are misspellings or unusual words, but we could remove these by filtering (e.g. with `dplyr::filter()`) or matching (with `match_word()`) by frequency, proportion known, or familiarity ratings.
+Note that some of these are misspellings or unusual words, but we could remove these by filtering (e.g. with `dplyr::filter()`) or matching (with `match_item()`) by frequency, proportion known, or familiarity ratings.
 
 <div class = 'table'>
 
@@ -115,7 +115,7 @@ target_word_pron <- lexops %>%
 # find phonologically similar words
 suggested_matches <- lexops %>%
   mutate(phon_sim = as.numeric(levenshtein.distance(CMU.1letter, target_word_pron))) %>%
-  match_word(target_word, phon_sim = 0:2)
+  match_item(target_word, phon_sim = 0:2)
 ```
 
 Which gives us:

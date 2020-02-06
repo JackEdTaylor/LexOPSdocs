@@ -57,9 +57,9 @@ This is a handy feature that lets you translate the selected options into LexOPS
 knitr::include_graphics(path="./images/shiny/generate-codify.png")
 ```
 
-## Match Word
+## Match Item
 
-The Match Word tab is a user interface for the [`match_word()` function](matching-individual-words.html). As in the Generate tab, you can specify variables that should be matched by (with tolerances relative to the target string) and filtered by (with boundaries independent of the target string). You can then view and download the suggested matches.
+The Match Item tab is a user interface for the [`match_item()` function](matching-individual-words.html). As in the Generate tab, you can specify variables that should be matched by (with tolerances relative to the target string) and filtered by (with boundaries independent of the target string). You can then view and download the suggested matches.
 
 ```{r, echo=FALSE, fig.cap='Matching individual words in the Match tab.', out.width="75%", out.height="75%"}
 knitr::include_graphics(path="./images/shiny/match.gif")

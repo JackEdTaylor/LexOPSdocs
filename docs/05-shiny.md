@@ -64,9 +64,9 @@ This is a handy feature that lets you translate the selected options into LexOPS
 <p class="caption">(\#fig:unnamed-chunk-7)Translate selected options into LexOPS R code.</p>
 </div>
 
-## Match Word
+## Match Item
 
-The Match Word tab is a user interface for the [`match_word()` function](matching-individual-words.html). As in the Generate tab, you can specify variables that should be matched by (with tolerances relative to the target string) and filtered by (with boundaries independent of the target string). You can then view and download the suggested matches.
+The Match Item tab is a user interface for the [`match_item()` function](matching-individual-words.html). As in the Generate tab, you can specify variables that should be matched by (with tolerances relative to the target string) and filtered by (with boundaries independent of the target string). You can then view and download the suggested matches.
 
 <div class="figure" style="text-align: center">
 <img src="./images/shiny/match.gif" alt="Matching individual words in the Match tab." width="75%" height="75%" />

@@ -24,7 +24,7 @@
 <meta name="author" content="Jack Taylor" />
 
 
-<meta name="date" content="2020-01-23" />
+<meta name="date" content="2020-02-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -182,7 +182,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.1.4" data-path="lexops-shiny-app.html"><a href="lexops-shiny-app.html#review"><i class="fa fa-check"></i><b>5.1.4</b> Review</a></li>
 <li class="chapter" data-level="5.1.5" data-path="lexops-shiny-app.html"><a href="lexops-shiny-app.html#codify"><i class="fa fa-check"></i><b>5.1.5</b> Codify</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="lexops-shiny-app.html"><a href="lexops-shiny-app.html#match-word"><i class="fa fa-check"></i><b>5.2</b> Match Word</a></li>
+<li class="chapter" data-level="5.2" data-path="lexops-shiny-app.html"><a href="lexops-shiny-app.html#match-item"><i class="fa fa-check"></i><b>5.2</b> Match Item</a></li>
 <li class="chapter" data-level="5.3" data-path="lexops-shiny-app.html"><a href="lexops-shiny-app.html#fetch"><i class="fa fa-check"></i><b>5.3</b> Fetch</a></li>
 <li class="chapter" data-level="5.4" data-path="lexops-shiny-app.html"><a href="lexops-shiny-app.html#visualise"><i class="fa fa-check"></i><b>5.4</b> Visualise</a></li>
 <li class="chapter" data-level="5.5" data-path="lexops-shiny-app.html"><a href="lexops-shiny-app.html#custom-variables"><i class="fa fa-check"></i><b>5.5</b> Custom Variables</a></li>
@@ -215,10 +215,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="matching-individual-words" class="section level1">
 <h1><span class="header-section-number">4</span> Matching Individual Words</h1>
-<p>While the generate pipeline is usually sufficient, it’s sometimes important to tailor stimuli more precisely. For instance, it may be important that a matched word is a plausible replacement for a target word in a sentence. The <code>match_word()</code> function exists for this purpose.</p>
+<p>While the generate pipeline is usually sufficient, it’s sometimes important to tailor stimuli more precisely. For instance, it may be important that a matched word is a plausible replacement for a target word in a sentence. The <code>match_item()</code> function exists for this purpose.</p>
 <div id="example" class="section level2">
 <h2><span class="header-section-number">4.1</span> Example</h2>
-<p>Here’s an example usage of <code>match_word</code>, to suggest a word matched for “elephant” in terms of:</p>
+<p>Here’s an example usage of <code>match_item()</code>, to suggest a word matched for “elephant” in terms of:</p>
 <ul>
 <li>Length (exactly)</li>
 <li>Frequency (within ±0.25 Zipf)</li>
@@ -228,7 +228,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw">library</span>(LexOPS)</a>
 <a class="sourceLine" id="cb15-2" title="2"></a>
 <a class="sourceLine" id="cb15-3" title="3">suggested_matches &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb15-4" title="4"><span class="st">  </span><span class="kw">match_word</span>(</a>
+<a class="sourceLine" id="cb15-4" title="4"><span class="st">  </span><span class="kw">match_item</span>(</a>
 <a class="sourceLine" id="cb15-5" title="5">    <span class="st">&quot;elephant&quot;</span>,</a>
 <a class="sourceLine" id="cb15-6" title="6">    Length,</a>
 <a class="sourceLine" id="cb15-7" title="7">    <span class="dt">Zipf.SUBTLEX_UK =</span> <span class="fl">-0.25</span><span class="op">:</span><span class="fl">0.25</span>,</a>
@@ -402,7 +402,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>You may want to match by similarity to the target word. Thankfully this is more straightforward than in the generate pipeline (see <a href="advanced-stimulus-generation.html#map-functions-as-controls"><code>control_for_map()</code></a>).</p>
 <div id="orthographic-similarity-1" class="section level3">
 <h3><span class="header-section-number">4.2.1</span> Orthographic similarity</h3>
-<p>Here’s an example, matching “leaflet” by orthographic similarity. We just have to calculate the similarity measure before using the <code>match_word()</code> function.</p>
+<p>Here’s an example, matching “leaflet” by orthographic similarity. We just have to calculate the similarity measure before using the <code>match_item()</code> function.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw">library</span>(LexOPS)</a>
 <a class="sourceLine" id="cb16-2" title="2"><span class="kw">library</span>(vwr)</a>
 <a class="sourceLine" id="cb16-3" title="3"><span class="kw">library</span>(dplyr)</a>
@@ -411,8 +411,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb16-6" title="6"></a>
 <a class="sourceLine" id="cb16-7" title="7">suggested_matches &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb16-8" title="8"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">orth_sim =</span> <span class="kw">as.numeric</span>(<span class="kw">levenshtein.distance</span>(string, target_word))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb16-9" title="9"><span class="st">  </span><span class="kw">match_word</span>(<span class="dt">target =</span> target_word, <span class="dt">orth_sim =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">3</span>)</a></code></pre></div>
-<p>Note that some of these are misspellings or unusual words, but we could remove these by filtering (e.g. with <code>dplyr::filter()</code>) or matching (with <code>match_word()</code>) by frequency, proportion known, or familiarity ratings.</p>
+<a class="sourceLine" id="cb16-9" title="9"><span class="st">  </span><span class="kw">match_item</span>(<span class="dt">target =</span> target_word, <span class="dt">orth_sim =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">3</span>)</a></code></pre></div>
+<p>Note that some of these are misspellings or unusual words, but we could remove these by filtering (e.g. with <code>dplyr::filter()</code>) or matching (with <code>match_item()</code>) by frequency, proportion known, or familiarity ratings.</p>
 <div class="table">
 <table>
 <thead>
@@ -494,7 +494,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb17-12" title="12"><span class="co"># find phonologically similar words</span></a>
 <a class="sourceLine" id="cb17-13" title="13">suggested_matches &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb17-14" title="14"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">phon_sim =</span> <span class="kw">as.numeric</span>(<span class="kw">levenshtein.distance</span>(CMU<span class="fl">.1</span>letter, target_word_pron))) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb17-15" title="15"><span class="st">  </span><span class="kw">match_word</span>(target_word, <span class="dt">phon_sim =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">2</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb17-15" title="15"><span class="st">  </span><span class="kw">match_item</span>(target_word, <span class="dt">phon_sim =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">2</span>)</a></code></pre></div>
 <p>Which gives us:</p>
 <div class="table">
 <table>
