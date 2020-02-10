@@ -151,8 +151,8 @@ plot_design(stim)
 ```
 
 <div class="figure" style="text-align: center">
-<img src="02-generate_files/figure-html/unnamed-chunk-11-1.png" alt="The results of the `plot_sample()` function for the generated stimuli." width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-11)The results of the `plot_sample()` function for the generated stimuli.</p>
+<img src="02-generate_files/figure-html/unnamed-chunk-11-1.png" alt="The results of the `plot_design()` function for the generated stimuli." width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-11)The results of the `plot_design()` function for the generated stimuli.</p>
 </div>
 
 The distributions of all the numeric variables used as independent variables or controls are plotted for each condition (in a grey violin plot). The points depict the values of individual words, and points of the same colour (joined by lines) are matched items. As we'd expect, our example stimuli show the expected differences in Bigram Probability and Concreteness, while Frequency is matched closely, and Length is matched exactly.
@@ -166,7 +166,10 @@ We can also visualise how representative our stimuli are. This shows the distrib
 plot_sample(stim)
 ```
 
-<img src="02-generate_files/figure-html/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="02-generate_files/figure-html/unnamed-chunk-12-1.png" alt="The results of the `plot_sample()` function for the generated stimuli." width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-12)The results of the `plot_sample()` function for the generated stimuli.</p>
+</div>
 
 ## Generating as Many as Possible
 

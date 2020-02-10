@@ -122,7 +122,7 @@ Here we can see that indeed, the different conditions are within the boundaries 
 
 While having data in long format is undoubtably useful, it's not very efficient if you want to check what your stimuli look like in a quick glance (especially if your stimuli number in the thousands). What you probably want to do is create a plot to see how your stimuli differ between conditions and across matched items. Thankfully, LexOPS has a handy function to do exactly that:
 
-```{r, fig.cap='The results of the `plot_sample()` function for the generated stimuli.'}
+```{r, fig.cap='The results of the `plot_design()` function for the generated stimuli.'}
 plot_design(stim)
 ```
 
@@ -132,7 +132,7 @@ The distributions of all the numeric variables used as independent variables or 
 
 We can also visualise how representative our stimuli are. This shows the distributions of our generated stimuli on variables, relative to possible but unused candidates.
 
-```{r, warning=FALSE, fig.cap=''}
+```{r, warning=FALSE, fig.cap='The results of the `plot_sample()` function for the generated stimuli.'}
 plot_sample(stim)
 ```
 

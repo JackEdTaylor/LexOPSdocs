@@ -596,9 +596,9 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <p>While having data in long format is undoubtably useful, it’s not very efficient if you want to check what your stimuli look like in a quick glance (especially if your stimuli number in the thousands). What you probably want to do is create a plot to see how your stimuli differ between conditions and across matched items. Thankfully, LexOPS has a handy function to do exactly that:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">plot_design</span>(stim)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-11"></span>
-<img src="02-generate_files/figure-html/unnamed-chunk-11-1.png" alt="The results of the `plot_sample()` function for the generated stimuli." width="100%" />
+<img src="02-generate_files/figure-html/unnamed-chunk-11-1.png" alt="The results of the `plot_design()` function for the generated stimuli." width="100%" />
 <p class="caption">
-Figure 2.1: The results of the <code>plot_sample()</code> function for the generated stimuli.
+Figure 2.1: The results of the <code>plot_design()</code> function for the generated stimuli.
 </p>
 </div>
 <p>The distributions of all the numeric variables used as independent variables or controls are plotted for each condition (in a grey violin plot). The points depict the values of individual words, and points of the same colour (joined by lines) are matched items. As we’d expect, our example stimuli show the expected differences in Bigram Probability and Concreteness, while Frequency is matched closely, and Length is matched exactly.</p>
@@ -607,7 +607,12 @@ Figure 2.1: The results of the <code>plot_sample()</code> function for the gener
 <h2><span class="header-section-number">2.4</span> Checking Representativeness</h2>
 <p>We can also visualise how representative our stimuli are. This shows the distributions of our generated stimuli on variables, relative to possible but unused candidates.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">plot_sample</span>(stim)</a></code></pre></div>
-<p><img src="02-generate_files/figure-html/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-12"></span>
+<img src="02-generate_files/figure-html/unnamed-chunk-12-1.png" alt="The results of the `plot_sample()` function for the generated stimuli." width="100%" />
+<p class="caption">
+Figure 2.2: The results of the <code>plot_sample()</code> function for the generated stimuli.
+</p>
+</div>
 </div>
 <div id="generating-as-many-as-possible" class="section level2">
 <h2><span class="header-section-number">2.5</span> Generating as Many as Possible</h2>
@@ -634,7 +639,7 @@ Note that when <code>n = “all”</code>, you will get a warning if you also ke
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-15"></span>
 <img src="02-generate_files/figure-html/unnamed-chunk-15-1.png" alt="The cumulative number of items generated per iteration." width="100%" />
 <p class="caption">
-Figure 2.2: The cumulative number of items generated per iteration.
+Figure 2.3: The cumulative number of items generated per iteration.
 </p>
 </div>
 <p>This shows a characteristic levelling-off; iterations become increasingly less likely to successfully generate items as the pool of possible combinations is gradually exhausted.</p>
