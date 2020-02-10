@@ -24,7 +24,7 @@
 <meta name="author" content="Jack Taylor" />
 
 
-<meta name="date" content="2020-02-06" />
+<meta name="date" content="2020-02-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -647,15 +647,16 @@ Figure 2.3: The cumulative number of items generated per iteration.
 </div>
 <div id="custom-dataframes" class="section level2">
 <h2><span class="header-section-number">2.7</span> Custom Dataframes</h2>
-<p>While the <a href="introduction.html#the-lexops-dataset">LexOPS Dataset</a> has lots of useful features for English, it isn’t exhaustive, and other languages do exist! The LexOPS functions will actually work with any dataframe, with words from any language. As an example, here’s how to generate a stimulus list of negative, neutral, and positive German words matched for length and frequency, based on the <a href="http://doi.org/10.3758/BRM.42.4.987">Leipzig Affective Norms for German (LANG) (Kanske &amp; Kotz, 2010)</a>.</p>
+<p>While the <a href="introduction.html#the-lexops-dataset">LexOPS Dataset</a> has lots of useful features for English, it isn’t exhaustive, and other languages do exist! The LexOPS functions will actually work with any dataframe, with words from any language. As an example, here’s how to generate a stimulus list of negative, neutral, and positive German words matched for length and frequency, based on the <a href="http://doi.org/10.3758/BRM.42.4.987">Leipzig Affective Norms for German (LANG) (Kanske &amp; Kotz, 2010)</a>. Note that the <code>set_options()</code> function is used to tell LexOPS that our column containing the strings is <code>"words"</code>, rather than the LexOPS default of <code>"string"</code>.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">library</span>(readr)</a>
 <a class="sourceLine" id="cb11-2" title="2">LANG &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;kanske_kotz_2010.csv&quot;</span>, <span class="dt">locale=</span><span class="kw">locale</span>(<span class="dt">encoding =</span> <span class="st">&quot;latin1&quot;</span>))</a>
 <a class="sourceLine" id="cb11-3" title="3"></a>
 <a class="sourceLine" id="cb11-4" title="4">stim &lt;-<span class="st"> </span>LANG <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb11-5" title="5"><span class="st">  </span><span class="kw">split_by</span>(valence_mean, <span class="dv">1</span><span class="op">:</span><span class="fl">3.5</span> <span class="op">~</span><span class="st"> </span><span class="fl">4.75</span><span class="op">:</span><span class="fl">5.25</span> <span class="op">~</span><span class="st"> </span><span class="fl">6.5</span><span class="op">:</span><span class="dv">9</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb11-6" title="6"><span class="st">  </span><span class="kw">control_for</span>(number_of_letters, <span class="dv">0</span><span class="op">:</span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb11-7" title="7"><span class="st">  </span><span class="kw">control_for</span>(frequency, <span class="dv">-1</span><span class="op">:</span><span class="dv">1</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb11-8" title="8"><span class="st">  </span><span class="kw">generate</span>(<span class="dv">20</span>, <span class="dt">string_col =</span> <span class="st">&quot;word&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb11-5" title="5"><span class="st">  </span><span class="kw">set_options</span>(<span class="dt">id_col =</span> <span class="st">&quot;word&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-6" title="6"><span class="st">  </span><span class="kw">split_by</span>(valence_mean, <span class="dv">1</span><span class="op">:</span><span class="fl">3.5</span> <span class="op">~</span><span class="st"> </span><span class="fl">4.75</span><span class="op">:</span><span class="fl">5.25</span> <span class="op">~</span><span class="st"> </span><span class="fl">6.5</span><span class="op">:</span><span class="dv">9</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-7" title="7"><span class="st">  </span><span class="kw">control_for</span>(number_of_letters, <span class="dv">0</span><span class="op">:</span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-8" title="8"><span class="st">  </span><span class="kw">control_for</span>(frequency, <span class="dv">-1</span><span class="op">:</span><span class="dv">1</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-9" title="9"><span class="st">  </span><span class="kw">generate</span>(<span class="dv">20</span>)</a></code></pre></div>
 <p>Here are the first five items generated for each condition:</p>
 
 <div class="table">

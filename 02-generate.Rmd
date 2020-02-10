@@ -170,17 +170,18 @@ This shows a characteristic levelling-off; iterations become increasingly less l
 
 ## Custom Dataframes
 
-While the [LexOPS Dataset](introduction.html#the-lexops-dataset) has lots of useful features for English, it isn't exhaustive, and other languages do exist! The LexOPS functions will actually work with any dataframe, with words from any language. As an example, here's how to generate a stimulus list of negative, neutral, and positive German words matched for length and frequency, based on the [Leipzig Affective Norms for German (LANG) (Kanske & Kotz, 2010)](http://doi.org/10.3758/BRM.42.4.987).
+While the [LexOPS Dataset](introduction.html#the-lexops-dataset) has lots of useful features for English, it isn't exhaustive, and other languages do exist! The LexOPS functions will actually work with any dataframe, with words from any language. As an example, here's how to generate a stimulus list of negative, neutral, and positive German words matched for length and frequency, based on the [Leipzig Affective Norms for German (LANG) (Kanske & Kotz, 2010)](http://doi.org/10.3758/BRM.42.4.987). Note that the `set_options()` function is used to tell LexOPS that our column containing the strings is `"words"`, rather than the LexOPS default of `"string"`.
 
 ```{r, eval=FALSE}
 library(readr)
 LANG <- read_csv("kanske_kotz_2010.csv", locale=locale(encoding = "latin1"))
 
 stim <- LANG %>%
+  set_options(id_col = "word") %>%
   split_by(valence_mean, 1:3.5 ~ 4.75:5.25 ~ 6.5:9) %>%
   control_for(number_of_letters, 0:0) %>%
   control_for(frequency, -1:1) %>%
-  generate(20, string_col = "word")
+  generate(20)
 ```
 
 Here are the first five items generated for each condition:
