@@ -194,10 +194,10 @@ readRDS("data/LANG_stim.rds") %>%
 ```
 \normalsize
 
+For a more detailed example, try the vignette on [Using Data frm Custom Sources](vignettes/custom-data.html). This will show how you can use the [dplyr join functions](https://dplyr.tidyverse.org/reference/join.html) to integrate custom datasets with the LexOPS dataset.
+
 <br>
 ```{block, type="info"}
-Note that if you're using your own dataframe, you'll have to specify which column contains the strings with the `string_col` argument of the `generate()` function (above, `string_col = "word"`), or else rename the column to be "string".
-
-Custom variables can be neatly integrated with the inbuilt LexOPS dataset (or vice versa) with the [dplyr join functions](https://dplyr.tidyverse.org/reference/join.html). This is how custom variables are used in the Shiny app. See [this section](lexops-shiny-app.html#custom-variables) for a example using custom variables in the shiny app.
+Custom datasets can also be neatly integrated into the Shiny app. See [this section](lexops-shiny-app.html#custom-variables) for a example using custom variables in the shiny app.
 ```
 <br>

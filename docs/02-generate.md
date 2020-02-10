@@ -240,9 +240,10 @@ Here are the first five items generated for each condition:
 </div>
 \normalsize
 
+For a more detailed example, try the vignette on [Using Data frm Custom Sources](vignettes/custom-data.html). This will show how you can use the [dplyr join functions](https://dplyr.tidyverse.org/reference/join.html) to integrate custom datasets with the LexOPS dataset.
+
 <br>
 <div class="info">
-<p>Note that if you’re using your own dataframe, you’ll have to specify which column contains the strings with the <code>string_col</code> argument of the <code>generate()</code> function (above, <code>string_col = "word"</code>), or else rename the column to be “string”.</p>
-<p>Custom variables can be neatly integrated with the inbuilt LexOPS dataset (or vice versa) with the <a href="https://dplyr.tidyverse.org/reference/join.html">dplyr join functions</a>. This is how custom variables are used in the Shiny app. See <a href="lexops-shiny-app.html#custom-variables">this section</a> for a example using custom variables in the shiny app.</p>
+<p>Custom datasets can also be neatly integrated into the Shiny app. See <a href="lexops-shiny-app.html#custom-variables">this section</a> for a example using custom variables in the shiny app.</p>
 </div>
 <br>

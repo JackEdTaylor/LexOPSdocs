@@ -704,13 +704,11 @@ Figure 2.2: The cumulative number of items generated per iteration.
 </table>
 </div>
 
+<p>For a more detailed example, try the vignette on <a href="vignettes/custom-data.html">Using Data frm Custom Sources</a>. This will show how you can use the <a href="https://dplyr.tidyverse.org/reference/join.html">dplyr join functions</a> to integrate custom datasets with the LexOPS dataset.</p>
 <br>
 <div class="info">
 <p>
-Note that if you’re using your own dataframe, you’ll have to specify which column contains the strings with the <code>string_col</code> argument of the <code>generate()</code> function (above, <code>string_col = “word”</code>), or else rename the column to be “string”.
-</p>
-<p>
-Custom variables can be neatly integrated with the inbuilt LexOPS dataset (or vice versa) with the <a href="https://dplyr.tidyverse.org/reference/join.html">dplyr join functions</a>. This is how custom variables are used in the Shiny app. See <a href="lexops-shiny-app.html#custom-variables">this section</a> for a example using custom variables in the shiny app.
+Custom datasets can also be neatly integrated into the Shiny app. See <a href="lexops-shiny-app.html#custom-variables">this section</a> for a example using custom variables in the shiny app.
 </p>
 </div>
 <p><br></p>
