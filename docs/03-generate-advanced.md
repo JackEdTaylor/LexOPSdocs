@@ -170,17 +170,4 @@ stim <- lexops %>%
     generate(20)
 ```
 
-```
-## Generated 2/20 (10%). 171 total iterations, 0.01 success rate.
-## Generated 4/20 (20%). 394 total iterations, 0.01 success rate.
-## Generated 6/20 (30%). 1064 total iterations, 0.01 success rate.
-## Generated 8/20 (40%). 1515 total iterations, 0.01 success rate.
-## Generated 10/20 (50%). 1738 total iterations, 0.01 success rate.
-## Generated 12/20 (60%). 2012 total iterations, 0.01 success rate.
-## Generated 14/20 (70%). 2591 total iterations, 0.01 success rate.
-## Generated 16/20 (80%). 2727 total iterations, 0.01 success rate.
-## Generated 18/20 (90%). 3055 total iterations, 0.01 success rate.
-## Generated 20/20 (100%). 3221 total iterations, 0.01 success rate.
-```
-
 This method will generally be slower than standard LexOPS pipelines, but more flexible. You can also combine `control_for_euc()` and `control_for()` functions in your pipelines. For more information on controlling for Euclidean distance, and how to decide on tolerances, try the [vignette on Euclidean distance](https://jackedtaylor.github.io/LexOPSdocs/vignettes/euclidean-distance.html).

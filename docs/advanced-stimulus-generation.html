@@ -471,16 +471,6 @@ The name argument (<code>name = …</code>) of the <code>control_for_map()</code
 <a class="sourceLine" id="cb16-7" title="7">        <span class="dt">weights =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">0.5</span>, <span class="fl">0.05</span>)</a>
 <a class="sourceLine" id="cb16-8" title="8">    ) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb16-9" title="9"><span class="st">    </span><span class="kw">generate</span>(<span class="dv">20</span>)</a></code></pre></div>
-<pre><code>## Generated 2/20 (10%). 171 total iterations, 0.01 success rate.
-## Generated 4/20 (20%). 394 total iterations, 0.01 success rate.
-## Generated 6/20 (30%). 1064 total iterations, 0.01 success rate.
-## Generated 8/20 (40%). 1515 total iterations, 0.01 success rate.
-## Generated 10/20 (50%). 1738 total iterations, 0.01 success rate.
-## Generated 12/20 (60%). 2012 total iterations, 0.01 success rate.
-## Generated 14/20 (70%). 2591 total iterations, 0.01 success rate.
-## Generated 16/20 (80%). 2727 total iterations, 0.01 success rate.
-## Generated 18/20 (90%). 3055 total iterations, 0.01 success rate.
-## Generated 20/20 (100%). 3221 total iterations, 0.01 success rate.</code></pre>
 <p>This method will generally be slower than standard LexOPS pipelines, but more flexible. You can also combine <code>control_for_euc()</code> and <code>control_for()</code> functions in your pipelines. For more information on controlling for Euclidean distance, and how to decide on tolerances, try the <a href="https://jackedtaylor.github.io/LexOPSdocs/vignettes/euclidean-distance.html">vignette on Euclidean distance</a>.</p>
 
 </div>
