@@ -1,4 +1,4 @@
-# Matching Individual Words
+# Matching Individual Items
 
 While the generate pipeline is usually sufficient, it's sometimes important to tailor stimuli more precisely. For instance, it may be important that a matched word is a plausible replacement for a target word in a sentence. The `match_item()` function exists for this purpose.
 

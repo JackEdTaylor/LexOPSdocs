@@ -212,7 +212,7 @@ This shows a characteristic levelling-off; iterations become increasingly less l
 
 ## Custom Dataframes
 
-While the [LexOPS Dataset](introduction.html#the-lexops-dataset) has lots of useful features for English, it isn't exhaustive, and other languages do exist! The LexOPS functions will actually work with any dataframe, with words from any language. As an example, here's how to generate a stimulus list of negative, neutral, and positive German words matched for length and frequency, based on the [Leipzig Affective Norms for German (LANG) (Kanske & Kotz, 2010)](http://doi.org/10.3758/BRM.42.4.987). Note that the `set_options()` function is used to tell LexOPS that our column containing the strings is `"words"`, rather than the LexOPS default of `"string"`.
+While the [LexOPS Dataset](introduction.html#the-lexops-dataset) has lots of useful features for English, it isn't exhaustive, and other languages do exist! The LexOPS functions will actually work with any dataframe, with words from any language. As an example, here's how to generate a stimulus list of negative, neutral, and positive German words matched for length and frequency, based on the [Leipzig Affective Norms for German (LANG) (Kanske & Kotz, 2010)](http://doi.org/10.3758/BRM.42.4.987). Note that the `set_options()` function is used to tell LexOPS that our column containing the strings is `"word"`, rather than the LexOPS default of `"string"`.
 
 
 ```r
@@ -243,7 +243,7 @@ Here are the first five items generated for each condition:
 </div>
 \normalsize
 
-For a more detailed example, try the vignette on [Using Data frm Custom Sources](vignettes/custom-data.html). This will show how you can use the [dplyr join functions](https://dplyr.tidyverse.org/reference/join.html) to integrate custom datasets with the LexOPS dataset.
+For a more detailed example, try the vignette on [Using Data from Custom Sources](vignettes/custom-data.html). This will show how you can use the [dplyr join functions](https://dplyr.tidyverse.org/reference/join.html) to integrate custom datasets with the LexOPS dataset.
 
 <br>
 <div class="info">

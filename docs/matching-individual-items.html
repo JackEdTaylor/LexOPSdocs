@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>LexOPS Walkthrough</title>
+  <title>4 Matching Individual Items | LexOPS Walkthrough</title>
   <meta name="description" content="An introduction to the LexOPS package and how to use it." />
   <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="LexOPS Walkthrough" />
+  <meta property="og:title" content="4 Matching Individual Items | LexOPS Walkthrough" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="LexOPS Walkthrough" />
+  <meta name="twitter:title" content="4 Matching Individual Items | LexOPS Walkthrough" />
   
   <meta name="twitter:description" content="An introduction to the LexOPS package and how to use it." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="introduction.html"/>
+<link rel="prev" href="advanced-stimulus-generation.html"/>
+<link rel="next" href="lexops-shiny-app.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -215,22 +215,365 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">LexOPS Walkthrough</h1>
-<p class="author"><em>Jack Taylor</em></p>
-<p class="date"><em>2020-02-12</em></p>
+<div id="matching-individual-items" class="section level1">
+<h1><span class="header-section-number">4</span> Matching Individual Items</h1>
+<p>While the generate pipeline is usually sufficient, it’s sometimes important to tailor stimuli more precisely. For instance, it may be important that a matched word is a plausible replacement for a target word in a sentence. The <code>match_item()</code> function exists for this purpose.</p>
+<div id="example" class="section level2">
+<h2><span class="header-section-number">4.1</span> Example</h2>
+<p>Here’s an example usage of <code>match_item()</code>, to suggest a word matched for “elephant” in terms of:</p>
+<ul>
+<li>Length (exactly)</li>
+<li>Frequency (within ±0.25 Zipf)</li>
+<li>Imageability (within ±1, on a 1-7 Likert rating scale)</li>
+<li>Part of Speech (i.e. is also a noun)</li>
+</ul>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw">library</span>(LexOPS)</a>
+<a class="sourceLine" id="cb18-2" title="2"></a>
+<a class="sourceLine" id="cb18-3" title="3">suggested_matches &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-4" title="4"><span class="st">  </span><span class="kw">match_item</span>(</a>
+<a class="sourceLine" id="cb18-5" title="5">    <span class="st">&quot;elephant&quot;</span>,</a>
+<a class="sourceLine" id="cb18-6" title="6">    Length,</a>
+<a class="sourceLine" id="cb18-7" title="7">    <span class="dt">Zipf.SUBTLEX_UK =</span> <span class="fl">-0.25</span><span class="op">:</span><span class="fl">0.25</span>,</a>
+<a class="sourceLine" id="cb18-8" title="8">    <span class="dt">IMAG.Glasgow_Norms =</span> <span class="dv">-1</span><span class="op">:</span><span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb18-9" title="9">    PoS.SUBTLEX_UK</a>
+<a class="sourceLine" id="cb18-10" title="10">  )</a></code></pre></div>
+<p>The suggested matches are returned in a dataframe, filtered to be within the specified tolerances, and ordered by euclidean distance from the target word (calculated using all the numeric variables used). The closest suggested match for “elephant” is “sandwich”. If we are looking for a match to fit in a sentential context, we can choose the best suitable match from this list.</p>
+<div class="table">
+<table>
+<thead>
+<tr class="header">
+<th align="left">string</th>
+<th align="right">euclidean_distance</th>
+<th align="right">Length</th>
+<th align="right">Zipf.SUBTLEX_UK</th>
+<th align="right">IMAG.Glasgow_Norms</th>
+<th align="left">PoS.SUBTLEX_UK</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">sandwich</td>
+<td align="right">0.1277847</td>
+<td align="right">8</td>
+<td align="right">4.246820</td>
+<td align="right">6.7647</td>
+<td align="left">noun</td>
+</tr>
+<tr class="even">
+<td align="left">trousers</td>
+<td align="right">0.2015596</td>
+<td align="right">8</td>
+<td align="right">4.244371</td>
+<td align="right">6.6286</td>
+<td align="left">noun</td>
+</tr>
+<tr class="odd">
+<td align="left">wardrobe</td>
+<td align="right">0.3255001</td>
+<td align="right">8</td>
+<td align="right">4.104315</td>
+<td align="right">6.6176</td>
+<td align="left">noun</td>
+</tr>
+<tr class="even">
+<td align="left">clothing</td>
+<td align="right">0.3302431</td>
+<td align="right">8</td>
+<td align="right">4.135068</td>
+<td align="right">6.5455</td>
+<td align="left">noun</td>
+</tr>
+<tr class="odd">
+<td align="left">calendar</td>
+<td align="right">0.3359636</td>
+<td align="right">8</td>
+<td align="right">4.329810</td>
+<td align="right">6.4000</td>
+<td align="left">noun</td>
+</tr>
+<tr class="even">
+<td align="left">magazine</td>
+<td align="right">0.3522379</td>
+<td align="right">8</td>
+<td align="right">4.287246</td>
+<td align="right">6.3846</td>
+<td align="left">noun</td>
+</tr>
+<tr class="odd">
+<td align="left">bungalow</td>
+<td align="right">0.3726770</td>
+<td align="right">8</td>
+<td align="right">4.172277</td>
+<td align="right">6.4242</td>
+<td align="left">noun</td>
+</tr>
+<tr class="even">
+<td align="left">envelope</td>
+<td align="right">0.4004126</td>
+<td align="right">8</td>
+<td align="right">4.096792</td>
+<td align="right">6.4706</td>
+<td align="left">noun</td>
+</tr>
+<tr class="odd">
+<td align="left">festival</td>
+<td align="right">0.4979160</td>
+<td align="right">8</td>
+<td align="right">4.510449</td>
+<td align="right">6.2353</td>
+<td align="left">noun</td>
+</tr>
+<tr class="even">
+<td align="left">motorway</td>
+<td align="right">0.5312797</td>
+<td align="right">8</td>
+<td align="right">4.107187</td>
+<td align="right">6.2333</td>
+<td align="left">noun</td>
+</tr>
+<tr class="odd">
+<td align="left">exercise</td>
+<td align="right">0.5545789</td>
+<td align="right">8</td>
+<td align="right">4.449319</td>
+<td align="right">6.1212</td>
+<td align="left">noun</td>
+</tr>
+<tr class="even">
+<td align="left">treasure</td>
+<td align="right">0.5598276</td>
+<td align="right">8</td>
+<td align="right">4.458939</td>
+<td align="right">6.1176</td>
+<td align="left">noun</td>
+</tr>
+<tr class="odd">
+<td align="left">portrait</td>
+<td align="right">0.5860691</td>
+<td align="right">8</td>
+<td align="right">4.183298</td>
+<td align="right">6.0968</td>
+<td align="left">noun</td>
+</tr>
+<tr class="even">
+<td align="left">engineer</td>
+<td align="right">0.6080043</td>
+<td align="right">8</td>
+<td align="right">4.138999</td>
+<td align="right">6.0909</td>
+<td align="left">noun</td>
+</tr>
+<tr class="odd">
+<td align="left">document</td>
+<td align="right">0.6314308</td>
+<td align="right">8</td>
+<td align="right">4.182166</td>
+<td align="right">6.0323</td>
+<td align="left">noun</td>
+</tr>
+<tr class="even">
+<td align="left">shooting</td>
+<td align="right">0.7013990</td>
+<td align="right">8</td>
+<td align="right">4.391130</td>
+<td align="right">5.9032</td>
+<td align="left">noun</td>
+</tr>
+<tr class="odd">
+<td align="left">applause</td>
+<td align="right">0.7068317</td>
+<td align="right">8</td>
+<td align="right">4.209885</td>
+<td align="right">5.9143</td>
+<td align="left">noun</td>
+</tr>
+<tr class="even">
+<td align="left">darkness</td>
+<td align="right">0.7291092</td>
+<td align="right">8</td>
+<td align="right">4.143049</td>
+<td align="right">5.9118</td>
+<td align="left">noun</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="overview" class="section level1 unnumbered">
-<h1>Overview</h1>
-<p><img src="images/hex-250.png" align="right" style="padding-left:50px;background-color:white" /></p>
-<p>LexOPS is an R package and shiny app for generating word stimuli, for use in Psychology experiments. LexOPS can generate stimuli for a factorial design specified by the user, controlling for selected lexical variables. The package has an inbuilt database of features for English words (<code>LexOPS::lexops</code>), but the user can also use their own list of features, for English words and/or for words in other languages.</p>
-<p>This site explains most features of LexOPS, and provides some example applications.</p>
-<div id="useful-links" class="section level2 unnumbered">
-<h2>Useful Links</h2>
-<p><i class="fa fa-file-pdf-o"></i> Preprint about LexOPS: <a href="https://psyarxiv.com/7sudw" class="uri">https://psyarxiv.com/7sudw</a></p>
-<p><i class="fa fa-quote-left"></i> Cite LexOPS: <a href="faq.html#how-should-i-cite-lexops">FAQ - How should I cite LexOPS</a></p>
-<p><i class="fa fa-github"></i> GitHub Repository: <a href="https://github.com/JackEdTaylor/LexOPS" class="uri">https://github.com/JackEdTaylor/LexOPS</a></p>
+</div>
+<div id="matching-by-similarity" class="section level2">
+<h2><span class="header-section-number">4.2</span> Matching by Similarity</h2>
+<p>You may want to match by similarity to the target word. Thankfully this is more straightforward than in the generate pipeline (see <a href="advanced-stimulus-generation.html#map-functions-as-controls"><code>control_for_map()</code></a>).</p>
+<div id="orthographic-similarity-1" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Orthographic similarity</h3>
+<p>Here’s an example, matching “leaflet” by orthographic similarity. We just have to calculate the similarity measure before using the <code>match_item()</code> function.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw">library</span>(LexOPS)</a>
+<a class="sourceLine" id="cb19-2" title="2"><span class="kw">library</span>(vwr)</a>
+<a class="sourceLine" id="cb19-3" title="3"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb19-4" title="4"></a>
+<a class="sourceLine" id="cb19-5" title="5">target_word &lt;-<span class="st"> &quot;interesting&quot;</span></a>
+<a class="sourceLine" id="cb19-6" title="6"></a>
+<a class="sourceLine" id="cb19-7" title="7">suggested_matches &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-8" title="8"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">orth_sim =</span> <span class="kw">as.numeric</span>(<span class="kw">levenshtein.distance</span>(string, target_word))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb19-9" title="9"><span class="st">  </span><span class="kw">match_item</span>(<span class="dt">target =</span> target_word, <span class="dt">orth_sim =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">3</span>)</a></code></pre></div>
+<p>Note that some of these are misspellings or unusual words, but we could remove these by filtering (e.g. with <code>dplyr::filter()</code>) or matching (with <code>match_item()</code>) by frequency, proportion known, or familiarity ratings.</p>
+<div class="table">
+<table>
+<thead>
+<tr class="header">
+<th align="left">string</th>
+<th align="right">euclidean_distance</th>
+<th align="right">orth_sim</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">interestin</td>
+<td align="right">0.8288949</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">interacting</td>
+<td align="right">1.6577897</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">intercepting</td>
+<td align="right">1.6577897</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">interestingay</td>
+<td align="right">1.6577897</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">interestingly</td>
+<td align="right">1.6577897</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">interjecting</td>
+<td align="right">1.6577897</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">intermeshing</td>
+<td align="right">1.6577897</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">intersecting</td>
+<td align="right">1.6577897</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">uninteresting</td>
+<td align="right">1.6577897</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">entreating</td>
+<td align="right">2.4866846</td>
+<td align="right">3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="phonological-similarity-1" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Phonological Similarity</h3>
+<p>To match by phonological similarity, we just have to calculate the levenshtein distance on one-letter phonemic representations, e.g. with <code>CMU.1letter</code> or <code>eSpeak.br_1letter</code>. Here we find words that are only 0 to 2 phonemic insertions, deletions, or substitutions away from “interesting”.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="kw">library</span>(LexOPS)</a>
+<a class="sourceLine" id="cb20-2" title="2"><span class="kw">library</span>(vwr)</a>
+<a class="sourceLine" id="cb20-3" title="3"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb20-4" title="4"></a>
+<a class="sourceLine" id="cb20-5" title="5">target_word &lt;-<span class="st"> &quot;interesting&quot;</span></a>
+<a class="sourceLine" id="cb20-6" title="6"></a>
+<a class="sourceLine" id="cb20-7" title="7"><span class="co"># get the target word&#39;s pronunciation</span></a>
+<a class="sourceLine" id="cb20-8" title="8">target_word_pron &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb20-9" title="9"><span class="st">  </span><span class="kw">filter</span>(string <span class="op">==</span><span class="st"> </span>target_word) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb20-10" title="10"><span class="st">  </span><span class="kw">pull</span>(CMU<span class="fl">.1</span>letter)</a>
+<a class="sourceLine" id="cb20-11" title="11"></a>
+<a class="sourceLine" id="cb20-12" title="12"><span class="co"># find phonologically similar words</span></a>
+<a class="sourceLine" id="cb20-13" title="13">suggested_matches &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb20-14" title="14"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">phon_sim =</span> <span class="kw">as.numeric</span>(<span class="kw">levenshtein.distance</span>(CMU<span class="fl">.1</span>letter, target_word_pron))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb20-15" title="15"><span class="st">  </span><span class="kw">match_item</span>(target_word, <span class="dt">phon_sim =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">2</span>)</a></code></pre></div>
+<p>Which gives us:</p>
+<div class="table">
+<table>
+<thead>
+<tr class="header">
+<th align="left">string</th>
+<th align="right">euclidean_distance</th>
+<th align="right">phon_sim</th>
+<th align="left">CMU.1letter</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">entrusting</td>
+<td align="right">0.9515925</td>
+<td align="right">1</td>
+<td align="left">EntrAstIG</td>
+</tr>
+<tr class="even">
+<td align="left">encrusting</td>
+<td align="right">1.9031850</td>
+<td align="right">2</td>
+<td align="left">EnkrAstIG</td>
+</tr>
+<tr class="odd">
+<td align="left">entrusted</td>
+<td align="right">1.9031850</td>
+<td align="right">2</td>
+<td align="left">EntrAstId</td>
+</tr>
+<tr class="even">
+<td align="left">instructing</td>
+<td align="right">1.9031850</td>
+<td align="right">2</td>
+<td align="left">InstrAktIG</td>
+</tr>
+<tr class="odd">
+<td align="left">interest</td>
+<td align="right">1.9031850</td>
+<td align="right">2</td>
+<td align="left">IntrAst</td>
+</tr>
+<tr class="even">
+<td align="left">interested</td>
+<td align="right">1.9031850</td>
+<td align="right">2</td>
+<td align="left">IntrAstAd</td>
+</tr>
+<tr class="odd">
+<td align="left">interests</td>
+<td align="right">1.9031850</td>
+<td align="right">2</td>
+<td align="left">IntrAsts</td>
+</tr>
+<tr class="even">
+<td align="left">interrupting</td>
+<td align="right">1.9031850</td>
+<td align="right">2</td>
+<td align="left">IntRAptIG</td>
+</tr>
+<tr class="odd">
+<td align="left">intrastate</td>
+<td align="right">1.9031850</td>
+<td align="right">2</td>
+<td align="left">IntrAstet</td>
+</tr>
+<tr class="even">
+<td align="left">mistrusting</td>
+<td align="right">1.9031850</td>
+<td align="right">2</td>
+<td align="left">mIstrAstIG</td>
+</tr>
+</tbody>
+</table>
+</div>
 
+</div>
 </div>
 </div>
             </section>
@@ -238,8 +581,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-
-<a href="introduction.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="advanced-stimulus-generation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lexops-shiny-app.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
