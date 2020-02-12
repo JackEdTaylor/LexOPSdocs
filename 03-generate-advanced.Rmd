@@ -136,7 +136,7 @@ If you're wanting to use `control_for_map()` on your own function or data, see t
 
 The `control_for()` function lets you give specific tolerances for individual variables. Another method of matching items, however, may be to control for Euclidean distance, weighting variables by their relative importance. The `control_for_euc()` function lets you do exactly this. As an example, imagine we want to split by concretness, and control for length, frequency, and age of acquisition. We might decide that length is the most important thing to match (ideally exact matching), followed by frequency and age of acquisition. This could be achieved like so:
 
-```{r}
+```{r, eval=FALSE}
 stim <- lexops %>%
     split_by(CNC.Brysbaert, 1:2 ~ 4:5) %>%
     control_for_euc(
