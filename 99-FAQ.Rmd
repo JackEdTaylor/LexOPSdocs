@@ -16,6 +16,7 @@ The "match null" is a term used in the [generate pipeline](the-generate-pipeline
 
 Here is a summary of the possible options for the `match_null` argument:
 
+<br>
 ```{r, echo=FALSE}
 tribble(
   ~match_null, ~effect,
@@ -26,5 +27,6 @@ tribble(
 ) %>%
   knitr::kable()
 ```
+<br>
 
 The match null used for each generated item is stored in the wide and long formats of the output from the generate pipeline, as the variable `match_null`.
