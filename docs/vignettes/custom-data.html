@@ -1026,13 +1026,42 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>The <code>cite_design()</code> function is useful for suggesting papers that you should cite having generated your stimuli. Note that for variables LexOPS does not know, while the variable will be suggested as something that needs citing, you will have to find the citation yourself.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw">cite_design</span>(stim)</a></code></pre></div>
 <pre><code>## Please also cite LexOPS: Taylor, Beith and Sereno (2019), doi:10.31234/osf.io/7sudw</code></pre>
-<pre><code>## # A tibble: 4 x 4
-##   var           measure                                    source                                        url                              
-##   &lt;chr&gt;         &lt;chr&gt;                                      &lt;chr&gt;                                         &lt;chr&gt;                            
-## 1 Visual.mean   Custom Measure                             Custom Source                                 Unknown                          
-## 2 Humour.mean   Custom Measure                             Custom Source                                 Unknown                          
-## 3 Length        Length (Number of Characters)              &lt;NA&gt;                                          &lt;NA&gt;                             
-## 4 Zipf.SUBTLEX~ Frequency in Zipf (Zipf=log10(frequency p~ SUBTLEX-UK (van Heuven, Mandera, Keuleers, &amp;~ https://doi.org/10.1080/17470218~</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">var</th>
+<th align="left">measure</th>
+<th align="left">source</th>
+<th align="left">url</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Visual.mean</td>
+<td align="left">Custom Measure</td>
+<td align="left">Custom Source</td>
+<td align="left">Unknown</td>
+</tr>
+<tr class="even">
+<td align="left">Humour.mean</td>
+<td align="left">Custom Measure</td>
+<td align="left">Custom Source</td>
+<td align="left">Unknown</td>
+</tr>
+<tr class="odd">
+<td align="left">Length</td>
+<td align="left">Length (Number of Characters)</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Zipf.SUBTLEX_UK</td>
+<td align="left">Frequency in Zipf (Zipf=log10(frequency per million)+3)</td>
+<td align="left">SUBTLEX-UK (van Heuven, Mandera, Keuleers, &amp; Brysbaert, 2014)</td>
+<td align="left"><a href="https://doi.org/10.1080/17470218.2013.850521" class="uri">https://doi.org/10.1080/17470218.2013.850521</a></td>
+</tr>
+</tbody>
+</table>
 </div>
 
 
