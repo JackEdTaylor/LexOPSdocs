@@ -19,6 +19,7 @@ v_files <- unlist(lapply(content(vignette_repo)$tree, "[", "path"), use.names=F)
   grep("vignettes/.+\\.Rmd", ., value=TRUE) %>%
   basename()
 
+# links will contain all the info rendered in the Vignettes boxes
 links <- lapply(1:length(v_files), function(v_nr) {
   
   v <- v_files[[v_nr]]
@@ -37,6 +38,7 @@ links <- lapply(1:length(v_files), function(v_nr) {
   v_html <- sprintf("%s.html", tools::file_path_sans_ext(v_path))
   file.copy(v_html, file.path("docs", v_html), overwrite = TRUE)
   
+  # scrape the rendered .Rmd for the Vignettes page boxes' info
   scrape <- read_html(v_html)
   
   v_title <- scrape %>%
@@ -49,10 +51,11 @@ links <- lapply(1:length(v_files), function(v_nr) {
     dplyr::first() %>%
     html_text()
   
+  # return the html for the link to this vignette
   sprintf("<a style=\"text-decoration:none;color:black;\" href=\"%s\"><div class=\"code-link\"><b>%s) %s: </b>%s</div></a>", v_html, v_nr, v_title, v_intro)
 })
 
-# save the resulting html to vignettes-boxes.rds
+# save the resulting html to vignettes-boxes.rds, which is then rendered by 98-vignettes.Rmd
 links %>%
   unlist() %>%
   paste(collapse="\n</br>") %>%
