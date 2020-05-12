@@ -89,12 +89,6 @@ div.color-theme-2 .book-body .page-wrapper .page-inner section.normal strong cod
   border: 1px solid var(--purple);
 }
 
-.cite {
-  padding-left: 22px ;
-  text-indent: -22px ;
-  background-color: hsla(0, 0%, 98%, 1);
-}
-
 /* external link icons */
 
 a[target="_blank"]::after {

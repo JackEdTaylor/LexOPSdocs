@@ -7,7 +7,7 @@ If you use LexOPS to generate your stimuli, please cite it! Make sure you also c
 Here is how to cite LexOPS:
 
 <div class="cite">
-<p>Taylor, J. E., Beith, A., &amp; Sereno, S. C. (2020). LexOPS: An R Package and User Interface for the Controlled Generation of Word Stimuli. Behaviour Research Methods. DOI: <a href="https://doi.org/10.31234/osf.io/7sudw" class="uri">https://doi.org/10.31234/osf.io/7sudw</a></p>
+<p>Taylor, J. E., Beith, A., &amp; Sereno, S. C. (2020). LexOPS: An R Package and User Interface for the Controlled Generation of Word Stimuli. <i>Behaviour Research Methods</i>. <a href="http://doi.org/10.3758/s13428-020-01389-1" class="uri">http://doi.org/10.3758/s13428-020-01389-1</a></p>
 </div>
 
 ### What is a "match null"? {-}
