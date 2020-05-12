@@ -1,4 +1,3 @@
-
 # The Generate Pipeline
 
 
@@ -151,8 +150,8 @@ plot_design(stim)
 ```
 
 <div class="figure" style="text-align: center">
-<img src="02-generate_files/figure-html/unnamed-chunk-11-1.png" alt="The results of the `plot_design()` function for the generated stimuli." width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-11)The results of the `plot_design()` function for the generated stimuli.</p>
+<img src="02-generate_files/figure-html/unnamed-chunk-10-1.png" alt="The results of the `plot_design()` function for the generated stimuli." width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-10)The results of the `plot_design()` function for the generated stimuli.</p>
 </div>
 
 The distributions of all the numeric variables used as independent variables or controls are plotted for each condition (in a grey violin plot). The points depict the values of individual words, and points of the same colour (joined by lines) are matched items. As we'd expect, our example stimuli show the expected differences in Bigram Probability and Concreteness, while Frequency is matched closely, and Length is matched exactly.
@@ -167,8 +166,8 @@ plot_sample(stim)
 ```
 
 <div class="figure" style="text-align: center">
-<img src="02-generate_files/figure-html/unnamed-chunk-12-1.png" alt="The results of the `plot_sample()` function for the generated stimuli." width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-12)The results of the `plot_sample()` function for the generated stimuli.</p>
+<img src="02-generate_files/figure-html/unnamed-chunk-11-1.png" alt="The results of the `plot_sample()` function for the generated stimuli." width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-11)The results of the `plot_sample()` function for the generated stimuli.</p>
 </div>
 
 ## Generating as Many as Possible
@@ -186,9 +185,9 @@ possible_stim <- LexOPS::lexops %>%
   generate(n = "all", match_null = "random")
 ```
 
-This is much slower, as LexOPS will continue trying to generate combinations of words that fit the specified characteristics until it has exhausted all the possibilities. Nevertheless, we actually generated 180 words generated per condition with the code above. This number is likely to change slightly each time we run the pipeline, as different combinations are randomly made from all the possible combinations. That said, it is a fairly good *indication* of the number of possible stimuli we could generate.
+This is much slower, as LexOPS will continue trying to generate combinations of words that fit the specified characteristics until it has exhausted all the possibilities. Nevertheless, we actually generated 101 words generated per condition with the code above. This number is likely to change slightly each time we run the pipeline, as different combinations are randomly made from all the possible combinations. That said, it is a fairly good *indication* of the number of possible stimuli we could generate.
 
-The 180 words we've managed to generate per condition here is quite a bit higher than the 25 we originally generated. Does this mean we should just request a larger stimulus list, such as `n = 80`, or even `n = 100`? Well, it depends. If we want as many stimuli as are possible, then it may make sense to just set `n = "all"`, but often we only want to use as many stimuli as we need to find our effect. Also, if we use as many combinations as possible, experimenters who want to replicate our effect using a different set of stimuli will likely have fewer novel combinations available to them.
+The 101 words we've managed to generate per condition here is quite a bit higher than the 25 we originally generated. Does this mean we should just request a larger stimulus list, such as `n = 80`, or even `n = 100`? Well, it depends. If we want as many stimuli as are possible, then it may make sense to just set `n = "all"`, but often we only want to use as many stimuli as we need to find our effect. Also, if we use as many combinations as possible, experimenters who want to replicate our effect using a different set of stimuli will likely have fewer novel combinations available to them.
 
 <div class="danger">
 <p>Note that when <code>n = "all"</code>, you will get a warning if you also keep the default match null setting, <code>match_null = "balanced"</code>. The reason for this is explained in <a href="faq.html#what-is-a-match-null">this FAQ section</a>.</p>
@@ -204,8 +203,8 @@ plot_iterations(possible_stim)
 ```
 
 <div class="figure" style="text-align: center">
-<img src="02-generate_files/figure-html/unnamed-chunk-15-1.png" alt="The cumulative number of items generated per iteration." width="100%" />
-<p class="caption">(\#fig:unnamed-chunk-15)The cumulative number of items generated per iteration.</p>
+<img src="02-generate_files/figure-html/unnamed-chunk-14-1.png" alt="The cumulative number of items generated per iteration." width="100%" />
+<p class="caption">(\#fig:unnamed-chunk-14)The cumulative number of items generated per iteration.</p>
 </div>
 
 This shows a characteristic levelling-off; iterations become increasingly less likely to successfully generate items as the pool of possible combinations is gradually exhausted.

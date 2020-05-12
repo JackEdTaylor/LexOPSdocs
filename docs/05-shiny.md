@@ -1,4 +1,3 @@
-
 # LexOPS Shiny App
 
 The Shiny app is an interactive user interface for LexOPS, with informative visualisations and illustrations of selected options. The LexOPS Shiny app can be run locally with:
@@ -25,7 +24,7 @@ Splits (independent variables), controls, and filters can be specified in the fo
 
 <div class="figure" style="text-align: center">
 <img src="./images/shiny/generate-specify-design.gif" alt="Specifying a design in the shiny app." width="75%" height="75%" />
-<p class="caption">(\#fig:unnamed-chunk-3)Specifying a design in the shiny app.</p>
+<p class="caption">(\#fig:unnamed-chunk-2)Specifying a design in the shiny app.</p>
 </div>
 
 ### Options
@@ -34,7 +33,7 @@ Here you can tell the app how many stimuli should be generated per condition, wh
 
 <div class="figure" style="text-align: center">
 <img src="./images/shiny/generate-options.png" alt="Options for the Generate tab." width="75%" height="75%" />
-<p class="caption">(\#fig:unnamed-chunk-4)Options for the Generate tab.</p>
+<p class="caption">(\#fig:unnamed-chunk-3)Options for the Generate tab.</p>
 </div>
 
 ### Results
@@ -43,7 +42,7 @@ This is where you can see the generated stimuli. A different set of stimuli whic
 
 <div class="figure" style="text-align: center">
 <img src="./images/shiny/generate-results.gif" alt="Generating stimuli and viewing the results." width="75%" height="75%" />
-<p class="caption">(\#fig:unnamed-chunk-5)Generating stimuli and viewing the results.</p>
+<p class="caption">(\#fig:unnamed-chunk-4)Generating stimuli and viewing the results.</p>
 </div>
 
 ### Review
@@ -52,7 +51,7 @@ Once the stimuli have been generated, this section allows you to view a summary 
 
 <div class="figure" style="text-align: center">
 <img src="./images/shiny/generate-review.gif" alt="Reviewing generated stimuli." width="75%" height="75%" />
-<p class="caption">(\#fig:unnamed-chunk-6)Reviewing generated stimuli.</p>
+<p class="caption">(\#fig:unnamed-chunk-5)Reviewing generated stimuli.</p>
 </div>
 
 ### Codify
@@ -61,7 +60,7 @@ This is a handy feature that lets you translate the selected options into LexOPS
 
 <div class="figure" style="text-align: center">
 <img src="./images/shiny/generate-codify.png" alt="Translate selected options into LexOPS R code." width="75%" height="75%" />
-<p class="caption">(\#fig:unnamed-chunk-7)Translate selected options into LexOPS R code.</p>
+<p class="caption">(\#fig:unnamed-chunk-6)Translate selected options into LexOPS R code.</p>
 </div>
 
 ## Match Item
@@ -70,7 +69,7 @@ The Match Item tab is a user interface for the [`match_item()` function](matchin
 
 <div class="figure" style="text-align: center">
 <img src="./images/shiny/match.gif" alt="Matching individual words in the Match tab." width="75%" height="75%" />
-<p class="caption">(\#fig:unnamed-chunk-8)Matching individual words in the Match tab.</p>
+<p class="caption">(\#fig:unnamed-chunk-7)Matching individual words in the Match tab.</p>
 </div>
 
 ## Fetch
@@ -93,7 +92,7 @@ I could then upload this to the Fetch tab. This will return the known values fro
 
 <div class="figure" style="text-align: center">
 <img src="./images/shiny/fetch.gif" alt="Fetching the features of a stimulus list." width="75%" height="75%" />
-<p class="caption">(\#fig:unnamed-chunk-10)Fetching the features of a stimulus list.</p>
+<p class="caption">(\#fig:unnamed-chunk-9)Fetching the features of a stimulus list.</p>
 </div>
 
 ## Visualise
@@ -104,7 +103,7 @@ Here's an example application of the visualise tab to look at stimuli generated 
 
 <div class="figure" style="text-align: center">
 <img src="./images/shiny/visualise.gif" alt="Example usage of the Visualise tab." width="75%" height="75%" />
-<p class="caption">(\#fig:unnamed-chunk-11)Example usage of the Visualise tab.</p>
+<p class="caption">(\#fig:unnamed-chunk-10)Example usage of the Visualise tab.</p>
 </div>
 
 ## Custom Variables
@@ -115,7 +114,7 @@ Here is an example in which the variables from the [Leipzig Affective Norms for 
 
 <div class="figure" style="text-align: center">
 <img src="./images/shiny/custom-variables.gif" alt="Using stimuli for languages other than English." width="75%" height="75%" />
-<p class="caption">(\#fig:unnamed-chunk-12)Using stimuli for languages other than English.</p>
+<p class="caption">(\#fig:unnamed-chunk-11)Using stimuli for languages other than English.</p>
 </div>
 
 The Custom Variables tab uses [dplyr's join functions](https://dplyr.tidyverse.org/reference/join.html). An equivalent to using custom variables in R code would be to either join the custom variables to the LexOPS dataset using dplyr's join functions, or to just run the generate pipeline on a dataframe of custom variables (see [this section](the-generate-pipeline.html#custom-dataframes) for an example).
@@ -126,7 +125,7 @@ The seed can be set in the Preferences tab to reproduce specific lists of genera
 
 <div class="figure" style="text-align: center">
 <img src="./images/shiny/setting-seed.gif" alt="Setting the seed in the Shiny app." width="75%" height="75%" />
-<p class="caption">(\#fig:unnamed-chunk-13)Setting the seed in the Shiny app.</p>
+<p class="caption">(\#fig:unnamed-chunk-12)Setting the seed in the Shiny app.</p>
 </div>
 
 If you ["codify" your selected options](#codify), the generated code will also set the seed as the same value, such that a stimulus list can be reproduced outside of the shiny app.

@@ -1,4 +1,3 @@
-
 # Introduction
 
 ## What is LexOPS?
@@ -48,7 +47,7 @@ LexOPS::run_shiny()
 
 <div class="figure" style="text-align: center">
 <img src="./images/shiny-preview.png" alt="The Generate tab of the LexOPS Shiny App" width="75%" height="75%" />
-<p class="caption">(\#fig:unnamed-chunk-4)The Generate tab of the LexOPS Shiny App</p>
+<p class="caption">(\#fig:unnamed-chunk-3)The Generate tab of the LexOPS Shiny App</p>
 </div>
 
 <div class="info">
