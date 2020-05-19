@@ -356,8 +356,10 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb5-4" title="4"><span class="st">  </span><span class="kw">control_for</span>(Zipf.SUBTLEX_UK, <span class="fl">-0.1</span><span class="op">:</span><span class="fl">0.1</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-5" title="5"><span class="st">  </span><span class="kw">control_for</span>(AoA.Kuperman, <span class="fl">-1.5</span><span class="op">:</span><span class="fl">1.5</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-6" title="6"><span class="st">  </span><span class="kw">generate</span>(<span class="dv">20</span>)</a></code></pre></div>
-<pre><code>## Warning in split_by(., emo_cond, &quot;arou_neg&quot; ~ &quot;neutral&quot;): Column emo_cond is type character so will be treated as a factor.</code></pre>
-<pre><code>## Warning in control_for(., Length): No tolerance given for numeric variable &#39;Length&#39;, will control for exactly.</code></pre>
+<pre><code>## Warning in split_by(., emo_cond, &quot;arou_neg&quot; ~ &quot;neutral&quot;): Column
+## emo_cond is type character so will be treated as a factor.</code></pre>
+<pre><code>## Warning in control_for(., Length): No tolerance given for numeric
+## variable &#39;Length&#39;, will control for exactly.</code></pre>
 <pre><code>## Generated 2/20 (10%). 2 total iterations, 1.00 success rate.
 ## Generated 4/20 (20%). 10 total iterations, 0.40 success rate.
 ## Generated 6/20 (30%). 17 total iterations, 0.35 success rate.
