@@ -19,9 +19,9 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -31,16 +31,14 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -49,9 +47,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -308,14 +306,14 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>The <code>control_for()</code> function works well when your variable is 1-dimensional, with a single value for each word, as it is for variables like Length, Frequency or Concreteness. Things become slightly trickier, however, when controlling for distance or similarity values, which can be calculated for each unique combination of words (i.e. <span class="math inline">\(n^2\)</span> values). One easy solution is to use <code>control_for_map()</code> to pass a function which should be used to calculate the value between any two words. Simple examples for controlling for orthographic and phonological similarity are available in the <a href="https://jackedtaylor.github.io/LexOPSdocs/advanced-stimulus-generation.html#map-functions-as-controls">package bookdown site</a>. This vignette demonstrates how to build your own function for <code>control_for_map()</code>, which in this example controls for semantic similarity.</p>
 <div id="packages" class="section level1">
 <h1>Packages</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(readr)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(dplyr)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">library</span>(LexOPS)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(readr)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="kw">library</span>(LexOPS)</a></code></pre></div>
 </div>
 <div id="importing-datsets" class="section level1">
 <h1>Importing Datsets</h1>
 <p>The word pair norms come from <a href="https://doomlab.shinyapps.io/double_words/">Erin Buchanan and colleagues</a>. This dataset indexes semantic similarity between cues and targets. Alternative sources of semantic association/relatedness values include the <a href="https://smallworldofwords.org/en/project">Small World of Words</a>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>pairs &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;https://media.githubusercontent.com/media/doomlab/shiny-server/master/wn_double/double_words.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">pairs &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;https://media.githubusercontent.com/media/doomlab/shiny-server/master/wn_double/double_words.csv&quot;</span>)</a></code></pre></div>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   CUE = col_character(),
@@ -333,44 +331,44 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div id="creating-the-semantic-similarity-function" class="section level1">
 <h1>Creating the Semantic Similarity Function</h1>
 <p>The function we create should index the similarity between <span class="math inline">\(n\)</span> matches (in a vector) and a target word (as a single string). The result should be a vector of values of length <span class="math inline">\(n\)</span>, in the same order as the matches. Using the <code>pairs</code> tibble, we can use some <code>dplyr</code> manipulation to return the required values as a vector. This function returns the <code>root</code> values, indexing the cosine of two words’ semantic overlap for root words (see <a href="https://doomlab.shinyapps.io/double_words/">here</a> for more details).</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>sem_matches &lt;-<span class="st"> </span><span class="cf">function</span>(matches, target) {</span>
-<span id="cb4-2"><a href="#cb4-2"></a>  <span class="co"># for speed, return N ones if possible</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="cf">if</span> (<span class="kw">all</span>(matches<span class="op">==</span>target)) <span class="kw">return</span>(<span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">length</span>(matches)))</span>
-<span id="cb4-4"><a href="#cb4-4"></a>  <span class="co"># find each match-target association value</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a>  <span class="kw">tibble</span>(<span class="dt">CUE =</span> matches, <span class="dt">TARGET =</span> target) <span class="op">%&gt;%</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="st">    </span><span class="kw">full_join</span>(pairs, <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&quot;CUE&quot;</span>, <span class="st">&quot;TARGET&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="st">    </span><span class="kw">filter</span>(TARGET <span class="op">==</span><span class="st"> </span>target <span class="op">&amp;</span><span class="st"> </span>CUE <span class="op">%in%</span><span class="st"> </span>matches) <span class="op">%&gt;%</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="st">    </span><span class="kw">pull</span>(root)</span>
-<span id="cb4-9"><a href="#cb4-9"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">sem_matches &lt;-<span class="st"> </span><span class="cf">function</span>(matches, target) {</a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="co"># for speed, return N ones if possible</span></a>
+<a class="sourceLine" id="cb4-3" title="3">  <span class="cf">if</span> (<span class="kw">all</span>(matches<span class="op">==</span>target)) <span class="kw">return</span>(<span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">length</span>(matches)))</a>
+<a class="sourceLine" id="cb4-4" title="4">  <span class="co"># find each match-target association value</span></a>
+<a class="sourceLine" id="cb4-5" title="5">  <span class="kw">tibble</span>(<span class="dt">CUE =</span> matches, <span class="dt">TARGET =</span> target) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="st">    </span><span class="kw">full_join</span>(pairs, <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&quot;CUE&quot;</span>, <span class="st">&quot;TARGET&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="st">    </span><span class="kw">filter</span>(TARGET <span class="op">==</span><span class="st"> </span>target <span class="op">&amp;</span><span class="st"> </span>CUE <span class="op">%in%</span><span class="st"> </span>matches) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="st">    </span><span class="kw">pull</span>(root)</a>
+<a class="sourceLine" id="cb4-9" title="9">}</a></code></pre></div>
 <p>Let’s test the function on some example match-target combinations.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># should return 1</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="kw">sem_matches</span>(<span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;yellow&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co"># should return 1</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="kw">sem_matches</span>(<span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;yellow&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># should return 3 values: 1 if identical, 0&lt;x&lt;1 if value present, NA if missing</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="kw">sem_matches</span>(<span class="kw">c</span>(<span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;sun&quot;</span>, <span class="st">&quot;leaf&quot;</span>), <span class="st">&quot;yellow&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># should return 3 values: 1 if identical, 0&lt;x&lt;1 if value present, NA if missing</span></a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="kw">sem_matches</span>(<span class="kw">c</span>(<span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;sun&quot;</span>, <span class="st">&quot;leaf&quot;</span>), <span class="st">&quot;yellow&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] 1.0000000 0.2458601        NA</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># would return N=nrow(lexops) values (mostly NA) of similarity to &quot;yellow&quot;</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="co"># sem_matches(lexops$string, &quot;yellow&quot;)</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="co"># would return N=nrow(lexops) values (mostly NA) of similarity to &quot;yellow&quot;</span></a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="co"># sem_matches(lexops$string, &quot;yellow&quot;)</span></a></code></pre></div>
 </div>
 <div id="generating-stimuli" class="section level1">
 <h1>Generating Stimuli</h1>
 <p>We can now generate stimuli controlling for semantic similarity. If we want to generate words which are highly semantically related, we can control for semantic relatedness of <span class="math inline">\(&gt;=0.5\)</span> cosine similarity to an iteration’s match null. Since a match null is placed at 0, and will have a similarity of 1 to itself, we set the <code>control_for_map()</code> tolerance to <code>-0.5:0</code>.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># speed up by removing unusable word pairs from pairs</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a>pairs &lt;-<span class="st"> </span><span class="kw">filter</span>(pairs, root<span class="op">&gt;=</span><span class="fl">0.5</span>)</span>
-<span id="cb10-3"><a href="#cb10-3"></a></span>
-<span id="cb10-4"><a href="#cb10-4"></a>stim &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a><span class="st">  </span><span class="co"># speed up by removing strings unknown to pairs df</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(string <span class="op">%in%</span><span class="st"> </span>pairs<span class="op">$</span>CUE) <span class="op">%&gt;%</span></span>
-<span id="cb10-7"><a href="#cb10-7"></a><span class="st">  </span><span class="co"># create a random 2-level split</span></span>
-<span id="cb10-8"><a href="#cb10-8"></a><span class="st">  </span><span class="kw">split_random</span>(<span class="dv">2</span>) <span class="op">%&gt;%</span></span>
-<span id="cb10-9"><a href="#cb10-9"></a><span class="st">  </span><span class="co"># control for semantic similarity</span></span>
-<span id="cb10-10"><a href="#cb10-10"></a><span class="st">  </span><span class="kw">control_for_map</span>(sem_matches, string, <span class="fl">-0.5</span><span class="op">:</span><span class="dv">0</span>, <span class="dt">name =</span> <span class="st">&quot;root_cosine&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb10-11"><a href="#cb10-11"></a><span class="st">  </span><span class="co"># control for other values</span></span>
-<span id="cb10-12"><a href="#cb10-12"></a><span class="st">  </span><span class="kw">control_for</span>(Length, <span class="dv">0</span><span class="op">:</span><span class="dv">0</span>) <span class="op">%&gt;%</span></span>
-<span id="cb10-13"><a href="#cb10-13"></a><span class="st">  </span><span class="kw">control_for</span>(PoS.SUBTLEX_UK) <span class="op">%&gt;%</span></span>
-<span id="cb10-14"><a href="#cb10-14"></a><span class="st">  </span><span class="kw">control_for</span>(Zipf.SUBTLEX_UK, <span class="fl">-0.2</span><span class="op">:</span><span class="fl">0.2</span>) <span class="op">%&gt;%</span></span>
-<span id="cb10-15"><a href="#cb10-15"></a><span class="st">  </span><span class="co"># generate 20 items per factorial cell (40 total)</span></span>
-<span id="cb10-16"><a href="#cb10-16"></a><span class="st">  </span><span class="kw">generate</span>(<span class="dv">20</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="co"># speed up by removing unusable word pairs from pairs</span></a>
+<a class="sourceLine" id="cb10-2" title="2">pairs &lt;-<span class="st"> </span><span class="kw">filter</span>(pairs, root<span class="op">&gt;=</span><span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb10-3" title="3"></a>
+<a class="sourceLine" id="cb10-4" title="4">stim &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-5" title="5"><span class="st">  </span><span class="co"># speed up by removing strings unknown to pairs df</span></a>
+<a class="sourceLine" id="cb10-6" title="6"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(string <span class="op">%in%</span><span class="st"> </span>pairs<span class="op">$</span>CUE) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-7" title="7"><span class="st">  </span><span class="co"># create a random 2-level split</span></a>
+<a class="sourceLine" id="cb10-8" title="8"><span class="st">  </span><span class="kw">split_random</span>(<span class="dv">2</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-9" title="9"><span class="st">  </span><span class="co"># control for semantic similarity</span></a>
+<a class="sourceLine" id="cb10-10" title="10"><span class="st">  </span><span class="kw">control_for_map</span>(sem_matches, string, <span class="fl">-0.5</span><span class="op">:</span><span class="dv">0</span>, <span class="dt">name =</span> <span class="st">&quot;root_cosine&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-11" title="11"><span class="st">  </span><span class="co"># control for other values</span></a>
+<a class="sourceLine" id="cb10-12" title="12"><span class="st">  </span><span class="kw">control_for</span>(Length, <span class="dv">0</span><span class="op">:</span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-13" title="13"><span class="st">  </span><span class="kw">control_for</span>(PoS.SUBTLEX_UK) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-14" title="14"><span class="st">  </span><span class="kw">control_for</span>(Zipf.SUBTLEX_UK, <span class="fl">-0.2</span><span class="op">:</span><span class="fl">0.2</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-15" title="15"><span class="st">  </span><span class="co"># generate 20 items per factorial cell (40 total)</span></a>
+<a class="sourceLine" id="cb10-16" title="16"><span class="st">  </span><span class="kw">generate</span>(<span class="dv">20</span>)</a></code></pre></div>
 <pre><code>## Generated 2/20 (10%). 4 total iterations, 0.50 success rate.
 ## Generated 4/20 (20%). 189 total iterations, 0.02 success rate.
 ## Generated 6/20 (30%). 323 total iterations, 0.02 success rate.
@@ -382,7 +380,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 ## Generated 18/20 (90%). 1097 total iterations, 0.02 success rate.
 ## Generated 20/20 (100%). 1644 total iterations, 0.01 success rate.</code></pre>
 <p>Here are our 20 items per factorial cell, matched by Semantic Similarity, Length, Part of Speech, and Frequency.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">print</span>(stim)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">print</span>(stim)</a></code></pre></div>
 <table>
 <thead>
 <tr class="header">
