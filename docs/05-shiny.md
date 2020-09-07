@@ -78,13 +78,13 @@ The Fetch tab is an easy way to get values from the LexOPS database (or uploaded
 
 <div class = 'skinny'>
 
-word         likert_rating   mean_RT
-----------  --------------  --------
-pigeon                1.40     456.0
-dog                   5.20     423.5
-wren                  6.00     511.0
-symbiosis             4.44     503.2
-shark                 4.20     482.3
+|word      | likert_rating| mean_RT|
+|:---------|-------------:|-------:|
+|pigeon    |          1.40|   456.0|
+|dog       |          5.20|   423.5|
+|wren      |          6.00|   511.0|
+|symbiosis |          4.44|   503.2|
+|shark     |          4.20|   482.3|
 
 </div>
 

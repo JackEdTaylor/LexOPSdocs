@@ -74,13 +74,13 @@ Let's have a closer look at the first 5 rows of `stim`, which contains the outpu
 
 <div class = 'table'>
 
- item_nr  A1_B1        A1_B2        A2_B1        A2_B2        match_null 
---------  -----------  -----------  -----------  -----------  -----------
-       1  abide        merit        caddy        basin        A2_B1      
-       2  unspecific   sinisterly   typescript   storefront   A1_B2      
-       3  broadly      reliant      giraffe      coroner      A1_B2      
-       4  deftly       pathos       smooch       sandal       A2_B2      
-       5  ultra        revel        pluck        minty        A2_B2      
+| item_nr|A1_B1      |A1_B2      |A2_B1      |A2_B2      |match_null |
+|-------:|:----------|:----------|:----------|:----------|:----------|
+|       1|abide      |merit      |caddy      |basin      |A2_B1      |
+|       2|unspecific |sinisterly |typescript |storefront |A1_B2      |
+|       3|broadly    |reliant    |giraffe    |coroner    |A1_B2      |
+|       4|deftly     |pathos     |smooch     |sandal     |A2_B2      |
+|       5|ultra      |revel      |pluck      |minty      |A2_B2      |
 
 </div>
 
@@ -112,28 +112,28 @@ Now we have the same stimuli in long format, with their associated values. Here 
 \small
 <div class = 'table'>
 
- item_nr  condition   match_null   string        Zipf.SUBTLEX_UK   Length   BG.SUBTLEX_UK   CNC.Brysbaert
---------  ----------  -----------  -----------  ----------------  -------  --------------  --------------
-       1  A1_B1       A2_B1        abide                3.453132        5       0.0029111            1.68
-       1  A1_B2       A2_B1        merit                3.577120        5       0.0122070            1.66
-       1  A2_B1       A2_B1        caddy                3.575405        5       0.0024618            4.32
-       1  A2_B2       A2_B1        basin                3.482487        5       0.0100465            4.63
-       2  A1_B1       A1_B2        unspecific           1.540834       10       0.0029410            1.41
-       2  A1_B2       A1_B2        sinisterly           1.473887       10       0.0098809            1.75
-       2  A2_B1       A1_B2        typescript           1.297796       10       0.0027336            4.37
-       2  A2_B2       A1_B2        storefront           1.473887       10       0.0096897            4.00
-       3  A1_B1       A1_B2        broadly              3.648528        7       0.0028142            1.68
-       3  A1_B2       A1_B2        reliant              3.602609        7       0.0103099            1.83
-       3  A2_B1       A1_B2        giraffe              3.777083        7       0.0021165            4.73
-       3  A2_B2       A1_B2        coroner              3.726335        7       0.0107999            4.34
-       4  A1_B1       A2_B2        deftly               2.329204        6       0.0025051            1.96
-       4  A1_B2       A2_B2        pathos               2.620015        6       0.0121742            1.48
-       4  A2_B1       A2_B2        smooch               2.263937        6       0.0028086            4.21
-       4  A2_B2       A2_B2        sandal               2.443924        6       0.0091593            4.68
-       5  A1_B1       A2_B2        ultra                3.572531        5       0.0029273            1.55
-       5  A1_B2       A2_B2        revel                3.254444        5       0.0093859            1.69
-       5  A2_B1       A2_B2        pluck                3.377881        5       0.0019315            4.00
-       5  A2_B2       A2_B2        minty                3.421647        5       0.0099473            4.11
+| item_nr|condition |match_null |string     | Zipf.SUBTLEX_UK| Length| BG.SUBTLEX_UK| CNC.Brysbaert|
+|-------:|:---------|:----------|:----------|---------------:|------:|-------------:|-------------:|
+|       1|A1_B1     |A2_B1      |abide      |        3.453132|      5|     0.0029111|          1.68|
+|       1|A1_B2     |A2_B1      |merit      |        3.577120|      5|     0.0122070|          1.66|
+|       1|A2_B1     |A2_B1      |caddy      |        3.575405|      5|     0.0024618|          4.32|
+|       1|A2_B2     |A2_B1      |basin      |        3.482487|      5|     0.0100465|          4.63|
+|       2|A1_B1     |A1_B2      |unspecific |        1.540834|     10|     0.0029410|          1.41|
+|       2|A1_B2     |A1_B2      |sinisterly |        1.473887|     10|     0.0098809|          1.75|
+|       2|A2_B1     |A1_B2      |typescript |        1.297796|     10|     0.0027336|          4.37|
+|       2|A2_B2     |A1_B2      |storefront |        1.473887|     10|     0.0096897|          4.00|
+|       3|A1_B1     |A1_B2      |broadly    |        3.648528|      7|     0.0028142|          1.68|
+|       3|A1_B2     |A1_B2      |reliant    |        3.602609|      7|     0.0103099|          1.83|
+|       3|A2_B1     |A1_B2      |giraffe    |        3.777083|      7|     0.0021165|          4.73|
+|       3|A2_B2     |A1_B2      |coroner    |        3.726335|      7|     0.0107999|          4.34|
+|       4|A1_B1     |A2_B2      |deftly     |        2.329204|      6|     0.0025051|          1.96|
+|       4|A1_B2     |A2_B2      |pathos     |        2.620015|      6|     0.0121742|          1.48|
+|       4|A2_B1     |A2_B2      |smooch     |        2.263937|      6|     0.0028086|          4.21|
+|       4|A2_B2     |A2_B2      |sandal     |        2.443924|      6|     0.0091593|          4.68|
+|       5|A1_B1     |A2_B2      |ultra      |        3.572531|      5|     0.0029273|          1.55|
+|       5|A1_B2     |A2_B2      |revel      |        3.254444|      5|     0.0093859|          1.69|
+|       5|A2_B1     |A2_B2      |pluck      |        3.377881|      5|     0.0019315|          4.00|
+|       5|A2_B2     |A2_B2      |minty      |        3.421647|      5|     0.0099473|          4.11|
 
 </div>
 \normalsize
@@ -231,13 +231,13 @@ Here are the first five items generated for each condition:
 \small
 <div class = 'table'>
 
- item_nr  A1       A2       A3       match_null 
---------  -------  -------  -------  -----------
-       1  hetze    blase    flirt    A2         
-       2  bombe    stamm    komik    A3         
-       3  pein     seil     kuss     A1         
-       4  ärger    stein    humor    A3         
-       5  terror   lehrer   gefühl   A1         
+| item_nr|A1     |A2     |A3     |match_null |
+|-------:|:------|:------|:------|:----------|
+|       1|hetze  |blase  |flirt  |A2         |
+|       2|bombe  |stamm  |komik  |A3         |
+|       3|pein   |seil   |kuss   |A1         |
+|       4|ärger  |stein  |humor  |A3         |
+|       5|terror |lehrer |gefühl |A1         |
 
 </div>
 \normalsize

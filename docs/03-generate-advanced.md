@@ -24,13 +24,13 @@ This will create 4 conditions matched for length and frequency, where A1_B1 and 
 
 <div class = 'table'>
 
- item_nr  A1_B1         A1_B2         A2_B1         A2_B2         match_null 
---------  ------------  ------------  ------------  ------------  -----------
-       1  panel         snake         bunch         glory         A1_B1      
-       2  cobbler       screech       padding       deathly       A2_B2      
-       3  monogrammed   promiscuity   linguistics   exhilarated   A1_B2      
-       4  hourly        unjust        dismay        payday        A1_B1      
-       5  rectangular   heartbroken   therapeutic   stimulating   A2_B2      
+| item_nr|A1_B1       |A1_B2       |A2_B1       |A2_B2       |match_null |
+|-------:|:-----------|:-----------|:-----------|:-----------|:----------|
+|       1|panel       |snake       |bunch       |glory       |A1_B1      |
+|       2|cobbler     |screech     |padding     |deathly     |A2_B2      |
+|       3|monogrammed |promiscuity |linguistics |exhilarated |A1_B2      |
+|       4|hourly      |unjust      |dismay      |payday      |A1_B1      |
+|       5|rectangular |heartbroken |therapeutic |stimulating |A2_B2      |
 
 </div>
 
@@ -98,13 +98,13 @@ Here are the first 5 items of each condition that we generated. Note that we hav
 \small
 <div class = 'table'>
 
- item_nr  A1        A2      A3       match_null 
---------  --------  ------  -------  -----------
-       1  hearse    snare   praise   A1         
-       2  fist      faze    food     A3         
-       3  enslave   suave   save     A1         
-       4  whine     orgy    honey    A3         
-       5  slave     heavy   play     A2         
+| item_nr|A1      |A2    |A3     |match_null |
+|-------:|:-------|:-----|:------|:----------|
+|       1|hearse  |snare |praise |A1         |
+|       2|fist    |faze  |food   |A3         |
+|       3|enslave |suave |save   |A1         |
+|       4|whine   |orgy  |honey  |A3         |
+|       5|slave   |heavy |play   |A2         |
 
 </div>
 \normalsize
@@ -135,13 +135,13 @@ Here are the first 5 items of each condition that we generated. This time, all m
 \small
 <div class = 'table'>
 
- item_nr  A1         A2       A3       match_null 
---------  ---------  -------  -------  -----------
-       1  bury       heavy    merry    A2         
-       2  jealousy   lunacy   legacy   A3         
-       3  lonely     wily     lily     A3         
-       4  killer     pillar   giver    A1         
-       5  saggy      cabbie   daddy    A1         
+| item_nr|A1       |A2     |A3     |match_null |
+|-------:|:--------|:------|:------|:----------|
+|       1|bury     |heavy  |merry  |A2         |
+|       2|jealousy |lunacy |legacy |A3         |
+|       3|lonely   |wily   |lily   |A3         |
+|       4|killer   |pillar |giver  |A1         |
+|       5|saggy    |cabbie |daddy  |A1         |
 
 </div>
 \normalsize

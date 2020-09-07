@@ -31,26 +31,26 @@ The suggested matches are returned in a dataframe, filtered to be within the spe
 
 <div class = 'table'>
 
-string      euclidean_distance   Length   Zipf.SUBTLEX_UK   IMAG.Glasgow_Norms  PoS.SUBTLEX_UK 
----------  -------------------  -------  ----------------  -------------------  ---------------
-sandwich             0.1277847        8          4.246820               6.7647  noun           
-trousers             0.2015596        8          4.244371               6.6286  noun           
-wardrobe             0.3255001        8          4.104315               6.6176  noun           
-clothing             0.3302431        8          4.135068               6.5455  noun           
-calendar             0.3359636        8          4.329810               6.4000  noun           
-magazine             0.3522379        8          4.287246               6.3846  noun           
-bungalow             0.3726770        8          4.172277               6.4242  noun           
-envelope             0.4004126        8          4.096792               6.4706  noun           
-festival             0.4979160        8          4.510449               6.2353  noun           
-motorway             0.5312797        8          4.107187               6.2333  noun           
-exercise             0.5545789        8          4.449319               6.1212  noun           
-treasure             0.5598276        8          4.458939               6.1176  noun           
-portrait             0.5860691        8          4.183298               6.0968  noun           
-engineer             0.6080043        8          4.138999               6.0909  noun           
-document             0.6314308        8          4.182166               6.0323  noun           
-shooting             0.7013990        8          4.391130               5.9032  noun           
-applause             0.7068317        8          4.209885               5.9143  noun           
-darkness             0.7291092        8          4.143049               5.9118  noun           
+|string   | euclidean_distance| Length| Zipf.SUBTLEX_UK| IMAG.Glasgow_Norms|PoS.SUBTLEX_UK |
+|:--------|------------------:|------:|---------------:|------------------:|:--------------|
+|sandwich |          0.1277847|      8|        4.246820|             6.7647|noun           |
+|trousers |          0.2015596|      8|        4.244371|             6.6286|noun           |
+|wardrobe |          0.3255001|      8|        4.104315|             6.6176|noun           |
+|clothing |          0.3302431|      8|        4.135068|             6.5455|noun           |
+|calendar |          0.3359636|      8|        4.329810|             6.4000|noun           |
+|magazine |          0.3522379|      8|        4.287246|             6.3846|noun           |
+|bungalow |          0.3726770|      8|        4.172277|             6.4242|noun           |
+|envelope |          0.4004126|      8|        4.096792|             6.4706|noun           |
+|festival |          0.4979160|      8|        4.510449|             6.2353|noun           |
+|motorway |          0.5312797|      8|        4.107187|             6.2333|noun           |
+|exercise |          0.5545789|      8|        4.449319|             6.1212|noun           |
+|treasure |          0.5598276|      8|        4.458939|             6.1176|noun           |
+|portrait |          0.5860691|      8|        4.183298|             6.0968|noun           |
+|engineer |          0.6080043|      8|        4.138999|             6.0909|noun           |
+|document |          0.6314308|      8|        4.182166|             6.0323|noun           |
+|shooting |          0.7013990|      8|        4.391130|             5.9032|noun           |
+|applause |          0.7068317|      8|        4.209885|             5.9143|noun           |
+|darkness |          0.7291092|      8|        4.143049|             5.9118|noun           |
 
 </div>
 
@@ -79,18 +79,18 @@ Note that some of these are misspellings or unusual words, but we could remove t
 
 <div class = 'table'>
 
-string           euclidean_distance   orth_sim
---------------  -------------------  ---------
-interestin                0.8288949          1
-interacting               1.6577897          2
-intercepting              1.6577897          2
-interestingay             1.6577897          2
-interestingly             1.6577897          2
-interjecting              1.6577897          2
-intermeshing              1.6577897          2
-intersecting              1.6577897          2
-uninteresting             1.6577897          2
-entreating                2.4866846          3
+|string        | euclidean_distance| orth_sim|
+|:-------------|------------------:|--------:|
+|interestin    |          0.8288949|        1|
+|interacting   |          1.6577897|        2|
+|intercepting  |          1.6577897|        2|
+|interestingay |          1.6577897|        2|
+|interestingly |          1.6577897|        2|
+|interjecting  |          1.6577897|        2|
+|intermeshing  |          1.6577897|        2|
+|intersecting  |          1.6577897|        2|
+|uninteresting |          1.6577897|        2|
+|entreating    |          2.4866846|        3|
 
 </div>
 
@@ -121,18 +121,18 @@ Which gives us:
 
 <div class = 'table'>
 
-string          euclidean_distance   phon_sim  CMU.1letter 
--------------  -------------------  ---------  ------------
-entrusting               0.9515925          1  EntrAstIG   
-encrusting               1.9031850          2  EnkrAstIG   
-entrusted                1.9031850          2  EntrAstId   
-instructing              1.9031850          2  InstrAktIG  
-interest                 1.9031850          2  IntrAst     
-interested               1.9031850          2  IntrAstAd   
-interests                1.9031850          2  IntrAsts    
-interrupting             1.9031850          2  IntRAptIG   
-intrastate               1.9031850          2  IntrAstet   
-mistrusting              1.9031850          2  mIstrAstIG  
+|string       | euclidean_distance| phon_sim|CMU.1letter |
+|:------------|------------------:|--------:|:-----------|
+|entrusting   |          0.9515925|        1|EntrAstIG   |
+|encrusting   |          1.9031850|        2|EnkrAstIG   |
+|entrusted    |          1.9031850|        2|EntrAstId   |
+|instructing  |          1.9031850|        2|InstrAktIG  |
+|interest     |          1.9031850|        2|IntrAst     |
+|interested   |          1.9031850|        2|IntrAstAd   |
+|interests    |          1.9031850|        2|IntrAsts    |
+|interrupting |          1.9031850|        2|IntRAptIG   |
+|intrastate   |          1.9031850|        2|IntrAstet   |
+|mistrusting  |          1.9031850|        2|mIstrAstIG  |
 
 </div>
 
