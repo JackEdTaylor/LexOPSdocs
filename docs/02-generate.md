@@ -242,6 +242,7 @@ Here are the first five items generated for each condition:
 </div>
 \normalsize
 
+<br><br>
 For more detailed examples of how to use other datasets, the following vignettes might be useful:
 
 * [Applications to Participant Selection](vignettes/participant-selection.html): How you can use a dataset which has nothing to do with words.
