@@ -2,9 +2,11 @@
 
 ## What is LexOPS?
 
-LexOPS is an R package and shiny app for generating word stimuli that can be used in Psychology experiments. The package is designed to be as intuitive as possible, and is similar in style to the [tidyverse](https://www.tidyverse.org/). The shiny app is designed to be especially intuitive, and requires minimal knowledge of R to use.
+LexOPS is an R package and shiny app for generating word stimuli that can be used in Psychology experiments. The package is designed to be as intuitive as possible, and is similar in style to the [tidyverse](https://www.tidyverse.org/).
 
-Here are 3 main advantages of using LexOPS to generate your word stimuli:
+I originally wrote the package for generating word stimuli, but it can be used to generate matched items from any database of features.
+
+Here are 3 main advantages of using LexOPS to generate your stimuli:
 
 1. **Speed**: It's just much (much much) faster than creating well-controlled stimuli manually.
 
@@ -35,7 +37,7 @@ devtools::install_github("JackEdTaylor/LexOPS@*release")
 
 ## The Shiny App
 
-LexOPS features an intuitive graphical user interface, in the form of a shiny app (for more on shiny apps, see [https://shiny.rstudio.com/](https://shiny.rstudio.com/)). This features useful visualisations of data and selected options, and may be more friendly to users less familiar with R.
+LexOPS features a graphical user interface in the form of a shiny app (for more on shiny apps, see [https://shiny.rstudio.com/](https://shiny.rstudio.com/)). This features useful visualisations of data and selected options, and may be more friendly to users less familiar with R.
 
 Once LexOPS is installed, the shiny app can be run with:
 
@@ -48,12 +50,12 @@ knitr::include_graphics(path="./images/shiny-preview.png")
 ```
 
 ```{block, type="info"}
-A demo version of the shiny app is also available as a web app online, at [https://jackt.shinyapps.io/lexops/](https://jackt.shinyapps.io/lexops/), but it is much faster and more reliable to run it locally with the `run_shiny()` function.
+A demo version of the shiny app with limited usage is also available as a web app online, at [https://jackt.shinyapps.io/lexops/](https://jackt.shinyapps.io/lexops/), but it is much faster and more reliable to run it locally with the `run_shiny()` function.
 ```
 
 ## The LexOPS Dataset
 
-LexOPS works can work with any list of features from any language (see [this vignette](vignettes/custom-data.html) for an example using other datasets, or [this section](the-generate-pipeline.html#custom-dataframes) for an example using non-English words). Even so, LexOPS has inbuilt dataset with some useful features for English. This can be called with:
+LexOPS works can work with any list of features. Even so, LexOPS has inbuilt dataset with some features for English that I've found useful in the past. This can be called with:
 
 ```{r, eval=FALSE}
 LexOPS::lexops
@@ -62,3 +64,11 @@ LexOPS::lexops
 For details on the variables included, see [https://rdrr.io/github/JackEdTaylor/LexOPS/man/lexops.html](https://rdrr.io/github/JackEdTaylor/LexOPS/man/lexops.html).
 
 Note that in addition to citing LexOPS, the sources for any materials you use must also be explicitly cited, regardless of whether they are included in the built-in dataset.
+
+## Using other Datasets
+
+If you're using your own dataset, the main difference is that you will have to explicitly say which column uniquely identifies each row in the dataframe. The following sections might be useful if you're using your own datasets:
+
+* [Custom Dataframes](the-generate-pipeline.html#custom-dataframes): A section of the walkthrough showing how to use LexOPS on your own dataset.
+* [Applications to Participant Selection](vignettes/participant-selection.html): A vignette showing how you can use a dataset which has nothing to do with words.
+* [Using Data from Custom Sources](vignettes/custom-data.html): A vignette showing how you can join the LexOPS dataset to other lists of word features.

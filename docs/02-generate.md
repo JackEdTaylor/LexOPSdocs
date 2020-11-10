@@ -242,7 +242,10 @@ Here are the first five items generated for each condition:
 </div>
 \normalsize
 
-For a more detailed example, try the vignette on [Using Data from Custom Sources](vignettes/custom-data.html). This will show how you can use the [dplyr join functions](https://dplyr.tidyverse.org/reference/join.html) to integrate custom datasets with the LexOPS dataset.
+For more detailed examples of how to use other datasets, the following vignettes might be useful:
+
+* [Applications to Participant Selection](vignettes/participant-selection.html): How you can use a dataset which has nothing to do with words.
+* [Using Data from Custom Sources](vignettes/custom-data.html): How you can join the LexOPS dataset to other lists of word features.
 
 <br>
 <div class="info">

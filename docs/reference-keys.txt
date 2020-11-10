@@ -14,6 +14,7 @@ what-is-lexops
 installation
 the-shiny-app
 the-lexops-dataset
+using-other-datasets
 the-generate-pipeline
 generating-stimuli
 converting-to-long-format
@@ -22,7 +23,7 @@ checking-representativeness
 generating-as-many-as-possible
 plotting-iterations
 custom-dataframes
-advanced-stimulus-generation
+advanced-matching
 non-stimulus-splits
 random-seeds
 map-functions-as-controls

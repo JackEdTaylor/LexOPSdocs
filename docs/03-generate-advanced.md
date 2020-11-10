@@ -1,12 +1,12 @@
-# Advanced Stimulus Generation
+# Advanced Matching
 
 
 
-There are some cases when the default behaviour of the `split_by()`, `control_for()`, and `generate()` functions won't quite do what you want. This section presents some extra functions and functionality for generating your stimuli.
+There are some cases when the default behaviour of the `split_by()`, `control_for()`, and `generate()` functions won't quite do what you want. This section presents some extra functions and functionality for generating your matches.
 
 ## Non-Stimulus Splits
 
-Sometimes it makes sense to use independent variables that are not related to features of the word stimuli you present. For example, you may be interested in a possible difference between contexts or tasks (such as comparing Word Naming to Lexical Decision). In this case, it makes sense to use a within-subject design, but to present different stimuli in each context. These different stimuli should still be matched across contexts. This is possible with the `split_random()` function.
+Sometimes it makes sense to use independent variables that are not related to features of the stimuli you present. For example, you may be interested in a possible difference between contexts or tasks (such as comparing Word Naming to Lexical Decision). In this case, it makes sense to use a within-subject design, but to present different stimuli in each context. These different stimuli should still be matched across contexts. This is possible with the `split_random()` function.
 
 As an example, imagine we're interested in a 2x2 interaction between the effect of words' arousal ratings before and after a cup of coffee. We use `split_random()` to say that we want to create a random split in the data with two levels. Such a pipeline might look like this:
 
@@ -40,7 +40,7 @@ These stimuli could then be used in combination with a counter-balanced design, 
 
 By default, the generate pipeline will produce novel stimulus lists each time it is run. Often you'll want your code to be reproducible, however. To do this, we can use a random seed.
 
-Random seeds allow for replicable results from functions that produce different results each time they are run. In R, this is usually done with the `set.seed()` function. The `set.seed()` function can be used with LexOPS to write reproducible pipelines, **but** will yield different results between LexOPS R code and the [LexOPS shiny app](lexops-shiny-app.html). To ensure that pipelines created with R code can be reproduced in the shiny app (and [vice versa](lexops-shiny-app.html#random-seeds)) it is recommended to use the `seed` argument of the `generate()` function.
+Random seeds allow for replicable results from functions that produce different results each time they are run. In R, this is usually done with the `set.seed()` function. The `set.seed()` function can be used with LexOPS to write reproducible pipelines, **but** will yield different results between LexOPS R code and the [LexOPS shiny app](lexops-shiny-app.html), and might produce different results between versions. To ensure that pipelines created with R code can be reproduced in the shiny app (and [vice versa](lexops-shiny-app.html#random-seeds)), and across different versions, it is recommended to use the `seed` argument of the `generate()` function.
 
 ### Setting the seed in the `generate()` function {-}
 
