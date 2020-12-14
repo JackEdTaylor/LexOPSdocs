@@ -381,7 +381,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>The word pair norms come from <a href="https://doomlab.shinyapps.io/double_words/">Erin Buchanan and colleagues</a>. This dataset indexes semantic similarity between cues and targets. Alternative sources of semantic association/relatedness values include the <a href="https://smallworldofwords.org/en/project">Small World of Words</a>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>pairs &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;https://media.githubusercontent.com/media/doomlab/shiny-server/master/wn_double/double_words.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## 
-## -- Column specification -------------------------------------------------------------------------------------------------------------------------------
+## -- Column specification ----------------------------------------------------------------------------------------------------------------------------------------------
 ## cols(
 ##   CUE = col_character(),
 ##   TARGET = col_character(),
@@ -436,16 +436,26 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb10-14"><a href="#cb10-14"></a><span class="st">  </span><span class="kw">control_for</span>(Zipf.SUBTLEX_UK, <span class="fl">-0.2</span><span class="op">:</span><span class="fl">0.2</span>) <span class="op">%&gt;%</span></span>
 <span id="cb10-15"><a href="#cb10-15"></a><span class="st">  </span><span class="co"># generate 20 items per factorial cell (40 total)</span></span>
 <span id="cb10-16"><a href="#cb10-16"></a><span class="st">  </span><span class="kw">generate</span>(<span class="dv">20</span>)</span></code></pre></div>
-<pre><code>## Generated 2/20 (10%). 207 total iterations, 0.01 success rate.
-## Generated 4/20 (20%). 252 total iterations, 0.02 success rate.
-## Generated 6/20 (30%). 465 total iterations, 0.01 success rate.
-## Generated 8/20 (40%). 608 total iterations, 0.01 success rate.
-## Generated 10/20 (50%). 728 total iterations, 0.01 success rate.
-## Generated 12/20 (60%). 732 total iterations, 0.02 success rate.
-## Generated 14/20 (70%). 753 total iterations, 0.02 success rate.
-## Generated 16/20 (80%). 946 total iterations, 0.02 success rate.
-## Generated 18/20 (90%). 1153 total iterations, 0.02 success rate.
-## Generated 20/20 (100%). 1205 total iterations, 0.02 success rate.</code></pre>
+<pre><code>## Generated 1/20 (5%). 10 total iterations, 0.10 success rate.
+Generated 2/20 (10%). 207 total iterations, 0.01 success rate.
+Generated 3/20 (15%). 236 total iterations, 0.01 success rate.
+Generated 4/20 (20%). 252 total iterations, 0.02 success rate.
+Generated 5/20 (25%). 276 total iterations, 0.02 success rate.
+Generated 6/20 (30%). 465 total iterations, 0.01 success rate.
+Generated 7/20 (35%). 484 total iterations, 0.01 success rate.
+Generated 8/20 (40%). 608 total iterations, 0.01 success rate.
+Generated 9/20 (45%). 725 total iterations, 0.01 success rate.
+Generated 10/20 (50%). 728 total iterations, 0.01 success rate.
+Generated 11/20 (55%). 730 total iterations, 0.02 success rate.
+Generated 12/20 (60%). 732 total iterations, 0.02 success rate.
+Generated 13/20 (65%). 752 total iterations, 0.02 success rate.
+Generated 14/20 (70%). 753 total iterations, 0.02 success rate.
+Generated 15/20 (75%). 823 total iterations, 0.02 success rate.
+Generated 16/20 (80%). 946 total iterations, 0.02 success rate.
+Generated 17/20 (85%). 1116 total iterations, 0.02 success rate.
+Generated 18/20 (90%). 1153 total iterations, 0.02 success rate.
+Generated 19/20 (95%). 1167 total iterations, 0.02 success rate.
+Generated 20/20 (100%). 1205 total iterations, 0.02 success rate.</code></pre>
 <p>Here are our 20 items per factorial cell, matched by Semantic Similarity, Length, Part of Speech, and Frequency.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">print</span>(stim)</span></code></pre></div>
 <table>
