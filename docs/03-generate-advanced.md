@@ -89,7 +89,7 @@ library(vwr)
 
 stim <- lexops %>%
   split_by(VAL.Warriner, 1:3 ~ 4.5:5.5 ~ 7:9) %>%
-  control_for_map(levenshtein.distance, string, 0:3, name="Orth_Dist") %>%
+  control_for_map(levenshtein.distance, string, 0:1, name="Orth_Dist") %>%
   generate(20)
 ```
 
@@ -98,13 +98,13 @@ Here are the first 5 items of each condition that we generated. Note that we hav
 \small
 <div class = 'table'>
 
-| item_nr|A1      |A2    |A3     |match_null |
-|-------:|:-------|:-----|:------|:----------|
-|       1|hearse  |snare |praise |A1         |
-|       2|fist    |faze  |food   |A3         |
-|       3|enslave |suave |save   |A1         |
-|       4|whine   |orgy  |honey  |A3         |
-|       5|slave   |heavy |play   |A2         |
+| item_nr|A1    |A2    |A3    |match_null |
+|-------:|:-----|:-----|:-----|:----------|
+|       1|sting |stint |sing  |A1         |
+|       2|germ  |hem   |gem   |A3         |
+|       3|sad   |pad   |dad   |A1         |
+|       4|slap  |swap  |soap  |A3         |
+|       5|shun  |shin  |shine |A2         |
 
 </div>
 \normalsize
@@ -135,13 +135,13 @@ Here are the first 5 items of each condition that we generated. This time, all m
 \small
 <div class = 'table'>
 
-| item_nr|A1       |A2     |A3     |match_null |
-|-------:|:--------|:------|:------|:----------|
-|       1|bury     |heavy  |merry  |A2         |
-|       2|jealousy |lunacy |legacy |A3         |
-|       3|lonely   |wily   |lily   |A3         |
-|       4|killer   |pillar |giver  |A1         |
-|       5|saggy    |cabbie |daddy  |A1         |
+| item_nr|A1     |A2     |A3     |match_null |
+|-------:|:------|:------|:------|:----------|
+|       1|slave  |cave   |save   |A3         |
+|       2|arson  |jargon |garden |A2         |
+|       3|asthma |llama  |aroma  |A1         |
+|       4|sad    |pad    |dad    |A2         |
+|       5|fee    |tee    |free   |A3         |
 
 </div>
 \normalsize

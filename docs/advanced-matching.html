@@ -24,7 +24,7 @@
 <meta name="author" content="Jack Taylor" />
 
 
-<meta name="date" content="2020-12-14" />
+<meta name="date" content="2021-02-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -51,8 +51,6 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -332,7 +330,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb14-2"><a href="advanced-matching.html#cb14-2"></a></span>
 <span id="cb14-3"><a href="advanced-matching.html#cb14-3"></a>stim &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></span>
 <span id="cb14-4"><a href="advanced-matching.html#cb14-4"></a><span class="st">  </span><span class="kw">split_by</span>(VAL.Warriner, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span> <span class="op">~</span><span class="st"> </span><span class="fl">4.5</span><span class="op">:</span><span class="fl">5.5</span> <span class="op">~</span><span class="st"> </span><span class="dv">7</span><span class="op">:</span><span class="dv">9</span>) <span class="op">%&gt;%</span></span>
-<span id="cb14-5"><a href="advanced-matching.html#cb14-5"></a><span class="st">  </span><span class="kw">control_for_map</span>(levenshtein.distance, string, <span class="dv">0</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">name=</span><span class="st">&quot;Orth_Dist&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb14-5"><a href="advanced-matching.html#cb14-5"></a><span class="st">  </span><span class="kw">control_for_map</span>(levenshtein.distance, string, <span class="dv">0</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">name=</span><span class="st">&quot;Orth_Dist&quot;</span>) <span class="op">%&gt;%</span></span>
 <span id="cb14-6"><a href="advanced-matching.html#cb14-6"></a><span class="st">  </span><span class="kw">generate</span>(<span class="dv">20</span>)</span></code></pre></div>
 <p>Here are the first 5 items of each condition that we generated. Note that we have 3 levels of valence, with matched items that are orthographically similar to one another:</p>
 
@@ -350,37 +348,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td align="right">1</td>
-<td align="left">hearse</td>
-<td align="left">snare</td>
-<td align="left">praise</td>
+<td align="left">sting</td>
+<td align="left">stint</td>
+<td align="left">sing</td>
 <td align="left">A1</td>
 </tr>
 <tr class="even">
 <td align="right">2</td>
-<td align="left">fist</td>
-<td align="left">faze</td>
-<td align="left">food</td>
+<td align="left">germ</td>
+<td align="left">hem</td>
+<td align="left">gem</td>
 <td align="left">A3</td>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
-<td align="left">enslave</td>
-<td align="left">suave</td>
-<td align="left">save</td>
+<td align="left">sad</td>
+<td align="left">pad</td>
+<td align="left">dad</td>
 <td align="left">A1</td>
 </tr>
 <tr class="even">
 <td align="right">4</td>
-<td align="left">whine</td>
-<td align="left">orgy</td>
-<td align="left">honey</td>
+<td align="left">slap</td>
+<td align="left">swap</td>
+<td align="left">soap</td>
 <td align="left">A3</td>
 </tr>
 <tr class="odd">
 <td align="right">5</td>
-<td align="left">slave</td>
-<td align="left">heavy</td>
-<td align="left">play</td>
+<td align="left">shun</td>
+<td align="left">shin</td>
+<td align="left">shine</td>
 <td align="left">A2</td>
 </tr>
 </tbody>
@@ -421,38 +419,38 @@ The name argument (<code>name = …</code>) of the <code>control_for_map()</code
 <tbody>
 <tr class="odd">
 <td align="right">1</td>
-<td align="left">bury</td>
-<td align="left">heavy</td>
-<td align="left">merry</td>
-<td align="left">A2</td>
+<td align="left">slave</td>
+<td align="left">cave</td>
+<td align="left">save</td>
+<td align="left">A3</td>
 </tr>
 <tr class="even">
 <td align="right">2</td>
-<td align="left">jealousy</td>
-<td align="left">lunacy</td>
-<td align="left">legacy</td>
-<td align="left">A3</td>
+<td align="left">arson</td>
+<td align="left">jargon</td>
+<td align="left">garden</td>
+<td align="left">A2</td>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
-<td align="left">lonely</td>
-<td align="left">wily</td>
-<td align="left">lily</td>
-<td align="left">A3</td>
+<td align="left">asthma</td>
+<td align="left">llama</td>
+<td align="left">aroma</td>
+<td align="left">A1</td>
 </tr>
 <tr class="even">
 <td align="right">4</td>
-<td align="left">killer</td>
-<td align="left">pillar</td>
-<td align="left">giver</td>
-<td align="left">A1</td>
+<td align="left">sad</td>
+<td align="left">pad</td>
+<td align="left">dad</td>
+<td align="left">A2</td>
 </tr>
 <tr class="odd">
 <td align="right">5</td>
-<td align="left">saggy</td>
-<td align="left">cabbie</td>
-<td align="left">daddy</td>
-<td align="left">A1</td>
+<td align="left">fee</td>
+<td align="left">tee</td>
+<td align="left">free</td>
+<td align="left">A3</td>
 </tr>
 </tbody>
 </table>

@@ -31,45 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
-<style type="text/css">
-a.anchor-section {margin-left: 10px; visibility: hidden; color: inherit;}
-a.anchor-section::before {content: '#';}
-.hasAnchor:hover a.anchor-section {visibility: visible;}
-</style>
-<script>// Anchor sections v1.0 written by Atsushi Yasumoto on Oct 3rd, 2020.
-document.addEventListener('DOMContentLoaded', function() {
-  // Do nothing if AnchorJS is used
-  if (typeof window.anchors === 'object' && anchors.hasOwnProperty('hasAnchorJSLink')) {
-    return;
-  }
-
-  const h = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
-
-  // Do nothing if sections are already anchored
-  if (Array.from(h).some(x => x.classList.contains('hasAnchor'))) {
-    return null;
-  }
-
-  // Use section id when pandoc runs with --section-divs
-  const section_id = function(x) {
-    return ((x.classList.contains('section') || (x.tagName === 'SECTION'))
-            ? x.id : '');
-  };
-
-  // Add anchors
-  h.forEach(function(x) {
-    const id = x.id || section_id(x.parentElement);
-    if (id === '') {
-      return null;
-    }
-    let anchor = document.createElement('a');
-    anchor.href = '#' + id;
-    anchor.classList = ['anchor-section'];
-    x.classList.add('hasAnchor');
-    x.appendChild(anchor);
-  });
-});
-</script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -169,6 +130,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 })();
 </script>
+
 
 
 
@@ -381,7 +343,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>The word pair norms come from <a href="https://doomlab.shinyapps.io/double_words/">Erin Buchanan and colleagues</a>. This dataset indexes semantic similarity between cues and targets. Alternative sources of semantic association/relatedness values include the <a href="https://smallworldofwords.org/en/project">Small World of Words</a>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>pairs &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;https://media.githubusercontent.com/media/doomlab/shiny-server/master/wn_double/double_words.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## 
-## -- Column specification ----------------------------------------------------------------------------------------------------------------------------------------------
+## -- Column specification ------------------------------------------------------------------------------------------------------------
 ## cols(
 ##   CUE = col_character(),
 ##   TARGET = col_character(),

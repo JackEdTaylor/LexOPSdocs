@@ -38,7 +38,7 @@ links <- lapply(1:length(v_files), function(v_nr) {
   v_html <- sprintf("%s.html", tools::file_path_sans_ext(v_path))
   file.copy(v_html, file.path("docs", v_html), overwrite = TRUE)
   
-  # scrape the rendered .Rmd for the Vignettes page boxes' info
+  # scrape the rendered .html for the Vignettes page boxes' info
   scrape <- read_html(v_html)
   
   v_title <- scrape %>%

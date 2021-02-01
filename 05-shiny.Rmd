@@ -6,7 +6,7 @@ The Shiny app is an interactive user interface for LexOPS, with informative visu
 LexOPS::run_shiny()
 ```
 
-The Shiny app is also available as a web app at https://jackt.shinyapps.io/lexops/, but running the app locally is recommended for reliability and speed.
+A demo of the Shiny app is available online at https://jackt.shinyapps.io/lexops/, but running the app locally is highly recommended for reliability and speed.
 
 ## Generate
 

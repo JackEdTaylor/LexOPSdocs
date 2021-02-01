@@ -82,7 +82,7 @@ library(vwr)
 
 stim <- lexops %>%
   split_by(VAL.Warriner, 1:3 ~ 4.5:5.5 ~ 7:9) %>%
-  control_for_map(levenshtein.distance, string, 0:3, name="Orth_Dist") %>%
+  control_for_map(levenshtein.distance, string, 0:1, name="Orth_Dist") %>%
   generate(20)
 ```
 
