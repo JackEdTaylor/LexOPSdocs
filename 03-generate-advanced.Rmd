@@ -13,7 +13,7 @@ Sometimes it makes sense to use independent variables that are not related to fe
 
 As an example, imagine we're interested in a 2x2 interaction between the effect of words' arousal ratings before and after a cup of coffee. We use `split_random()` to say that we want to create a random split in the data with two levels. Such a pipeline might look like this:
 
-```{r, results='hide'}
+```{r, message=FALSE, results='hide'}
 stim <- lexops %>%
   split_random(2) %>%
   split_by(AROU.Warriner, 1:3 ~ 6:8) %>%
@@ -42,7 +42,7 @@ Random seeds allow for replicable results from functions that produce different 
 
 The following code will generate the same stimulus list each time it is run:
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, message=FALSE, results='hide'}
 stim <- lexops %>%
   subset(PK.Brysbaert >= 0.9) %>%
   split_by(CNC.Brysbaert, 1:2 ~ 4:5) %>%
@@ -56,7 +56,7 @@ stim <- lexops %>%
 
 If you use the `split_random()` function, this will also require a `seed` argument in order for the pipeline to be reproducible. This does not necessarily need to be the same as the `seed` value passed to `generate()`, but the shiny app will assume this is the case when [translating Shiny options into R code](lexops-shiny-app.html#codify). The following is an example of a reproducible pipeline that uses the `split_random()` function:
 
-```{r, eval=FALSE}
+```{r, eval=FALSE, message=FALSE, results='hide'}
 my_seed <- 42
 
 stim <- lexops %>%
