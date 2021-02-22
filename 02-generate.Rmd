@@ -147,7 +147,7 @@ possible_stim <- LexOPS::lexops %>%
   split_by(BG.SUBTLEX_UK, 0:0.003 ~ 0.009:0.013) %>%
   control_for(Length, 0:0) %>%
   control_for(Zipf.SUBTLEX_UK, -0.2:0.2) %>%
-  generate(n = "all", match_null = "random")
+  generate(n = "all", match_null = "inclusive")
 ```
 
 This is much slower, as LexOPS will continue trying to generate combinations of words that fit the specified characteristics until it has exhausted all the possibilities. Nevertheless, we actually generated `r nrow(possible_stim)` words generated per condition with the code above. This number is likely to change slightly each time we run the pipeline, as different combinations are randomly made from all the possible combinations. That said, it is a fairly good *indication* of the number of possible stimuli we could generate.
