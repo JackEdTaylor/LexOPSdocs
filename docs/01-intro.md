@@ -20,15 +20,11 @@ The package began as a series of R scripts, written to automate tasks I found my
 
 ### Installing R {-}
 
-You can find the latest version of R here: [https://cloud.r-project.org/](https://cloud.r-project.org/).
-
-### Installing RStudio {-}
-
-RStudio is a free integrated development environment for working with R. Get the latest version of RStudio here: [https://www.rstudio.com/products/rstudio/](https://www.rstudio.com/products/rstudio/).
+You can find the latest version of R here: [https://cloud.r-project.org/](https://cloud.r-project.org/). You might also want to install an IDE like the popular [RStudio](https://www.rstudio.com/products/rstudio/).
 
 ### Installing LexOPS {-}
 
-The latest version of LexOPS can be installed in R with the following code:
+The latest version of LexOPS can be installed as an R package with the following:
 
 
 ```r
@@ -58,7 +54,7 @@ LexOPS::run_shiny()
 
 ## The LexOPS Dataset
 
-LexOPS works can work with any list of features. Even so, LexOPS has inbuilt dataset with some features for English that I've found useful in the past. This can be called with:
+LexOPS works can work with any list of features. Even so, LexOPS has inbuilt dataset with some features for English words that I've found useful in the past. This can be called with:
 
 
 ```r
@@ -67,11 +63,11 @@ LexOPS::lexops
 
 For details on the variables included, see [https://rdrr.io/github/JackEdTaylor/LexOPS/man/lexops.html](https://rdrr.io/github/JackEdTaylor/LexOPS/man/lexops.html).
 
-Note that in addition to citing LexOPS, the sources for any materials you use must also be explicitly cited, regardless of whether they are included in the built-in dataset.
+Note that in addition to citing LexOPS, you should cite the sources for any materials you use.
 
 ## Using other Datasets
 
-If you're using your own dataset, the main difference is that you will have to explicitly say which column uniquely identifies each row in the dataframe. The following sections might be useful if you're using your own datasets:
+LexOPS functions will work on any dataframe. The following sections might be useful if you're using LexOPS on your own datasets:
 
 * [Custom Dataframes](the-generate-pipeline.html#custom-dataframes): A section of the walkthrough showing how to use LexOPS on your own dataset.
 * [Applications to Participant Selection](vignettes/participant-selection.html): A vignette showing how you can use a dataset which has nothing to do with words.
