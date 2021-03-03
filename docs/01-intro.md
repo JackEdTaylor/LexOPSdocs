@@ -2,13 +2,13 @@
 
 ## What is LexOPS?
 
-LexOPS is an R package and shiny app for generating word stimuli that can be used in Psychology experiments. The package is designed to be as intuitive as possible, and is similar in style to the [tidyverse](https://www.tidyverse.org/).
+LexOPS is an R package and shiny app for generating word stimuli that can be used in Psychology experiments. The package is designed to be intuitive, and is similar in style to the [tidyverse](https://www.tidyverse.org/).
 
 I originally wrote the package for generating word stimuli, but it can be used to generate matched items from any database of features.
 
 Here are 3 main advantages of using LexOPS to generate your stimuli:
 
-1. **Speed**: It's just much (much much) faster than creating well-controlled stimuli manually.
+1. **Speed**: It's just much faster than creating well-controlled stimuli manually.
 
 2. **Reproducibility**: if a random seed is set, LexOPS pipelines will generate the same stimuli each time the code is run. This means you can openly share the code that generated your stimuli, and anyone can reproduce your result.
 
