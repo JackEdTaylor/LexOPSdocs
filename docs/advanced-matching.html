@@ -24,7 +24,7 @@
 <meta name="author" content="Jack Taylor" />
 
 
-<meta name="date" content="2021-03-03" />
+<meta name="date" content="2021-03-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -293,7 +293,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="random-seeds" class="section level2">
 <h2><span class="header-section-number">3.2</span> Random Seeds</h2>
 <p>By default, the generate pipeline will produce novel stimulus lists each time it is run. Often you’ll want your code to be reproducible, however. To do this, we can use a random seed.</p>
-<p>Random seeds allow for replicable results from functions that produce different results each time they are run. In R, this is usually done with the <code>set.seed()</code> function. The <code>set.seed()</code> function can be used with LexOPS to write reproducible pipelines, <strong>but</strong> will yield different results between LexOPS R code and the <a href="lexops-shiny-app.html">LexOPS shiny app</a>, and might produce different results between versions. To ensure that pipelines created with R code can be reproduced in the shiny app (and <a href="lexops-shiny-app.html#random-seeds">vice versa</a>), and across different versions, it is recommended to use the <code>seed</code> argument of the <code>generate()</code> function.</p>
+<p>Random seeds allow for replicable results from functions that would otherwise produce different results each time they are run. In R, this is usually done with the <code>set.seed()</code> function. The <code>set.seed()</code> function can be used with LexOPS to write reproducible pipelines, <strong>but</strong> will yield different results between LexOPS R code and the <a href="lexops-shiny-app.html">LexOPS shiny app</a>, and might produce different results between versions. To ensure that pipelines created with R code can be reproduced in the shiny app (and <a href="lexops-shiny-app.html#random-seeds">vice versa</a>), and across different versions, it is recommended to use the <code>seed</code> argument of the <code>generate()</code> function.</p>
 <div id="setting-the-seed-in-the-generate-function" class="section level3 unnumbered">
 <h3>Setting the seed in the <code>generate()</code> function</h3>
 <p>The following code will generate the same stimulus list each time it is run:</p>
@@ -324,12 +324,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Example applications for this include controlling for orthographic or phonological similarity.</p>
 <div id="orthographic-similarity" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> Orthographic Similarity</h3>
-<p>Here is an example, using <code>control_for_map()</code> to control for orthographic Levenshtein distance from the match null (calculated using the <code>vwr</code> package). This means that each string will be a distance of between 0 and 3 character insertions, deletions or replacements from the word used as the match null.</p>
+<p>Here is an example, using <code>control_for_map()</code> to control for orthographic Levenshtein distance from the match null (calculated using the <code>vwr</code> package). This means that each string will be a distance of between 1 and 2 character insertions, deletions or replacements from the word used as the match null.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="advanced-matching.html#cb14-1"></a><span class="kw">library</span>(vwr)</span>
 <span id="cb14-2"><a href="advanced-matching.html#cb14-2"></a></span>
 <span id="cb14-3"><a href="advanced-matching.html#cb14-3"></a>stim &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></span>
 <span id="cb14-4"><a href="advanced-matching.html#cb14-4"></a><span class="st">  </span><span class="kw">split_by</span>(VAL.Warriner, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span> <span class="op">~</span><span class="st"> </span><span class="fl">4.5</span><span class="op">:</span><span class="fl">5.5</span> <span class="op">~</span><span class="st"> </span><span class="dv">7</span><span class="op">:</span><span class="dv">9</span>) <span class="op">%&gt;%</span></span>
-<span id="cb14-5"><a href="advanced-matching.html#cb14-5"></a><span class="st">  </span><span class="kw">control_for_map</span>(levenshtein.distance, string, <span class="dv">0</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">name=</span><span class="st">&quot;Orth_Dist&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb14-5"><a href="advanced-matching.html#cb14-5"></a><span class="st">  </span><span class="kw">control_for_map</span>(levenshtein.distance, string, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">name=</span><span class="st">&quot;Orth_Dist&quot;</span>) <span class="op">%&gt;%</span></span>
 <span id="cb14-6"><a href="advanced-matching.html#cb14-6"></a><span class="st">  </span><span class="kw">generate</span>(<span class="dv">20</span>)</span></code></pre></div>
 <p>Here are the first 5 items of each condition that we generated. Note that we have 3 levels of valence, with matched items that are orthographically similar to one another:</p>
 
@@ -347,37 +347,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td align="right">1</td>
-<td align="left">sting</td>
-<td align="left">stint</td>
-<td align="left">sing</td>
+<td align="left">hearse</td>
+<td align="left">coarse</td>
+<td align="left">hearty</td>
 <td align="left">A1</td>
 </tr>
 <tr class="even">
 <td align="right">2</td>
-<td align="left">germ</td>
-<td align="left">hem</td>
-<td align="left">gem</td>
+<td align="left">bald</td>
+<td align="left">bit</td>
+<td align="left">bath</td>
 <td align="left">A3</td>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
-<td align="left">sad</td>
-<td align="left">pad</td>
-<td align="left">dad</td>
+<td align="left">ex</td>
+<td align="left">lox</td>
+<td align="left">pet</td>
 <td align="left">A1</td>
 </tr>
 <tr class="even">
 <td align="right">4</td>
-<td align="left">slap</td>
-<td align="left">swap</td>
-<td align="left">soap</td>
+<td align="left">bomb</td>
+<td align="left">bony</td>
+<td align="left">booby</td>
 <td align="left">A3</td>
 </tr>
 <tr class="odd">
 <td align="right">5</td>
-<td align="left">shun</td>
-<td align="left">shin</td>
-<td align="left">shine</td>
+<td align="left">debt</td>
+<td align="left">newt</td>
+<td align="left">eat</td>
 <td align="left">A2</td>
 </tr>
 </tbody>
@@ -418,38 +418,38 @@ The name argument (<code>name = …</code>) of the <code>control_for_map()</code
 <tbody>
 <tr class="odd">
 <td align="right">1</td>
-<td align="left">slave</td>
-<td align="left">cave</td>
-<td align="left">save</td>
-<td align="left">A3</td>
+<td align="left">junkie</td>
+<td align="left">jumpy</td>
+<td align="left">lucky</td>
+<td align="left">A1</td>
 </tr>
 <tr class="even">
 <td align="right">2</td>
-<td align="left">arson</td>
-<td align="left">jargon</td>
-<td align="left">garden</td>
+<td align="left">fussy</td>
+<td align="left">emcee</td>
+<td align="left">kissy</td>
 <td align="left">A2</td>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
-<td align="left">asthma</td>
-<td align="left">llama</td>
-<td align="left">aroma</td>
+<td align="left">sad</td>
+<td align="left">tad</td>
+<td align="left">glad</td>
 <td align="left">A1</td>
 </tr>
 <tr class="even">
 <td align="right">4</td>
-<td align="left">sad</td>
-<td align="left">pad</td>
-<td align="left">dad</td>
-<td align="left">A2</td>
+<td align="left">infection</td>
+<td align="left">faction</td>
+<td align="left">affection</td>
+<td align="left">A3</td>
 </tr>
 <tr class="odd">
 <td align="right">5</td>
-<td align="left">fee</td>
-<td align="left">tee</td>
-<td align="left">free</td>
-<td align="left">A3</td>
+<td align="left">arson</td>
+<td align="left">basin</td>
+<td align="left">bacon</td>
+<td align="left">A2</td>
 </tr>
 </tbody>
 </table>
@@ -464,7 +464,7 @@ The name argument (<code>name = …</code>) of the <code>control_for_map()</code
 </div>
 <div id="controlling-for-euclidean-distance" class="section level2">
 <h2><span class="header-section-number">3.4</span> Controlling for Euclidean Distance</h2>
-<p>The <code>control_for()</code> function lets you give specific tolerances for individual variables. Another method of matching items, however, may be to control for Euclidean distance, weighting variables by their relative importance. The <code>control_for_euc()</code> function lets you do exactly this. As an example, imagine we want to split by concretness, and control for length, frequency, and age of acquisition. We might decide that length is the most important thing to match (ideally exact matching), followed by frequency and age of acquisition. This could be achieved like so:</p>
+<p>The <code>control_for()</code> function lets you give specific tolerances for individual variables. Another method of matching items, however, may be to control for Euclidean distance, weighting variables by their relative importance. The <code>control_for_euc()</code> function lets you do exactly this. As an example, imagine we want to split by concreteness, and control for length, frequency, and age of acquisition. We might decide that length is the most important thing to match (ideally exact matching), followed by frequency and age of acquisition. This could be achieved like so:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="advanced-matching.html#cb16-1"></a>stim &lt;-<span class="st"> </span>lexops <span class="op">%&gt;%</span></span>
 <span id="cb16-2"><a href="advanced-matching.html#cb16-2"></a><span class="st">    </span><span class="kw">split_by</span>(CNC.Brysbaert, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span> <span class="op">~</span><span class="st"> </span><span class="dv">4</span><span class="op">:</span><span class="dv">5</span>) <span class="op">%&gt;%</span></span>
 <span id="cb16-3"><a href="advanced-matching.html#cb16-3"></a><span class="st">    </span><span class="kw">control_for_euc</span>(</span>

@@ -40,7 +40,7 @@ These stimuli could then be used in combination with a counter-balanced design, 
 
 By default, the generate pipeline will produce novel stimulus lists each time it is run. Often you'll want your code to be reproducible, however. To do this, we can use a random seed.
 
-Random seeds allow for replicable results from functions that produce different results each time they are run. In R, this is usually done with the `set.seed()` function. The `set.seed()` function can be used with LexOPS to write reproducible pipelines, **but** will yield different results between LexOPS R code and the [LexOPS shiny app](lexops-shiny-app.html), and might produce different results between versions. To ensure that pipelines created with R code can be reproduced in the shiny app (and [vice versa](lexops-shiny-app.html#random-seeds)), and across different versions, it is recommended to use the `seed` argument of the `generate()` function.
+Random seeds allow for replicable results from functions that would otherwise produce different results each time they are run. In R, this is usually done with the `set.seed()` function. The `set.seed()` function can be used with LexOPS to write reproducible pipelines, **but** will yield different results between LexOPS R code and the [LexOPS shiny app](lexops-shiny-app.html), and might produce different results between versions. To ensure that pipelines created with R code can be reproduced in the shiny app (and [vice versa](lexops-shiny-app.html#random-seeds)), and across different versions, it is recommended to use the `seed` argument of the `generate()` function.
 
 ### Setting the seed in the `generate()` function {-}
 
@@ -81,7 +81,7 @@ Example applications for this include controlling for orthographic or phonologic
 
 ### Orthographic Similarity
 
-Here is an example, using `control_for_map()` to control for orthographic Levenshtein distance from the match null (calculated using the `vwr` package). This means that each string will be a distance of between 0 and 3 character insertions, deletions or replacements from the word used as the match null.
+Here is an example, using `control_for_map()` to control for orthographic Levenshtein distance from the match null (calculated using the `vwr` package). This means that each string will be a distance of between 1 and 2 character insertions, deletions or replacements from the word used as the match null.
 
 
 ```r
@@ -89,7 +89,7 @@ library(vwr)
 
 stim <- lexops %>%
   split_by(VAL.Warriner, 1:3 ~ 4.5:5.5 ~ 7:9) %>%
-  control_for_map(levenshtein.distance, string, 0:1, name="Orth_Dist") %>%
+  control_for_map(levenshtein.distance, string, 1:2, name="Orth_Dist") %>%
   generate(20)
 ```
 
@@ -98,13 +98,13 @@ Here are the first 5 items of each condition that we generated. Note that we hav
 \small
 <div class = 'table'>
 
-| item_nr|A1    |A2    |A3    |match_null |
-|-------:|:-----|:-----|:-----|:----------|
-|       1|sting |stint |sing  |A1         |
-|       2|germ  |hem   |gem   |A3         |
-|       3|sad   |pad   |dad   |A1         |
-|       4|slap  |swap  |soap  |A3         |
-|       5|shun  |shin  |shine |A2         |
+| item_nr|A1     |A2     |A3     |match_null |
+|-------:|:------|:------|:------|:----------|
+|       1|hearse |coarse |hearty |A1         |
+|       2|bald   |bit    |bath   |A3         |
+|       3|ex     |lox    |pet    |A1         |
+|       4|bomb   |bony   |booby  |A3         |
+|       5|debt   |newt   |eat    |A2         |
 
 </div>
 \normalsize
@@ -135,13 +135,13 @@ Here are the first 5 items of each condition that we generated. This time, all m
 \small
 <div class = 'table'>
 
-| item_nr|A1     |A2     |A3     |match_null |
-|-------:|:------|:------|:------|:----------|
-|       1|slave  |cave   |save   |A3         |
-|       2|arson  |jargon |garden |A2         |
-|       3|asthma |llama  |aroma  |A1         |
-|       4|sad    |pad    |dad    |A2         |
-|       5|fee    |tee    |free   |A3         |
+| item_nr|A1        |A2      |A3        |match_null |
+|-------:|:---------|:-------|:---------|:----------|
+|       1|junkie    |jumpy   |lucky     |A1         |
+|       2|fussy     |emcee   |kissy     |A2         |
+|       3|sad       |tad     |glad      |A1         |
+|       4|infection |faction |affection |A3         |
+|       5|arson     |basin   |bacon     |A2         |
 
 </div>
 \normalsize
@@ -154,7 +154,7 @@ If you're wanting to use `control_for_map()` on your own function or data, see t
 
 ## Controlling for Euclidean Distance
 
-The `control_for()` function lets you give specific tolerances for individual variables. Another method of matching items, however, may be to control for Euclidean distance, weighting variables by their relative importance. The `control_for_euc()` function lets you do exactly this. As an example, imagine we want to split by concretness, and control for length, frequency, and age of acquisition. We might decide that length is the most important thing to match (ideally exact matching), followed by frequency and age of acquisition. This could be achieved like so:
+The `control_for()` function lets you give specific tolerances for individual variables. Another method of matching items, however, may be to control for Euclidean distance, weighting variables by their relative importance. The `control_for_euc()` function lets you do exactly this. As an example, imagine we want to split by concreteness, and control for length, frequency, and age of acquisition. We might decide that length is the most important thing to match (ideally exact matching), followed by frequency and age of acquisition. This could be achieved like so:
 
 
 ```r
