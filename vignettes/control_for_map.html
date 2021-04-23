@@ -42,7 +42,14 @@ document.addEventListener('DOMContentLoaded', function() {
     </style>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
 <style type="text/css" data-origin="pandoc">
 code.sourceCode > span { display: inline-block; line-height: 1.25; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -343,7 +350,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>The word pair norms come from <a href="https://doomlab.shinyapps.io/double_words/">Erin Buchanan and colleagues</a>. This dataset indexes semantic similarity between cues and targets. Alternative sources of semantic association/relatedness values include the <a href="https://smallworldofwords.org/en/project">Small World of Words</a>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>pairs &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;https://media.githubusercontent.com/media/doomlab/shiny-server/master/wn_double/double_words.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## 
-## -- Column specification ------------------------------------------------------------------------------------------------------------
+## -- Column specification --------------------------------------------------------------------------------------------------------------------------------
 ## cols(
 ##   CUE = col_character(),
 ##   TARGET = col_character(),

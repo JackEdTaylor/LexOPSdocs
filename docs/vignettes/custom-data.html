@@ -42,7 +42,14 @@ document.addEventListener('DOMContentLoaded', function() {
     </style>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
 <style type="text/css" data-origin="pandoc">
 code.sourceCode > span { display: inline-block; line-height: 1.25; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -346,7 +353,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>The Lancaster Sensorimotor Norms are available from the <a href="https://osf.io/48wsc/">OSF page</a>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>sensorimotor &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://osf.io/48wsc/download&quot;</span>)</span></code></pre></div>
 <pre><code>## 
-## -- Column specification ------------------------------------------------------------------------------------------------------------
+## -- Column specification --------------------------------------------------------------------------------------------------------------------------------
 ## cols(
 ##   .default = col_double(),
 ##   Word = col_character(),
@@ -701,7 +708,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>The Humour Norms are available from the <a href="https://github.com/tomasengelthaler/HumorNorms">Github Page</a>.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>humour &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/tomasengelthaler/HumorNorms/master/humor_dataset.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## 
-## -- Column specification ------------------------------------------------------------------------------------------------------------
+## -- Column specification --------------------------------------------------------------------------------------------------------------------------------
 ## cols(
 ##   word = col_character(),
 ##   mean = col_double(),
