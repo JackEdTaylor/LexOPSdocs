@@ -162,7 +162,7 @@ stim <- lexops %>%
     split_by(CNC.Brysbaert, 1:2 ~ 4:5) %>%
     control_for_euc(
         c(Length, Zipf.BNC.Written, AoA.Kuperman),
-        0:1e-5,
+        0:0.1,
         name = "euclidean_distance",
         weights = c(1, 0.5, 0.05)
     ) %>%
