@@ -89,7 +89,7 @@ library(vwr)
 
 stim <- lexops %>%
   split_by(VAL.Warriner, 1:3 ~ 4.5:5.5 ~ 7:9) %>%
-  control_for_map(levenshtein.distance, string, 1:2, name="Orth_Dist") %>%
+  control_for_map(levenshtein.distance, string, 1:2, name="orth_dist") %>%
   generate(20)
 ```
 
@@ -111,7 +111,7 @@ Here are the first 5 items of each condition that we generated. Note that we hav
 
 <br>
 <div class="info">
-<p>The name argument (<code>name = ...</code>) of the <code>control_for_map()</code> function will simply specify the name of the column that the calculated values should be stored as when the stimuli are in long format (from the code above, <code>long_format(stim)</code> will contain a column called “Orth_Dist”, containing the orthographic distances from the match null).</p>
+<p>The name argument (<code>name = ...</code>) of the <code>control_for_map()</code> function lets you give the name of the column that the calculated values should be stored as when the stimuli are in long format. From the code above, <code>long_format(stim)</code> will contain a column called “orth_dist”, containing the orthographic distances from the match null.</p>
 </div>
 <br>
 
@@ -125,7 +125,7 @@ library(vwr)
 
 stim <- lexops %>%
   split_by(VAL.Warriner, 1:3 ~ 4.5:5.5 ~ 7:9) %>%
-  control_for_map(levenshtein.distance, eSpeak.br_1letter, 0:2, name="Phon_Dist") %>%
+  control_for_map(levenshtein.distance, eSpeak.br_1letter, 0:2, name="phon_dist") %>%
   control_for(Rhyme.eSpeak.br) %>%
   generate(20)
 ```
@@ -148,9 +148,9 @@ Here are the first 5 items of each condition that we generated. This time, all m
 
 ### Other Uses
 
-The `control_for_map()` function can be used to control for any variable that needs to be calculated relative to the match null. The `fun` argument of `control_for_map()` should be a function that takes the data in the column contained in `var` as its first argument, and can take the match null's value for `var` as the second argument, to return a vector of values for each entry. In addition, `tol` can be specified as it is in `control_for()`, as either a numeric tolerance, or categorical tolerance if the function outputs character vectors. The `name` argument should just be a character vector to name the column in the long format of the generated stimuli.
+The `control_for_map()` function can be used to control for any variable that needs to be calculated relative to the match null. The `fun` argument of `control_for_map()` should be a function that takes the data in the column contained in `var` as its first argument, and can take the match null's value for `var` as the second argument, to return a vector of values for each entry. In addition, `tol` can be specified as it is in `control_for()`, as either a numeric tolerance, or categorical tolerance if the function outputs character vectors.
 
-If you're wanting to use `control_for_map()` on your own function or data, see this [vignette on controlling for semantic relatedness](vignettes/control_for_map.html). The function's documentation in the package ([`?control_for_map`](https://rdrr.io/github/JackEdTaylor/LexOPS/man/control_for_map.html)) might also be useful. Additionally, you may want to look at [how the vwr functions work](https://cran.r-project.org/web/packages/vwr/vwr.pdf) for comparison, as `control_for_map()` was originally written with these in mind.
+If you're wanting to use `control_for_map()` on your own function or data, see this [vignette on controlling for semantic relatedness](vignettes/control_for_map.html). The function's documentation in the package ([`?control_for_map`](https://rdrr.io/github/JackEdTaylor/LexOPS/man/control_for_map.html)) might also be useful. It might also be useful to look at [the vwr functions](https://cran.r-project.org/web/packages/vwr/vwr.pdf), as `control_for_map()` was originally written with these in mind.
 
 ## Controlling for Euclidean Distance
 
@@ -164,7 +164,7 @@ stim <- lexops %>%
         c(Length, Zipf.BNC.Written, AoA.Kuperman),
         0:0.1,
         name = "euclidean_distance",
-        weights = c(1, 0.5, 0.05)
+        weights = c(1, 0.5, 0.1)
     ) %>%
     generate(20)
 ```

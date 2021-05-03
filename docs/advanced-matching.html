@@ -24,7 +24,7 @@
 <meta name="author" content="Jack Taylor" />
 
 
-<meta name="date" content="2021-04-28" />
+<meta name="date" content="2021-05-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -344,7 +344,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb14-2"><a href="advanced-matching.html#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="advanced-matching.html#cb14-3" aria-hidden="true" tabindex="-1"></a>stim <span class="ot">&lt;-</span> lexops <span class="sc">%&gt;%</span></span>
 <span id="cb14-4"><a href="advanced-matching.html#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">split_by</span>(VAL.Warriner, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span> <span class="sc">~</span> <span class="fl">4.5</span><span class="sc">:</span><span class="fl">5.5</span> <span class="sc">~</span> <span class="dv">7</span><span class="sc">:</span><span class="dv">9</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb14-5"><a href="advanced-matching.html#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">control_for_map</span>(levenshtein.distance, string, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">name=</span><span class="st">&quot;Orth_Dist&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-5"><a href="advanced-matching.html#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">control_for_map</span>(levenshtein.distance, string, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">name=</span><span class="st">&quot;orth_dist&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb14-6"><a href="advanced-matching.html#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="dv">20</span>)</span></code></pre></div>
 <p>Here are the first 5 items of each condition that we generated. Note that we have 3 levels of valence, with matched items that are orthographically similar to one another:</p>
 <div class="table">
@@ -400,7 +400,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <br>
 <div class="info">
 <p>
-The name argument (<code>name = …</code>) of the <code>control_for_map()</code> function will simply specify the name of the column that the calculated values should be stored as when the stimuli are in long format (from the code above, <code>long_format(stim)</code> will contain a column called “Orth_Dist,” containing the orthographic distances from the match null).
+The name argument (<code>name = …</code>) of the <code>control_for_map()</code> function lets you give the name of the column that the calculated values should be stored as when the stimuli are in long format. From the code above, <code>long_format(stim)</code> will contain a column called “orth_dist,” containing the orthographic distances from the match null.
 </p>
 </div>
 <p><br></p>
@@ -412,7 +412,7 @@ The name argument (<code>name = …</code>) of the <code>control_for_map()</code
 <span id="cb15-2"><a href="advanced-matching.html#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="advanced-matching.html#cb15-3" aria-hidden="true" tabindex="-1"></a>stim <span class="ot">&lt;-</span> lexops <span class="sc">%&gt;%</span></span>
 <span id="cb15-4"><a href="advanced-matching.html#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">split_by</span>(VAL.Warriner, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span> <span class="sc">~</span> <span class="fl">4.5</span><span class="sc">:</span><span class="fl">5.5</span> <span class="sc">~</span> <span class="dv">7</span><span class="sc">:</span><span class="dv">9</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-5"><a href="advanced-matching.html#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">control_for_map</span>(levenshtein.distance, eSpeak.br_1letter, <span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">name=</span><span class="st">&quot;Phon_Dist&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-5"><a href="advanced-matching.html#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">control_for_map</span>(levenshtein.distance, eSpeak.br_1letter, <span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">name=</span><span class="st">&quot;phon_dist&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb15-6"><a href="advanced-matching.html#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">control_for</span>(Rhyme.eSpeak.br) <span class="sc">%&gt;%</span></span>
 <span id="cb15-7"><a href="advanced-matching.html#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="dv">20</span>)</span></code></pre></div>
 <p>Here are the first 5 items of each condition that we generated. This time, all matched items are phonologically similar to one another:</p>
@@ -469,8 +469,8 @@ The name argument (<code>name = …</code>) of the <code>control_for_map()</code
 </div>
 <div id="other-uses" class="section level3" number="3.3.3">
 <h3><span class="header-section-number">3.3.3</span> Other Uses</h3>
-<p>The <code>control_for_map()</code> function can be used to control for any variable that needs to be calculated relative to the match null. The <code>fun</code> argument of <code>control_for_map()</code> should be a function that takes the data in the column contained in <code>var</code> as its first argument, and can take the match null’s value for <code>var</code> as the second argument, to return a vector of values for each entry. In addition, <code>tol</code> can be specified as it is in <code>control_for()</code>, as either a numeric tolerance, or categorical tolerance if the function outputs character vectors. The <code>name</code> argument should just be a character vector to name the column in the long format of the generated stimuli.</p>
-<p>If you’re wanting to use <code>control_for_map()</code> on your own function or data, see this <a href="vignettes/control_for_map.html">vignette on controlling for semantic relatedness</a>. The function’s documentation in the package (<a href="https://rdrr.io/github/JackEdTaylor/LexOPS/man/control_for_map.html"><code>?control_for_map</code></a>) might also be useful. Additionally, you may want to look at <a href="https://cran.r-project.org/web/packages/vwr/vwr.pdf">how the vwr functions work</a> for comparison, as <code>control_for_map()</code> was originally written with these in mind.</p>
+<p>The <code>control_for_map()</code> function can be used to control for any variable that needs to be calculated relative to the match null. The <code>fun</code> argument of <code>control_for_map()</code> should be a function that takes the data in the column contained in <code>var</code> as its first argument, and can take the match null’s value for <code>var</code> as the second argument, to return a vector of values for each entry. In addition, <code>tol</code> can be specified as it is in <code>control_for()</code>, as either a numeric tolerance, or categorical tolerance if the function outputs character vectors.</p>
+<p>If you’re wanting to use <code>control_for_map()</code> on your own function or data, see this <a href="vignettes/control_for_map.html">vignette on controlling for semantic relatedness</a>. The function’s documentation in the package (<a href="https://rdrr.io/github/JackEdTaylor/LexOPS/man/control_for_map.html"><code>?control_for_map</code></a>) might also be useful. It might also be useful to look at <a href="https://cran.r-project.org/web/packages/vwr/vwr.pdf">the vwr functions</a>, as <code>control_for_map()</code> was originally written with these in mind.</p>
 </div>
 </div>
 <div id="controlling-for-euclidean-distance" class="section level2" number="3.4">
@@ -482,7 +482,7 @@ The name argument (<code>name = …</code>) of the <code>control_for_map()</code
 <span id="cb16-4"><a href="advanced-matching.html#cb16-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">c</span>(Length, Zipf.BNC.Written, AoA.Kuperman),</span>
 <span id="cb16-5"><a href="advanced-matching.html#cb16-5" aria-hidden="true" tabindex="-1"></a>        <span class="dv">0</span><span class="sc">:</span><span class="fl">0.1</span>,</span>
 <span id="cb16-6"><a href="advanced-matching.html#cb16-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">name =</span> <span class="st">&quot;euclidean_distance&quot;</span>,</span>
-<span id="cb16-7"><a href="advanced-matching.html#cb16-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">weights =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">0.5</span>, <span class="fl">0.05</span>)</span>
+<span id="cb16-7"><a href="advanced-matching.html#cb16-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">weights =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">0.5</span>, <span class="fl">0.1</span>)</span>
 <span id="cb16-8"><a href="advanced-matching.html#cb16-8" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
 <span id="cb16-9"><a href="advanced-matching.html#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">generate</span>(<span class="dv">20</span>)</span></code></pre></div>
 <p>This method will generally be slower than standard LexOPS pipelines, but more flexible. You can also combine <code>control_for_euc()</code> and <code>control_for()</code> functions in your pipelines. For more information on controlling for Euclidean distance, and how to decide on tolerances, try the <a href="https://jackedtaylor.github.io/LexOPSdocs/vignettes/euclidean-distance.html">vignette on Euclidean distance</a>.</p>
