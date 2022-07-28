@@ -75,14 +75,14 @@ Example applications for this include controlling for orthographic or phonologic
 
 ### Orthographic Similarity
 
-Here is an example, using `control_for_map()` to control for orthographic Levenshtein distance from the match null (calculated using the `vwr` package). This means that each string will be a distance of between 1 and 2 character insertions, deletions or replacements from the word used as the match null.
+Here is an example, using `control_for_map()` to control for orthographic Levenshtein distance from the match null. We tell LexOPS to calculate Levenshtein distance using the `stringdist()` function from the package `stringdist`. By default, `stringdist()` will calculate the *optimal string alignment* metric. We can tell the function to calculate *Levenshtein distance* by passing `method = "lv"` to `control_for_map()`. This means that each string will be a distance of between 1 and 2 character insertions, deletions or replacements from the word used as the match null.
 
 ```{r, message=FALSE, results='hide'}
-library(vwr)
+library(stringdist)
 
 stim <- lexops %>%
   split_by(VAL.Warriner, 1:3 ~ 4.5:5.5 ~ 7:9) %>%
-  control_for_map(levenshtein.distance, string, 1:2, name="orth_dist") %>%
+  control_for_map(stringdist, string, 1:2, name="orth_dist", method="lv") %>%
   generate(20)
 ```
 
@@ -107,11 +107,11 @@ The name argument (`name = ...`) of the `control_for_map()` function lets you gi
 We can use a similar pipeline to match by phonological similarity. Instead of giving the string column to the function, we just have to give a column where phonemes are represented by single letters. All the generated stimuli will be within a distance of between 0 and 2 phonemic insertions, deletions, or substitutions from the word used as the match null. For fun (and to show how `control_for_map()` can be combined with `control_for()`), let's also control for rhyme.
 
 ```{r, message=FALSE, results='hide'}
-library(vwr)
+library(stringdist)
 
 stim <- lexops %>%
   split_by(VAL.Warriner, 1:3 ~ 4.5:5.5 ~ 7:9) %>%
-  control_for_map(levenshtein.distance, eSpeak.br_1letter, 0:2, name="phon_dist") %>%
+  control_for_map(stringdist, eSpeak.br_1letter, 0:2, name="phon_dist", method="lv") %>%
   control_for(Rhyme.eSpeak.br) %>%
   generate(20)
 ```
@@ -130,7 +130,7 @@ stim %>%
 
 The `control_for_map()` function can be used to control for any variable that needs to be calculated relative to the match null. The `fun` argument of `control_for_map()` should be a function that takes the data in the column contained in `var` as its first argument, and can take the match null's value for `var` as the second argument, to return a vector of values for each entry. In addition, `tol` can be specified as it is in `control_for()`, as either a numeric tolerance, or categorical tolerance if the function outputs character vectors.
 
-If you're wanting to use `control_for_map()` on your own function or data, see this [vignette on controlling for semantic relatedness](vignettes/control_for_map.html). The function's documentation in the package ([`?control_for_map`](https://rdrr.io/github/JackEdTaylor/LexOPS/man/control_for_map.html)) might also be useful. It might also be useful to look at [the vwr functions](https://cran.r-project.org/web/packages/vwr/vwr.pdf), as `control_for_map()` was originally written with these in mind.
+If you're wanting to use `control_for_map()` on your own function or data, see this [vignette on controlling for semantic relatedness](vignettes/control_for_map.html). The function's documentation in the package ([`?control_for_map`](https://rdrr.io/github/JackEdTaylor/LexOPS/man/control_for_map.html)) might also be useful. It might also be useful to look at [the stringdist function](https://www.rdocumentation.org/packages/stringdist/versions/0.9.8/topics/stringdist), as `control_for_map()` was originally written with this style of function in mind.
 
 ## Controlling for Euclidean Distance
 

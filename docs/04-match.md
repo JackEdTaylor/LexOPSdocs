@@ -60,18 +60,18 @@ You may want to match by similarity to the target word. Thankfully this is more 
 
 ### Orthographic similarity
 
-Here's an example, matching "leaflet" by orthographic similarity. We just have to calculate the similarity measure before using the `match_item()` function.
+Here's an example, matching "leaflet" by orthographic similarity (Levenshtein distance). We just have to calculate the similarity measure before using the `match_item()` function.
 
 
 ```r
 library(LexOPS)
-library(vwr)
+library(stringdist)
 library(dplyr)
 
 target_word <- "interesting"
 
 suggested_matches <- lexops %>%
-  mutate(orth_sim = as.numeric(levenshtein.distance(string, target_word))) %>%
+  mutate(orth_sim = stringdist(string, target_word, method="lv")) %>%
   match_item(target = target_word, orth_sim = 0:3)
 ```
 
@@ -96,12 +96,12 @@ Note that some of these are misspellings or unusual words, but we could remove t
 
 ### Phonological Similarity
 
-To match by phonological similarity, we just have to calculate the levenshtein distance on one-letter phonemic representations, e.g. with `CMU.1letter` or `eSpeak.br_1letter`. Here we find words that are only 0 to 2 phonemic insertions, deletions, or substitutions away from "interesting".
+To match by phonological similarity, we just have to calculate the Levenshtein distance on one-letter phonemic representations, e.g. with `CMU.1letter` or `eSpeak.br_1letter`. Here we find words that are only 0 to 2 phonemic insertions, deletions, or substitutions away from "interesting".
 
 
 ```r
 library(LexOPS)
-library(vwr)
+library(stringdist)
 library(dplyr)
 
 target_word <- "interesting"
@@ -113,7 +113,7 @@ target_word_pron <- lexops %>%
 
 # find phonologically similar words
 suggested_matches <- lexops %>%
-  mutate(phon_sim = as.numeric(levenshtein.distance(CMU.1letter, target_word_pron))) %>%
+  mutate(phon_sim = stringdist(CMU.1letter, target_word_pron, method="lv")) %>%
   match_item(target_word, phon_sim = 0:2)
 ```
 

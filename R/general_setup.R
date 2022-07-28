@@ -1,7 +1,7 @@
 # based on psyteachr code
 
 library(tidyverse)
-library(webex)
+library(webexercises)
 
 # default knitr options
 knitr::opts_chunk$set(
