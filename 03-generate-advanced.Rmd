@@ -14,19 +14,19 @@ Sometimes it makes sense to use independent variables that are not related to fe
 As an example, imagine we're interested in a 2x2 interaction between the effect of words' arousal ratings before and after a cup of coffee. We use `split_random()` to say that we want to create a random split in the data with two levels. Such a pipeline might look like this:
 
 ```{r, message=FALSE, results='hide'}
-stim <- lexops %>%
-  split_random(2) %>%
-  split_by(AROU.Warriner, 1:3 ~ 6:8) %>%
-  control_for(Length, 0:0) %>%
-  control_for(Zipf.SUBTLEX_UK, -0.1:0.1) %>%
+stim <- lexops |>
+  split_random(2) |>
+  split_by(AROU.Warriner, 1:3 ~ 6:8) |>
+  control_for(Length, 0:0) |>
+  control_for(Zipf.SUBTLEX_UK, -0.1:0.1) |>
   generate(50)
 ```
 
 This will create 4 conditions matched for length and frequency, where A1_B1 and A2_B1 are low arousal words, and A1_B2 and A2_B2 are high arousal words. Here are the first 5 items of each condition:
 
 ```{r, echo=FALSE, class='table'}
-stim %>%
-  head(5) %>%
+stim |>
+  head(5) |>
   knitr::kable()
 ```
 
@@ -43,12 +43,12 @@ Random seeds allow for replicable results from functions that would otherwise pr
 The following code will generate the same stimulus list each time it is run:
 
 ```{r, eval=FALSE, message=FALSE, results='hide'}
-stim <- lexops %>%
-  subset(PK.Brysbaert >= 0.9) %>%
-  split_by(CNC.Brysbaert, 1:2 ~ 4:5) %>%
-  split_by(BG.SUBTLEX_UK, 0:0.003 ~ 0.009:0.013) %>%
-  control_for(Length, 0:0) %>%
-  control_for(Zipf.SUBTLEX_UK, -0.2:0.2) %>%
+stim <- lexops |>
+  subset(PK.Brysbaert >= 0.9) |>
+  split_by(CNC.Brysbaert, 1:2 ~ 4:5) |>
+  split_by(BG.SUBTLEX_UK, 0:0.003 ~ 0.009:0.013) |>
+  control_for(Length, 0:0) |>
+  control_for(Zipf.SUBTLEX_UK, -0.2:0.2) |>
   generate(25, seed = 42)
 ```
 
@@ -59,11 +59,11 @@ If you use the `split_random()` function, this will also require a `seed` argume
 ```{r, eval=FALSE, message=FALSE, results='hide'}
 my_seed <- 42
 
-stim <- lexops %>%
-  split_random(2, seed = my_seed) %>%
-  split_by(AROU.Warriner, 1:3 ~ 6:8) %>%
-  control_for(Length, 0:0) %>%
-  control_for(Zipf.SUBTLEX_UK, -0.1:0.1) %>%
+stim <- lexops |>
+  split_random(2, seed = my_seed) |>
+  split_by(AROU.Warriner, 1:3 ~ 6:8) |>
+  control_for(Length, 0:0) |>
+  control_for(Zipf.SUBTLEX_UK, -0.1:0.1) |>
   generate(50, seed = my_seed)
 ```
 
@@ -80,9 +80,9 @@ Here is an example, using `control_for_map()` to control for orthographic Levens
 ```{r, message=FALSE, results='hide'}
 library(stringdist)
 
-stim <- lexops %>%
-  split_by(VAL.Warriner, 1:3 ~ 4.5:5.5 ~ 7:9) %>%
-  control_for_map(stringdist, string, 1:2, name="orth_dist", method="lv") %>%
+stim <- lexops |>
+  split_by(VAL.Warriner, 1:3 ~ 4.5:5.5 ~ 7:9) |>
+  control_for_map(stringdist, string, 1:2, name="orth_dist", method="lv") |>
   generate(20)
 ```
 
@@ -90,8 +90,8 @@ Here are the first 5 items of each condition that we generated. Note that we hav
 
 \small
 ```{r, class='table', echo=FALSE}
-stim %>%
-  head(5) %>%
+stim |>
+  head(5) |>
   knitr::kable()
 ```
 \normalsize
@@ -109,10 +109,10 @@ We can use a similar pipeline to match by phonological similarity. Instead of gi
 ```{r, message=FALSE, results='hide'}
 library(stringdist)
 
-stim <- lexops %>%
-  split_by(VAL.Warriner, 1:3 ~ 4.5:5.5 ~ 7:9) %>%
-  control_for_map(stringdist, eSpeak.br_1letter, 0:2, name="phon_dist", method="lv") %>%
-  control_for(Rhyme.eSpeak.br) %>%
+stim <- lexops |>
+  split_by(VAL.Warriner, 1:3 ~ 4.5:5.5 ~ 7:9) |>
+  control_for_map(stringdist, eSpeak.br_1letter, 0:2, name="phon_dist", method="lv") |>
+  control_for(Rhyme.eSpeak.br) |>
   generate(20)
 ```
 
@@ -120,8 +120,8 @@ Here are the first 5 items of each condition that we generated. This time, all m
 
 \small
 ```{r, class='table', echo=FALSE}
-stim %>%
-  head(5) %>%
+stim |>
+  head(5) |>
   knitr::kable()
 ```
 \normalsize
@@ -137,14 +137,14 @@ If you're wanting to use `control_for_map()` on your own function or data, see t
 The `control_for()` function lets you give specific tolerances for individual variables. Another method of matching items, however, may be to control for Euclidean distance, weighting variables by their relative importance. The `control_for_euc()` function lets you do exactly this. As an example, imagine we want to split by concreteness, and control for length, frequency, and age of acquisition. We might decide that length is the most important thing to match (ideally exact matching), followed by frequency and age of acquisition. This could be achieved like so:
 
 ```{r, eval=FALSE}
-stim <- lexops %>%
-    split_by(CNC.Brysbaert, 1:2 ~ 4:5) %>%
+stim <- lexops |>
+    split_by(CNC.Brysbaert, 1:2 ~ 4:5) |>
     control_for_euc(
         c(Length, Zipf.BNC.Written, AoA.Kuperman),
         0:0.1,
         name = "euclidean_distance",
         weights = c(1, 0.5, 0.1)
-    ) %>%
+    ) |>
     generate(20)
 ```
 

@@ -14,7 +14,7 @@ Here's an example usage of `match_item()`, to suggest a word matched for "elepha
 ```{r, eval=FALSE}
 library(LexOPS)
 
-suggested_matches <- lexops %>%
+suggested_matches <- lexops |>
   match_item(
     "elephant",
     Length,
@@ -27,21 +27,21 @@ suggested_matches <- lexops %>%
 ```{r, echo=FALSE, message=FALSE}
 library(LexOPS)
 
-suggested_matches <- lexops %>%
+suggested_matches <- lexops |>
   match_item(
     "elephant",
     Length,
     Zipf.SUBTLEX_UK = -0.25:0.25,
     IMAG.Glasgow_Norms = -1:1,
     PoS.SUBTLEX_UK
-  ) %>%
+  ) |>
   dplyr::select(string, euclidean_distance, Length, Zipf.SUBTLEX_UK, IMAG.Glasgow_Norms, PoS.SUBTLEX_UK)
 ```
 
 The suggested matches are returned in a dataframe, filtered to be within the specified tolerances, and ordered by euclidean distance from the target word (calculated using all the numeric variables used). The closest suggested match for "elephant" is "sandwich". If we are looking for a match to fit in a sentential context, we can choose the best suitable match from this list.
 
 ```{r, echo=FALSE, class='table'}
-suggested_matches %>%
+suggested_matches |>
   knitr::kable()
 ```
 
@@ -60,17 +60,17 @@ library(dplyr)
 
 target_word <- "interesting"
 
-suggested_matches <- lexops %>%
-  mutate(orth_sim = stringdist(string, target_word, method="lv")) %>%
+suggested_matches <- lexops |>
+  mutate(orth_sim = stringdist(string, target_word, method="lv")) |>
   match_item(target = target_word, orth_sim = 0:3)
 ```
 
 Note that some of these are misspellings or unusual words, but we could remove these by filtering (e.g. with `dplyr::filter()`) or matching (with `match_item()`) by frequency, proportion known, or familiarity ratings.
 
 ```{r, echo=FALSE, class='table'}
-suggested_matches %>%
-  dplyr::select(string, euclidean_distance, orth_sim) %>%
-  head(10) %>%
+suggested_matches |>
+  dplyr::select(string, euclidean_distance, orth_sim) |>
+  head(10) |>
   knitr::kable()
 ```
 
@@ -86,22 +86,22 @@ library(dplyr)
 target_word <- "interesting"
 
 # get the target word's pronunciation
-target_word_pron <- lexops %>%
-  filter(string == target_word) %>%
+target_word_pron <- lexops |>
+  filter(string == target_word) |>
   pull(CMU.1letter)
 
 # find phonologically similar words
-suggested_matches <- lexops %>%
-  mutate(phon_sim = stringdist(CMU.1letter, target_word_pron, method="lv")) %>%
+suggested_matches <- lexops |>
+  mutate(phon_sim = stringdist(CMU.1letter, target_word_pron, method="lv")) |>
   match_item(target_word, phon_sim = 0:2)
 ```
 
 Which gives us:
 
 ```{r, echo=FALSE, class='table'}
-suggested_matches %>%
-  dplyr::select(string, euclidean_distance, phon_sim, CMU.1letter) %>%
-  head(10) %>%
+suggested_matches |>
+  dplyr::select(string, euclidean_distance, phon_sim, CMU.1letter) |>
+  head(10) |>
   knitr::kable()
 ```
 

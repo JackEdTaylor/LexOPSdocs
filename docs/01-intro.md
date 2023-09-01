@@ -49,7 +49,11 @@ LexOPS::run_shiny()
 </div>
 
 <div class="info">
-<p>A demo version of the shiny app with limited usage is also available as a web app online, at <a href="https://jackt.shinyapps.io/lexops/">https://jackt.shinyapps.io/lexops/</a>, but it is much faster and more reliable to run it locally with the <code>run_shiny()</code> function.</p>
+<p>A demo version of the shiny app with limited usage is also available
+as a web app online, at <a
+href="https://jackt.shinyapps.io/lexops/">https://jackt.shinyapps.io/lexops/</a>,
+but it is much faster and more reliable to run it locally with the
+<code>run_shiny()</code> function.</p>
 </div>
 
 ## The LexOPS Dataset

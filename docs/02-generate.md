@@ -9,17 +9,20 @@ One of the most noteworthy features of LexOPS is that it can generate controlled
 <br>
 <div class="float-third-left">
 <p><code>split_by()</code></p>
-<p>to specify “splits” (independent variables) in the experimental design</p>
+<p>to specify “splits” (independent variables) in the experimental
+design</p>
 </div>
 
 <div class="float-third-centre">
 <p><code>control_for()</code></p>
-<p>to specify variables that should be controlled for between conditions</p>
+<p>to specify variables that should be controlled for between
+conditions</p>
 </div>
 
 <div class="float-third-right">
 <p><code>generate()</code></p>
-<p>to run the algorithm and generate the stimuli, using specified splits and controls</p>
+<p>to run the algorithm and generate the stimuli, using specified splits
+and controls</p>
 </div>
 <br>
 
@@ -48,12 +51,12 @@ We can use the following R code to generate a stimulus list like this with LexOP
 ```r
 library(LexOPS)
 
-stim <- lexops %>%
-  subset(PK.Brysbaert >= 0.9) %>%
-  split_by(CNC.Brysbaert, 1:2 ~ 4:5) %>%
-  split_by(BG.SUBTLEX_UK, 0:0.003 ~ 0.009:0.013) %>%
-  control_for(Length, 0:0) %>%
-  control_for(Zipf.SUBTLEX_UK, -0.2:0.2) %>%
+stim <- lexops |>
+  subset(PK.Brysbaert >= 0.9) |>
+  split_by(CNC.Brysbaert, 1:2 ~ 4:5) |>
+  split_by(BG.SUBTLEX_UK, 0:0.003 ~ 0.009:0.013) |>
+  control_for(Length, 0:0) |>
+  control_for(Zipf.SUBTLEX_UK, -0.2:0.2) |>
   generate(n = 25)
 ```
 
@@ -61,9 +64,18 @@ stim <- lexops %>%
 <div class="info">
 <p>Important notes on LexOPS (non-standard) syntax:</p>
 <ul>
-<li><p>As in the tidyverse, variables in the dataframe can be referenced outside of quotation marks.</p></li>
-<li><p>The <code>:</code> character is used in <code>split_by()</code> to specify numeric boundaries (e.g. <code>0.009:0.013</code> means any number from 0.009 to 0.013 is acceptable for this level of the variable), and in <code>control_for()</code> to specify tolerances (e.g. <code>-0.2:0.2</code> means controls will be acceptable if within ±0.2 of the match null).</p></li>
-<li><p>The <code>~</code> character is used in <code>split_by()</code> to specify different levels of an independent variable (e.g. <code>1.5:2.5 ~ 3.5:4.5 ~ 5.5:6.5</code> would specify three levels).</p></li>
+<li><p>As in the tidyverse, variables in the dataframe can be referenced
+outside of quotation marks.</p></li>
+<li><p>The <code>:</code> character is used in <code>split_by()</code>
+to specify numeric boundaries (e.g. <code>0.009:0.013</code> means any
+number from 0.009 to 0.013 is acceptable for this level of the
+variable), and in <code>control_for()</code> to specify tolerances
+(e.g. <code>-0.2:0.2</code> means controls will be acceptable if within
+±0.2 of the match null).</p></li>
+<li><p>The <code>~</code> character is used in <code>split_by()</code>
+to specify different levels of an independent variable
+(e.g. <code>1.5:2.5 ~ 3.5:4.5 ~ 5.5:6.5</code> would specify three
+levels).</p></li>
 </ul>
 </div>
 <br>
@@ -74,13 +86,13 @@ Let's have a closer look at the first 5 rows of `stim`, which contains the outpu
 
 <div class = 'table'>
 
-| item_nr|A1_B1      |A1_B2      |A2_B1      |A2_B2      |match_null |
-|-------:|:----------|:----------|:----------|:----------|:----------|
-|       1|abide      |merit      |caddy      |basin      |A2_B1      |
-|       2|unspecific |sinisterly |typescript |storefront |A1_B2      |
-|       3|broadly    |reliant    |giraffe    |coroner    |A1_B2      |
-|       4|deftly     |pathos     |smooch     |sandal     |A2_B2      |
-|       5|ultra      |revel      |pluck      |minty      |A2_B2      |
+| item_nr|A1_B1    |A1_B2    |A2_B1    |A2_B2    |match_null |
+|-------:|:--------|:--------|:--------|:--------|:----------|
+|       1|ahoy     |sane     |burp     |bong     |A2_B1      |
+|       2|subtlety |reasoned |choirboy |minstrel |A1_B2      |
+|       3|unsafe   |regain   |juggle   |strand   |A1_B2      |
+|       4|dynamics |inferior |bagpipes |intruder |A2_B2      |
+|       5|signify  |rousing  |crumpet  |warthog  |A2_B2      |
 
 </div>
 
@@ -112,28 +124,28 @@ Now we have the same stimuli in long format, with their associated values. Here 
 \small
 <div class = 'table'>
 
-| item_nr|condition |match_null |string     | Zipf.SUBTLEX_UK| Length| BG.SUBTLEX_UK| CNC.Brysbaert|
-|-------:|:---------|:----------|:----------|---------------:|------:|-------------:|-------------:|
-|       1|A1_B1     |A2_B1      |abide      |        3.453132|      5|     0.0029111|          1.68|
-|       1|A1_B2     |A2_B1      |merit      |        3.577120|      5|     0.0122070|          1.66|
-|       1|A2_B1     |A2_B1      |caddy      |        3.575405|      5|     0.0024618|          4.32|
-|       1|A2_B2     |A2_B1      |basin      |        3.482487|      5|     0.0100465|          4.63|
-|       2|A1_B1     |A1_B2      |unspecific |        1.540834|     10|     0.0029410|          1.41|
-|       2|A1_B2     |A1_B2      |sinisterly |        1.473887|     10|     0.0098809|          1.75|
-|       2|A2_B1     |A1_B2      |typescript |        1.297796|     10|     0.0027336|          4.37|
-|       2|A2_B2     |A1_B2      |storefront |        1.473887|     10|     0.0096897|          4.00|
-|       3|A1_B1     |A1_B2      |broadly    |        3.648528|      7|     0.0028142|          1.68|
-|       3|A1_B2     |A1_B2      |reliant    |        3.602609|      7|     0.0103099|          1.83|
-|       3|A2_B1     |A1_B2      |giraffe    |        3.777083|      7|     0.0021165|          4.73|
-|       3|A2_B2     |A1_B2      |coroner    |        3.726335|      7|     0.0107999|          4.34|
-|       4|A1_B1     |A2_B2      |deftly     |        2.329204|      6|     0.0025051|          1.96|
-|       4|A1_B2     |A2_B2      |pathos     |        2.620015|      6|     0.0121742|          1.48|
-|       4|A2_B1     |A2_B2      |smooch     |        2.263937|      6|     0.0028086|          4.21|
-|       4|A2_B2     |A2_B2      |sandal     |        2.443924|      6|     0.0091593|          4.68|
-|       5|A1_B1     |A2_B2      |ultra      |        3.572531|      5|     0.0029273|          1.55|
-|       5|A1_B2     |A2_B2      |revel      |        3.254444|      5|     0.0093859|          1.69|
-|       5|A2_B1     |A2_B2      |pluck      |        3.377881|      5|     0.0019315|          4.00|
-|       5|A2_B2     |A2_B2      |minty      |        3.421647|      5|     0.0099473|          4.11|
+| item_nr|condition |match_null |string   | Zipf.SUBTLEX_UK| Length| BG.SUBTLEX_UK| CNC.Brysbaert|
+|-------:|:---------|:----------|:--------|---------------:|------:|-------------:|-------------:|
+|       1|A1_B1     |A2_B1      |ahoy     |        3.270924|      4|     0.0024671|          2.00|
+|       1|A1_B2     |A2_B1      |sane     |        3.351834|      4|     0.0097561|          1.79|
+|       1|A2_B1     |A2_B1      |burp     |        3.311686|      4|     0.0029034|          4.34|
+|       1|A2_B2     |A2_B1      |bong     |        3.450084|      4|     0.0095689|          4.27|
+|       2|A1_B1     |A1_B2      |subtlety |        2.913220|      8|     0.0025943|          1.54|
+|       2|A1_B2     |A1_B2      |reasoned |        2.729160|      8|     0.0101181|          1.64|
+|       2|A2_B1     |A1_B2      |choirboy |        2.559059|      8|     0.0027849|          4.56|
+|       2|A2_B2     |A1_B2      |minstrel |        2.905251|      8|     0.0100126|          4.11|
+|       3|A1_B1     |A1_B2      |unsafe   |        3.487426|      6|     0.0023499|          1.89|
+|       3|A1_B2     |A1_B2      |regain   |        3.532060|      6|     0.0099835|          1.79|
+|       3|A2_B1     |A1_B2      |juggle   |        3.365053|      6|     0.0024606|          4.04|
+|       3|A2_B2     |A1_B2      |strand   |        3.478208|      6|     0.0099946|          4.10|
+|       4|A1_B1     |A2_B2      |dynamics |        3.281197|      8|     0.0019895|          1.96|
+|       4|A1_B2     |A2_B2      |inferior |        3.210284|      8|     0.0096549|          1.70|
+|       4|A2_B1     |A2_B2      |bagpipes |        3.162603|      8|     0.0028140|          4.93|
+|       4|A2_B2     |A2_B2      |intruder |        3.294526|      8|     0.0092513|          4.14|
+|       5|A1_B1     |A2_B2      |signify  |        2.910580|      7|     0.0020770|          1.73|
+|       5|A1_B2     |A2_B2      |rousing  |        3.109036|      7|     0.0119233|          1.55|
+|       5|A2_B1     |A2_B2      |crumpet  |        2.848024|      7|     0.0023334|          4.81|
+|       5|A2_B2     |A2_B2      |warthog  |        2.979037|      7|     0.0110464|          5.00|
 
 </div>
 \normalsize
@@ -176,21 +188,24 @@ Let's imagine that we're not entirely sure how many stimuli we could generate us
 
 
 ```r
-possible_stim <- LexOPS::lexops %>%
-  subset(PK.Brysbaert >= 0.9) %>%
-  split_by(CNC.Brysbaert, 1:2 ~ 4:5) %>%
-  split_by(BG.SUBTLEX_UK, 0:0.003 ~ 0.009:0.013) %>%
-  control_for(Length, 0:0) %>%
-  control_for(Zipf.SUBTLEX_UK, -0.2:0.2) %>%
+possible_stim <- LexOPS::lexops |>
+  subset(PK.Brysbaert >= 0.9) |>
+  split_by(CNC.Brysbaert, 1:2 ~ 4:5) |>
+  split_by(BG.SUBTLEX_UK, 0:0.003 ~ 0.009:0.013) |>
+  control_for(Length, 0:0) |>
+  control_for(Zipf.SUBTLEX_UK, -0.2:0.2) |>
   generate(n = "all", match_null = "inclusive")
 ```
 
-This is much slower, as LexOPS will continue trying to generate combinations of words that fit the specified characteristics until it has exhausted all the possibilities. Nevertheless, we actually generated 98 words generated per condition with the code above. This number is likely to change slightly each time we run the pipeline, as different combinations are randomly made from all the possible combinations. That said, it is a fairly good *indication* of the number of possible stimuli we could generate.
+This is much slower, as LexOPS will continue trying to generate combinations of words that fit the specified characteristics until it has exhausted all the possibilities. Nevertheless, we actually generated 104 words generated per condition with the code above. This number is likely to change slightly each time we run the pipeline, as different combinations are randomly made from all the possible combinations. That said, it is a fairly good *indication* of the number of possible stimuli we could generate.
 
-The 98 words we've managed to generate per condition here is quite a bit higher than the 25 we originally generated. Does this mean we should just request a larger stimulus list, such as `n = 80`, or even `n = 100`? Well, it depends. If we want as many stimuli as are possible, then it may make sense to just set `n = "all"`, but often we only want to use as many stimuli as we need to find our effect. Also, if we use as many combinations as possible, experimenters who want to replicate our effect using a different set of stimuli will likely have fewer novel combinations available to them.
+The 104 words we've managed to generate per condition here is quite a bit higher than the 25 we originally generated. Does this mean we should just request a larger stimulus list, such as `n = 80`, or even `n = 100`? Well, it depends. If we want as many stimuli as are possible, then it may make sense to just set `n = "all"`, but often we only want to use as many stimuli as we need to find our effect. Also, if we use as many combinations as possible, experimenters who want to replicate our effect using a different set of stimuli will likely have fewer novel combinations available to them.
 
 <div class="danger">
-<p>Note that when <code>n = "all"</code>, you will get a warning if you also keep the default match null setting, <code>match_null = "balanced"</code>. The reason for this is explained in <a href="faq.html#what-is-a-match-null">this FAQ section</a>.</p>
+<p>Note that when <code>n = "all"</code>, you will get a warning if you
+also keep the default match null setting,
+<code>match_null = "balanced"</code>. The reason for this is explained
+in <a href="faq.html#what-is-a-match-null">this FAQ section</a>.</p>
 </div>
 
 ## Plotting Iterations
@@ -218,11 +233,11 @@ While the [LexOPS Dataset](introduction.html#the-lexops-dataset) has lots of use
 library(readr)
 LANG <- read_csv("kanske_kotz_2010.csv", locale=locale(encoding = "latin1"))
 
-stim <- LANG %>%
-  set_options(id_col = "word") %>%
-  split_by(valence_mean, 1:3.5 ~ 4.75:5.25 ~ 6.5:9) %>%
-  control_for(number_of_letters, 0:0) %>%
-  control_for(frequency, -1:1) %>%
+stim <- LANG |>
+  set_options(id_col = "word") |>
+  split_by(valence_mean, 1:3.5 ~ 4.75:5.25 ~ 6.5:9) |>
+  control_for(number_of_letters, 0:0) |>
+  control_for(frequency, -1:1) |>
   generate(20)
 ```
 
@@ -250,6 +265,8 @@ For more detailed examples of how to use other datasets, the following vignettes
 
 <br>
 <div class="info">
-<p>Custom datasets can also be neatly integrated into the Shiny app. See <a href="lexops-shiny-app.html#custom-variables">this section</a> for a example using custom variables in the shiny app.</p>
+<p>Custom datasets can also be neatly integrated into the Shiny app. See
+<a href="lexops-shiny-app.html#custom-variables">this section</a> for a
+example using custom variables in the shiny app.</p>
 </div>
 <br>

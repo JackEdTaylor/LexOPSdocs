@@ -75,7 +75,7 @@ tibble(
   word = c("pigeon", "dog", "wren", "symbiosis", "shark"),
   likert_rating = c(1.4, 5.2, 6, 4.44, 4.2),
   mean_RT = c(456, 423.5, 511, 503.2, 482.3)
-) %>%
+) |>
   knitr::kable()
 ```
 

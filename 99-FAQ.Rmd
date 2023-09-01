@@ -24,7 +24,7 @@ tribble(
   "`\"inclusive\"`", "All conditions will be within the specified tolerances to *all other* conditions. This is usually the best setting for designs with 3 or more factorial cells. When you have 2 factorial cells, `\"balanced\"` and `\"inclusive\"` are equivalent.",
   "`\"random\"`", "Match nulls will be allocated randomly out of all possible conditions.",
   "specific condition (e.g. `\"A1_B1\"`)", "The selected condition will be used as a match null for all generated items."
-) %>%
+) |>
   knitr::kable()
 ```
 

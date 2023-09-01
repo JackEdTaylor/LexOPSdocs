@@ -131,5 +131,10 @@ The seed can be set in the Preferences tab to reproduce specific lists of genera
 If you ["codify" your selected options](#codify), the generated code will also set the seed as the same value, such that a stimulus list can be reproduced outside of the shiny app.
 
 <div class="danger">
-<p>Note that in order to reproduce stimulus lists generated with R code within the shiny app, the seed should be set using the <code>seed</code> argument of the <code>generate()</code> and <code>split_random()</code> functions. See <a href="advanced-stimulus-generation#random-seeds">this section</a> on random seeds in the generate pipeline for some examples.</p>
+<p>Note that in order to reproduce stimulus lists generated with R code
+within the shiny app, the seed should be set using the <code>seed</code>
+argument of the <code>generate()</code> and <code>split_random()</code>
+functions. See <a href="advanced-stimulus-generation#random-seeds">this
+section</a> on random seeds in the generate pipeline for some
+examples.</p>
 </div>

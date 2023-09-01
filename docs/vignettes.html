@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>6 Vignettes | LexOPS Walkthrough</title>
   <meta name="description" content="An introduction to the LexOPS package and how to use it." />
-  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="6 Vignettes | LexOPS Walkthrough" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Jack Taylor" />
 
 
-<meta name="date" content="2022-07-28" />
+<meta name="date" content="2023-09-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -56,7 +56,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -92,7 +92,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -105,7 +105,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -119,6 +119,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="include/style.css" type="text/css" />
 </head>
@@ -211,7 +215,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7" data-path="faq.html"><a href="faq.html"><i class="fa fa-check"></i><b>7</b> FAQ</a>
 <ul>
 <li class="chapter" data-level="" data-path="faq.html"><a href="faq.html#how-should-i-cite-lexops"><i class="fa fa-check"></i>How should I cite LexOPS?</a></li>
-<li class="chapter" data-level="" data-path="faq.html"><a href="faq.html#what-is-a-match-null"><i class="fa fa-check"></i>What is a “match null?”</a></li>
+<li class="chapter" data-level="" data-path="faq.html"><a href="faq.html#what-is-a-match-null"><i class="fa fa-check"></i>What is a “match null”?</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/JackEdTaylor/LexOPS" target="blank"><i class="fa fa-github"></i> LexOPS GitHub</a></li>
@@ -236,11 +240,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="vignettes" class="section level1 hasAnchor" number="6">
 <h1><span class="header-section-number">6</span> Vignettes<a href="vignettes.html#vignettes" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>These vignettes have been written to demonstrate in more detail how common problems can be solved with LexOPS. Click on a vignette to find out more.</p>
-<a style="text-decoration:none;color:black;" href="vignettes/control_for_map.html"><div class="code-link"><b>1) Higher Level Controls (control_for_map): </b>The control_for() function works well when your variable is 1-dimensional, with a single value for each word, as it is for variables like Length, Frequency or Concreteness. Things become slightly trickier, however, when controlling for distance or similarity values, which can be calculated for each unique combination of words (i.e. \(n^2\) values). One easy solution is to use control_for_map() to pass a function which should be used to calculate the value between any two words. Simple examples for controlling for orthographic and phonological similarity are available in the package bookdown site. This vignette demonstrates how to build your own function for control_for_map(), which in this example controls for semantic similarity.</div></a>
-</br><a style="text-decoration:none;color:black;" href="vignettes/custom-data.html"><div class="code-link"><b>2) Using Data from Custom Sources: </b>The built-in variables of LexOPS are useful but not exhaustive. Thankfully, LexOPS can work with any suitable list of features. For this example, we will join the Lancaster Sensorimotor norms to Engelthaler and Hills’ humour ratings, and the in-built LexOPS dataset (LexOPS::lexops). We can then use this to generate stimuli with a visual rating by humour interaction, controlling for length and frequency.</div></a>
-</br><a style="text-decoration:none;color:black;" href="vignettes/custom-levels.html"><div class="code-link"><b>3) Creating Custom Levels: </b>By default, LexOPS will split by a single variable for each use of split_by(), and will create items for each factorial cell. For instance, splitting by arousal into 2 levels, and emotional valence into 3 levels, would result in 6 factorial cells. But what if we want to generate items for just 2 of these 6 factorial cells? We can do this by creating a factor/character vector column in our data which will represent suitability for each factorial cell. This vignette provides an example, where we want to compare high arousal, negative emotional words to low arousal neutral words.</div></a>
-</br><a style="text-decoration:none;color:black;" href="vignettes/euclidean-distance.html"><div class="code-link"><b>4) Euclidean Distance: </b>Euclidean distance can be a useful way of matching by or controlling for multiple variables with greater flexibility than dealing with the variables individually. This vignette explains how weighted and unweighted Euclidean distance is calculated in LexOPS, gives example usage with euc_dists() and match_item(), and introduces the control_for_euc() function. The latter allows you to generate stimuli controlling for Euclidean distance to a match null within a Generate pipeline.</div></a>
-</br><a style="text-decoration:none;color:black;" href="vignettes/participant-selection.html"><div class="code-link"><b>5) Applications to Participant Selection: </b>LexOPS has potential applications in designing between-subject studies that control for participant variables. In this example, a randomised control trial is imagined, where subjects need to be matched for some relevant variables such as age, sex, BMI, and IQ. Given the pool of possible participants, LexOPS can be used to match subjects in the intervention and control conditions.</div></a>
+<a style="text-decoration:none;color:black;" href="vignettes/control_for_map.html"><div class="code-link"><b>1) Higher Level Controls
+(control_for_map): </b>The control_for() function works well when your variable
+is 1-dimensional, with a single value for each word, as it is for
+variables like Length, Frequency or Concreteness. Things become slightly
+trickier, however, when controlling for distance or similarity values,
+which can be calculated for each unique combination of words (i.e. \(n^2\) values). One easy solution is to use
+control_for_map() to pass a function which should be used
+to calculate the value between any two words. Simple examples for
+controlling for orthographic and phonological similarity are available
+in the package
+bookdown site. This vignette demonstrates how to build your own
+function for control_for_map(), which in this example
+controls for semantic similarity.</div></a>
+</br><a style="text-decoration:none;color:black;" href="vignettes/custom-data.html"><div class="code-link"><b>2) Using Data from Custom Sources: </b>The built-in variables of LexOPS are useful but not exhaustive.
+Thankfully, LexOPS can work with any suitable list of features. For this
+example, we will join the Lancaster
+Sensorimotor norms to Engelthaler and
+Hills’ humour ratings, and the in-built LexOPS dataset
+(LexOPS::lexops). We can then use this to generate stimuli
+with a visual rating by humour interaction, controlling for length and
+frequency.</div></a>
+</br><a style="text-decoration:none;color:black;" href="vignettes/custom-levels.html"><div class="code-link"><b>3) Creating Custom Levels: </b>By default, LexOPS will split by a single variable for each use of
+split_by(), and will create items for each factorial cell.
+For instance, splitting by arousal into 2 levels, and emotional valence
+into 3 levels, would result in 6 factorial cells. But what if we want to
+generate items for just 2 of these 6 factorial cells? We can do this by
+creating a factor/character vector column in our data which will
+represent suitability for each factorial cell. This vignette provides an
+example, where we want to compare high arousal, negative emotional words
+to low arousal neutral words.</div></a>
+</br><a style="text-decoration:none;color:black;" href="vignettes/euclidean-distance.html"><div class="code-link"><b>4) Euclidean Distance: </b>Euclidean distance can be a useful way of matching by or controlling
+for multiple variables with greater flexibility than dealing with the
+variables individually. This vignette explains how weighted and
+unweighted Euclidean distance is calculated in LexOPS, gives example
+usage with euc_dists() and match_item(), and
+introduces the control_for_euc() function. The latter
+allows you to generate stimuli controlling for Euclidean distance to a
+match null within a Generate pipeline.</div></a>
+</br><a style="text-decoration:none;color:black;" href="vignettes/participant-selection.html"><div class="code-link"><b>5) Applications to Participant Selection: </b>LexOPS has potential applications in designing between-subject
+studies that control for participant variables. In this example, a
+randomised control trial is imagined, where subjects need to be matched
+for some relevant variables such as age, sex, BMI, and IQ. Given the
+pool of possible participants, LexOPS can be used to match subjects in
+the intervention and control conditions.</div></a>
 
 </div>
             </section>

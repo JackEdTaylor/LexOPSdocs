@@ -15,7 +15,7 @@ Here's an example usage of `match_item()`, to suggest a word matched for "elepha
 ```r
 library(LexOPS)
 
-suggested_matches <- lexops %>%
+suggested_matches <- lexops |>
   match_item(
     "elephant",
     Length,
@@ -70,8 +70,8 @@ library(dplyr)
 
 target_word <- "interesting"
 
-suggested_matches <- lexops %>%
-  mutate(orth_sim = stringdist(string, target_word, method="lv")) %>%
+suggested_matches <- lexops |>
+  mutate(orth_sim = stringdist(string, target_word, method="lv")) |>
   match_item(target = target_word, orth_sim = 0:3)
 ```
 
@@ -107,13 +107,13 @@ library(dplyr)
 target_word <- "interesting"
 
 # get the target word's pronunciation
-target_word_pron <- lexops %>%
-  filter(string == target_word) %>%
+target_word_pron <- lexops |>
+  filter(string == target_word) |>
   pull(CMU.1letter)
 
 # find phonologically similar words
-suggested_matches <- lexops %>%
-  mutate(phon_sim = stringdist(CMU.1letter, target_word_pron, method="lv")) %>%
+suggested_matches <- lexops |>
+  mutate(phon_sim = stringdist(CMU.1letter, target_word_pron, method="lv")) |>
   match_item(target_word, phon_sim = 0:2)
 ```
 

@@ -52,12 +52,12 @@ We can use the following R code to generate a stimulus list like this with LexOP
 ```{r, message=FALSE, results='hide'}
 library(LexOPS)
 
-stim <- lexops %>%
-  subset(PK.Brysbaert >= 0.9) %>%
-  split_by(CNC.Brysbaert, 1:2 ~ 4:5) %>%
-  split_by(BG.SUBTLEX_UK, 0:0.003 ~ 0.009:0.013) %>%
-  control_for(Length, 0:0) %>%
-  control_for(Zipf.SUBTLEX_UK, -0.2:0.2) %>%
+stim <- lexops |>
+  subset(PK.Brysbaert >= 0.9) |>
+  split_by(CNC.Brysbaert, 1:2 ~ 4:5) |>
+  split_by(BG.SUBTLEX_UK, 0:0.003 ~ 0.009:0.013) |>
+  control_for(Length, 0:0) |>
+  control_for(Zipf.SUBTLEX_UK, -0.2:0.2) |>
   generate(n = 25)
 ```
 
@@ -78,8 +78,8 @@ Important notes on LexOPS (non-standard) syntax:
 Let's have a closer look at the first 5 rows of `stim`, which contains the output from above:
 
 ```{r, class='table', echo=FALSE}
-stim %>%
-  head(5) %>%
+stim |>
+  head(5) |>
   knitr::kable()
 ```
 
@@ -109,9 +109,9 @@ Now we have the same stimuli in long format, with their associated values. Here 
 
 \small
 ```{r, class='table', echo=FALSE}
-stim %>%
-  long_format() %>%
-  head(20) %>%
+stim |>
+  long_format() |>
+  head(20) |>
   knitr::kable()
 ```
 \normalsize
@@ -141,12 +141,12 @@ plot_sample(stim)
 Let's imagine that we're not entirely sure how many stimuli we could generate using our design. It may be that the `n = 25` [we used earlier](#a-practical-example) is considerably fewer than the number of stimuli we could generate with no problems. One way to test this is to have LexOPS generate as many stimuli as possible. We can do this by setting `n = "all"`:
 
 ```{r, message=FALSE, results='hide'}
-possible_stim <- LexOPS::lexops %>%
-  subset(PK.Brysbaert >= 0.9) %>%
-  split_by(CNC.Brysbaert, 1:2 ~ 4:5) %>%
-  split_by(BG.SUBTLEX_UK, 0:0.003 ~ 0.009:0.013) %>%
-  control_for(Length, 0:0) %>%
-  control_for(Zipf.SUBTLEX_UK, -0.2:0.2) %>%
+possible_stim <- LexOPS::lexops |>
+  subset(PK.Brysbaert >= 0.9) |>
+  split_by(CNC.Brysbaert, 1:2 ~ 4:5) |>
+  split_by(BG.SUBTLEX_UK, 0:0.003 ~ 0.009:0.013) |>
+  control_for(Length, 0:0) |>
+  control_for(Zipf.SUBTLEX_UK, -0.2:0.2) |>
   generate(n = "all", match_null = "inclusive")
 ```
 
@@ -176,11 +176,11 @@ While the [LexOPS Dataset](introduction.html#the-lexops-dataset) has lots of use
 library(readr)
 LANG <- read_csv("kanske_kotz_2010.csv", locale=locale(encoding = "latin1"))
 
-stim <- LANG %>%
-  set_options(id_col = "word") %>%
-  split_by(valence_mean, 1:3.5 ~ 4.75:5.25 ~ 6.5:9) %>%
-  control_for(number_of_letters, 0:0) %>%
-  control_for(frequency, -1:1) %>%
+stim <- LANG |>
+  set_options(id_col = "word") |>
+  split_by(valence_mean, 1:3.5 ~ 4.75:5.25 ~ 6.5:9) |>
+  control_for(number_of_letters, 0:0) |>
+  control_for(frequency, -1:1) |>
   generate(20)
 ```
 
@@ -189,7 +189,7 @@ Here are the first five items generated for each condition:
 \small
 ```{r, class='table', echo=FALSE}
 # pre-saved results to avoid needing permission for LANG dataset
-readRDS("data/LANG_stim.rds") %>%
+readRDS("data/LANG_stim.rds") |>
   knitr::kable()
 ```
 \normalsize

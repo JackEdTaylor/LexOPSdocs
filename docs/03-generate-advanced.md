@@ -12,11 +12,11 @@ As an example, imagine we're interested in a 2x2 interaction between the effect 
 
 
 ```r
-stim <- lexops %>%
-  split_random(2) %>%
-  split_by(AROU.Warriner, 1:3 ~ 6:8) %>%
-  control_for(Length, 0:0) %>%
-  control_for(Zipf.SUBTLEX_UK, -0.1:0.1) %>%
+stim <- lexops |>
+  split_random(2) |>
+  split_by(AROU.Warriner, 1:3 ~ 6:8) |>
+  control_for(Length, 0:0) |>
+  control_for(Zipf.SUBTLEX_UK, -0.1:0.1) |>
   generate(50)
 ```
 
@@ -26,11 +26,11 @@ This will create 4 conditions matched for length and frequency, where A1_B1 and 
 
 | item_nr|A1_B1       |A1_B2       |A2_B1       |A2_B2       |match_null |
 |-------:|:-----------|:-----------|:-----------|:-----------|:----------|
-|       1|panel       |snake       |bunch       |glory       |A1_B1      |
-|       2|cobbler     |screech     |padding     |deathly     |A2_B2      |
-|       3|monogrammed |promiscuity |linguistics |exhilarated |A1_B2      |
-|       4|hourly      |unjust      |dismay      |payday      |A1_B1      |
-|       5|rectangular |heartbroken |therapeutic |stimulating |A2_B2      |
+|       1|reverend    |dominate    |mahogany    |intimate    |A1_B1      |
+|       2|basket      |cinema      |powder      |desire      |A2_B2      |
+|       3|donkey      |lively      |weekly      |thrill      |A1_B2      |
+|       4|scripture   |shipwreck   |magnesium   |meteorite   |A1_B1      |
+|       5|handwriting |pornography |instruction |persecution |A2_B2      |
 
 </div>
 
@@ -48,12 +48,12 @@ The following code will generate the same stimulus list each time it is run:
 
 
 ```r
-stim <- lexops %>%
-  subset(PK.Brysbaert >= 0.9) %>%
-  split_by(CNC.Brysbaert, 1:2 ~ 4:5) %>%
-  split_by(BG.SUBTLEX_UK, 0:0.003 ~ 0.009:0.013) %>%
-  control_for(Length, 0:0) %>%
-  control_for(Zipf.SUBTLEX_UK, -0.2:0.2) %>%
+stim <- lexops |>
+  subset(PK.Brysbaert >= 0.9) |>
+  split_by(CNC.Brysbaert, 1:2 ~ 4:5) |>
+  split_by(BG.SUBTLEX_UK, 0:0.003 ~ 0.009:0.013) |>
+  control_for(Length, 0:0) |>
+  control_for(Zipf.SUBTLEX_UK, -0.2:0.2) |>
   generate(25, seed = 42)
 ```
 
@@ -65,11 +65,11 @@ If you use the `split_random()` function, this will also require a `seed` argume
 ```r
 my_seed <- 42
 
-stim <- lexops %>%
-  split_random(2, seed = my_seed) %>%
-  split_by(AROU.Warriner, 1:3 ~ 6:8) %>%
-  control_for(Length, 0:0) %>%
-  control_for(Zipf.SUBTLEX_UK, -0.1:0.1) %>%
+stim <- lexops |>
+  split_random(2, seed = my_seed) |>
+  split_by(AROU.Warriner, 1:3 ~ 6:8) |>
+  control_for(Length, 0:0) |>
+  control_for(Zipf.SUBTLEX_UK, -0.1:0.1) |>
   generate(50, seed = my_seed)
 ```
 
@@ -87,9 +87,9 @@ Here is an example, using `control_for_map()` to control for orthographic Levens
 ```r
 library(stringdist)
 
-stim <- lexops %>%
-  split_by(VAL.Warriner, 1:3 ~ 4.5:5.5 ~ 7:9) %>%
-  control_for_map(stringdist, string, 1:2, name="orth_dist", method="lv") %>%
+stim <- lexops |>
+  split_by(VAL.Warriner, 1:3 ~ 4.5:5.5 ~ 7:9) |>
+  control_for_map(stringdist, string, 1:2, name="orth_dist", method="lv") |>
   generate(20)
 ```
 
@@ -98,20 +98,25 @@ Here are the first 5 items of each condition that we generated. Note that we hav
 \small
 <div class = 'table'>
 
-| item_nr|A1     |A2     |A3     |match_null |
-|-------:|:------|:------|:------|:----------|
-|       1|hearse |coarse |hearty |A1         |
-|       2|bald   |bit    |bath   |A3         |
-|       3|ex     |lox    |pet    |A1         |
-|       4|bomb   |bony   |booby  |A3         |
-|       5|debt   |newt   |eat    |A2         |
+| item_nr|A1      |A2      |A3     |match_null |
+|-------:|:-------|:-------|:------|:----------|
+|       1|casket  |aspect  |asset  |A3         |
+|       2|dead    |dial    |real   |A2         |
+|       3|cheater |cleaver |clever |A2         |
+|       4|sick    |lock    |silky  |A1         |
+|       5|saggy   |foggy   |doggy  |A2         |
 
 </div>
 \normalsize
 
 <br>
 <div class="info">
-<p>The name argument (<code>name = ...</code>) of the <code>control_for_map()</code> function lets you give the name of the column that the calculated values should be stored as when the stimuli are in long format. From the code above, <code>long_format(stim)</code> will contain a column called “orth_dist”, containing the orthographic distances from the match null.</p>
+<p>The name argument (<code>name = ...</code>) of the
+<code>control_for_map()</code> function lets you give the name of the
+column that the calculated values should be stored as when the stimuli
+are in long format. From the code above, <code>long_format(stim)</code>
+will contain a column called “orth_dist”, containing the orthographic
+distances from the match null.</p>
 </div>
 <br>
 
@@ -123,10 +128,10 @@ We can use a similar pipeline to match by phonological similarity. Instead of gi
 ```r
 library(stringdist)
 
-stim <- lexops %>%
-  split_by(VAL.Warriner, 1:3 ~ 4.5:5.5 ~ 7:9) %>%
-  control_for_map(stringdist, eSpeak.br_1letter, 0:2, name="phon_dist", method="lv") %>%
-  control_for(Rhyme.eSpeak.br) %>%
+stim <- lexops |>
+  split_by(VAL.Warriner, 1:3 ~ 4.5:5.5 ~ 7:9) |>
+  control_for_map(stringdist, eSpeak.br_1letter, 0:2, name="phon_dist", method="lv") |>
+  control_for(Rhyme.eSpeak.br) |>
   generate(20)
 ```
 
@@ -135,13 +140,13 @@ Here are the first 5 items of each condition that we generated. This time, all m
 \small
 <div class = 'table'>
 
-| item_nr|A1        |A2      |A3        |match_null |
-|-------:|:---------|:-------|:---------|:----------|
-|       1|junkie    |jumpy   |lucky     |A1         |
-|       2|fussy     |emcee   |kissy     |A2         |
-|       3|sad       |tad     |glad      |A1         |
-|       4|infection |faction |affection |A3         |
-|       5|arson     |basin   |bacon     |A2         |
+| item_nr|A1       |A2     |A3      |match_null |
+|-------:|:--------|:------|:-------|:----------|
+|       1|itchy    |missy  |lily    |A1         |
+|       2|murder   |server |giver   |A2         |
+|       3|needy    |nerdy  |nightie |A2         |
+|       4|orphaned |errand |island  |A3         |
+|       5|flu      |due    |zoo     |A3         |
 
 </div>
 \normalsize
@@ -158,14 +163,14 @@ The `control_for()` function lets you give specific tolerances for individual va
 
 
 ```r
-stim <- lexops %>%
-    split_by(CNC.Brysbaert, 1:2 ~ 4:5) %>%
+stim <- lexops |>
+    split_by(CNC.Brysbaert, 1:2 ~ 4:5) |>
     control_for_euc(
         c(Length, Zipf.BNC.Written, AoA.Kuperman),
         0:0.1,
         name = "euclidean_distance",
         weights = c(1, 0.5, 0.1)
-    ) %>%
+    ) |>
     generate(20)
 ```
 
