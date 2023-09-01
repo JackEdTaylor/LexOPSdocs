@@ -43,12 +43,12 @@ links <- lapply(1:length(v_files), function(v_nr) {
   
   v_title <- scrape %>%
     html_nodes("h1") %>%
-    dplyr::first() %>%
+    .[[1]] %>%
     html_text()
   
   v_intro <- scrape %>%
     html_nodes("p") %>%
-    dplyr::first() %>%
+    .[[1]] %>%
     html_text()
   
   # return the html for the link to this vignette
