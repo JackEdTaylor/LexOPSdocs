@@ -1,17 +1,17 @@
 # LexOPS Shiny App
 
-The Shiny app is an interactive user interface for LexOPS, with informative visualisations and illustrations of selected options. The LexOPS Shiny app can be run locally with:
+The Shiny app is an interactive interface for LexOPS. The LexOPS Shiny app can be run locally with:
 
 
 ``` r
 LexOPS::run_shiny()
 ```
 
-A demo of the Shiny app is available online at https://jackt.shinyapps.io/lexops/, but running the app locally is highly recommended for reliability and speed.
+A demo of the Shiny app is available at https://jackt.shinyapps.io/lexops/, but running the app locally is recommended for reliability and speed.
 
 ## Generate
 
-The Generate tab is a user interface for the "[generate pipeline](the-generate-pipeline.html)". This allows you to generate stimuli for any possible factorial design.
+The Generate tab is an interface for the "[generate pipeline](the-generate-pipeline.html)". This allows you to generate stimuli for any possible factorial design.
 
 ### Specify Design
 
@@ -47,7 +47,7 @@ This is where you can see the generated stimuli. A different set of stimuli whic
 
 ### Review
 
-Once the stimuli have been generated, this section allows you to view a summary of the generated stimuli. You can view how splits, controls, and filters differ between conditions and across matched items (which calls the `plot_design()` function). You can also view the cumulative item generation (from the `plot_iterations()` function), and check the distribution of the match nulls.
+This section gives you a summary of the generated stimuli. You can view how splits, controls, and filters differ between conditions and across matched items (which calls the `plot_design()` function). You can also view the cumulative item generation (from the `plot_iterations()` function), and check the distribution of the match nulls.
 
 <div class="figure" style="text-align: center">
 <img src="./images/shiny/generate-review.gif" alt="Reviewing generated stimuli." width="75%" height="75%" />
@@ -74,7 +74,7 @@ The Match Item tab is a user interface for the [`match_item()` function](matchin
 
 ## Fetch
 
-The Fetch tab is an easy way to get values from the LexOPS database (or uploaded in the [Custom Variables](#custom-variables) tab) for your own list of words. As an example, I may have a file, `my_stimuli.csv`, with the following contents:
+The Fetch tab can be helpful for getting items from the LexOPS database (or uploaded in the [Custom Variables](#custom-variables) tab) for your own list of words. As an example, I may have a file, `my_stimuli.csv`, containing the following:
 
 <div class = 'skinny'>
 
@@ -88,7 +88,7 @@ The Fetch tab is an easy way to get values from the LexOPS database (or uploaded
 
 </div>
 
-I could then upload this to the Fetch tab. This will return the known values from the [LexOPS dataset](introduction.html#the-lexops-dataset) for my list of stimuli:
+I could upload this to the Fetch tab. This will return the known values from the [LexOPS dataset](introduction.html#the-lexops-dataset) for my list of stimuli:
 
 <div class="figure" style="text-align: center">
 <img src="./images/shiny/fetch.gif" alt="Fetching the features of a stimulus list." width="75%" height="75%" />
@@ -97,9 +97,9 @@ I could then upload this to the Fetch tab. This will return the known values fro
 
 ## Visualise
 
-The Visualise tab provides many options for plotting useful information. As well as the variables included in the [LexOPS dataset](introduction.html#the-lexops-dataset) and [custom variables](#custom-variables), the Visualise tab can plot information from within the app, such as the generated condition.
+The Visualise tab provides options for plotting useful information. This includes variables from the [LexOPS dataset](introduction.html#the-lexops-dataset), [custom variables](#custom-variables), and assigned factorial cells.
 
-Here's an example application of the visualise tab to look at stimuli generated in the Generate tab (in a Bigram Probability x Concreteness design). Points can be coloured by things like generated condition, and individual words can be identified by hovering over the points.
+Here's an example, showing stimuli generated in the Generate tab (in a Bigram Probability x Concreteness design). Points can be coloured (e.g., by generated condition) and individual items can be identified by hovering over the points.
 
 <div class="figure" style="text-align: center">
 <img src="./images/shiny/visualise.gif" alt="Example usage of the Visualise tab." width="75%" height="75%" />
@@ -108,7 +108,7 @@ Here's an example application of the visualise tab to look at stimuli generated 
 
 ## Custom Variables
 
-The Custom Variables tab is useful for integrating variables not in the LexOPS dataset to the app. Importantly, the words which have custom variables can be in any language. These variables can then be used within the app for generating stimuli. Custom variables are only available for the current session.
+The Custom Variables tab is useful for adding your own variables to the app to generate stimuli. Custom variables are only available for the current session.
 
 Here is an example in which the variables from the [Leipzig Affective Norms for German (LANG) (Kanske & Kotz, 2010)](http://doi.org/10.3758/BRM.42.4.987) are added to the LexOPS shiny app. These variables can then be used in the Generate tab.
 
@@ -128,7 +128,7 @@ The seed can be set in the Preferences tab to reproduce specific lists of genera
 <p class="caption">(\#fig:unnamed-chunk-12)Setting the seed in the Shiny app.</p>
 </div>
 
-If you ["codify" your selected options](#codify), the generated code will also set the seed as the same value, such that a stimulus list can be reproduced outside of the shiny app.
+If you ["codify" your selected options](#codify), the generated code will also set the seed as the same value, so that a stimulus list can be reproduced outside of the shiny app.
 
 <div class="danger">
 <p>Note that in order to reproduce stimulus lists generated with R code

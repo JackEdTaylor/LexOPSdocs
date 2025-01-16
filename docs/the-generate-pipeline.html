@@ -241,7 +241,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">2</span> The Generate Pipeline<a href="the-generate-pipeline.html#the-generate-pipeline" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="generating-stimuli" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> Generating Stimuli<a href="the-generate-pipeline.html#generating-stimuli" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>One of the most noteworthy features of LexOPS is that it can generate controlled stimuli for any possible factorial design. This can be done in a pipeline using 3 main functions:</p>
+<p>LexOPS can generate controlled stimuli for (almost?) any possible factorial design. This can be done in a pipeline using 3 main functions:</p>
 <br>
 <div class="float-third-left">
 <p>
@@ -396,7 +396,7 @@ We can see that we have 4 conditions:</p>
 <li><p><strong>A2_B2</strong> (concrete, high probability)</p></li>
 </ul>
 <p><br>
-Each row of the dataframe is controlled for in terms of frequency and length. The <code>match_null</code> variable tells us which condition stimuli were matched relative to. For instance, we can see that in row 3, items are matched relative to the word “relent”. This means that all words for <code>item_nr</code> 3 are within ±0.2 Zipf of the Zipf value associated with the word “relent”. By default, LexOPS will select the match_null for each item pseudo-randomly, such that each condition will be used as a match null an equal number of times (<code>match_null = "balanced"</code>), or as close to this ideal as is possible (e.g. the number of items requested may not be divisible by the number of conditions). See <a href="faq.html#what-is-a-match-null">this FAQ section</a> for more information on match nulls.</p>
+Each row of the dataframe is controlled for in terms of frequency and length. The <code>match_null</code> variable tells us which condition stimuli were matched relative to. For instance, we can see that in row 3, items are matched relative to the word “regain”. This means that all words for <code>item_nr</code> 3 are within ±0.2 Zipf of the Zipf value associated with the word “regain”. By default, LexOPS will select the match_null for each item pseudo-randomly, such that each condition will be used as a match null an equal number of times (<code>match_null = "balanced"</code>), or as close to this ideal as is possible (e.g. the number of items requested may not be divisible by the number of conditions). See <a href="faq.html#what-is-a-match-null">this FAQ section</a> for more information on match nulls.</p>
 </div>
 </div>
 <div id="converting-to-long-format" class="section level2 hasAnchor" number="2.2">
@@ -636,7 +636,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 </div>
 <div id="plotting-the-design" class="section level2 hasAnchor" number="2.3">
 <h2><span class="header-section-number">2.3</span> Plotting the Design<a href="the-generate-pipeline.html#plotting-the-design" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>While having data in long format is undoubtably useful, it’s not very efficient if you want to check what your stimuli look like in a quick glance (especially if your stimuli number in the thousands). What you probably want to do is create a plot to see how your stimuli differ between conditions and across matched items. Thankfully, LexOPS has a handy function to do exactly that:</p>
+<p>While having data in long format is useful, it’s not very efficient if you want to check a large number of stimuli quickly. You can use <code>plot_design()</code> to visualise the conditions and matching:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="the-generate-pipeline.html#cb6-1" tabindex="-1"></a><span class="fu">plot_design</span>(stim)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-10"></span>
 <img src="02-generate_files/figure-html/unnamed-chunk-10-1.png" alt="The results of the `plot_design()` function for the generated stimuli." width="100%" />
@@ -644,7 +644,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 Figure 2.1: The results of the <code>plot_design()</code> function for the generated stimuli.
 </p>
 </div>
-<p>The distributions of all the numeric variables used as independent variables or controls are plotted for each condition (in a grey violin plot). The points depict the values of individual words, and points of the same colour (joined by lines) are matched items. As we’d expect, our example stimuli show the expected differences in Bigram Probability and Concreteness, while Frequency is matched closely, and Length is matched exactly.</p>
+<p>The distributions of all numeric splits or controls are plotted for each condition (in a grey violin plot). The points depict the values of individual words, and points joined by lines are matched items. As we’d expect, our example stimuli show differences in Bigram Probability and Concreteness, while Frequency is matched closely, and Length is matched exactly.</p>
 </div>
 <div id="checking-representativeness" class="section level2 hasAnchor" number="2.4">
 <h2><span class="header-section-number">2.4</span> Checking Representativeness<a href="the-generate-pipeline.html#checking-representativeness" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -659,7 +659,7 @@ Figure 2.2: The results of the <code>plot_sample()</code> function for the gener
 </div>
 <div id="generating-as-many-as-possible" class="section level2 hasAnchor" number="2.5">
 <h2><span class="header-section-number">2.5</span> Generating as Many as Possible<a href="the-generate-pipeline.html#generating-as-many-as-possible" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Let’s imagine that we’re not entirely sure how many stimuli we could generate using our design. It may be that the <code>n = 25</code> <a href="the-generate-pipeline.html#a-practical-example">we used earlier</a> is considerably fewer than the number of stimuli we could generate with no problems. One way to test this is to have LexOPS generate as many stimuli as possible. We can do this by setting <code>n = "all"</code>:</p>
+<p>Imagine that we’re not sure how many stimuli we could generate using our design. It may be that the <code>n = 25</code> <a href="the-generate-pipeline.html#a-practical-example">we used earlier</a> is considerably fewer than the number of stimuli we could generate. One way to test this is to generate as many stimuli as possible. We can do this by setting <code>n = "all"</code>:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="the-generate-pipeline.html#cb8-1" tabindex="-1"></a>possible_stim <span class="ot">&lt;-</span> LexOPS<span class="sc">::</span>lexops <span class="sc">|&gt;</span></span>
 <span id="cb8-2"><a href="the-generate-pipeline.html#cb8-2" tabindex="-1"></a>  <span class="fu">subset</span>(PK.Brysbaert <span class="sc">&gt;=</span> <span class="fl">0.9</span>) <span class="sc">|&gt;</span></span>
 <span id="cb8-3"><a href="the-generate-pipeline.html#cb8-3" tabindex="-1"></a>  <span class="fu">split_by</span>(CNC.Brysbaert, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span> <span class="sc">~</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">|&gt;</span></span>
@@ -667,7 +667,7 @@ Figure 2.2: The results of the <code>plot_sample()</code> function for the gener
 <span id="cb8-5"><a href="the-generate-pipeline.html#cb8-5" tabindex="-1"></a>  <span class="fu">control_for</span>(Length, <span class="dv">0</span><span class="sc">:</span><span class="dv">0</span>) <span class="sc">|&gt;</span></span>
 <span id="cb8-6"><a href="the-generate-pipeline.html#cb8-6" tabindex="-1"></a>  <span class="fu">control_for</span>(Zipf.SUBTLEX_UK, <span class="sc">-</span><span class="fl">0.2</span><span class="sc">:</span><span class="fl">0.2</span>) <span class="sc">|&gt;</span></span>
 <span id="cb8-7"><a href="the-generate-pipeline.html#cb8-7" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">n =</span> <span class="st">&quot;all&quot;</span>, <span class="at">match_null =</span> <span class="st">&quot;inclusive&quot;</span>)</span></code></pre></div>
-<p>This is much slower, as LexOPS will continue trying to generate combinations of words that fit the specified characteristics until it has exhausted all the possibilities. Nevertheless, we actually generated 104 words generated per condition with the code above. This number is likely to change slightly each time we run the pipeline, as different combinations are randomly made from all the possible combinations. That said, it is a fairly good <em>indication</em> of the number of possible stimuli we could generate.</p>
+<p>This is much slower, as LexOPS will continue trying to generate combinations of items until it has exhausted all the possibilities. We actually generated 104 words generated per condition with the code above. This number is likely to change slightly each time we run the pipeline, as different combinations are randomly made from all the possible combinations. That said, it is probably a good <em>indication</em> of the number of possible stimuli we could generate.</p>
 <p>The 104 words we’ve managed to generate per condition here is quite a bit higher than the 25 we originally generated. Does this mean we should just request a larger stimulus list, such as <code>n = 80</code>, or even <code>n = 100</code>? Well, it depends. If we want as many stimuli as are possible, then it may make sense to just set <code>n = "all"</code>, but often we only want to use as many stimuli as we need to find our effect. Also, if we use as many combinations as possible, experimenters who want to replicate our effect using a different set of stimuli will likely have fewer novel combinations available to them.</p>
 <div class="danger">
 <p>
@@ -680,7 +680,7 @@ in <a href="faq.html#what-is-a-match-null">this FAQ section</a>.
 </div>
 <div id="plotting-iterations" class="section level2 hasAnchor" number="2.6">
 <h2><span class="header-section-number">2.6</span> Plotting Iterations<a href="the-generate-pipeline.html#plotting-iterations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>It is also possible to check how well LexOPS performed when generating stimuli by plotting the cumulative item generation by iterations. To do this, we can use the <code>plot_iterations()</code> function. As an example, let’s visualise the algorithm’s iterations when we generated as many stimuli as we could in the last section.</p>
+<p>It is also possible to check how well LexOPS performed when generating stimuli by plotting the cumulative item generation by iterations. To do this, we can use the <code>plot_iterations()</code> function:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="the-generate-pipeline.html#cb9-1" tabindex="-1"></a><span class="fu">plot_iterations</span>(possible_stim)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-14"></span>
 <img src="02-generate_files/figure-html/unnamed-chunk-14-1.png" alt="The cumulative number of items generated per iteration." width="100%" />
@@ -692,7 +692,7 @@ Figure 2.3: The cumulative number of items generated per iteration.
 </div>
 <div id="custom-dataframes" class="section level2 hasAnchor" number="2.7">
 <h2><span class="header-section-number">2.7</span> Custom Dataframes<a href="the-generate-pipeline.html#custom-dataframes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>While the <a href="introduction.html#the-lexops-dataset">LexOPS Dataset</a> has lots of useful features for English, it isn’t exhaustive, and other languages do exist! The LexOPS functions will actually work with any dataframe, with words from any language. As an example, here’s how to generate a stimulus list of negative, neutral, and positive German words matched for length and frequency, based on the <a href="http://doi.org/10.3758/BRM.42.4.987">Leipzig Affective Norms for German (LANG) (Kanske &amp; Kotz, 2010)</a>. Note that the <code>set_options()</code> function is used to tell LexOPS that our column containing the strings is <code>"word"</code>, rather than the LexOPS default of <code>"string"</code>.</p>
+<p>The <a href="introduction.html#the-lexops-dataset">LexOPS Dataset</a> has lots of useful features for English words, but it isn’t exhaustive, and is likely not useful for your purposes. The LexOPS functions will actually work with any dataframe, with words from any language. As an example, here’s how to generate a stimulus list of negative, neutral, and positive German words matched for length and frequency, based on the <a href="http://doi.org/10.3758/BRM.42.4.987">Leipzig Affective Norms for German (LANG) (Kanske &amp; Kotz, 2010)</a>. Note that the <code>set_options()</code> function is used to tell LexOPS that our column containing the strings is <code>"word"</code>, rather than the LexOPS default of <code>"string"</code>.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="the-generate-pipeline.html#cb10-1" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
 <span id="cb10-2"><a href="the-generate-pipeline.html#cb10-2" tabindex="-1"></a>LANG <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;kanske_kotz_2010.csv&quot;</span>, <span class="at">locale=</span><span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">&quot;latin1&quot;</span>))</span>
 <span id="cb10-3"><a href="the-generate-pipeline.html#cb10-3" tabindex="-1"></a></span>
@@ -762,8 +762,8 @@ For more detailed examples of how to use other datasets, the following vignettes
 <br>
 <div class="info">
 <p>
-Custom datasets can also be neatly integrated into the Shiny app. See
-<a href="lexops-shiny-app.html#custom-variables">this section</a> for a
+Custom datasets can also be used in the Shiny app. See <a
+href="lexops-shiny-app.html#custom-variables">this section</a> for a
 example using custom variables in the shiny app.
 </p>
 </div>

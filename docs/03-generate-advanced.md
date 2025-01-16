@@ -2,7 +2,7 @@
 
 
 
-There are some cases when the default behaviour of the `split_by()`, `control_for()`, and `generate()` functions won't quite do what you want. This section presents some extra functions and functionality for generating your matches.
+There are some cases when the default behaviour of the `split_by()`, `control_for()`, and `generate()` functions won't quite do what you want. This section explains some extra functions and functionality.
 
 ## Non-Stimulus Splits
 
@@ -38,9 +38,9 @@ These stimuli could then be used in combination with a counter-balanced design, 
 
 ## Random Seeds
 
-By default, the generate pipeline will produce novel stimulus lists each time it is run. Often you'll want your code to be reproducible, however. To do this, we can use a random seed.
+By default, the generate pipeline will produce new stimulus lists each time it is run. Often you'll want your code to be reproducible, however. To do this, we can use a random seed.
 
-Random seeds allow for replicable results from functions that would otherwise produce different results each time they are run. In R, this is usually done with the `set.seed()` function. The `set.seed()` function can be used with LexOPS to write reproducible pipelines, **but** will yield different results between LexOPS R code and the [LexOPS shiny app](lexops-shiny-app.html), and might produce different results between versions. To ensure that pipelines created with R code can be reproduced in the shiny app (and [vice versa](lexops-shiny-app.html#random-seeds)), and across different versions, it is recommended to use the `seed` argument of the `generate()` function.
+In R, random seeds are usually set with the `set.seed()` function. The `set.seed()` function can be used with LexOPS to write reproducible pipelines, **but** will yield different results between LexOPS R code and the [LexOPS shiny app](lexops-shiny-app.html), and might produce different results between versions. To ensure that pipelines created with R code can be reproduced in the shiny app (and [vice versa](lexops-shiny-app.html#random-seeds)), and across different versions, it is recommended to use the `seed` argument of the `generate()` function.
 
 ### Setting the seed in the `generate()` function {-}
 
@@ -99,7 +99,7 @@ stim <- lexops |>
   generate(20)
 ```
 
-Here are the first 5 items of each condition that we generated. Note that we have 3 levels of valence, with matched items that are orthographically similar to one another:
+Here are the first 5 items of each condition that we generated. We get 3 levels of valence, with matched items that are orthographically similar to one another:
 
 \small
 <div class = 'table'>
@@ -161,11 +161,11 @@ Here are the first 5 items of each condition that we generated. This time, all m
 
 The `control_for_map()` function can be used to control for any variable that needs to be calculated relative to the match null. The `fun` argument of `control_for_map()` should be a function that takes the data in the column contained in `var` as its first argument, and can take the match null's value for `var` as the second argument, to return a vector of values for each entry. In addition, `tol` can be specified as it is in `control_for()`, as either a numeric tolerance, or categorical tolerance if the function outputs character vectors.
 
-If you're wanting to use `control_for_map()` on your own function or data, see this [vignette on controlling for semantic relatedness](vignettes/control_for_map.html). The function's documentation in the package ([`?control_for_map`](https://rdrr.io/github/JackEdTaylor/LexOPS/man/control_for_map.html)) might also be useful. It might also be useful to look at [the stringdist function](https://www.rdocumentation.org/packages/stringdist/versions/0.9.8/topics/stringdist), as `control_for_map()` was originally written with this style of function in mind.
+If you're wanting to use `control_for_map()` on your own function or data, see this [vignette on controlling for semantic relatedness](vignettes/control_for_map.html). The function's documentation in the package ([`?control_for_map`](https://rdrr.io/github/JackEdTaylor/LexOPS/man/control_for_map.html)) might also be useful. It might also be useful to look at [the stringdist function](https://www.rdocumentation.org/packages/stringdist/versions/0.9.14/topics/stringdist), as `control_for_map()` was originally written with this style of function in mind.
 
 ## Controlling for Euclidean Distance
 
-The `control_for()` function lets you give specific tolerances for individual variables. Another method of matching items, however, may be to control for Euclidean distance, weighting variables by their relative importance. The `control_for_euc()` function lets you do exactly this. As an example, imagine we want to split by concreteness, and control for length, frequency, and age of acquisition. We might decide that length is the most important thing to match (ideally exact matching), followed by frequency and age of acquisition. This could be achieved like so:
+The `control_for()` function lets you give specific tolerances for individual variables. Another method of matching items, however, is to control for Euclidean distance, weighting variables by their relative importance. This is possible with `control_for_euc()`. As an example, imagine we want to split by concreteness, and control for length, frequency, and age of acquisition. We might decide that length is the most important thing to match (ideally exact matching), followed by frequency and age of acquisition. This could be achieved like so:
 
 
 ``` r

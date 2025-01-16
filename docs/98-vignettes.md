@@ -1,6 +1,6 @@
 # Vignettes
 
-These vignettes have been written to demonstrate in more detail how common problems can be solved with LexOPS. Click on a vignette to find out more.
+These vignettes demonstrate some common use cases for LexOPS. Click on a vignette to view it.
 
 
 

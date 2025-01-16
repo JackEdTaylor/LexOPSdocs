@@ -239,7 +239,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="matching-individual-items" class="section level1 hasAnchor" number="4">
 <h1><span class="header-section-number">4</span> Matching Individual Items<a href="matching-individual-items.html#matching-individual-items" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>While the generate pipeline is usually sufficient, it’s sometimes important to tailor stimuli more precisely. For instance, it may be important that a matched word is a plausible replacement for a target word in a sentence. The <code>match_item()</code> function exists for this purpose.</p>
+<p>Sometimes you might want to hand-pick items from a list of candidates. For example, you might want a matched word to be a plausible replacement for a target word in a sentence. This is possible with <code>match_word()</code>.</p>
 <div id="example" class="section level2 hasAnchor" number="4.1">
 <h2><span class="header-section-number">4.1</span> Example<a href="matching-individual-items.html#example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Here’s an example usage of <code>match_item()</code>, to suggest a word matched for “elephant” in terms of:</p>
@@ -431,7 +431,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="matching-by-similarity" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> Matching by Similarity<a href="matching-individual-items.html#matching-by-similarity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>You may want to match by similarity to the target word. Thankfully this is more straightforward than in the generate pipeline (see <a href="advanced-stimulus-generation.html#map-functions-as-controls"><code>control_for_map()</code></a>).</p>
+<p>You may also want to match by similarity to the target word.</p>
 <div id="orthographic-similarity-1" class="section level3 hasAnchor" number="4.2.1">
 <h3><span class="header-section-number">4.2.1</span> Orthographic similarity<a href="matching-individual-items.html#orthographic-similarity-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Here’s an example, matching “leaflet” by orthographic similarity (Levenshtein distance). We just have to calculate the similarity measure before using the <code>match_item()</code> function.</p>
@@ -445,7 +445,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb22-5"><a href="matching-individual-items.html#cb22-5" tabindex="-1"></a>suggested_matches <span class="ot">&lt;-</span> lexops <span class="sc">|&gt;</span></span>
 <span id="cb22-6"><a href="matching-individual-items.html#cb22-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">orth_sim =</span> <span class="fu">stringdist</span>(string, target_word, <span class="at">method=</span><span class="st">&quot;lv&quot;</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb22-7"><a href="matching-individual-items.html#cb22-7" tabindex="-1"></a>  <span class="fu">match_item</span>(<span class="at">target =</span> target_word, <span class="at">orth_sim =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>)</span></code></pre></div>
-<p>Note that some of these are misspellings or unusual words, but we could remove these by filtering (e.g. with <code>dplyr::filter()</code>) or matching (with <code>match_item()</code>) by frequency, proportion known, or familiarity ratings.</p>
+<p>Some of these entries are misspellings or unusual words, but we could remove these by filtering (e.g. with <code>dplyr::filter()</code>) or matching (with <code>match_item()</code>) by frequency, proportion known, or familiarity ratings.</p>
 <div class="table">
 <table>
 <thead>

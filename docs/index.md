@@ -16,9 +16,9 @@ description: "An introduction to the LexOPS package and how to use it."
 
 <img src="images/hex-250.png" align="right" style="padding-left:50px;background-color:white" />
 
-LexOPS is an R package and shiny app for generating controlled stimuli, for use in Psychology experiments. LexOPS can generate stimuli for a factorial design specified by the user, controlling for selected variables. The package has an inbuilt database of features for English words (`LexOPS::lexops`), but the package can work with any database which includes features for a finite set of items. This means LexOPS can generate stimuli for words from any language based on any list of features, and can even work with stimuli which are nothing to do with words (e.g. faces).
+LexOPS is an R package and shiny app for generating matched items for an experiment. LexOPS can generate stimuli for any factorial design, controlling for selected variables. The package has an inbuilt database of features for English words (`LexOPS::lexops`), but the package can work with any database which includes features for a finite set of items.
 
-This site explains most features of LexOPS, and provides some example applications.
+This book introduces LexOPS with some examples.
 
 ## Useful Links {-}
 

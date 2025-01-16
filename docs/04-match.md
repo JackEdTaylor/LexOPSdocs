@@ -1,6 +1,6 @@
 # Matching Individual Items
 
-While the generate pipeline is usually sufficient, it's sometimes important to tailor stimuli more precisely. For instance, it may be important that a matched word is a plausible replacement for a target word in a sentence. The `match_item()` function exists for this purpose.
+Sometimes you might want to hand-pick items from a list of candidates. For example, you might want a matched word to be a plausible replacement for a target word in a sentence. This is possible with `match_word()`.
 
 ## Example
 
@@ -56,7 +56,7 @@ The suggested matches are returned in a dataframe, filtered to be within the spe
 
 ## Matching by Similarity
 
-You may want to match by similarity to the target word. Thankfully this is more straightforward than in the generate pipeline (see [`control_for_map()`](advanced-stimulus-generation.html#map-functions-as-controls)).
+You may also want to match by similarity to the target word.
 
 ### Orthographic similarity
 
@@ -82,7 +82,7 @@ suggested_matches <- lexops |>
   match_item(target = target_word, orth_sim = 0:3)
 ```
 
-Note that some of these are misspellings or unusual words, but we could remove these by filtering (e.g. with `dplyr::filter()`) or matching (with `match_item()`) by frequency, proportion known, or familiarity ratings.
+Some of these entries are misspellings or unusual words, but we could remove these by filtering (e.g. with `dplyr::filter()`) or matching (with `match_item()`) by frequency, proportion known, or familiarity ratings.
 
 <div class = 'table'>
 

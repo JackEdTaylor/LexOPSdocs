@@ -239,12 +239,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="lexops-shiny-app" class="section level1 hasAnchor" number="5">
 <h1><span class="header-section-number">5</span> LexOPS Shiny App<a href="lexops-shiny-app.html#lexops-shiny-app" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>The Shiny app is an interactive user interface for LexOPS, with informative visualisations and illustrations of selected options. The LexOPS Shiny app can be run locally with:</p>
+<p>The Shiny app is an interactive interface for LexOPS. The LexOPS Shiny app can be run locally with:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="lexops-shiny-app.html#cb24-1" tabindex="-1"></a>LexOPS<span class="sc">::</span><span class="fu">run_shiny</span>()</span></code></pre></div>
-<p>A demo of the Shiny app is available online at <a href="https://jackt.shinyapps.io/lexops/" class="uri">https://jackt.shinyapps.io/lexops/</a>, but running the app locally is highly recommended for reliability and speed.</p>
+<p>A demo of the Shiny app is available at <a href="https://jackt.shinyapps.io/lexops/" class="uri">https://jackt.shinyapps.io/lexops/</a>, but running the app locally is recommended for reliability and speed.</p>
 <div id="generate" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> Generate<a href="lexops-shiny-app.html#generate" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The Generate tab is a user interface for the “<a href="the-generate-pipeline.html">generate pipeline</a>”. This allows you to generate stimuli for any possible factorial design.</p>
+<p>The Generate tab is an interface for the “<a href="the-generate-pipeline.html">generate pipeline</a>”. This allows you to generate stimuli for any possible factorial design.</p>
 <div id="specify-design" class="section level3 hasAnchor" number="5.1.1">
 <h3><span class="header-section-number">5.1.1</span> Specify Design<a href="lexops-shiny-app.html#specify-design" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Splits (independent variables), controls, and filters can be specified in the following way:</p>
@@ -283,7 +283,7 @@ Figure 5.2: Generating stimuli and viewing the results.
 </div>
 <div id="review" class="section level3 hasAnchor" number="5.1.4">
 <h3><span class="header-section-number">5.1.4</span> Review<a href="lexops-shiny-app.html#review" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Once the stimuli have been generated, this section allows you to view a summary of the generated stimuli. You can view how splits, controls, and filters differ between conditions and across matched items (which calls the <code>plot_design()</code> function). You can also view the cumulative item generation (from the <code>plot_iterations()</code> function), and check the distribution of the match nulls.</p>
+<p>This section gives you a summary of the generated stimuli. You can view how splits, controls, and filters differ between conditions and across matched items (which calls the <code>plot_design()</code> function). You can also view the cumulative item generation (from the <code>plot_iterations()</code> function), and check the distribution of the match nulls.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-5"></span>
 <img src="images/shiny/generate-review.gif" alt="Reviewing generated stimuli." width="75%" height="75%" />
 <p class="caption">
@@ -314,7 +314,7 @@ Figure 5.5: Matching individual words in the Match tab.
 </div>
 <div id="fetch" class="section level2 hasAnchor" number="5.3">
 <h2><span class="header-section-number">5.3</span> Fetch<a href="lexops-shiny-app.html#fetch" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The Fetch tab is an easy way to get values from the LexOPS database (or uploaded in the <a href="lexops-shiny-app.html#custom-variables">Custom Variables</a> tab) for your own list of words. As an example, I may have a file, <code>my_stimuli.csv</code>, with the following contents:</p>
+<p>The Fetch tab can be helpful for getting items from the LexOPS database (or uploaded in the <a href="lexops-shiny-app.html#custom-variables">Custom Variables</a> tab) for your own list of words. As an example, I may have a file, <code>my_stimuli.csv</code>, containing the following:</p>
 <div class="skinny">
 <table>
 <thead>
@@ -353,7 +353,7 @@ Figure 5.5: Matching individual words in the Match tab.
 </tbody>
 </table>
 </div>
-<p>I could then upload this to the Fetch tab. This will return the known values from the <a href="introduction.html#the-lexops-dataset">LexOPS dataset</a> for my list of stimuli:</p>
+<p>I could upload this to the Fetch tab. This will return the known values from the <a href="introduction.html#the-lexops-dataset">LexOPS dataset</a> for my list of stimuli:</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-9"></span>
 <img src="images/shiny/fetch.gif" alt="Fetching the features of a stimulus list." width="75%" height="75%" />
 <p class="caption">
@@ -363,8 +363,8 @@ Figure 5.6: Fetching the features of a stimulus list.
 </div>
 <div id="visualise" class="section level2 hasAnchor" number="5.4">
 <h2><span class="header-section-number">5.4</span> Visualise<a href="lexops-shiny-app.html#visualise" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The Visualise tab provides many options for plotting useful information. As well as the variables included in the <a href="introduction.html#the-lexops-dataset">LexOPS dataset</a> and <a href="lexops-shiny-app.html#custom-variables">custom variables</a>, the Visualise tab can plot information from within the app, such as the generated condition.</p>
-<p>Here’s an example application of the visualise tab to look at stimuli generated in the Generate tab (in a Bigram Probability x Concreteness design). Points can be coloured by things like generated condition, and individual words can be identified by hovering over the points.</p>
+<p>The Visualise tab provides options for plotting useful information. This includes variables from the <a href="introduction.html#the-lexops-dataset">LexOPS dataset</a>, <a href="lexops-shiny-app.html#custom-variables">custom variables</a>, and assigned factorial cells.</p>
+<p>Here’s an example, showing stimuli generated in the Generate tab (in a Bigram Probability x Concreteness design). Points can be coloured (e.g., by generated condition) and individual items can be identified by hovering over the points.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-10"></span>
 <img src="images/shiny/visualise.gif" alt="Example usage of the Visualise tab." width="75%" height="75%" />
 <p class="caption">
@@ -374,7 +374,7 @@ Figure 2.1: Example usage of the Visualise tab.
 </div>
 <div id="custom-variables" class="section level2 hasAnchor" number="5.5">
 <h2><span class="header-section-number">5.5</span> Custom Variables<a href="lexops-shiny-app.html#custom-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The Custom Variables tab is useful for integrating variables not in the LexOPS dataset to the app. Importantly, the words which have custom variables can be in any language. These variables can then be used within the app for generating stimuli. Custom variables are only available for the current session.</p>
+<p>The Custom Variables tab is useful for adding your own variables to the app to generate stimuli. Custom variables are only available for the current session.</p>
 <p>Here is an example in which the variables from the <a href="http://doi.org/10.3758/BRM.42.4.987">Leipzig Affective Norms for German (LANG) (Kanske &amp; Kotz, 2010)</a> are added to the LexOPS shiny app. These variables can then be used in the Generate tab.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-11"></span>
 <img src="images/shiny/custom-variables.gif" alt="Using stimuli for languages other than English." width="75%" height="75%" />
@@ -393,7 +393,7 @@ Figure 2.2: Using stimuli for languages other than English.
 Figure 5.7: Setting the seed in the Shiny app.
 </p>
 </div>
-<p>If you <a href="lexops-shiny-app.html#codify">“codify” your selected options</a>, the generated code will also set the seed as the same value, such that a stimulus list can be reproduced outside of the shiny app.</p>
+<p>If you <a href="lexops-shiny-app.html#codify">“codify” your selected options</a>, the generated code will also set the seed as the same value, so that a stimulus list can be reproduced outside of the shiny app.</p>
 <div class="danger">
 <p>
 Note that in order to reproduce stimulus lists generated with R code

@@ -2,19 +2,17 @@
 
 ## What is LexOPS?
 
-LexOPS is an R package and shiny app for generating word stimuli that can be used in Psychology experiments. The package is designed to be intuitive, and is similar in style to the [tidyverse](https://www.tidyverse.org/).
+LexOPS is an R package and shiny app for generating matched stimuli that can be used in Psychology experiments. The package is designed to be similar in style to the [tidyverse](https://www.tidyverse.org/).
 
-I originally wrote the package for generating word stimuli, but it can be used to generate matched items from any database of features.
+I originally wrote the package for selecting word stimuli, but it can be used to get matched items from any database of features.
 
 Here are 3 main advantages of using LexOPS to generate your stimuli:
 
-1. **Speed**: It's just much faster than creating well-controlled stimuli manually.
+1. **Speed**: It's just faster than creating well-controlled stimuli manually.
 
-2. **Reproducibility**: if a random seed is set, LexOPS pipelines will generate the same stimuli each time the code is run. This means you can openly share the code that generated your stimuli, and anyone can reproduce your result.
+2. **Reproducibility**: if a random seed is set, LexOPS pipelines will generate the same stimuli each time the code is run. This means you can share the code that generated your stimuli, and anyone can reproduce your result.
 
-3. **Replicability**: if no random seed is set, LexOPS pipelines will generate different stimuli each time the code is run. This means if you share your code, anyone can generate a novel set of stimuli for the same experimental design, that can be used to try and replicate any experimental result.
-
-The package began as a series of R scripts, written to automate tasks I found myself repeating again and again when designing experiments. I decided to make it into a fully-fledged package because despite the huge range of freely available lists of word norms and features, there were no task-general solutions for using such lists to generate word stimuli.
+3. **Replicability**: if no random seed is set, LexOPS pipelines will generate different stimuli each time the code is run. This means if you share your code, anyone can generate a novel set of stimuli for the same experimental design. This can be useful for replication.
 
 ## Installation
 
