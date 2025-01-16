@@ -48,7 +48,7 @@ For this, we might decide we want a stimulus set with the following features:
 We can use the following R code to generate a stimulus list like this with LexOPS:
 
 
-```r
+``` r
 library(LexOPS)
 
 stim <- lexops |>
@@ -115,7 +115,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 The table above shows the generated stimuli in wide format. This is a useful way to quickly view the stimuli and get a sense for what has been generated, but we often want to check our stimuli in more detail. The `long_format()` function is a quick way to convert stimuli generated in LexOPS into long format:
 
 
-```r
+``` r
 stim_long <- long_format(stim)
 ```
 
@@ -157,7 +157,7 @@ Here we can see that indeed, the different conditions are within the boundaries 
 While having data in long format is undoubtably useful, it's not very efficient if you want to check what your stimuli look like in a quick glance (especially if your stimuli number in the thousands). What you probably want to do is create a plot to see how your stimuli differ between conditions and across matched items. Thankfully, LexOPS has a handy function to do exactly that:
 
 
-```r
+``` r
 plot_design(stim)
 ```
 
@@ -173,7 +173,7 @@ The distributions of all the numeric variables used as independent variables or 
 We can also visualise how representative our stimuli are. This shows the distributions of our generated stimuli on variables, relative to possible but unused candidates.
 
 
-```r
+``` r
 plot_sample(stim)
 ```
 
@@ -187,7 +187,7 @@ plot_sample(stim)
 Let's imagine that we're not entirely sure how many stimuli we could generate using our design. It may be that the `n = 25` [we used earlier](#a-practical-example) is considerably fewer than the number of stimuli we could generate with no problems. One way to test this is to have LexOPS generate as many stimuli as possible. We can do this by setting `n = "all"`:
 
 
-```r
+``` r
 possible_stim <- LexOPS::lexops |>
   subset(PK.Brysbaert >= 0.9) |>
   split_by(CNC.Brysbaert, 1:2 ~ 4:5) |>
@@ -213,7 +213,7 @@ in <a href="faq.html#what-is-a-match-null">this FAQ section</a>.</p>
 It is also possible to check how well LexOPS performed when generating stimuli by plotting the cumulative item generation by iterations. To do this, we can use the `plot_iterations()` function. As an example, let's visualise the algorithm's iterations when we generated as many stimuli as we could in the last section.
 
 
-```r
+``` r
 plot_iterations(possible_stim)
 ```
 
@@ -229,7 +229,7 @@ This shows a characteristic levelling-off; iterations become increasingly less l
 While the [LexOPS Dataset](introduction.html#the-lexops-dataset) has lots of useful features for English, it isn't exhaustive, and other languages do exist! The LexOPS functions will actually work with any dataframe, with words from any language. As an example, here's how to generate a stimulus list of negative, neutral, and positive German words matched for length and frequency, based on the [Leipzig Affective Norms for German (LANG) (Kanske & Kotz, 2010)](http://doi.org/10.3758/BRM.42.4.987). Note that the `set_options()` function is used to tell LexOPS that our column containing the strings is `"word"`, rather than the LexOPS default of `"string"`.
 
 
-```r
+``` r
 library(readr)
 LANG <- read_csv("kanske_kotz_2010.csv", locale=locale(encoding = "latin1"))
 

@@ -11,7 +11,7 @@ Sometimes it makes sense to use independent variables that are not related to fe
 As an example, imagine we're interested in a 2x2 interaction between the effect of words' arousal ratings before and after a cup of coffee. We use `split_random()` to say that we want to create a random split in the data with two levels. Such a pipeline might look like this:
 
 
-```r
+``` r
 stim <- lexops |>
   split_random(2) |>
   split_by(AROU.Warriner, 1:3 ~ 6:8) |>
@@ -47,7 +47,7 @@ Random seeds allow for replicable results from functions that would otherwise pr
 The following code will generate the same stimulus list each time it is run:
 
 
-```r
+``` r
 stim <- lexops |>
   subset(PK.Brysbaert >= 0.9) |>
   split_by(CNC.Brysbaert, 1:2 ~ 4:5) |>
@@ -62,7 +62,7 @@ stim <- lexops |>
 If you use the `split_random()` function, this will also require a `seed` argument in order for the pipeline to be reproducible. This does not necessarily need to be the same as the `seed` value passed to `generate()`, but the shiny app will assume this is the case when [translating Shiny options into R code](lexops-shiny-app.html#codify). The following is an example of a reproducible pipeline that uses the `split_random()` function:
 
 
-```r
+``` r
 my_seed <- 42
 
 stim <- lexops |>
@@ -84,9 +84,15 @@ Example applications for this include controlling for orthographic or phonologic
 Here is an example, using `control_for_map()` to control for orthographic Levenshtein distance from the match null. We tell LexOPS to calculate Levenshtein distance using the `stringdist()` function from the package `stringdist`. By default, `stringdist()` will calculate the *optimal string alignment* metric. We can tell the function to calculate *Levenshtein distance* by passing `method = "lv"` to `control_for_map()`. This means that each string will be a distance of between 1 and 2 character insertions, deletions or replacements from the word used as the match null.
 
 
-```r
+``` r
 library(stringdist)
+```
 
+```
+## Warning: package 'stringdist' was built under R version 4.4.2
+```
+
+``` r
 stim <- lexops |>
   split_by(VAL.Warriner, 1:3 ~ 4.5:5.5 ~ 7:9) |>
   control_for_map(stringdist, string, 1:2, name="orth_dist", method="lv") |>
@@ -125,7 +131,7 @@ distances from the match null.</p>
 We can use a similar pipeline to match by phonological similarity. Instead of giving the string column to the function, we just have to give a column where phonemes are represented by single letters. All the generated stimuli will be within a distance of between 0 and 2 phonemic insertions, deletions, or substitutions from the word used as the match null. For fun (and to show how `control_for_map()` can be combined with `control_for()`), let's also control for rhyme.
 
 
-```r
+``` r
 library(stringdist)
 
 stim <- lexops |>
@@ -162,7 +168,7 @@ If you're wanting to use `control_for_map()` on your own function or data, see t
 The `control_for()` function lets you give specific tolerances for individual variables. Another method of matching items, however, may be to control for Euclidean distance, weighting variables by their relative importance. The `control_for_euc()` function lets you do exactly this. As an example, imagine we want to split by concreteness, and control for length, frequency, and age of acquisition. We might decide that length is the most important thing to match (ideally exact matching), followed by frequency and age of acquisition. This could be achieved like so:
 
 
-```r
+``` r
 stim <- lexops |>
     split_by(CNC.Brysbaert, 1:2 ~ 4:5) |>
     control_for_euc(

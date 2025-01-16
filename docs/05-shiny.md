@@ -3,7 +3,7 @@
 The Shiny app is an interactive user interface for LexOPS, with informative visualisations and illustrations of selected options. The LexOPS Shiny app can be run locally with:
 
 
-```r
+``` r
 LexOPS::run_shiny()
 ```
 

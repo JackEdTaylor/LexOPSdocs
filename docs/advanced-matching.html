@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3 Advanced Matching | LexOPS Walkthrough</title>
   <meta name="description" content="An introduction to the LexOPS package and how to use it." />
-  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3 Advanced Matching | LexOPS Walkthrough" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Jack Taylor" />
 
 
-<meta name="date" content="2023-09-01" />
+<meta name="date" content="2025-01-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -66,7 +66,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -352,12 +352,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="orthographic-similarity" class="section level3 hasAnchor" number="3.3.1">
 <h3><span class="header-section-number">3.3.1</span> Orthographic Similarity<a href="advanced-matching.html#orthographic-similarity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Here is an example, using <code>control_for_map()</code> to control for orthographic Levenshtein distance from the match null. We tell LexOPS to calculate Levenshtein distance using the <code>stringdist()</code> function from the package <code>stringdist</code>. By default, <code>stringdist()</code> will calculate the <em>optimal string alignment</em> metric. We can tell the function to calculate <em>Levenshtein distance</em> by passing <code>method = "lv"</code> to <code>control_for_map()</code>. This means that each string will be a distance of between 1 and 2 character insertions, deletions or replacements from the word used as the match null.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="advanced-matching.html#cb14-1" tabindex="-1"></a><span class="fu">library</span>(stringdist)</span>
-<span id="cb14-2"><a href="advanced-matching.html#cb14-2" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="advanced-matching.html#cb14-3" tabindex="-1"></a>stim <span class="ot">&lt;-</span> lexops <span class="sc">|&gt;</span></span>
-<span id="cb14-4"><a href="advanced-matching.html#cb14-4" tabindex="-1"></a>  <span class="fu">split_by</span>(VAL.Warriner, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span> <span class="sc">~</span> <span class="fl">4.5</span><span class="sc">:</span><span class="fl">5.5</span> <span class="sc">~</span> <span class="dv">7</span><span class="sc">:</span><span class="dv">9</span>) <span class="sc">|&gt;</span></span>
-<span id="cb14-5"><a href="advanced-matching.html#cb14-5" tabindex="-1"></a>  <span class="fu">control_for_map</span>(stringdist, string, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">name=</span><span class="st">&quot;orth_dist&quot;</span>, <span class="at">method=</span><span class="st">&quot;lv&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb14-6"><a href="advanced-matching.html#cb14-6" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="dv">20</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="advanced-matching.html#cb14-1" tabindex="-1"></a><span class="fu">library</span>(stringdist)</span></code></pre></div>
+<pre><code>## Warning: package &#39;stringdist&#39; was built under R version 4.4.2</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="advanced-matching.html#cb16-1" tabindex="-1"></a>stim <span class="ot">&lt;-</span> lexops <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="advanced-matching.html#cb16-2" tabindex="-1"></a>  <span class="fu">split_by</span>(VAL.Warriner, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span> <span class="sc">~</span> <span class="fl">4.5</span><span class="sc">:</span><span class="fl">5.5</span> <span class="sc">~</span> <span class="dv">7</span><span class="sc">:</span><span class="dv">9</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-3"><a href="advanced-matching.html#cb16-3" tabindex="-1"></a>  <span class="fu">control_for_map</span>(stringdist, string, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">name=</span><span class="st">&quot;orth_dist&quot;</span>, <span class="at">method=</span><span class="st">&quot;lv&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-4"><a href="advanced-matching.html#cb16-4" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="dv">20</span>)</span></code></pre></div>
 <p>Here are the first 5 items of each condition that we generated. Note that we have 3 levels of valence, with matched items that are orthographically similar to one another:</p>
 <div class="table">
 <table>
@@ -425,13 +425,13 @@ distances from the match null.
 <div id="phonological-similarity" class="section level3 hasAnchor" number="3.3.2">
 <h3><span class="header-section-number">3.3.2</span> Phonological Similarity<a href="advanced-matching.html#phonological-similarity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can use a similar pipeline to match by phonological similarity. Instead of giving the string column to the function, we just have to give a column where phonemes are represented by single letters. All the generated stimuli will be within a distance of between 0 and 2 phonemic insertions, deletions, or substitutions from the word used as the match null. For fun (and to show how <code>control_for_map()</code> can be combined with <code>control_for()</code>), let’s also control for rhyme.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="advanced-matching.html#cb15-1" tabindex="-1"></a><span class="fu">library</span>(stringdist)</span>
-<span id="cb15-2"><a href="advanced-matching.html#cb15-2" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="advanced-matching.html#cb15-3" tabindex="-1"></a>stim <span class="ot">&lt;-</span> lexops <span class="sc">|&gt;</span></span>
-<span id="cb15-4"><a href="advanced-matching.html#cb15-4" tabindex="-1"></a>  <span class="fu">split_by</span>(VAL.Warriner, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span> <span class="sc">~</span> <span class="fl">4.5</span><span class="sc">:</span><span class="fl">5.5</span> <span class="sc">~</span> <span class="dv">7</span><span class="sc">:</span><span class="dv">9</span>) <span class="sc">|&gt;</span></span>
-<span id="cb15-5"><a href="advanced-matching.html#cb15-5" tabindex="-1"></a>  <span class="fu">control_for_map</span>(stringdist, eSpeak.br_1letter, <span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">name=</span><span class="st">&quot;phon_dist&quot;</span>, <span class="at">method=</span><span class="st">&quot;lv&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb15-6"><a href="advanced-matching.html#cb15-6" tabindex="-1"></a>  <span class="fu">control_for</span>(Rhyme.eSpeak.br) <span class="sc">|&gt;</span></span>
-<span id="cb15-7"><a href="advanced-matching.html#cb15-7" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="dv">20</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="advanced-matching.html#cb17-1" tabindex="-1"></a><span class="fu">library</span>(stringdist)</span>
+<span id="cb17-2"><a href="advanced-matching.html#cb17-2" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="advanced-matching.html#cb17-3" tabindex="-1"></a>stim <span class="ot">&lt;-</span> lexops <span class="sc">|&gt;</span></span>
+<span id="cb17-4"><a href="advanced-matching.html#cb17-4" tabindex="-1"></a>  <span class="fu">split_by</span>(VAL.Warriner, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span> <span class="sc">~</span> <span class="fl">4.5</span><span class="sc">:</span><span class="fl">5.5</span> <span class="sc">~</span> <span class="dv">7</span><span class="sc">:</span><span class="dv">9</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-5"><a href="advanced-matching.html#cb17-5" tabindex="-1"></a>  <span class="fu">control_for_map</span>(stringdist, eSpeak.br_1letter, <span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">name=</span><span class="st">&quot;phon_dist&quot;</span>, <span class="at">method=</span><span class="st">&quot;lv&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-6"><a href="advanced-matching.html#cb17-6" tabindex="-1"></a>  <span class="fu">control_for</span>(Rhyme.eSpeak.br) <span class="sc">|&gt;</span></span>
+<span id="cb17-7"><a href="advanced-matching.html#cb17-7" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="dv">20</span>)</span></code></pre></div>
 <p>Here are the first 5 items of each condition that we generated. This time, all matched items are phonologically similar to one another:</p>
 <div class="table">
 <table>
@@ -493,15 +493,15 @@ distances from the match null.
 <div id="controlling-for-euclidean-distance" class="section level2 hasAnchor" number="3.4">
 <h2><span class="header-section-number">3.4</span> Controlling for Euclidean Distance<a href="advanced-matching.html#controlling-for-euclidean-distance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The <code>control_for()</code> function lets you give specific tolerances for individual variables. Another method of matching items, however, may be to control for Euclidean distance, weighting variables by their relative importance. The <code>control_for_euc()</code> function lets you do exactly this. As an example, imagine we want to split by concreteness, and control for length, frequency, and age of acquisition. We might decide that length is the most important thing to match (ideally exact matching), followed by frequency and age of acquisition. This could be achieved like so:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="advanced-matching.html#cb16-1" tabindex="-1"></a>stim <span class="ot">&lt;-</span> lexops <span class="sc">|&gt;</span></span>
-<span id="cb16-2"><a href="advanced-matching.html#cb16-2" tabindex="-1"></a>    <span class="fu">split_by</span>(CNC.Brysbaert, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span> <span class="sc">~</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">|&gt;</span></span>
-<span id="cb16-3"><a href="advanced-matching.html#cb16-3" tabindex="-1"></a>    <span class="fu">control_for_euc</span>(</span>
-<span id="cb16-4"><a href="advanced-matching.html#cb16-4" tabindex="-1"></a>        <span class="fu">c</span>(Length, Zipf.BNC.Written, AoA.Kuperman),</span>
-<span id="cb16-5"><a href="advanced-matching.html#cb16-5" tabindex="-1"></a>        <span class="dv">0</span><span class="sc">:</span><span class="fl">0.1</span>,</span>
-<span id="cb16-6"><a href="advanced-matching.html#cb16-6" tabindex="-1"></a>        <span class="at">name =</span> <span class="st">&quot;euclidean_distance&quot;</span>,</span>
-<span id="cb16-7"><a href="advanced-matching.html#cb16-7" tabindex="-1"></a>        <span class="at">weights =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">0.5</span>, <span class="fl">0.1</span>)</span>
-<span id="cb16-8"><a href="advanced-matching.html#cb16-8" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
-<span id="cb16-9"><a href="advanced-matching.html#cb16-9" tabindex="-1"></a>    <span class="fu">generate</span>(<span class="dv">20</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="advanced-matching.html#cb18-1" tabindex="-1"></a>stim <span class="ot">&lt;-</span> lexops <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="advanced-matching.html#cb18-2" tabindex="-1"></a>    <span class="fu">split_by</span>(CNC.Brysbaert, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span> <span class="sc">~</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb18-3"><a href="advanced-matching.html#cb18-3" tabindex="-1"></a>    <span class="fu">control_for_euc</span>(</span>
+<span id="cb18-4"><a href="advanced-matching.html#cb18-4" tabindex="-1"></a>        <span class="fu">c</span>(Length, Zipf.BNC.Written, AoA.Kuperman),</span>
+<span id="cb18-5"><a href="advanced-matching.html#cb18-5" tabindex="-1"></a>        <span class="dv">0</span><span class="sc">:</span><span class="fl">0.1</span>,</span>
+<span id="cb18-6"><a href="advanced-matching.html#cb18-6" tabindex="-1"></a>        <span class="at">name =</span> <span class="st">&quot;euclidean_distance&quot;</span>,</span>
+<span id="cb18-7"><a href="advanced-matching.html#cb18-7" tabindex="-1"></a>        <span class="at">weights =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">0.5</span>, <span class="fl">0.1</span>)</span>
+<span id="cb18-8"><a href="advanced-matching.html#cb18-8" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb18-9"><a href="advanced-matching.html#cb18-9" tabindex="-1"></a>    <span class="fu">generate</span>(<span class="dv">20</span>)</span></code></pre></div>
 <p>This method will generally be slower than standard LexOPS pipelines, but more flexible. You can also combine <code>control_for_euc()</code> and <code>control_for()</code> functions in your pipelines. For more information on controlling for Euclidean distance, and how to decide on tolerances, try the <a href="https://jackedtaylor.github.io/LexOPSdocs/vignettes/euclidean-distance.html">vignette on Euclidean distance</a>.</p>
 
 </div>

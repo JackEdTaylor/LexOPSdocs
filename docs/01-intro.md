@@ -27,7 +27,7 @@ You can find the latest version of R here: [https://cloud.r-project.org/](https:
 The latest version of LexOPS can be installed as an R package with the following:
 
 
-```r
+``` r
 if (!require("devtools")) install.packages("devtools")
 devtools::install_github("JackEdTaylor/LexOPS@*release")
 ```
@@ -39,7 +39,7 @@ LexOPS features a graphical user interface in the form of a shiny app (for more 
 Once LexOPS is installed, the shiny app can be run with:
 
 
-```r
+``` r
 LexOPS::run_shiny()
 ```
 
@@ -61,7 +61,7 @@ but it is much faster and more reliable to run it locally with the
 LexOPS works can work with any list of features. Even so, LexOPS has inbuilt dataset with some features for English words that I've found useful in the past. This can be called with:
 
 
-```r
+``` r
 LexOPS::lexops
 ```
 

@@ -12,7 +12,7 @@ Here's an example usage of `match_item()`, to suggest a word matched for "elepha
 * Part of Speech (i.e. is also a noun)
 
 
-```r
+``` r
 library(LexOPS)
 
 suggested_matches <- lexops |>
@@ -63,9 +63,16 @@ You may want to match by similarity to the target word. Thankfully this is more 
 Here's an example, matching "leaflet" by orthographic similarity (Levenshtein distance). We just have to calculate the similarity measure before using the `match_item()` function.
 
 
-```r
+``` r
 library(LexOPS)
 library(stringdist)
+```
+
+```
+## Warning: package 'stringdist' was built under R version 4.4.2
+```
+
+``` r
 library(dplyr)
 
 target_word <- "interesting"
@@ -99,7 +106,7 @@ Note that some of these are misspellings or unusual words, but we could remove t
 To match by phonological similarity, we just have to calculate the Levenshtein distance on one-letter phonemic representations, e.g. with `CMU.1letter` or `eSpeak.br_1letter`. Here we find words that are only 0 to 2 phonemic insertions, deletions, or substitutions away from "interesting".
 
 
-```r
+``` r
 library(LexOPS)
 library(stringdist)
 library(dplyr)
