@@ -15,19 +15,6 @@
 
 <title>Higher Level Controls (control_for_map)</title>
 
-<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
-// be compatible with the behavior of Pandoc < 2.8).
-document.addEventListener('DOMContentLoaded', function(e) {
-  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
-  var i, h, a;
-  for (i = 0; i < hs.length; i++) {
-    h = hs[i];
-    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
-    a = h.attributes;
-    while (a.length > 0) h.removeAttribute(a[0].name);
-  }
-});
-</script>
 
 <style type="text/css">
 code{white-space: pre-wrap;}
@@ -49,8 +36,9 @@ overflow: visible;
 }
 </style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -359,7 +347,8 @@ controls for semantic similarity.</p>
 <h1>Packages</h1>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(LexOPS)</span></code></pre></div>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(LexOPS)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(lexopsdata)</span></code></pre></div>
 </div>
 <div id="importing-datsets" class="section level1">
 <h1>Importing Datsets</h1>
@@ -370,7 +359,7 @@ values include the <a href="https://smallworldofwords.org/en/project">Small Worl
 Words</a>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>pairs <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;https://media.githubusercontent.com/media/doomlab/shiny-server/master/wn_double/double_words.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 208515 Columns: 10
-## ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Column specification ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## chr (2): CUE, TARGET
 ## dbl (8): root, raw, affix, cosine2013, jcn, lsa, fsg, bsg
@@ -432,29 +421,12 @@ tolerance to <code>-0.5:0</code>.</p>
 <span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a>  <span class="fu">control_for</span>(Zipf.SUBTLEX_UK, <span class="sc">-</span><span class="fl">0.2</span><span class="sc">:</span><span class="fl">0.2</span>) <span class="sc">|&gt;</span></span>
 <span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a>  <span class="co"># generate 20 items per factorial cell (40 total)</span></span>
 <span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="dv">20</span>)</span></code></pre></div>
-<pre><code>## Generated 1/20 (5%). 2 total iterations, 0.50 success rate.
-Generated 2/20 (10%). 4 total iterations, 0.50 success rate.
-Generated 3/20 (15%). 52 total iterations, 0.06 success rate.
-Generated 4/20 (20%). 189 total iterations, 0.02 success rate.
-Generated 5/20 (25%). 267 total iterations, 0.02 success rate.
-Generated 6/20 (30%). 323 total iterations, 0.02 success rate.
-Generated 7/20 (35%). 334 total iterations, 0.02 success rate.
-Generated 8/20 (40%). 375 total iterations, 0.02 success rate.
-Generated 9/20 (45%). 452 total iterations, 0.02 success rate.
-Generated 10/20 (50%). 486 total iterations, 0.02 success rate.
-Generated 11/20 (55%). 506 total iterations, 0.02 success rate.
-Generated 12/20 (60%). 530 total iterations, 0.02 success rate.
-Generated 13/20 (65%). 533 total iterations, 0.02 success rate.
-Generated 14/20 (70%). 795 total iterations, 0.02 success rate.
-Generated 15/20 (75%). 804 total iterations, 0.02 success rate.
-Generated 16/20 (80%). 879 total iterations, 0.02 success rate.
-Generated 17/20 (85%). 1055 total iterations, 0.02 success rate.
-Generated 18/20 (90%). 1097 total iterations, 0.02 success rate.
-Generated 19/20 (95%). 1350 total iterations, 0.01 success rate.
-Generated 20/20 (100%). 1644 total iterations, 0.01 success rate.</code></pre>
+<pre><code>## Warning in split_random(dplyr::filter(lexops, string %in% pairs$CUE), 2): It is generally recommended to set equal_size=TRUE when using
+## split_random(), as this can usually generate more stimuli</code></pre>
+<pre><code>## Generated 1/20 (5%). 2 total iterations, 0.50 success rate.Generated 2/20 (10%). 4 total iterations, 0.50 success rate.Generated 3/20 (15%). 52 total iterations, 0.06 success rate.Generated 4/20 (20%). 189 total iterations, 0.02 success rate.Generated 5/20 (25%). 267 total iterations, 0.02 success rate.Generated 6/20 (30%). 323 total iterations, 0.02 success rate.Generated 7/20 (35%). 334 total iterations, 0.02 success rate.Generated 8/20 (40%). 375 total iterations, 0.02 success rate.Generated 9/20 (45%). 452 total iterations, 0.02 success rate.Generated 10/20 (50%). 486 total iterations, 0.02 success rate.Generated 11/20 (55%). 506 total iterations, 0.02 success rate.Generated 12/20 (60%). 530 total iterations, 0.02 success rate.Generated 13/20 (65%). 533 total iterations, 0.02 success rate.Generated 14/20 (70%). 795 total iterations, 0.02 success rate.Generated 15/20 (75%). 804 total iterations, 0.02 success rate.Generated 16/20 (80%). 879 total iterations, 0.02 success rate.Generated 17/20 (85%). 1055 total iterations, 0.02 success rate.Generated 18/20 (90%). 1097 total iterations, 0.02 success rate.Generated 19/20 (95%). 1350 total iterations, 0.01 success rate.Generated 20/20 (100%). 1644 total iterations, 0.01 success rate.</code></pre>
 <p>Here are our 20 items per factorial cell, matched by Semantic
 Similarity, Length, Part of Speech, and Frequency.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">print</span>(stim)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">print</span>(stim)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>1 Introduction | LexOPS Walkthrough</title>
   <meta name="description" content="An introduction to the LexOPS package and how to use it." />
-  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
 
   <meta property="og:title" content="1 Introduction | LexOPS Walkthrough" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Jack Taylor" />
 
 
-<meta name="date" content="2025-01-16" />
+<meta name="date" content="2026-08-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,8 +55,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -66,7 +67,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -153,7 +154,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#installing-lexops"><i class="fa fa-check"></i>Installing LexOPS</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#the-shiny-app"><i class="fa fa-check"></i><b>1.3</b> The Shiny App</a></li>
-<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#the-lexops-dataset"><i class="fa fa-check"></i><b>1.4</b> The LexOPS Dataset</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#the-lexops-dataset"><i class="fa fa-check"></i><b>1.4</b> The lexops Dataset</a></li>
 <li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#using-other-datasets"><i class="fa fa-check"></i><b>1.5</b> Using other Datasets</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html"><i class="fa fa-check"></i><b>2</b> The Generate Pipeline</a>
@@ -173,11 +174,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="advanced-matching.html"><a href="advanced-matching.html"><i class="fa fa-check"></i><b>3</b> Advanced Matching</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="advanced-matching.html"><a href="advanced-matching.html#non-stimulus-splits"><i class="fa fa-check"></i><b>3.1</b> Non-Stimulus Splits</a></li>
-<li class="chapter" data-level="3.2" data-path="advanced-matching.html"><a href="advanced-matching.html#random-seeds"><i class="fa fa-check"></i><b>3.2</b> Random Seeds</a>
-<ul>
-<li class="chapter" data-level="" data-path="advanced-matching.html"><a href="advanced-matching.html#setting-the-seed-in-the-generate-function"><i class="fa fa-check"></i>Setting the seed in the <code>generate()</code> function</a></li>
-<li class="chapter" data-level="" data-path="advanced-matching.html"><a href="advanced-matching.html#setting-the-seed-in-the-split_random-function"><i class="fa fa-check"></i>Setting the seed in the <code>split_random()</code> function</a></li>
-</ul></li>
+<li class="chapter" data-level="3.2" data-path="advanced-matching.html"><a href="advanced-matching.html#random-seeds"><i class="fa fa-check"></i><b>3.2</b> Random Seeds</a></li>
 <li class="chapter" data-level="3.3" data-path="advanced-matching.html"><a href="advanced-matching.html#map-functions-as-controls"><i class="fa fa-check"></i><b>3.3</b> Map Functions as Controls</a>
 <ul>
 <li class="chapter" data-level="3.3.1" data-path="advanced-matching.html"><a href="advanced-matching.html#orthographic-similarity"><i class="fa fa-check"></i><b>3.3.1</b> Orthographic Similarity</a></li>
@@ -259,8 +256,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="installing-lexops" class="section level3 unnumbered hasAnchor">
 <h3>Installing LexOPS<a href="introduction.html#installing-lexops" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The latest version of LexOPS can be installed as an R package with the following:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="introduction.html#cb1-1" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;devtools&quot;</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)</span>
-<span id="cb1-2"><a href="introduction.html#cb1-2" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;JackEdTaylor/LexOPS@*release&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="introduction.html#cb1-1" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;pak&quot;</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;pak&quot;</span>)</span>
+<span id="cb1-2"><a href="introduction.html#cb1-2" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">&quot;JackEdTaylor/LexOPS@*release&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="the-shiny-app" class="section level2 hasAnchor" number="1.3">
@@ -285,10 +282,12 @@ but it is much faster and more reliable to run it locally with the
 </div>
 </div>
 <div id="the-lexops-dataset" class="section level2 hasAnchor" number="1.4">
-<h2><span class="header-section-number">1.4</span> The LexOPS Dataset<a href="introduction.html#the-lexops-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>LexOPS works can work with any list of features. Even so, LexOPS has inbuilt dataset with some features for English words that I’ve found useful in the past. This can be called with:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="introduction.html#cb3-1" tabindex="-1"></a>LexOPS<span class="sc">::</span>lexops</span></code></pre></div>
-<p>For details on the variables included, see <a href="https://rdrr.io/github/JackEdTaylor/LexOPS/man/lexops.html">https://rdrr.io/github/JackEdTaylor/LexOPS/man/lexops.html</a>.</p>
+<h2><span class="header-section-number">1.4</span> The lexops Dataset<a href="introduction.html#the-lexops-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>LexOPS works can work with any list of features. If you are working with English words, the lexops dataset may be useful. The lexops dataset contains some features for English words that I’ve found useful in the past. You can install the lexops dataset with:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="introduction.html#cb3-1" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_install</span>(<span class="st">&quot;JackEdTaylor/lexopsdata@*release&quot;</span>)</span></code></pre></div>
+<p>Once the <code>lexopsdata</code> package has been installed, you can call it with:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="introduction.html#cb4-1" tabindex="-1"></a>LexOPS<span class="sc">::</span>lexops</span></code></pre></div>
+<p>For details on the variables included, see <a href="https://github.com/JackEdTaylor/lexopsdata#dataset-description">https://github.com/JackEdTaylor/lexopsdata#dataset-description</a>.</p>
 <p>Note that in addition to citing LexOPS, you should cite the sources for any materials you use.</p>
 </div>
 <div id="using-other-datasets" class="section level2 hasAnchor" number="1.5">
@@ -297,7 +296,7 @@ but it is much faster and more reliable to run it locally with the
 <ul>
 <li><a href="the-generate-pipeline.html#custom-dataframes">Custom Dataframes</a>: A section of the walkthrough showing how to use LexOPS on your own dataset.</li>
 <li><a href="vignettes/participant-selection.html">Applications to Participant Selection</a>: A vignette showing how you can use a dataset which has nothing to do with words.</li>
-<li><a href="vignettes/custom-data.html">Using Data from Custom Sources</a>: A vignette showing how you can join the LexOPS dataset to other lists of word features.</li>
+<li><a href="vignettes/custom-data.html">Using Data from Custom Sources</a>: A vignette showing how you can join the lexops dataset to other lists of word features.</li>
 </ul>
 
 </div>
@@ -322,44 +321,44 @@ but it is much faster and more reliable to run it locally with the
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"],
-"google": false
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": {},
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection",
-"scroll_highlight": true
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"],
+    "google": false
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": {},
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection",
+    "scroll_highlight": true
+  }
 });
 });
 </script>

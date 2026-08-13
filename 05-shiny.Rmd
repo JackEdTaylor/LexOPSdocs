@@ -79,7 +79,7 @@ tibble(
   knitr::kable()
 ```
 
-I could upload this to the Fetch tab. This will return the known values from the [LexOPS dataset](introduction.html#the-lexops-dataset) for my list of stimuli:
+I could upload this to the Fetch tab. This will return the known values from the [lexops dataset](introduction.html#the-lexops-dataset) for my list of stimuli:
 
 ```{r, echo=FALSE, fig.cap='Fetching the features of a stimulus list.', out.width="75%", out.height="75%"}
 knitr::include_graphics(path="./images/shiny/fetch.gif")
@@ -87,7 +87,7 @@ knitr::include_graphics(path="./images/shiny/fetch.gif")
 
 ## Visualise
 
-The Visualise tab provides options for plotting useful information. This includes variables from the [LexOPS dataset](introduction.html#the-lexops-dataset), [custom variables](#custom-variables), and assigned factorial cells.
+The Visualise tab provides options for plotting useful information. This includes variables from the [lexops dataset](introduction.html#the-lexops-dataset), [custom variables](#custom-variables), and assigned factorial cells.
 
 Here's an example, showing stimuli generated in the Generate tab (in a Bigram Probability x Concreteness design). Points can be coloured (e.g., by generated condition) and individual items can be identified by hovering over the points.
 
@@ -105,7 +105,7 @@ Here is an example in which the variables from the [Leipzig Affective Norms for 
 knitr::include_graphics(path="./images/shiny/custom-variables.gif")
 ```
 
-The Custom Variables tab uses [dplyr's join functions](https://dplyr.tidyverse.org/reference/join.html). An equivalent to using custom variables in R code would be to either join the custom variables to the LexOPS dataset using dplyr's join functions, or to just run the generate pipeline on a dataframe of custom variables (see [this section](the-generate-pipeline.html#custom-dataframes) for an example).
+The Custom Variables tab uses [dplyr's join functions](https://dplyr.tidyverse.org/reference/join.html). An equivalent to using custom variables in R code would be to either join the custom variables to the lexops dataset using dplyr's join functions, or to just run the generate pipeline on a dataframe of custom variables (see [this section](the-generate-pipeline.html#custom-dataframes) for an example).
 
 ## Random Seeds
 
@@ -116,7 +116,3 @@ knitr::include_graphics(path="./images/shiny/setting-seed.gif")
 ```
 
 If you ["codify" your selected options](#codify), the generated code will also set the seed as the same value, so that a stimulus list can be reproduced outside of the shiny app.
-
-```{block, type='danger'}
-Note that in order to reproduce stimulus lists generated with R code within the shiny app, the seed should be set using the `seed` argument of the `generate()` and `split_random()` functions. See [this section](advanced-stimulus-generation#random-seeds) on random seeds in the generate pipeline for some examples.
-```

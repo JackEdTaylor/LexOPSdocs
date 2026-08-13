@@ -26,8 +26,8 @@ The latest version of LexOPS can be installed as an R package with the following
 
 
 ``` r
-if (!require("devtools")) install.packages("devtools")
-devtools::install_github("JackEdTaylor/LexOPS@*release")
+if (!require("pak")) install.packages("pak")
+pak::pkg_install("JackEdTaylor/LexOPS@*release")
 ```
 
 ## The Shiny App
@@ -54,16 +54,23 @@ but it is much faster and more reliable to run it locally with the
 <code>run_shiny()</code> function.</p>
 </div>
 
-## The LexOPS Dataset
+## The lexops Dataset
 
-LexOPS works can work with any list of features. Even so, LexOPS has inbuilt dataset with some features for English words that I've found useful in the past. This can be called with:
+LexOPS works can work with any list of features. If you are working with English words, the lexops dataset may be useful. The lexops dataset contains some features for English words that I've found useful in the past. You can install the lexops dataset with:
+
+
+``` r
+pak::pkg_install("JackEdTaylor/lexopsdata@*release")
+```
+
+Once the `lexopsdata` package has been installed, you can call it with:
 
 
 ``` r
 LexOPS::lexops
 ```
 
-For details on the variables included, see [https://rdrr.io/github/JackEdTaylor/LexOPS/man/lexops.html](https://rdrr.io/github/JackEdTaylor/LexOPS/man/lexops.html).
+For details on the variables included, see [https://github.com/JackEdTaylor/lexopsdata#dataset-description](https://github.com/JackEdTaylor/lexopsdata#dataset-description).
 
 Note that in addition to citing LexOPS, you should cite the sources for any materials you use.
 
@@ -73,4 +80,4 @@ LexOPS functions will work on any dataframe. The following sections might be use
 
 * [Custom Dataframes](the-generate-pipeline.html#custom-dataframes): A section of the walkthrough showing how to use LexOPS on your own dataset.
 * [Applications to Participant Selection](vignettes/participant-selection.html): A vignette showing how you can use a dataset which has nothing to do with words.
-* [Using Data from Custom Sources](vignettes/custom-data.html): A vignette showing how you can join the LexOPS dataset to other lists of word features.
+* [Using Data from Custom Sources](vignettes/custom-data.html): A vignette showing how you can join the lexops dataset to other lists of word features.

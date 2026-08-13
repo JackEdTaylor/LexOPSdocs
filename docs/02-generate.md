@@ -124,28 +124,28 @@ Now we have the same stimuli in long format, with their associated values. Here 
 \small
 <div class = 'table'>
 
-| item_nr|condition |match_null |string   | Zipf.SUBTLEX_UK| Length| BG.SUBTLEX_UK| CNC.Brysbaert|
-|-------:|:---------|:----------|:--------|---------------:|------:|-------------:|-------------:|
-|       1|A1_B1     |A2_B1      |ahoy     |        3.270924|      4|     0.0024671|          2.00|
-|       1|A1_B2     |A2_B1      |sane     |        3.351834|      4|     0.0097561|          1.79|
-|       1|A2_B1     |A2_B1      |burp     |        3.311686|      4|     0.0029034|          4.34|
-|       1|A2_B2     |A2_B1      |bong     |        3.450084|      4|     0.0095689|          4.27|
-|       2|A1_B1     |A1_B2      |subtlety |        2.913220|      8|     0.0025943|          1.54|
-|       2|A1_B2     |A1_B2      |reasoned |        2.729160|      8|     0.0101181|          1.64|
-|       2|A2_B1     |A1_B2      |choirboy |        2.559059|      8|     0.0027849|          4.56|
-|       2|A2_B2     |A1_B2      |minstrel |        2.905251|      8|     0.0100126|          4.11|
-|       3|A1_B1     |A1_B2      |unsafe   |        3.487426|      6|     0.0023499|          1.89|
-|       3|A1_B2     |A1_B2      |regain   |        3.532060|      6|     0.0099835|          1.79|
-|       3|A2_B1     |A1_B2      |juggle   |        3.365053|      6|     0.0024606|          4.04|
-|       3|A2_B2     |A1_B2      |strand   |        3.478208|      6|     0.0099946|          4.10|
-|       4|A1_B1     |A2_B2      |dynamics |        3.281197|      8|     0.0019895|          1.96|
-|       4|A1_B2     |A2_B2      |inferior |        3.210284|      8|     0.0096549|          1.70|
-|       4|A2_B1     |A2_B2      |bagpipes |        3.162603|      8|     0.0028140|          4.93|
-|       4|A2_B2     |A2_B2      |intruder |        3.294526|      8|     0.0092513|          4.14|
-|       5|A1_B1     |A2_B2      |signify  |        2.910580|      7|     0.0020770|          1.73|
-|       5|A1_B2     |A2_B2      |rousing  |        3.109036|      7|     0.0119233|          1.55|
-|       5|A2_B1     |A2_B2      |crumpet  |        2.848024|      7|     0.0023334|          4.81|
-|       5|A2_B2     |A2_B2      |warthog  |        2.979037|      7|     0.0110464|          5.00|
+|   | item_nr|condition |match_null |string   | Zipf.SUBTLEX_UK| Length| BG.SUBTLEX_UK| CNC.Brysbaert|
+|:--|-------:|:---------|:----------|:--------|---------------:|------:|-------------:|-------------:|
+|1  |       1|A1_B1     |A2_B1      |ahoy     |        3.270924|      4|     0.0024671|          2.00|
+|26 |       1|A1_B2     |A2_B1      |sane     |        3.351834|      4|     0.0097561|          1.79|
+|51 |       1|A2_B1     |A2_B1      |burp     |        3.311686|      4|     0.0029034|          4.34|
+|76 |       1|A2_B2     |A2_B1      |bong     |        3.450084|      4|     0.0095689|          4.27|
+|2  |       2|A1_B1     |A1_B2      |subtlety |        2.913220|      8|     0.0025943|          1.54|
+|27 |       2|A1_B2     |A1_B2      |reasoned |        2.729160|      8|     0.0101181|          1.64|
+|52 |       2|A2_B1     |A1_B2      |choirboy |        2.559059|      8|     0.0027849|          4.56|
+|77 |       2|A2_B2     |A1_B2      |minstrel |        2.905251|      8|     0.0100126|          4.11|
+|3  |       3|A1_B1     |A1_B2      |unsafe   |        3.487426|      6|     0.0023499|          1.89|
+|28 |       3|A1_B2     |A1_B2      |regain   |        3.532060|      6|     0.0099835|          1.79|
+|53 |       3|A2_B1     |A1_B2      |juggle   |        3.365053|      6|     0.0024606|          4.04|
+|78 |       3|A2_B2     |A1_B2      |strand   |        3.478208|      6|     0.0099946|          4.10|
+|4  |       4|A1_B1     |A2_B2      |dynamics |        3.281197|      8|     0.0019895|          1.96|
+|29 |       4|A1_B2     |A2_B2      |inferior |        3.210284|      8|     0.0096549|          1.70|
+|54 |       4|A2_B1     |A2_B2      |bagpipes |        3.162603|      8|     0.0028140|          4.93|
+|79 |       4|A2_B2     |A2_B2      |intruder |        3.294526|      8|     0.0092513|          4.14|
+|5  |       5|A1_B1     |A2_B2      |signify  |        2.910580|      7|     0.0020770|          1.73|
+|30 |       5|A1_B2     |A2_B2      |rousing  |        3.109036|      7|     0.0119233|          1.55|
+|55 |       5|A2_B1     |A2_B2      |crumpet  |        2.848024|      7|     0.0023334|          4.81|
+|80 |       5|A2_B2     |A2_B2      |warthog  |        2.979037|      7|     0.0110464|          5.00|
 
 </div>
 \normalsize
@@ -226,7 +226,7 @@ This shows a characteristic levelling-off; iterations become increasingly less l
 
 ## Custom Dataframes
 
-The [LexOPS Dataset](introduction.html#the-lexops-dataset) has lots of useful features for English words, but it isn't exhaustive, and is likely not useful for your purposes. The LexOPS functions will actually work with any dataframe, with words from any language. As an example, here's how to generate a stimulus list of negative, neutral, and positive German words matched for length and frequency, based on the [Leipzig Affective Norms for German (LANG) (Kanske & Kotz, 2010)](http://doi.org/10.3758/BRM.42.4.987). Note that the `set_options()` function is used to tell LexOPS that our column containing the strings is `"word"`, rather than the LexOPS default of `"string"`.
+The [lexops Dataset](introduction.html#the-lexops-dataset) has lots of useful features for English words, but it isn't exhaustive, and is likely not useful for your purposes. The LexOPS functions will actually work with any dataframe, with words from any language. As an example, here's how to generate a stimulus list of negative, neutral, and positive German words matched for length and frequency, based on the [Leipzig Affective Norms for German (LANG) (Kanske & Kotz, 2010)](http://doi.org/10.3758/BRM.42.4.987). Note that the `set_options()` function is used to tell LexOPS that our column containing the strings is `"word"`, rather than the LexOPS default of `"string"`.
 
 
 ``` r
@@ -261,7 +261,7 @@ Here are the first five items generated for each condition:
 For more detailed examples of how to use other datasets, the following vignettes might be useful:
 
 * [Applications to Participant Selection](vignettes/participant-selection.html): How you can use a dataset which has nothing to do with words.
-* [Using Data from Custom Sources](vignettes/custom-data.html): How you can join the LexOPS dataset to other lists of word features.
+* [Using Data from Custom Sources](vignettes/custom-data.html): How you can join the lexops dataset to other lists of word features.
 
 <br>
 <div class="info">

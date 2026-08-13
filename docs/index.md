@@ -1,7 +1,7 @@
 --- 
 title: "LexOPS Walkthrough"
 author: "Jack Taylor"
-date: "2025-01-16"
+date: "2026-08-14"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -16,7 +16,7 @@ description: "An introduction to the LexOPS package and how to use it."
 
 <img src="images/hex-250.png" align="right" style="padding-left:50px;background-color:white" />
 
-LexOPS is an R package and shiny app for generating matched items for an experiment. LexOPS can generate stimuli for any factorial design, controlling for selected variables. The package has an inbuilt database of features for English words (`LexOPS::lexops`), but the package can work with any database which includes features for a finite set of items.
+LexOPS is an R package and shiny app for generating matched items for an experiment. LexOPS can generate stimuli for any factorial design, controlling for selected variables. The package includes a dataset of features for English words (`LexOPS::lexops`), but the package can work with any dataframe which includes features for a finite set of items.
 
 This book introduces LexOPS with some examples.
 

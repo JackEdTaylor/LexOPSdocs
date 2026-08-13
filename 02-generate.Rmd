@@ -170,7 +170,7 @@ This shows a characteristic levelling-off; iterations become increasingly less l
 
 ## Custom Dataframes
 
-The [LexOPS Dataset](introduction.html#the-lexops-dataset) has lots of useful features for English words, but it isn't exhaustive, and is likely not useful for your purposes. The LexOPS functions will actually work with any dataframe, with words from any language. As an example, here's how to generate a stimulus list of negative, neutral, and positive German words matched for length and frequency, based on the [Leipzig Affective Norms for German (LANG) (Kanske & Kotz, 2010)](http://doi.org/10.3758/BRM.42.4.987). Note that the `set_options()` function is used to tell LexOPS that our column containing the strings is `"word"`, rather than the LexOPS default of `"string"`.
+The [lexops Dataset](introduction.html#the-lexops-dataset) has lots of useful features for English words, but it isn't exhaustive, and is likely not useful for your purposes. The LexOPS functions will actually work with any dataframe, with words from any language. As an example, here's how to generate a stimulus list of negative, neutral, and positive German words matched for length and frequency, based on the [Leipzig Affective Norms for German (LANG) (Kanske & Kotz, 2010)](http://doi.org/10.3758/BRM.42.4.987). Note that the `set_options()` function is used to tell LexOPS that our column containing the strings is `"word"`, rather than the LexOPS default of `"string"`.
 
 ```{r, eval=FALSE}
 library(readr)
@@ -198,7 +198,7 @@ readRDS("data/LANG_stim.rds") |>
 For more detailed examples of how to use other datasets, the following vignettes might be useful:
 
 * [Applications to Participant Selection](vignettes/participant-selection.html): How you can use a dataset which has nothing to do with words.
-* [Using Data from Custom Sources](vignettes/custom-data.html): How you can join the LexOPS dataset to other lists of word features.
+* [Using Data from Custom Sources](vignettes/custom-data.html): How you can join the lexops dataset to other lists of word features.
 
 <br>
 ```{block, type="info"}

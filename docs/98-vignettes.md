@@ -19,11 +19,11 @@ in the package
 bookdown site. This vignette demonstrates how to build your own
 function for control_for_map(), which in this example
 controls for semantic similarity.</div></a>
-</br><a style="text-decoration:none;color:black;" href="vignettes/custom-data.html"><div class="code-link"><b>2) Using Data from Custom Sources: </b>The built-in variables of LexOPS are useful but not exhaustive.
-Thankfully, LexOPS can work with any suitable list of features. For this
-example, we will join the Lancaster
-Sensorimotor norms to Engelthaler and
-Hills’ humour ratings, and the in-built LexOPS dataset
+</br><a style="text-decoration:none;color:black;" href="vignettes/custom-data.html"><div class="code-link"><b>2) Using Data from Custom Sources: </b>The lexops
+dataset is useful but not exhaustive. Thankfully, LexOPS can work
+with any suitable list of features. For this example, we will join the
+Lancaster Sensorimotor norms to Engelthaler and
+Hills’ humour ratings, and the lexops dataset
 (LexOPS::lexops). We can then use this to generate stimuli
 with a visual rating by humour interaction, controlling for length and
 frequency.</div></a>

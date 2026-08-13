@@ -20,6 +20,12 @@ stim <- lexops |>
   generate(50)
 ```
 
+```
+## Warning in split_random(lexops, 2): It is generally recommended to set
+## equal_size=TRUE when using split_random(), as this can usually generate more
+## stimuli
+```
+
 This will create 4 conditions matched for length and frequency, where A1_B1 and A2_B1 are low arousal words, and A1_B2 and A2_B2 are high arousal words. Here are the first 5 items of each condition:
 
 <div class = 'table'>
@@ -38,39 +44,21 @@ These stimuli could then be used in combination with a counter-balanced design, 
 
 ## Random Seeds
 
-By default, the generate pipeline will produce new stimulus lists each time it is run. Often you'll want your code to be reproducible, however. To do this, we can use a random seed.
+By default, the generate pipeline will produce new stimulus lists each time it is run. Often you'll want your code to be reproducible, however. To do this, we can use a random seed. You should do this using the standard `set.seed()` function.
 
-In R, random seeds are usually set with the `set.seed()` function. The `set.seed()` function can be used with LexOPS to write reproducible pipelines, **but** will yield different results between LexOPS R code and the [LexOPS shiny app](lexops-shiny-app.html), and might produce different results between versions. To ensure that pipelines created with R code can be reproduced in the shiny app (and [vice versa](lexops-shiny-app.html#random-seeds)), and across different versions, it is recommended to use the `seed` argument of the `generate()` function.
-
-### Setting the seed in the `generate()` function {-}
-
-The following code will generate the same stimulus list each time it is run:
+For example, the following code will generate the same stimulus list each time it is run:
 
 
 ``` r
+set.seed(42)
+
 stim <- lexops |>
   subset(PK.Brysbaert >= 0.9) |>
   split_by(CNC.Brysbaert, 1:2 ~ 4:5) |>
   split_by(BG.SUBTLEX_UK, 0:0.003 ~ 0.009:0.013) |>
   control_for(Length, 0:0) |>
   control_for(Zipf.SUBTLEX_UK, -0.2:0.2) |>
-  generate(25, seed = 42)
-```
-
-### Setting the seed in the `split_random()` function {-}
-
-If you use the `split_random()` function, this will also require a `seed` argument in order for the pipeline to be reproducible. This does not necessarily need to be the same as the `seed` value passed to `generate()`, but the shiny app will assume this is the case when [translating Shiny options into R code](lexops-shiny-app.html#codify). The following is an example of a reproducible pipeline that uses the `split_random()` function:
-
-
-``` r
-my_seed <- 42
-
-stim <- lexops |>
-  split_random(2, seed = my_seed) |>
-  split_by(AROU.Warriner, 1:3 ~ 6:8) |>
-  control_for(Length, 0:0) |>
-  control_for(Zipf.SUBTLEX_UK, -0.1:0.1) |>
-  generate(50, seed = my_seed)
+  generate(25)
 ```
 
 ## Map Functions as Controls
@@ -86,13 +74,7 @@ Here is an example, using `control_for_map()` to control for orthographic Levens
 
 ``` r
 library(stringdist)
-```
 
-```
-## Warning: package 'stringdist' was built under R version 4.4.2
-```
-
-``` r
 stim <- lexops |>
   split_by(VAL.Warriner, 1:3 ~ 4.5:5.5 ~ 7:9) |>
   control_for_map(stringdist, string, 1:2, name="orth_dist", method="lv") |>

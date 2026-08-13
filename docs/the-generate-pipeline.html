@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2 The Generate Pipeline | LexOPS Walkthrough</title>
   <meta name="description" content="An introduction to the LexOPS package and how to use it." />
-  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2 The Generate Pipeline | LexOPS Walkthrough" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Jack Taylor" />
 
 
-<meta name="date" content="2025-01-16" />
+<meta name="date" content="2026-08-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,8 +55,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -66,7 +67,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -153,7 +154,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html#installing-lexops"><i class="fa fa-check"></i>Installing LexOPS</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#the-shiny-app"><i class="fa fa-check"></i><b>1.3</b> The Shiny App</a></li>
-<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#the-lexops-dataset"><i class="fa fa-check"></i><b>1.4</b> The LexOPS Dataset</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#the-lexops-dataset"><i class="fa fa-check"></i><b>1.4</b> The lexops Dataset</a></li>
 <li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#using-other-datasets"><i class="fa fa-check"></i><b>1.5</b> Using other Datasets</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html"><i class="fa fa-check"></i><b>2</b> The Generate Pipeline</a>
@@ -173,11 +174,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="advanced-matching.html"><a href="advanced-matching.html"><i class="fa fa-check"></i><b>3</b> Advanced Matching</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="advanced-matching.html"><a href="advanced-matching.html#non-stimulus-splits"><i class="fa fa-check"></i><b>3.1</b> Non-Stimulus Splits</a></li>
-<li class="chapter" data-level="3.2" data-path="advanced-matching.html"><a href="advanced-matching.html#random-seeds"><i class="fa fa-check"></i><b>3.2</b> Random Seeds</a>
-<ul>
-<li class="chapter" data-level="" data-path="advanced-matching.html"><a href="advanced-matching.html#setting-the-seed-in-the-generate-function"><i class="fa fa-check"></i>Setting the seed in the <code>generate()</code> function</a></li>
-<li class="chapter" data-level="" data-path="advanced-matching.html"><a href="advanced-matching.html#setting-the-seed-in-the-split_random-function"><i class="fa fa-check"></i>Setting the seed in the <code>split_random()</code> function</a></li>
-</ul></li>
+<li class="chapter" data-level="3.2" data-path="advanced-matching.html"><a href="advanced-matching.html#random-seeds"><i class="fa fa-check"></i><b>3.2</b> Random Seeds</a></li>
 <li class="chapter" data-level="3.3" data-path="advanced-matching.html"><a href="advanced-matching.html#map-functions-as-controls"><i class="fa fa-check"></i><b>3.3</b> Map Functions as Controls</a>
 <ul>
 <li class="chapter" data-level="3.3.1" data-path="advanced-matching.html"><a href="advanced-matching.html#orthographic-similarity"><i class="fa fa-check"></i><b>3.3.1</b> Orthographic Similarity</a></li>
@@ -285,15 +282,15 @@ and controls
 </ul>
 <p><br>
 We can use the following R code to generate a stimulus list like this with LexOPS:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="the-generate-pipeline.html#cb4-1" tabindex="-1"></a><span class="fu">library</span>(LexOPS)</span>
-<span id="cb4-2"><a href="the-generate-pipeline.html#cb4-2" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="the-generate-pipeline.html#cb4-3" tabindex="-1"></a>stim <span class="ot">&lt;-</span> lexops <span class="sc">|&gt;</span></span>
-<span id="cb4-4"><a href="the-generate-pipeline.html#cb4-4" tabindex="-1"></a>  <span class="fu">subset</span>(PK.Brysbaert <span class="sc">&gt;=</span> <span class="fl">0.9</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-5"><a href="the-generate-pipeline.html#cb4-5" tabindex="-1"></a>  <span class="fu">split_by</span>(CNC.Brysbaert, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span> <span class="sc">~</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-6"><a href="the-generate-pipeline.html#cb4-6" tabindex="-1"></a>  <span class="fu">split_by</span>(BG.SUBTLEX_UK, <span class="dv">0</span><span class="sc">:</span><span class="fl">0.003</span> <span class="sc">~</span> <span class="fl">0.009</span><span class="sc">:</span><span class="fl">0.013</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-7"><a href="the-generate-pipeline.html#cb4-7" tabindex="-1"></a>  <span class="fu">control_for</span>(Length, <span class="dv">0</span><span class="sc">:</span><span class="dv">0</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-8"><a href="the-generate-pipeline.html#cb4-8" tabindex="-1"></a>  <span class="fu">control_for</span>(Zipf.SUBTLEX_UK, <span class="sc">-</span><span class="fl">0.2</span><span class="sc">:</span><span class="fl">0.2</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-9"><a href="the-generate-pipeline.html#cb4-9" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">n =</span> <span class="dv">25</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="the-generate-pipeline.html#cb5-1" tabindex="-1"></a><span class="fu">library</span>(LexOPS)</span>
+<span id="cb5-2"><a href="the-generate-pipeline.html#cb5-2" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="the-generate-pipeline.html#cb5-3" tabindex="-1"></a>stim <span class="ot">&lt;-</span> lexops <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="the-generate-pipeline.html#cb5-4" tabindex="-1"></a>  <span class="fu">subset</span>(PK.Brysbaert <span class="sc">&gt;=</span> <span class="fl">0.9</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-5"><a href="the-generate-pipeline.html#cb5-5" tabindex="-1"></a>  <span class="fu">split_by</span>(CNC.Brysbaert, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span> <span class="sc">~</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-6"><a href="the-generate-pipeline.html#cb5-6" tabindex="-1"></a>  <span class="fu">split_by</span>(BG.SUBTLEX_UK, <span class="dv">0</span><span class="sc">:</span><span class="fl">0.003</span> <span class="sc">~</span> <span class="fl">0.009</span><span class="sc">:</span><span class="fl">0.013</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-7"><a href="the-generate-pipeline.html#cb5-7" tabindex="-1"></a>  <span class="fu">control_for</span>(Length, <span class="dv">0</span><span class="sc">:</span><span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-8"><a href="the-generate-pipeline.html#cb5-8" tabindex="-1"></a>  <span class="fu">control_for</span>(Zipf.SUBTLEX_UK, <span class="sc">-</span><span class="fl">0.2</span><span class="sc">:</span><span class="fl">0.2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-9"><a href="the-generate-pipeline.html#cb5-9" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">n =</span> <span class="dv">25</span>)</span></code></pre></div>
 <br>
 <div class="info">
 <p>
@@ -402,15 +399,16 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <div id="converting-to-long-format" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Converting to Long Format<a href="the-generate-pipeline.html#converting-to-long-format" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The table above shows the generated stimuli in wide format. This is a useful way to quickly view the stimuli and get a sense for what has been generated, but we often want to check our stimuli in more detail. The <code>long_format()</code> function is a quick way to convert stimuli generated in LexOPS into long format:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="the-generate-pipeline.html#cb5-1" tabindex="-1"></a>stim_long <span class="ot">&lt;-</span> <span class="fu">long_format</span>(stim)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="the-generate-pipeline.html#cb6-1" tabindex="-1"></a>stim_long <span class="ot">&lt;-</span> <span class="fu">long_format</span>(stim)</span></code></pre></div>
 <p>Now we have the same stimuli in long format, with their associated values. Here are the same first 5 matched items from earlier, but in long format:</p>
 <div class="table">
 <table>
 <colgroup>
+<col width="3%" />
 <col width="8%" />
-<col width="11%" />
-<col width="12%" />
 <col width="10%" />
+<col width="11%" />
+<col width="9%" />
 <col width="17%" />
 <col width="7%" />
 <col width="15%" />
@@ -418,6 +416,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 </colgroup>
 <thead>
 <tr class="header">
+<th align="left"></th>
 <th align="right">item_nr</th>
 <th align="left">condition</th>
 <th align="left">match_null</th>
@@ -430,6 +429,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 </thead>
 <tbody>
 <tr class="odd">
+<td align="left">1</td>
 <td align="right">1</td>
 <td align="left">A1_B1</td>
 <td align="left">A2_B1</td>
@@ -440,6 +440,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <td align="right">2.00</td>
 </tr>
 <tr class="even">
+<td align="left">26</td>
 <td align="right">1</td>
 <td align="left">A1_B2</td>
 <td align="left">A2_B1</td>
@@ -450,6 +451,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <td align="right">1.79</td>
 </tr>
 <tr class="odd">
+<td align="left">51</td>
 <td align="right">1</td>
 <td align="left">A2_B1</td>
 <td align="left">A2_B1</td>
@@ -460,6 +462,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <td align="right">4.34</td>
 </tr>
 <tr class="even">
+<td align="left">76</td>
 <td align="right">1</td>
 <td align="left">A2_B2</td>
 <td align="left">A2_B1</td>
@@ -470,6 +473,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <td align="right">4.27</td>
 </tr>
 <tr class="odd">
+<td align="left">2</td>
 <td align="right">2</td>
 <td align="left">A1_B1</td>
 <td align="left">A1_B2</td>
@@ -480,6 +484,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <td align="right">1.54</td>
 </tr>
 <tr class="even">
+<td align="left">27</td>
 <td align="right">2</td>
 <td align="left">A1_B2</td>
 <td align="left">A1_B2</td>
@@ -490,6 +495,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <td align="right">1.64</td>
 </tr>
 <tr class="odd">
+<td align="left">52</td>
 <td align="right">2</td>
 <td align="left">A2_B1</td>
 <td align="left">A1_B2</td>
@@ -500,6 +506,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <td align="right">4.56</td>
 </tr>
 <tr class="even">
+<td align="left">77</td>
 <td align="right">2</td>
 <td align="left">A2_B2</td>
 <td align="left">A1_B2</td>
@@ -510,6 +517,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <td align="right">4.11</td>
 </tr>
 <tr class="odd">
+<td align="left">3</td>
 <td align="right">3</td>
 <td align="left">A1_B1</td>
 <td align="left">A1_B2</td>
@@ -520,6 +528,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <td align="right">1.89</td>
 </tr>
 <tr class="even">
+<td align="left">28</td>
 <td align="right">3</td>
 <td align="left">A1_B2</td>
 <td align="left">A1_B2</td>
@@ -530,6 +539,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <td align="right">1.79</td>
 </tr>
 <tr class="odd">
+<td align="left">53</td>
 <td align="right">3</td>
 <td align="left">A2_B1</td>
 <td align="left">A1_B2</td>
@@ -540,6 +550,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <td align="right">4.04</td>
 </tr>
 <tr class="even">
+<td align="left">78</td>
 <td align="right">3</td>
 <td align="left">A2_B2</td>
 <td align="left">A1_B2</td>
@@ -550,6 +561,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <td align="right">4.10</td>
 </tr>
 <tr class="odd">
+<td align="left">4</td>
 <td align="right">4</td>
 <td align="left">A1_B1</td>
 <td align="left">A2_B2</td>
@@ -560,6 +572,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <td align="right">1.96</td>
 </tr>
 <tr class="even">
+<td align="left">29</td>
 <td align="right">4</td>
 <td align="left">A1_B2</td>
 <td align="left">A2_B2</td>
@@ -570,6 +583,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <td align="right">1.70</td>
 </tr>
 <tr class="odd">
+<td align="left">54</td>
 <td align="right">4</td>
 <td align="left">A2_B1</td>
 <td align="left">A2_B2</td>
@@ -580,6 +594,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <td align="right">4.93</td>
 </tr>
 <tr class="even">
+<td align="left">79</td>
 <td align="right">4</td>
 <td align="left">A2_B2</td>
 <td align="left">A2_B2</td>
@@ -590,6 +605,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <td align="right">4.14</td>
 </tr>
 <tr class="odd">
+<td align="left">5</td>
 <td align="right">5</td>
 <td align="left">A1_B1</td>
 <td align="left">A2_B2</td>
@@ -600,6 +616,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <td align="right">1.73</td>
 </tr>
 <tr class="even">
+<td align="left">30</td>
 <td align="right">5</td>
 <td align="left">A1_B2</td>
 <td align="left">A2_B2</td>
@@ -610,6 +627,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <td align="right">1.55</td>
 </tr>
 <tr class="odd">
+<td align="left">55</td>
 <td align="right">5</td>
 <td align="left">A2_B1</td>
 <td align="left">A2_B2</td>
@@ -620,6 +638,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <td align="right">4.81</td>
 </tr>
 <tr class="even">
+<td align="left">80</td>
 <td align="right">5</td>
 <td align="left">A2_B2</td>
 <td align="left">A2_B2</td>
@@ -637,7 +656,7 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <div id="plotting-the-design" class="section level2 hasAnchor" number="2.3">
 <h2><span class="header-section-number">2.3</span> Plotting the Design<a href="the-generate-pipeline.html#plotting-the-design" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>While having data in long format is useful, it’s not very efficient if you want to check a large number of stimuli quickly. You can use <code>plot_design()</code> to visualise the conditions and matching:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="the-generate-pipeline.html#cb6-1" tabindex="-1"></a><span class="fu">plot_design</span>(stim)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="the-generate-pipeline.html#cb7-1" tabindex="-1"></a><span class="fu">plot_design</span>(stim)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-10"></span>
 <img src="02-generate_files/figure-html/unnamed-chunk-10-1.png" alt="The results of the `plot_design()` function for the generated stimuli." width="100%" />
 <p class="caption">
@@ -649,7 +668,7 @@ Figure 2.1: The results of the <code>plot_design()</code> function for the gener
 <div id="checking-representativeness" class="section level2 hasAnchor" number="2.4">
 <h2><span class="header-section-number">2.4</span> Checking Representativeness<a href="the-generate-pipeline.html#checking-representativeness" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We can also visualise how representative our stimuli are. This shows the distributions of our generated stimuli on variables, relative to possible but unused candidates.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="the-generate-pipeline.html#cb7-1" tabindex="-1"></a><span class="fu">plot_sample</span>(stim)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="the-generate-pipeline.html#cb8-1" tabindex="-1"></a><span class="fu">plot_sample</span>(stim)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-11"></span>
 <img src="02-generate_files/figure-html/unnamed-chunk-11-1.png" alt="The results of the `plot_sample()` function for the generated stimuli." width="100%" />
 <p class="caption">
@@ -660,13 +679,13 @@ Figure 2.2: The results of the <code>plot_sample()</code> function for the gener
 <div id="generating-as-many-as-possible" class="section level2 hasAnchor" number="2.5">
 <h2><span class="header-section-number">2.5</span> Generating as Many as Possible<a href="the-generate-pipeline.html#generating-as-many-as-possible" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Imagine that we’re not sure how many stimuli we could generate using our design. It may be that the <code>n = 25</code> <a href="the-generate-pipeline.html#a-practical-example">we used earlier</a> is considerably fewer than the number of stimuli we could generate. One way to test this is to generate as many stimuli as possible. We can do this by setting <code>n = "all"</code>:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="the-generate-pipeline.html#cb8-1" tabindex="-1"></a>possible_stim <span class="ot">&lt;-</span> LexOPS<span class="sc">::</span>lexops <span class="sc">|&gt;</span></span>
-<span id="cb8-2"><a href="the-generate-pipeline.html#cb8-2" tabindex="-1"></a>  <span class="fu">subset</span>(PK.Brysbaert <span class="sc">&gt;=</span> <span class="fl">0.9</span>) <span class="sc">|&gt;</span></span>
-<span id="cb8-3"><a href="the-generate-pipeline.html#cb8-3" tabindex="-1"></a>  <span class="fu">split_by</span>(CNC.Brysbaert, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span> <span class="sc">~</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">|&gt;</span></span>
-<span id="cb8-4"><a href="the-generate-pipeline.html#cb8-4" tabindex="-1"></a>  <span class="fu">split_by</span>(BG.SUBTLEX_UK, <span class="dv">0</span><span class="sc">:</span><span class="fl">0.003</span> <span class="sc">~</span> <span class="fl">0.009</span><span class="sc">:</span><span class="fl">0.013</span>) <span class="sc">|&gt;</span></span>
-<span id="cb8-5"><a href="the-generate-pipeline.html#cb8-5" tabindex="-1"></a>  <span class="fu">control_for</span>(Length, <span class="dv">0</span><span class="sc">:</span><span class="dv">0</span>) <span class="sc">|&gt;</span></span>
-<span id="cb8-6"><a href="the-generate-pipeline.html#cb8-6" tabindex="-1"></a>  <span class="fu">control_for</span>(Zipf.SUBTLEX_UK, <span class="sc">-</span><span class="fl">0.2</span><span class="sc">:</span><span class="fl">0.2</span>) <span class="sc">|&gt;</span></span>
-<span id="cb8-7"><a href="the-generate-pipeline.html#cb8-7" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">n =</span> <span class="st">&quot;all&quot;</span>, <span class="at">match_null =</span> <span class="st">&quot;inclusive&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="the-generate-pipeline.html#cb9-1" tabindex="-1"></a>possible_stim <span class="ot">&lt;-</span> LexOPS<span class="sc">::</span>lexops <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="the-generate-pipeline.html#cb9-2" tabindex="-1"></a>  <span class="fu">subset</span>(PK.Brysbaert <span class="sc">&gt;=</span> <span class="fl">0.9</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="the-generate-pipeline.html#cb9-3" tabindex="-1"></a>  <span class="fu">split_by</span>(CNC.Brysbaert, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span> <span class="sc">~</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-4"><a href="the-generate-pipeline.html#cb9-4" tabindex="-1"></a>  <span class="fu">split_by</span>(BG.SUBTLEX_UK, <span class="dv">0</span><span class="sc">:</span><span class="fl">0.003</span> <span class="sc">~</span> <span class="fl">0.009</span><span class="sc">:</span><span class="fl">0.013</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-5"><a href="the-generate-pipeline.html#cb9-5" tabindex="-1"></a>  <span class="fu">control_for</span>(Length, <span class="dv">0</span><span class="sc">:</span><span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-6"><a href="the-generate-pipeline.html#cb9-6" tabindex="-1"></a>  <span class="fu">control_for</span>(Zipf.SUBTLEX_UK, <span class="sc">-</span><span class="fl">0.2</span><span class="sc">:</span><span class="fl">0.2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-7"><a href="the-generate-pipeline.html#cb9-7" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">n =</span> <span class="st">&quot;all&quot;</span>, <span class="at">match_null =</span> <span class="st">&quot;inclusive&quot;</span>)</span></code></pre></div>
 <p>This is much slower, as LexOPS will continue trying to generate combinations of items until it has exhausted all the possibilities. We actually generated 104 words generated per condition with the code above. This number is likely to change slightly each time we run the pipeline, as different combinations are randomly made from all the possible combinations. That said, it is probably a good <em>indication</em> of the number of possible stimuli we could generate.</p>
 <p>The 104 words we’ve managed to generate per condition here is quite a bit higher than the 25 we originally generated. Does this mean we should just request a larger stimulus list, such as <code>n = 80</code>, or even <code>n = 100</code>? Well, it depends. If we want as many stimuli as are possible, then it may make sense to just set <code>n = "all"</code>, but often we only want to use as many stimuli as we need to find our effect. Also, if we use as many combinations as possible, experimenters who want to replicate our effect using a different set of stimuli will likely have fewer novel combinations available to them.</p>
 <div class="danger">
@@ -681,7 +700,7 @@ in <a href="faq.html#what-is-a-match-null">this FAQ section</a>.
 <div id="plotting-iterations" class="section level2 hasAnchor" number="2.6">
 <h2><span class="header-section-number">2.6</span> Plotting Iterations<a href="the-generate-pipeline.html#plotting-iterations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>It is also possible to check how well LexOPS performed when generating stimuli by plotting the cumulative item generation by iterations. To do this, we can use the <code>plot_iterations()</code> function:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="the-generate-pipeline.html#cb9-1" tabindex="-1"></a><span class="fu">plot_iterations</span>(possible_stim)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="the-generate-pipeline.html#cb10-1" tabindex="-1"></a><span class="fu">plot_iterations</span>(possible_stim)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-14"></span>
 <img src="02-generate_files/figure-html/unnamed-chunk-14-1.png" alt="The cumulative number of items generated per iteration." width="100%" />
 <p class="caption">
@@ -692,16 +711,16 @@ Figure 2.3: The cumulative number of items generated per iteration.
 </div>
 <div id="custom-dataframes" class="section level2 hasAnchor" number="2.7">
 <h2><span class="header-section-number">2.7</span> Custom Dataframes<a href="the-generate-pipeline.html#custom-dataframes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The <a href="introduction.html#the-lexops-dataset">LexOPS Dataset</a> has lots of useful features for English words, but it isn’t exhaustive, and is likely not useful for your purposes. The LexOPS functions will actually work with any dataframe, with words from any language. As an example, here’s how to generate a stimulus list of negative, neutral, and positive German words matched for length and frequency, based on the <a href="http://doi.org/10.3758/BRM.42.4.987">Leipzig Affective Norms for German (LANG) (Kanske &amp; Kotz, 2010)</a>. Note that the <code>set_options()</code> function is used to tell LexOPS that our column containing the strings is <code>"word"</code>, rather than the LexOPS default of <code>"string"</code>.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="the-generate-pipeline.html#cb10-1" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb10-2"><a href="the-generate-pipeline.html#cb10-2" tabindex="-1"></a>LANG <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;kanske_kotz_2010.csv&quot;</span>, <span class="at">locale=</span><span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">&quot;latin1&quot;</span>))</span>
-<span id="cb10-3"><a href="the-generate-pipeline.html#cb10-3" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="the-generate-pipeline.html#cb10-4" tabindex="-1"></a>stim <span class="ot">&lt;-</span> LANG <span class="sc">|&gt;</span></span>
-<span id="cb10-5"><a href="the-generate-pipeline.html#cb10-5" tabindex="-1"></a>  <span class="fu">set_options</span>(<span class="at">id_col =</span> <span class="st">&quot;word&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb10-6"><a href="the-generate-pipeline.html#cb10-6" tabindex="-1"></a>  <span class="fu">split_by</span>(valence_mean, <span class="dv">1</span><span class="sc">:</span><span class="fl">3.5</span> <span class="sc">~</span> <span class="fl">4.75</span><span class="sc">:</span><span class="fl">5.25</span> <span class="sc">~</span> <span class="fl">6.5</span><span class="sc">:</span><span class="dv">9</span>) <span class="sc">|&gt;</span></span>
-<span id="cb10-7"><a href="the-generate-pipeline.html#cb10-7" tabindex="-1"></a>  <span class="fu">control_for</span>(number_of_letters, <span class="dv">0</span><span class="sc">:</span><span class="dv">0</span>) <span class="sc">|&gt;</span></span>
-<span id="cb10-8"><a href="the-generate-pipeline.html#cb10-8" tabindex="-1"></a>  <span class="fu">control_for</span>(frequency, <span class="sc">-</span><span class="dv">1</span><span class="sc">:</span><span class="dv">1</span>) <span class="sc">|&gt;</span></span>
-<span id="cb10-9"><a href="the-generate-pipeline.html#cb10-9" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="dv">20</span>)</span></code></pre></div>
+<p>The <a href="introduction.html#the-lexops-dataset">lexops Dataset</a> has lots of useful features for English words, but it isn’t exhaustive, and is likely not useful for your purposes. The LexOPS functions will actually work with any dataframe, with words from any language. As an example, here’s how to generate a stimulus list of negative, neutral, and positive German words matched for length and frequency, based on the <a href="http://doi.org/10.3758/BRM.42.4.987">Leipzig Affective Norms for German (LANG) (Kanske &amp; Kotz, 2010)</a>. Note that the <code>set_options()</code> function is used to tell LexOPS that our column containing the strings is <code>"word"</code>, rather than the LexOPS default of <code>"string"</code>.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="the-generate-pipeline.html#cb11-1" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb11-2"><a href="the-generate-pipeline.html#cb11-2" tabindex="-1"></a>LANG <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;kanske_kotz_2010.csv&quot;</span>, <span class="at">locale=</span><span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">&quot;latin1&quot;</span>))</span>
+<span id="cb11-3"><a href="the-generate-pipeline.html#cb11-3" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="the-generate-pipeline.html#cb11-4" tabindex="-1"></a>stim <span class="ot">&lt;-</span> LANG <span class="sc">|&gt;</span></span>
+<span id="cb11-5"><a href="the-generate-pipeline.html#cb11-5" tabindex="-1"></a>  <span class="fu">set_options</span>(<span class="at">id_col =</span> <span class="st">&quot;word&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-6"><a href="the-generate-pipeline.html#cb11-6" tabindex="-1"></a>  <span class="fu">split_by</span>(valence_mean, <span class="dv">1</span><span class="sc">:</span><span class="fl">3.5</span> <span class="sc">~</span> <span class="fl">4.75</span><span class="sc">:</span><span class="fl">5.25</span> <span class="sc">~</span> <span class="fl">6.5</span><span class="sc">:</span><span class="dv">9</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-7"><a href="the-generate-pipeline.html#cb11-7" tabindex="-1"></a>  <span class="fu">control_for</span>(number_of_letters, <span class="dv">0</span><span class="sc">:</span><span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-8"><a href="the-generate-pipeline.html#cb11-8" tabindex="-1"></a>  <span class="fu">control_for</span>(frequency, <span class="sc">-</span><span class="dv">1</span><span class="sc">:</span><span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-9"><a href="the-generate-pipeline.html#cb11-9" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="dv">20</span>)</span></code></pre></div>
 <p>Here are the first five items generated for each condition:</p>
 <div class="table">
 <table>
@@ -757,7 +776,7 @@ Figure 2.3: The cumulative number of items generated per iteration.
 For more detailed examples of how to use other datasets, the following vignettes might be useful:</p>
 <ul>
 <li><a href="vignettes/participant-selection.html">Applications to Participant Selection</a>: How you can use a dataset which has nothing to do with words.</li>
-<li><a href="vignettes/custom-data.html">Using Data from Custom Sources</a>: How you can join the LexOPS dataset to other lists of word features.</li>
+<li><a href="vignettes/custom-data.html">Using Data from Custom Sources</a>: How you can join the lexops dataset to other lists of word features.</li>
 </ul>
 <br>
 <div class="info">
@@ -791,44 +810,44 @@ example using custom variables in the shiny app.
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"],
-"google": false
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": {},
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection",
-"scroll_highlight": true
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"],
+    "google": false
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": {},
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection",
+    "scroll_highlight": true
+  }
 });
 });
 </script>
