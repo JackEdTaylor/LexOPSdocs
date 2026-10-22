@@ -88,13 +88,13 @@ stim |>
 <br>
 We can see that we have 4 conditions:
 
-* **A1_B1** (abstract, low probability)
+* **A1_B1** (abstract, noun)
 
-* **A1_B2** (abstract, high probability)
+* **A1_B2** (abstract, verb)
 
-* **A2_B1** (concrete, low probability)
+* **A2_B1** (concrete, noun)
 
-* **A2_B2** (concrete, high probability)
+* **A2_B2** (concrete, verb)
 
 <br>
 Each row of the dataframe is controlled for in terms of frequency and length. The `match_null` variable tells us which condition stimuli were matched relative to. For instance, we can see that in row 3, items are matched relative to the word "regain". This means that all words for `item_nr` 3 are within ±0.2 Zipf of the Zipf value associated with the word "regain". By default, LexOPS will select the match_null for each item pseudo-randomly, such that each condition will be used as a match null an equal number of times (`match_null = "balanced"`), or as close to this ideal as is possible (e.g. the number of items requested may not be divisible by the number of conditions). See [this FAQ section](faq.html#what-is-a-match-null) for more information on match nulls.
@@ -128,15 +128,7 @@ While having data in long format is useful, it's not very efficient if you want 
 plot_design(stim)
 ```
 
-The distributions of all numeric splits or controls are plotted for each condition (in a grey violin plot). The points depict the values of individual words, and points joined by lines are matched items. As we'd expect, our example stimuli show differences in Bigram Probability and Concreteness, while Frequency is matched closely, and Length is matched exactly.
-
-## Checking Representativeness
-
-We can also visualise how representative our stimuli are. This shows the distributions of our generated stimuli on variables, relative to possible but unused candidates.
-
-```{r, warning=FALSE, fig.cap='The results of the `plot_sample()` function for the generated stimuli.'}
-plot_sample(stim)
-```
+The distributions of all numeric splits or controls are plotted for each condition (in a grey violin plot). The points depict the values of individual words, and points joined by lines are matched items. As we'd expect, our example stimuli show differences in Concreteness and Part of Speech, while Frequency is matched closely, and Length is matched exactly.
 
 ## Generating as Many as Possible
 

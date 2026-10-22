@@ -166,10 +166,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#converting-to-long-format"><i class="fa fa-check"></i><b>2.2</b> Converting to Long Format</a></li>
 <li class="chapter" data-level="2.3" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#plotting-the-design"><i class="fa fa-check"></i><b>2.3</b> Plotting the Design</a></li>
-<li class="chapter" data-level="2.4" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#checking-representativeness"><i class="fa fa-check"></i><b>2.4</b> Checking Representativeness</a></li>
-<li class="chapter" data-level="2.5" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#generating-as-many-as-possible"><i class="fa fa-check"></i><b>2.5</b> Generating as Many as Possible</a></li>
-<li class="chapter" data-level="2.6" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#plotting-iterations"><i class="fa fa-check"></i><b>2.6</b> Plotting Iterations</a></li>
-<li class="chapter" data-level="2.7" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#custom-dataframes"><i class="fa fa-check"></i><b>2.7</b> Custom Dataframes</a></li>
+<li class="chapter" data-level="2.4" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#generating-as-many-as-possible"><i class="fa fa-check"></i><b>2.4</b> Generating as Many as Possible</a></li>
+<li class="chapter" data-level="2.5" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#plotting-iterations"><i class="fa fa-check"></i><b>2.5</b> Plotting Iterations</a></li>
+<li class="chapter" data-level="2.6" data-path="the-generate-pipeline.html"><a href="the-generate-pipeline.html#custom-dataframes"><i class="fa fa-check"></i><b>2.6</b> Custom Dataframes</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="advanced-matching.html"><a href="advanced-matching.html"><i class="fa fa-check"></i><b>3</b> Advanced Matching</a>
 <ul>
@@ -396,10 +395,10 @@ control for part of speech).
 <p><br>
 We can see that we have 4 conditions:</p>
 <ul>
-<li><p><strong>A1_B1</strong> (abstract, low probability)</p></li>
-<li><p><strong>A1_B2</strong> (abstract, high probability)</p></li>
-<li><p><strong>A2_B1</strong> (concrete, low probability)</p></li>
-<li><p><strong>A2_B2</strong> (concrete, high probability)</p></li>
+<li><p><strong>A1_B1</strong> (abstract, noun)</p></li>
+<li><p><strong>A1_B2</strong> (abstract, verb)</p></li>
+<li><p><strong>A2_B1</strong> (concrete, noun)</p></li>
+<li><p><strong>A2_B2</strong> (concrete, verb)</p></li>
 </ul>
 <p><br>
 Each row of the dataframe is controlled for in terms of frequency and length. The <code>match_null</code> variable tells us which condition stimuli were matched relative to. For instance, we can see that in row 3, items are matched relative to the word “regain”. This means that all words for <code>item_nr</code> 3 are within ±0.2 Zipf of the Zipf value associated with the word “regain”. By default, LexOPS will select the match_null for each item pseudo-randomly, such that each condition will be used as a match null an equal number of times (<code>match_null = "balanced"</code>), or as close to this ideal as is possible (e.g. the number of items requested may not be divisible by the number of conditions). See <a href="faq.html#what-is-a-match-null">this FAQ section</a> for more information on match nulls.</p>
@@ -672,29 +671,18 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 Figure 2.1: The results of the <code>plot_design()</code> function for the generated stimuli.
 </p>
 </div>
-<p>The distributions of all numeric splits or controls are plotted for each condition (in a grey violin plot). The points depict the values of individual words, and points joined by lines are matched items. As we’d expect, our example stimuli show differences in Bigram Probability and Concreteness, while Frequency is matched closely, and Length is matched exactly.</p>
+<p>The distributions of all numeric splits or controls are plotted for each condition (in a grey violin plot). The points depict the values of individual words, and points joined by lines are matched items. As we’d expect, our example stimuli show differences in Concreteness and Part of Speech, while Frequency is matched closely, and Length is matched exactly.</p>
 </div>
-<div id="checking-representativeness" class="section level2 hasAnchor" number="2.4">
-<h2><span class="header-section-number">2.4</span> Checking Representativeness<a href="the-generate-pipeline.html#checking-representativeness" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>We can also visualise how representative our stimuli are. This shows the distributions of our generated stimuli on variables, relative to possible but unused candidates.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="the-generate-pipeline.html#cb8-1" tabindex="-1"></a><span class="fu">plot_sample</span>(stim)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-11"></span>
-<img src="02-generate_files/figure-html/unnamed-chunk-11-1.png" alt="The results of the `plot_sample()` function for the generated stimuli." width="100%" />
-<p class="caption">
-Figure 2.2: The results of the <code>plot_sample()</code> function for the generated stimuli.
-</p>
-</div>
-</div>
-<div id="generating-as-many-as-possible" class="section level2 hasAnchor" number="2.5">
-<h2><span class="header-section-number">2.5</span> Generating as Many as Possible<a href="the-generate-pipeline.html#generating-as-many-as-possible" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="generating-as-many-as-possible" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Generating as Many as Possible<a href="the-generate-pipeline.html#generating-as-many-as-possible" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Imagine that we’re not sure how many stimuli we could generate using our design. It may be that the <code>n = 25</code> <a href="the-generate-pipeline.html#a-practical-example">we used earlier</a> is considerably fewer than the number of stimuli we could generate. One way to test this is to generate as many stimuli as possible. We can do this by setting <code>n = "all"</code>:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="the-generate-pipeline.html#cb9-1" tabindex="-1"></a>possible_stim <span class="ot">&lt;-</span> LexOPS<span class="sc">::</span>lexops <span class="sc">|&gt;</span></span>
-<span id="cb9-2"><a href="the-generate-pipeline.html#cb9-2" tabindex="-1"></a>  <span class="fu">subset</span>(PK.Brysbaert <span class="sc">&gt;=</span> <span class="fl">0.9</span>) <span class="sc">|&gt;</span></span>
-<span id="cb9-3"><a href="the-generate-pipeline.html#cb9-3" tabindex="-1"></a>  <span class="fu">split_by</span>(CNC.Brysbaert, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span> <span class="sc">~</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">|&gt;</span></span>
-<span id="cb9-4"><a href="the-generate-pipeline.html#cb9-4" tabindex="-1"></a>  <span class="fu">split_by</span>(BG.SUBTLEX_UK, <span class="dv">0</span><span class="sc">:</span><span class="fl">0.003</span> <span class="sc">~</span> <span class="fl">0.009</span><span class="sc">:</span><span class="fl">0.013</span>) <span class="sc">|&gt;</span></span>
-<span id="cb9-5"><a href="the-generate-pipeline.html#cb9-5" tabindex="-1"></a>  <span class="fu">control_for</span>(Length, <span class="dv">0</span><span class="sc">:</span><span class="dv">0</span>) <span class="sc">|&gt;</span></span>
-<span id="cb9-6"><a href="the-generate-pipeline.html#cb9-6" tabindex="-1"></a>  <span class="fu">control_for</span>(Zipf.SUBTLEX_UK, <span class="sc">-</span><span class="fl">0.2</span><span class="sc">:</span><span class="fl">0.2</span>) <span class="sc">|&gt;</span></span>
-<span id="cb9-7"><a href="the-generate-pipeline.html#cb9-7" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">n =</span> <span class="st">&quot;all&quot;</span>, <span class="at">match_null =</span> <span class="st">&quot;inclusive&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="the-generate-pipeline.html#cb8-1" tabindex="-1"></a>possible_stim <span class="ot">&lt;-</span> LexOPS<span class="sc">::</span>lexops <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="the-generate-pipeline.html#cb8-2" tabindex="-1"></a>  <span class="fu">subset</span>(PK.Brysbaert <span class="sc">&gt;=</span> <span class="fl">0.9</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="the-generate-pipeline.html#cb8-3" tabindex="-1"></a>  <span class="fu">split_by</span>(CNC.Brysbaert, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span> <span class="sc">~</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-4"><a href="the-generate-pipeline.html#cb8-4" tabindex="-1"></a>  <span class="fu">split_by</span>(BG.SUBTLEX_UK, <span class="dv">0</span><span class="sc">:</span><span class="fl">0.003</span> <span class="sc">~</span> <span class="fl">0.009</span><span class="sc">:</span><span class="fl">0.013</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-5"><a href="the-generate-pipeline.html#cb8-5" tabindex="-1"></a>  <span class="fu">control_for</span>(Length, <span class="dv">0</span><span class="sc">:</span><span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-6"><a href="the-generate-pipeline.html#cb8-6" tabindex="-1"></a>  <span class="fu">control_for</span>(Zipf.SUBTLEX_UK, <span class="sc">-</span><span class="fl">0.2</span><span class="sc">:</span><span class="fl">0.2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-7"><a href="the-generate-pipeline.html#cb8-7" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">n =</span> <span class="st">&quot;all&quot;</span>, <span class="at">match_null =</span> <span class="st">&quot;inclusive&quot;</span>)</span></code></pre></div>
 <p>This is much slower, as LexOPS will continue trying to generate combinations of items until it has exhausted all the possibilities. We actually generated 105 words generated per condition with the code above. This number is likely to change slightly each time we run the pipeline, as different combinations are randomly made from all the possible combinations. That said, it is probably a good <em>indication</em> of the number of possible stimuli we could generate.</p>
 <p>The 105 words we’ve managed to generate per condition here is quite a bit higher than the 25 we originally generated. Does this mean we should just request a larger stimulus list, such as <code>n = 80</code>, or even <code>n = 100</code>? Well, it depends. If we want as many stimuli as are possible, then it may make sense to just set <code>n = "all"</code>, but often we only want to use as many stimuli as we need to find our effect. Also, if we use as many combinations as possible, experimenters who want to replicate our effect using a different set of stimuli will likely have fewer novel combinations available to them.</p>
 <div class="danger">
@@ -706,30 +694,30 @@ in <a href="faq.html#what-is-a-match-null">this FAQ section</a>.
 </p>
 </div>
 </div>
-<div id="plotting-iterations" class="section level2 hasAnchor" number="2.6">
-<h2><span class="header-section-number">2.6</span> Plotting Iterations<a href="the-generate-pipeline.html#plotting-iterations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="plotting-iterations" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Plotting Iterations<a href="the-generate-pipeline.html#plotting-iterations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>It is also possible to check how well LexOPS performed when generating stimuli by plotting the cumulative item generation by iterations. To do this, we can use the <code>plot_iterations()</code> function:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="the-generate-pipeline.html#cb10-1" tabindex="-1"></a><span class="fu">plot_iterations</span>(possible_stim)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-14"></span>
-<img src="02-generate_files/figure-html/unnamed-chunk-14-1.png" alt="The cumulative number of items generated per iteration." width="100%" />
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="the-generate-pipeline.html#cb9-1" tabindex="-1"></a><span class="fu">plot_iterations</span>(possible_stim)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-13"></span>
+<img src="02-generate_files/figure-html/unnamed-chunk-13-1.png" alt="The cumulative number of items generated per iteration." width="100%" />
 <p class="caption">
-Figure 2.3: The cumulative number of items generated per iteration.
+Figure 2.2: The cumulative number of items generated per iteration.
 </p>
 </div>
 <p>This shows a characteristic levelling-off; iterations become increasingly less likely to successfully generate items as the pool of possible combinations is gradually exhausted.</p>
 </div>
-<div id="custom-dataframes" class="section level2 hasAnchor" number="2.7">
-<h2><span class="header-section-number">2.7</span> Custom Dataframes<a href="the-generate-pipeline.html#custom-dataframes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="custom-dataframes" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Custom Dataframes<a href="the-generate-pipeline.html#custom-dataframes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The <a href="introduction.html#the-lexops-dataset">lexops Dataset</a> has lots of useful features for English words, but it isn’t exhaustive, and is likely not useful for your purposes. The LexOPS functions will actually work with any dataframe, with words from any language. As an example, here’s how to generate a stimulus list of negative, neutral, and positive German words matched for length and frequency, based on the <a href="http://doi.org/10.3758/BRM.42.4.987">Leipzig Affective Norms for German (LANG) (Kanske &amp; Kotz, 2010)</a>. Note that the <code>set_options()</code> function is used to tell LexOPS that our column containing the strings is <code>"word"</code>, rather than the LexOPS default of <code>"string"</code>.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="the-generate-pipeline.html#cb11-1" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb11-2"><a href="the-generate-pipeline.html#cb11-2" tabindex="-1"></a>LANG <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;kanske_kotz_2010.csv&quot;</span>, <span class="at">locale=</span><span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">&quot;latin1&quot;</span>))</span>
-<span id="cb11-3"><a href="the-generate-pipeline.html#cb11-3" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="the-generate-pipeline.html#cb11-4" tabindex="-1"></a>stim <span class="ot">&lt;-</span> LANG <span class="sc">|&gt;</span></span>
-<span id="cb11-5"><a href="the-generate-pipeline.html#cb11-5" tabindex="-1"></a>  <span class="fu">set_options</span>(<span class="at">id_col =</span> <span class="st">&quot;word&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb11-6"><a href="the-generate-pipeline.html#cb11-6" tabindex="-1"></a>  <span class="fu">split_by</span>(valence_mean, <span class="dv">1</span><span class="sc">:</span><span class="fl">3.5</span> <span class="sc">~</span> <span class="fl">4.75</span><span class="sc">:</span><span class="fl">5.25</span> <span class="sc">~</span> <span class="fl">6.5</span><span class="sc">:</span><span class="dv">9</span>) <span class="sc">|&gt;</span></span>
-<span id="cb11-7"><a href="the-generate-pipeline.html#cb11-7" tabindex="-1"></a>  <span class="fu">control_for</span>(number_of_letters, <span class="dv">0</span><span class="sc">:</span><span class="dv">0</span>) <span class="sc">|&gt;</span></span>
-<span id="cb11-8"><a href="the-generate-pipeline.html#cb11-8" tabindex="-1"></a>  <span class="fu">control_for</span>(frequency, <span class="sc">-</span><span class="dv">1</span><span class="sc">:</span><span class="dv">1</span>) <span class="sc">|&gt;</span></span>
-<span id="cb11-9"><a href="the-generate-pipeline.html#cb11-9" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="dv">20</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="the-generate-pipeline.html#cb10-1" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb10-2"><a href="the-generate-pipeline.html#cb10-2" tabindex="-1"></a>LANG <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;kanske_kotz_2010.csv&quot;</span>, <span class="at">locale=</span><span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">&quot;latin1&quot;</span>))</span>
+<span id="cb10-3"><a href="the-generate-pipeline.html#cb10-3" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="the-generate-pipeline.html#cb10-4" tabindex="-1"></a>stim <span class="ot">&lt;-</span> LANG <span class="sc">|&gt;</span></span>
+<span id="cb10-5"><a href="the-generate-pipeline.html#cb10-5" tabindex="-1"></a>  <span class="fu">set_options</span>(<span class="at">id_col =</span> <span class="st">&quot;word&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-6"><a href="the-generate-pipeline.html#cb10-6" tabindex="-1"></a>  <span class="fu">split_by</span>(valence_mean, <span class="dv">1</span><span class="sc">:</span><span class="fl">3.5</span> <span class="sc">~</span> <span class="fl">4.75</span><span class="sc">:</span><span class="fl">5.25</span> <span class="sc">~</span> <span class="fl">6.5</span><span class="sc">:</span><span class="dv">9</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-7"><a href="the-generate-pipeline.html#cb10-7" tabindex="-1"></a>  <span class="fu">control_for</span>(number_of_letters, <span class="dv">0</span><span class="sc">:</span><span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-8"><a href="the-generate-pipeline.html#cb10-8" tabindex="-1"></a>  <span class="fu">control_for</span>(frequency, <span class="sc">-</span><span class="dv">1</span><span class="sc">:</span><span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-9"><a href="the-generate-pipeline.html#cb10-9" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="dv">20</span>)</span></code></pre></div>
 <p>Here are the first five items generated for each condition:</p>
 <div class="table">
 <table>
