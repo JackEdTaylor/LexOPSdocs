@@ -20,10 +20,10 @@
   <meta name="twitter:description" content="An introduction to the LexOPS package and how to use it." />
   
 
-<meta name="author" content="Jack Taylor" />
+<meta name="author" content="Jack E. Taylor" />
 
 
-<meta name="date" content="2026-08-14" />
+<meta name="date" content="2026-10-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -238,7 +238,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">2</span> The Generate Pipeline<a href="the-generate-pipeline.html#the-generate-pipeline" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="generating-stimuli" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> Generating Stimuli<a href="the-generate-pipeline.html#generating-stimuli" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>LexOPS can generate controlled stimuli for (almost?) any possible factorial design. This can be done in a pipeline using 3 main functions:</p>
+<p>LexOPS can generate controlled stimuli for factorial designs. This can be done in a pipeline using 3 main functions:</p>
 <br>
 <div class="float-third-left">
 <p>
@@ -275,10 +275,10 @@ and controls
 <ul>
 <li><p>Filtered such that <strong>at least 90% of people know each word</strong>, according to Brysbaert, Mandera, McCormick, and Keuleers (2019).</p></li>
 <li><p><strong>Two levels of Concreteness</strong> (abstract and concrete words) according to Brysbaert, Warriner and Kuperman (2014).</p></li>
-<li><p><strong>Two levels of Bigram Probability</strong> (low and high probability) based on SUBTLEX-UK (van Heuven, Mandera, Keuleers, &amp; Brysbaert, 2014).</p></li>
+<li><p><strong>Two levels of Part of Speech</strong> (nouns and verbs) based on SUBTLEX-UK (van Heuven, Mandera, Keuleers, &amp; Brysbaert, 2014).</p></li>
 <li><p><strong>Controlled for word length</strong> (number of characters) exactly.</p></li>
 <li><p><strong>Controlled for word frequency</strong> within ±0.2 Zipf, according to according to SUBTLEX-UK (van Heuven, Mandera, Keuleers, &amp; Brysbaert, 2014).</p></li>
-<li><p><strong>25 words for each of the generated conditions</strong> (100 stimuli in total).</p></li>
+<li><p><strong>25 words for each of the generated conditions</strong> (100 items in total).</p></li>
 </ul>
 <p><br>
 We can use the following R code to generate a stimulus list like this with LexOPS:</p>
@@ -287,7 +287,7 @@ We can use the following R code to generate a stimulus list like this with LexOP
 <span id="cb5-3"><a href="the-generate-pipeline.html#cb5-3" tabindex="-1"></a>stim <span class="ot">&lt;-</span> lexops <span class="sc">|&gt;</span></span>
 <span id="cb5-4"><a href="the-generate-pipeline.html#cb5-4" tabindex="-1"></a>  <span class="fu">subset</span>(PK.Brysbaert <span class="sc">&gt;=</span> <span class="fl">0.9</span>) <span class="sc">|&gt;</span></span>
 <span id="cb5-5"><a href="the-generate-pipeline.html#cb5-5" tabindex="-1"></a>  <span class="fu">split_by</span>(CNC.Brysbaert, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span> <span class="sc">~</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">5</span>) <span class="sc">|&gt;</span></span>
-<span id="cb5-6"><a href="the-generate-pipeline.html#cb5-6" tabindex="-1"></a>  <span class="fu">split_by</span>(BG.SUBTLEX_UK, <span class="dv">0</span><span class="sc">:</span><span class="fl">0.003</span> <span class="sc">~</span> <span class="fl">0.009</span><span class="sc">:</span><span class="fl">0.013</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-6"><a href="the-generate-pipeline.html#cb5-6" tabindex="-1"></a>  <span class="fu">split_by</span>(PoS.SUBTLEX_UK, <span class="st">&quot;noun&quot;</span> <span class="sc">~</span> <span class="st">&quot;verb&quot;</span>) <span class="sc">|&gt;</span></span>
 <span id="cb5-7"><a href="the-generate-pipeline.html#cb5-7" tabindex="-1"></a>  <span class="fu">control_for</span>(Length, <span class="dv">0</span><span class="sc">:</span><span class="dv">0</span>) <span class="sc">|&gt;</span></span>
 <span id="cb5-8"><a href="the-generate-pipeline.html#cb5-8" tabindex="-1"></a>  <span class="fu">control_for</span>(Zipf.SUBTLEX_UK, <span class="sc">-</span><span class="fl">0.2</span><span class="sc">:</span><span class="fl">0.2</span>) <span class="sc">|&gt;</span></span>
 <span id="cb5-9"><a href="the-generate-pipeline.html#cb5-9" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">n =</span> <span class="dv">25</span>)</span></code></pre></div>
@@ -306,9 +306,9 @@ outside of quotation marks.
 <li>
 <p>
 The <code>:</code> character is used in <code>split_by()</code>
-to specify numeric boundaries (e.g. <code>0.009:0.013</code> means any
-number from 0.009 to 0.013 is acceptable for this level of the
-variable), and in <code>control_for()</code> to specify tolerances
+to specify numeric boundaries (e.g. <code>1:2</code> means any number
+between 1 and 2 is acceptable for this level of the variable), and in
+<code>control_for()</code> to specify tolerances
 (e.g. <code>-0.2:0.2</code> means controls will be acceptable if within
 ±0.2 of the match null).
 </p>
@@ -319,6 +319,15 @@ The <code>~</code> character is used in <code>split_by()</code>
 to specify different levels of an independent variable
 (e.g. <code>1.5:2.5 ~ 3.5:4.5 ~ 5.5:6.5</code> would specify three
 levels).
+</p>
+</li>
+<li>
+<p>
+Categorical (character vector) splits are supported by giving
+levels in quotations (e.g., <code>“noun” ~ “verb”</code>). Note that
+categorical controls are also supported by <code>control_for()</code>
+(e.g., we could have used <code>control_for(PoS.SUBTLEX_UK)</code> to
+control for part of speech).
 </p>
 </li>
 </ul>
@@ -343,42 +352,42 @@ levels).
 <tbody>
 <tr class="odd">
 <td align="right">1</td>
-<td align="left">ahoy</td>
-<td align="left">sane</td>
-<td align="left">burp</td>
-<td align="left">bong</td>
+<td align="left">epitome</td>
+<td align="left">seeming</td>
+<td align="left">cayenne</td>
+<td align="left">collide</td>
 <td align="left">A2_B1</td>
 </tr>
 <tr class="even">
 <td align="right">2</td>
-<td align="left">subtlety</td>
-<td align="left">reasoned</td>
-<td align="left">choirboy</td>
-<td align="left">minstrel</td>
+<td align="left">renown</td>
+<td align="left">relent</td>
+<td align="left">hyphen</td>
+<td align="left">tarred</td>
 <td align="left">A1_B2</td>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
-<td align="left">unsafe</td>
-<td align="left">regain</td>
-<td align="left">juggle</td>
-<td align="left">strand</td>
+<td align="left">readiness</td>
+<td align="left">oppressed</td>
+<td align="left">tightrope</td>
+<td align="left">unlocking</td>
 <td align="left">A1_B2</td>
 </tr>
 <tr class="even">
 <td align="right">4</td>
-<td align="left">dynamics</td>
-<td align="left">inferior</td>
-<td align="left">bagpipes</td>
-<td align="left">intruder</td>
+<td align="left">morals</td>
+<td align="left">enrich</td>
+<td align="left">cavern</td>
+<td align="left">chisel</td>
 <td align="left">A2_B2</td>
 </tr>
 <tr class="odd">
 <td align="right">5</td>
-<td align="left">signify</td>
-<td align="left">rousing</td>
-<td align="left">crumpet</td>
-<td align="left">warthog</td>
+<td align="left">remorse</td>
+<td align="left">desired</td>
+<td align="left">uranium</td>
+<td align="left">curling</td>
 <td align="left">A2_B2</td>
 </tr>
 </tbody>
@@ -408,11 +417,11 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <col width="8%" />
 <col width="10%" />
 <col width="11%" />
-<col width="9%" />
+<col width="10%" />
 <col width="17%" />
+<col width="15%" />
 <col width="7%" />
-<col width="15%" />
-<col width="15%" />
+<col width="14%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -422,8 +431,8 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <th align="left">match_null</th>
 <th align="left">string</th>
 <th align="right">Zipf.SUBTLEX_UK</th>
+<th align="left">PoS.SUBTLEX_UK</th>
 <th align="right">Length</th>
-<th align="right">BG.SUBTLEX_UK</th>
 <th align="right">CNC.Brysbaert</th>
 </tr>
 </thead>
@@ -433,220 +442,220 @@ Each row of the dataframe is controlled for in terms of frequency and length. Th
 <td align="right">1</td>
 <td align="left">A1_B1</td>
 <td align="left">A2_B1</td>
-<td align="left">ahoy</td>
-<td align="right">3.270924</td>
-<td align="right">4</td>
-<td align="right">0.0024671</td>
-<td align="right">2.00</td>
+<td align="left">epitome</td>
+<td align="right">3.090187</td>
+<td align="left">noun</td>
+<td align="right">7</td>
+<td align="right">1.80</td>
 </tr>
 <tr class="even">
 <td align="left">26</td>
 <td align="right">1</td>
 <td align="left">A1_B2</td>
 <td align="left">A2_B1</td>
-<td align="left">sane</td>
-<td align="right">3.351834</td>
-<td align="right">4</td>
-<td align="right">0.0097561</td>
-<td align="right">1.79</td>
+<td align="left">seeming</td>
+<td align="right">3.044041</td>
+<td align="left">verb</td>
+<td align="right">7</td>
+<td align="right">1.46</td>
 </tr>
 <tr class="odd">
 <td align="left">51</td>
 <td align="right">1</td>
 <td align="left">A2_B1</td>
 <td align="left">A2_B1</td>
-<td align="left">burp</td>
-<td align="right">3.311686</td>
-<td align="right">4</td>
-<td align="right">0.0029034</td>
-<td align="right">4.34</td>
+<td align="left">cayenne</td>
+<td align="right">3.070484</td>
+<td align="left">noun</td>
+<td align="right">7</td>
+<td align="right">4.22</td>
 </tr>
 <tr class="even">
 <td align="left">76</td>
 <td align="right">1</td>
 <td align="left">A2_B2</td>
 <td align="left">A2_B1</td>
-<td align="left">bong</td>
-<td align="right">3.450084</td>
-<td align="right">4</td>
-<td align="right">0.0095689</td>
-<td align="right">4.27</td>
+<td align="left">collide</td>
+<td align="right">3.211610</td>
+<td align="left">verb</td>
+<td align="right">7</td>
+<td align="right">4.00</td>
 </tr>
 <tr class="odd">
 <td align="left">2</td>
 <td align="right">2</td>
 <td align="left">A1_B1</td>
 <td align="left">A1_B2</td>
-<td align="left">subtlety</td>
-<td align="right">2.913220</td>
-<td align="right">8</td>
-<td align="right">0.0025943</td>
-<td align="right">1.54</td>
+<td align="left">renown</td>
+<td align="right">2.420012</td>
+<td align="left">noun</td>
+<td align="right">6</td>
+<td align="right">1.68</td>
 </tr>
 <tr class="even">
 <td align="left">27</td>
 <td align="right">2</td>
 <td align="left">A1_B2</td>
 <td align="left">A1_B2</td>
-<td align="left">reasoned</td>
-<td align="right">2.729160</td>
-<td align="right">8</td>
-<td align="right">0.0101181</td>
-<td align="right">1.64</td>
+<td align="left">relent</td>
+<td align="right">2.376977</td>
+<td align="left">verb</td>
+<td align="right">6</td>
+<td align="right">1.69</td>
 </tr>
 <tr class="odd">
 <td align="left">52</td>
 <td align="right">2</td>
 <td align="left">A2_B1</td>
 <td align="left">A1_B2</td>
-<td align="left">choirboy</td>
-<td align="right">2.559059</td>
-<td align="right">8</td>
-<td align="right">0.0027849</td>
-<td align="right">4.56</td>
+<td align="left">hyphen</td>
+<td align="right">2.459164</td>
+<td align="left">noun</td>
+<td align="right">6</td>
+<td align="right">4.11</td>
 </tr>
 <tr class="even">
 <td align="left">77</td>
 <td align="right">2</td>
 <td align="left">A2_B2</td>
 <td align="left">A1_B2</td>
-<td align="left">minstrel</td>
-<td align="right">2.905251</td>
-<td align="right">8</td>
-<td align="right">0.0100126</td>
-<td align="right">4.11</td>
+<td align="left">tarred</td>
+<td align="right">2.528245</td>
+<td align="left">verb</td>
+<td align="right">6</td>
+<td align="right">4.20</td>
 </tr>
 <tr class="odd">
 <td align="left">3</td>
 <td align="right">3</td>
 <td align="left">A1_B1</td>
 <td align="left">A1_B2</td>
-<td align="left">unsafe</td>
-<td align="right">3.487426</td>
-<td align="right">6</td>
-<td align="right">0.0023499</td>
-<td align="right">1.89</td>
+<td align="left">readiness</td>
+<td align="right">2.983538</td>
+<td align="left">noun</td>
+<td align="right">9</td>
+<td align="right">1.64</td>
 </tr>
 <tr class="even">
 <td align="left">28</td>
 <td align="right">3</td>
 <td align="left">A1_B2</td>
 <td align="left">A1_B2</td>
-<td align="left">regain</td>
-<td align="right">3.532060</td>
-<td align="right">6</td>
-<td align="right">0.0099835</td>
-<td align="right">1.79</td>
+<td align="left">oppressed</td>
+<td align="right">3.007490</td>
+<td align="left">verb</td>
+<td align="right">9</td>
+<td align="right">1.89</td>
 </tr>
 <tr class="odd">
 <td align="left">53</td>
 <td align="right">3</td>
 <td align="left">A2_B1</td>
 <td align="left">A1_B2</td>
-<td align="left">juggle</td>
-<td align="right">3.365053</td>
-<td align="right">6</td>
-<td align="right">0.0024606</td>
-<td align="right">4.04</td>
+<td align="left">tightrope</td>
+<td align="right">3.168492</td>
+<td align="left">noun</td>
+<td align="right">9</td>
+<td align="right">4.78</td>
 </tr>
 <tr class="even">
 <td align="left">78</td>
 <td align="right">3</td>
 <td align="left">A2_B2</td>
 <td align="left">A1_B2</td>
-<td align="left">strand</td>
-<td align="right">3.478208</td>
-<td align="right">6</td>
-<td align="right">0.0099946</td>
-<td align="right">4.10</td>
+<td align="left">unlocking</td>
+<td align="right">2.894393</td>
+<td align="left">verb</td>
+<td align="right">9</td>
+<td align="right">4.28</td>
 </tr>
 <tr class="odd">
 <td align="left">4</td>
 <td align="right">4</td>
 <td align="left">A1_B1</td>
 <td align="left">A2_B2</td>
-<td align="left">dynamics</td>
-<td align="right">3.281197</td>
-<td align="right">8</td>
-<td align="right">0.0019895</td>
-<td align="right">1.96</td>
+<td align="left">morals</td>
+<td align="right">3.253243</td>
+<td align="left">noun</td>
+<td align="right">6</td>
+<td align="right">1.31</td>
 </tr>
 <tr class="even">
 <td align="left">29</td>
 <td align="right">4</td>
 <td align="left">A1_B2</td>
 <td align="left">A2_B2</td>
-<td align="left">inferior</td>
-<td align="right">3.210284</td>
-<td align="right">8</td>
-<td align="right">0.0096549</td>
-<td align="right">1.70</td>
+<td align="left">enrich</td>
+<td align="right">2.953414</td>
+<td align="left">verb</td>
+<td align="right">6</td>
+<td align="right">2.00</td>
 </tr>
 <tr class="odd">
 <td align="left">54</td>
 <td align="right">4</td>
 <td align="left">A2_B1</td>
 <td align="left">A2_B2</td>
-<td align="left">bagpipes</td>
-<td align="right">3.162603</td>
-<td align="right">8</td>
-<td align="right">0.0028140</td>
-<td align="right">4.93</td>
+<td align="left">cavern</td>
+<td align="right">3.084902</td>
+<td align="left">noun</td>
+<td align="right">6</td>
+<td align="right">4.57</td>
 </tr>
 <tr class="even">
 <td align="left">79</td>
 <td align="right">4</td>
 <td align="left">A2_B2</td>
 <td align="left">A2_B2</td>
-<td align="left">intruder</td>
-<td align="right">3.294526</td>
-<td align="right">8</td>
-<td align="right">0.0092513</td>
-<td align="right">4.14</td>
+<td align="left">chisel</td>
+<td align="right">3.088433</td>
+<td align="left">verb</td>
+<td align="right">6</td>
+<td align="right">4.63</td>
 </tr>
 <tr class="odd">
 <td align="left">5</td>
 <td align="right">5</td>
 <td align="left">A1_B1</td>
 <td align="left">A2_B2</td>
-<td align="left">signify</td>
-<td align="right">2.910580</td>
+<td align="left">remorse</td>
+<td align="right">3.289022</td>
+<td align="left">noun</td>
 <td align="right">7</td>
-<td align="right">0.0020770</td>
-<td align="right">1.73</td>
+<td align="right">2.00</td>
 </tr>
 <tr class="even">
 <td align="left">30</td>
 <td align="right">5</td>
 <td align="left">A1_B2</td>
 <td align="left">A2_B2</td>
-<td align="left">rousing</td>
-<td align="right">3.109036</td>
+<td align="left">desired</td>
+<td align="right">3.398166</td>
+<td align="left">verb</td>
 <td align="right">7</td>
-<td align="right">0.0119233</td>
-<td align="right">1.55</td>
+<td align="right">1.93</td>
 </tr>
 <tr class="odd">
 <td align="left">55</td>
 <td align="right">5</td>
 <td align="left">A2_B1</td>
 <td align="left">A2_B2</td>
-<td align="left">crumpet</td>
-<td align="right">2.848024</td>
+<td align="left">uranium</td>
+<td align="right">3.287913</td>
+<td align="left">noun</td>
 <td align="right">7</td>
-<td align="right">0.0023334</td>
-<td align="right">4.81</td>
+<td align="right">4.29</td>
 </tr>
 <tr class="even">
 <td align="left">80</td>
 <td align="right">5</td>
 <td align="left">A2_B2</td>
 <td align="left">A2_B2</td>
-<td align="left">warthog</td>
-<td align="right">2.979037</td>
+<td align="left">curling</td>
+<td align="right">3.412573</td>
+<td align="left">verb</td>
 <td align="right">7</td>
-<td align="right">0.0110464</td>
-<td align="right">5.00</td>
+<td align="right">4.04</td>
 </tr>
 </tbody>
 </table>
@@ -686,8 +695,8 @@ Figure 2.2: The results of the <code>plot_sample()</code> function for the gener
 <span id="cb9-5"><a href="the-generate-pipeline.html#cb9-5" tabindex="-1"></a>  <span class="fu">control_for</span>(Length, <span class="dv">0</span><span class="sc">:</span><span class="dv">0</span>) <span class="sc">|&gt;</span></span>
 <span id="cb9-6"><a href="the-generate-pipeline.html#cb9-6" tabindex="-1"></a>  <span class="fu">control_for</span>(Zipf.SUBTLEX_UK, <span class="sc">-</span><span class="fl">0.2</span><span class="sc">:</span><span class="fl">0.2</span>) <span class="sc">|&gt;</span></span>
 <span id="cb9-7"><a href="the-generate-pipeline.html#cb9-7" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">n =</span> <span class="st">&quot;all&quot;</span>, <span class="at">match_null =</span> <span class="st">&quot;inclusive&quot;</span>)</span></code></pre></div>
-<p>This is much slower, as LexOPS will continue trying to generate combinations of items until it has exhausted all the possibilities. We actually generated 104 words generated per condition with the code above. This number is likely to change slightly each time we run the pipeline, as different combinations are randomly made from all the possible combinations. That said, it is probably a good <em>indication</em> of the number of possible stimuli we could generate.</p>
-<p>The 104 words we’ve managed to generate per condition here is quite a bit higher than the 25 we originally generated. Does this mean we should just request a larger stimulus list, such as <code>n = 80</code>, or even <code>n = 100</code>? Well, it depends. If we want as many stimuli as are possible, then it may make sense to just set <code>n = "all"</code>, but often we only want to use as many stimuli as we need to find our effect. Also, if we use as many combinations as possible, experimenters who want to replicate our effect using a different set of stimuli will likely have fewer novel combinations available to them.</p>
+<p>This is much slower, as LexOPS will continue trying to generate combinations of items until it has exhausted all the possibilities. We actually generated 105 words generated per condition with the code above. This number is likely to change slightly each time we run the pipeline, as different combinations are randomly made from all the possible combinations. That said, it is probably a good <em>indication</em> of the number of possible stimuli we could generate.</p>
+<p>The 105 words we’ve managed to generate per condition here is quite a bit higher than the 25 we originally generated. Does this mean we should just request a larger stimulus list, such as <code>n = 80</code>, or even <code>n = 100</code>? Well, it depends. If we want as many stimuli as are possible, then it may make sense to just set <code>n = "all"</code>, but often we only want to use as many stimuli as we need to find our effect. Also, if we use as many combinations as possible, experimenters who want to replicate our effect using a different set of stimuli will likely have fewer novel combinations available to them.</p>
 <div class="danger">
 <p>
 Note that when <code>n = “all”</code>, you will get a warning if you

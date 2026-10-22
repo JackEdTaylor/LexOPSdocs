@@ -4,7 +4,7 @@
 
 ## Generating Stimuli
 
-LexOPS can generate controlled stimuli for (almost?) any possible factorial design. This can be done in a pipeline using 3 main functions:
+LexOPS can generate controlled stimuli for factorial designs. This can be done in a pipeline using 3 main functions:
 
 <br>
 <div class="float-third-left">
@@ -36,13 +36,13 @@ For this, we might decide we want a stimulus set with the following features:
 
 * **Two levels of Concreteness** (abstract and concrete words) according to Brysbaert, Warriner and Kuperman (2014).
 
-* **Two levels of Bigram Probability** (low and high probability) based on SUBTLEX-UK (van Heuven, Mandera, Keuleers, & Brysbaert, 2014).
+* **Two levels of Part of Speech** (nouns and verbs) based on SUBTLEX-UK (van Heuven, Mandera, Keuleers, & Brysbaert, 2014).
   
 * **Controlled for word length** (number of characters) exactly.
 
 * **Controlled for word frequency** within ±0.2 Zipf, according to according to SUBTLEX-UK (van Heuven, Mandera, Keuleers, & Brysbaert, 2014).
 
-* **25 words for each of the generated conditions** (100 stimuli in total).
+* **25 words for each of the generated conditions** (100 items in total).
 
 <br>
 We can use the following R code to generate a stimulus list like this with LexOPS:
@@ -54,7 +54,7 @@ library(LexOPS)
 stim <- lexops |>
   subset(PK.Brysbaert >= 0.9) |>
   split_by(CNC.Brysbaert, 1:2 ~ 4:5) |>
-  split_by(BG.SUBTLEX_UK, 0:0.003 ~ 0.009:0.013) |>
+  split_by(PoS.SUBTLEX_UK, "noun" ~ "verb") |>
   control_for(Length, 0:0) |>
   control_for(Zipf.SUBTLEX_UK, -0.2:0.2) |>
   generate(n = 25)
@@ -67,15 +67,20 @@ stim <- lexops |>
 <li><p>As in the tidyverse, variables in the dataframe can be referenced
 outside of quotation marks.</p></li>
 <li><p>The <code>:</code> character is used in <code>split_by()</code>
-to specify numeric boundaries (e.g. <code>0.009:0.013</code> means any
-number from 0.009 to 0.013 is acceptable for this level of the
-variable), and in <code>control_for()</code> to specify tolerances
+to specify numeric boundaries (e.g. <code>1:2</code> means any number
+between 1 and 2 is acceptable for this level of the variable), and in
+<code>control_for()</code> to specify tolerances
 (e.g. <code>-0.2:0.2</code> means controls will be acceptable if within
 ±0.2 of the match null).</p></li>
 <li><p>The <code>~</code> character is used in <code>split_by()</code>
 to specify different levels of an independent variable
 (e.g. <code>1.5:2.5 ~ 3.5:4.5 ~ 5.5:6.5</code> would specify three
 levels).</p></li>
+<li><p>Categorical (character vector) splits are supported by giving
+levels in quotations (e.g., <code>"noun" ~ "verb"</code>). Note that
+categorical controls are also supported by <code>control_for()</code>
+(e.g., we could have used <code>control_for(PoS.SUBTLEX_UK)</code> to
+control for part of speech).</p></li>
 </ul>
 </div>
 <br>
@@ -86,13 +91,13 @@ Let's have a closer look at the first 5 rows of `stim`, which contains the outpu
 
 <div class = 'table'>
 
-| item_nr|A1_B1    |A1_B2    |A2_B1    |A2_B2    |match_null |
-|-------:|:--------|:--------|:--------|:--------|:----------|
-|       1|ahoy     |sane     |burp     |bong     |A2_B1      |
-|       2|subtlety |reasoned |choirboy |minstrel |A1_B2      |
-|       3|unsafe   |regain   |juggle   |strand   |A1_B2      |
-|       4|dynamics |inferior |bagpipes |intruder |A2_B2      |
-|       5|signify  |rousing  |crumpet  |warthog  |A2_B2      |
+| item_nr|A1_B1     |A1_B2     |A2_B1     |A2_B2     |match_null |
+|-------:|:---------|:---------|:---------|:---------|:----------|
+|       1|epitome   |seeming   |cayenne   |collide   |A2_B1      |
+|       2|renown    |relent    |hyphen    |tarred    |A1_B2      |
+|       3|readiness |oppressed |tightrope |unlocking |A1_B2      |
+|       4|morals    |enrich    |cavern    |chisel    |A2_B2      |
+|       5|remorse   |desired   |uranium   |curling   |A2_B2      |
 
 </div>
 
@@ -124,28 +129,28 @@ Now we have the same stimuli in long format, with their associated values. Here 
 \small
 <div class = 'table'>
 
-|   | item_nr|condition |match_null |string   | Zipf.SUBTLEX_UK| Length| BG.SUBTLEX_UK| CNC.Brysbaert|
-|:--|-------:|:---------|:----------|:--------|---------------:|------:|-------------:|-------------:|
-|1  |       1|A1_B1     |A2_B1      |ahoy     |        3.270924|      4|     0.0024671|          2.00|
-|26 |       1|A1_B2     |A2_B1      |sane     |        3.351834|      4|     0.0097561|          1.79|
-|51 |       1|A2_B1     |A2_B1      |burp     |        3.311686|      4|     0.0029034|          4.34|
-|76 |       1|A2_B2     |A2_B1      |bong     |        3.450084|      4|     0.0095689|          4.27|
-|2  |       2|A1_B1     |A1_B2      |subtlety |        2.913220|      8|     0.0025943|          1.54|
-|27 |       2|A1_B2     |A1_B2      |reasoned |        2.729160|      8|     0.0101181|          1.64|
-|52 |       2|A2_B1     |A1_B2      |choirboy |        2.559059|      8|     0.0027849|          4.56|
-|77 |       2|A2_B2     |A1_B2      |minstrel |        2.905251|      8|     0.0100126|          4.11|
-|3  |       3|A1_B1     |A1_B2      |unsafe   |        3.487426|      6|     0.0023499|          1.89|
-|28 |       3|A1_B2     |A1_B2      |regain   |        3.532060|      6|     0.0099835|          1.79|
-|53 |       3|A2_B1     |A1_B2      |juggle   |        3.365053|      6|     0.0024606|          4.04|
-|78 |       3|A2_B2     |A1_B2      |strand   |        3.478208|      6|     0.0099946|          4.10|
-|4  |       4|A1_B1     |A2_B2      |dynamics |        3.281197|      8|     0.0019895|          1.96|
-|29 |       4|A1_B2     |A2_B2      |inferior |        3.210284|      8|     0.0096549|          1.70|
-|54 |       4|A2_B1     |A2_B2      |bagpipes |        3.162603|      8|     0.0028140|          4.93|
-|79 |       4|A2_B2     |A2_B2      |intruder |        3.294526|      8|     0.0092513|          4.14|
-|5  |       5|A1_B1     |A2_B2      |signify  |        2.910580|      7|     0.0020770|          1.73|
-|30 |       5|A1_B2     |A2_B2      |rousing  |        3.109036|      7|     0.0119233|          1.55|
-|55 |       5|A2_B1     |A2_B2      |crumpet  |        2.848024|      7|     0.0023334|          4.81|
-|80 |       5|A2_B2     |A2_B2      |warthog  |        2.979037|      7|     0.0110464|          5.00|
+|   | item_nr|condition |match_null |string    | Zipf.SUBTLEX_UK|PoS.SUBTLEX_UK | Length| CNC.Brysbaert|
+|:--|-------:|:---------|:----------|:---------|---------------:|:--------------|------:|-------------:|
+|1  |       1|A1_B1     |A2_B1      |epitome   |        3.090187|noun           |      7|          1.80|
+|26 |       1|A1_B2     |A2_B1      |seeming   |        3.044041|verb           |      7|          1.46|
+|51 |       1|A2_B1     |A2_B1      |cayenne   |        3.070484|noun           |      7|          4.22|
+|76 |       1|A2_B2     |A2_B1      |collide   |        3.211610|verb           |      7|          4.00|
+|2  |       2|A1_B1     |A1_B2      |renown    |        2.420012|noun           |      6|          1.68|
+|27 |       2|A1_B2     |A1_B2      |relent    |        2.376977|verb           |      6|          1.69|
+|52 |       2|A2_B1     |A1_B2      |hyphen    |        2.459164|noun           |      6|          4.11|
+|77 |       2|A2_B2     |A1_B2      |tarred    |        2.528245|verb           |      6|          4.20|
+|3  |       3|A1_B1     |A1_B2      |readiness |        2.983538|noun           |      9|          1.64|
+|28 |       3|A1_B2     |A1_B2      |oppressed |        3.007490|verb           |      9|          1.89|
+|53 |       3|A2_B1     |A1_B2      |tightrope |        3.168492|noun           |      9|          4.78|
+|78 |       3|A2_B2     |A1_B2      |unlocking |        2.894393|verb           |      9|          4.28|
+|4  |       4|A1_B1     |A2_B2      |morals    |        3.253243|noun           |      6|          1.31|
+|29 |       4|A1_B2     |A2_B2      |enrich    |        2.953414|verb           |      6|          2.00|
+|54 |       4|A2_B1     |A2_B2      |cavern    |        3.084902|noun           |      6|          4.57|
+|79 |       4|A2_B2     |A2_B2      |chisel    |        3.088433|verb           |      6|          4.63|
+|5  |       5|A1_B1     |A2_B2      |remorse   |        3.289022|noun           |      7|          2.00|
+|30 |       5|A1_B2     |A2_B2      |desired   |        3.398166|verb           |      7|          1.93|
+|55 |       5|A2_B1     |A2_B2      |uranium   |        3.287913|noun           |      7|          4.29|
+|80 |       5|A2_B2     |A2_B2      |curling   |        3.412573|verb           |      7|          4.04|
 
 </div>
 \normalsize
@@ -197,9 +202,9 @@ possible_stim <- LexOPS::lexops |>
   generate(n = "all", match_null = "inclusive")
 ```
 
-This is much slower, as LexOPS will continue trying to generate combinations of items until it has exhausted all the possibilities. We actually generated 104 words generated per condition with the code above. This number is likely to change slightly each time we run the pipeline, as different combinations are randomly made from all the possible combinations. That said, it is probably a good *indication* of the number of possible stimuli we could generate.
+This is much slower, as LexOPS will continue trying to generate combinations of items until it has exhausted all the possibilities. We actually generated 105 words generated per condition with the code above. This number is likely to change slightly each time we run the pipeline, as different combinations are randomly made from all the possible combinations. That said, it is probably a good *indication* of the number of possible stimuli we could generate.
 
-The 104 words we've managed to generate per condition here is quite a bit higher than the 25 we originally generated. Does this mean we should just request a larger stimulus list, such as `n = 80`, or even `n = 100`? Well, it depends. If we want as many stimuli as are possible, then it may make sense to just set `n = "all"`, but often we only want to use as many stimuli as we need to find our effect. Also, if we use as many combinations as possible, experimenters who want to replicate our effect using a different set of stimuli will likely have fewer novel combinations available to them.
+The 105 words we've managed to generate per condition here is quite a bit higher than the 25 we originally generated. Does this mean we should just request a larger stimulus list, such as `n = 80`, or even `n = 100`? Well, it depends. If we want as many stimuli as are possible, then it may make sense to just set `n = "all"`, but often we only want to use as many stimuli as we need to find our effect. Also, if we use as many combinations as possible, experimenters who want to replicate our effect using a different set of stimuli will likely have fewer novel combinations available to them.
 
 <div class="danger">
 <p>Note that when <code>n = "all"</code>, you will get a warning if you

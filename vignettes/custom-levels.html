@@ -15,6 +15,19 @@
 
 <title>Creating Custom Levels</title>
 
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
 
 <style type="text/css">
 code{white-space: pre-wrap;}
@@ -341,12 +354,16 @@ example, where we want to compare high arousal, negative emotional words
 to low arousal neutral words.</p>
 <div id="packages" class="section level1">
 <h1>Packages</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">library</span>(LexOPS)</span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="fu">library</span>(lexopsdata)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">&quot;lexopsdata&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">eval =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  <span class="fu">library</span>(lexopsdata)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>}</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="fu">library</span>(LexOPS)</span></code></pre></div>
 </div>
 <div id="coding-the-new-column" class="section level1">
 <h1>Coding the New Column</h1>
@@ -402,9 +419,10 @@ generate matched stimuli, for only these two factorial cells.</p>
 <span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="fu">control_for</span>(Zipf.SUBTLEX_UK, <span class="sc">-</span><span class="fl">0.1</span><span class="sc">:</span><span class="fl">0.1</span>) <span class="sc">|&gt;</span></span>
 <span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  <span class="fu">control_for</span>(AoA.Kuperman, <span class="sc">-</span><span class="fl">1.5</span><span class="sc">:</span><span class="fl">1.5</span>) <span class="sc">|&gt;</span></span>
 <span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="dv">20</span>)</span></code></pre></div>
-<pre><code>## Warning in split_by(dat, emo_cond, &quot;arou_neg&quot; ~ &quot;neutral&quot;): Column emo_cond is type character so will be treated as a factor.</code></pre>
-<pre><code>## Warning in control_for(split_by(dat, emo_cond, &quot;arou_neg&quot; ~ &quot;neutral&quot;), : No tolerance given for numeric variable &#39;Length&#39;, will control for
-## exactly.</code></pre>
+<pre><code>## Warning in split_by(dat, emo_cond, &quot;arou_neg&quot; ~ &quot;neutral&quot;): Column emo_cond is type character so will be
+## treated as a factor.</code></pre>
+<pre><code>## Warning in control_for(split_by(dat, emo_cond, &quot;arou_neg&quot; ~ &quot;neutral&quot;), : No tolerance given for numeric
+## variable &#39;Length&#39;, will control for exactly.</code></pre>
 <pre><code>## Generated 1/20 (5%). 1 total iterations, 1.00 success rate.Generated 2/20 (10%). 2 total iterations, 1.00 success rate.Generated 3/20 (15%). 9 total iterations, 0.33 success rate.Generated 4/20 (20%). 10 total iterations, 0.40 success rate.Generated 5/20 (25%). 12 total iterations, 0.42 success rate.Generated 6/20 (30%). 17 total iterations, 0.35 success rate.Generated 7/20 (35%). 18 total iterations, 0.39 success rate.Generated 8/20 (40%). 19 total iterations, 0.42 success rate.Generated 9/20 (45%). 21 total iterations, 0.43 success rate.Generated 10/20 (50%). 22 total iterations, 0.45 success rate.Generated 11/20 (55%). 23 total iterations, 0.48 success rate.Generated 12/20 (60%). 26 total iterations, 0.46 success rate.Generated 13/20 (65%). 27 total iterations, 0.48 success rate.Generated 14/20 (70%). 28 total iterations, 0.50 success rate.Generated 15/20 (75%). 40 total iterations, 0.38 success rate.Generated 16/20 (80%). 54 total iterations, 0.30 success rate.Generated 17/20 (85%). 59 total iterations, 0.29 success rate.Generated 18/20 (90%). 61 total iterations, 0.30 success rate.Generated 19/20 (95%). 62 total iterations, 0.31 success rate.Generated 20/20 (100%). 63 total iterations, 0.32 success rate.</code></pre>
 <p>Here are the 20 words per factorial cell we generated.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">print</span>(stim)</span></code></pre></div>

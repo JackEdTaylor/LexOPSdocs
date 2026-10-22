@@ -15,6 +15,19 @@
 
 <title>Using Data from Custom Sources</title>
 
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
 
 <style type="text/css">
 code{white-space: pre-wrap;}
@@ -331,20 +344,25 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 <p>The <a href="https://github.com/JackEdTaylor/lexopsdata">lexops
-dataset</a> is useful but not exhaustive. Thankfully, LexOPS can work
-with any suitable list of features. For this example, we will join the
-<a href="https://osf.io/7emr6/">Lancaster Sensorimotor norms</a> to <a href="https://github.com/tomasengelthaler/HumorNorms">Engelthaler and
+dataset</a> can be useful for English features, but is not exhaustive.
+However, LexOPS can work with any suitable list of features. For this
+example, we will join the <a href="https://osf.io/7emr6/">Lancaster
+Sensorimotor norms</a> to <a href="https://github.com/tomasengelthaler/HumorNorms">Engelthaler and
 Hills’ humour ratings</a>, and the lexops dataset
-(<code>LexOPS::lexops</code>). We can then use this to generate stimuli
-with a visual rating by humour interaction, controlling for length and
-frequency.</p>
+(<code>lexopsdata::lexops</code>). We can then use this to generate
+stimuli with a visual rating by humour interaction, controlling for
+length and frequency.</p>
 <div id="packages" class="section level1">
 <h1>Packages</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(LexOPS)</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">library</span>(lexopsdata)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">&quot;lexopsdata&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">eval =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  <span class="fu">library</span>(lexopsdata)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>}</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="fu">library</span>(LexOPS)</span></code></pre></div>
 </div>
 <div id="importing-datsets" class="section level1">
 <h1>Importing Datsets</h1>
@@ -353,10 +371,10 @@ frequency.</p>
 <p>The Lancaster Sensorimotor Norms are available from the <a href="https://osf.io/48wsc/">OSF page</a>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>sensorimotor <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://osf.io/48wsc/download&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 39707 Columns: 45
-## ── Column specification ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Column specification ────────────────────────────────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## chr  (6): Word, Dominant.perceptual, Dominant.action, Dominant.sensorimotor, List#.perceptual, List#.action
-## dbl (39): Auditory.mean, Gustatory.mean, Haptic.mean, Interoceptive.mean, Olfactory.mean, Visual.mean, Foot_leg.mean, Hand_arm.mean, Head.mean...
+## dbl (39): Auditory.mean, Gustatory.mean, Haptic.mean, Interoceptive.mean, Olfactory.mean, Visual.mean, F...
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
@@ -705,10 +723,10 @@ frequency.</p>
 Page</a>.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>humour <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/tomasengelthaler/HumorNorms/master/humor_dataset.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 4997 Columns: 16
-## ── Column specification ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Column specification ────────────────────────────────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## chr  (1): word
-## dbl (15): mean, sd, n, mean_M, sd_M, n_M, mean_F, sd_F, n_F, mean_young, sd_young, n_young, mean_old, sd_old, n_old
+## dbl (15): mean, sd, n, mean_M, sd_M, n_M, mean_F, sd_F, n_F, mean_young, sd_young, n_young, mean_old, sd...
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>

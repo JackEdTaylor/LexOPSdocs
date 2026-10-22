@@ -6,7 +6,7 @@ set.seed(22)
 
 ## Generating Stimuli
 
-LexOPS can generate controlled stimuli for (almost?) any possible factorial design. This can be done in a pipeline using 3 main functions:
+LexOPS can generate controlled stimuli for factorial designs. This can be done in a pipeline using 3 main functions:
 
 <br>
 ```{block, type='float-third-left'}
@@ -38,13 +38,13 @@ For this, we might decide we want a stimulus set with the following features:
 
 * **Two levels of Concreteness** (abstract and concrete words) according to `r LexOPS::var_to_source("CNC.Brysbaert")`.
 
-* **Two levels of Bigram Probability** (low and high probability) based on `r LexOPS::var_to_source("BG.SUBTLEX_UK")`.
+* **Two levels of Part of Speech** (nouns and verbs) based on `r LexOPS::var_to_source("PoS.SUBTLEX_UK")`.
   
 * **Controlled for word length** (number of characters) exactly.
 
 * **Controlled for word frequency** within ±0.2 Zipf, according to according to `r LexOPS::var_to_source("Zipf.SUBTLEX_UK")`.
 
-* **25 words for each of the generated conditions** (100 stimuli in total).
+* **25 words for each of the generated conditions** (100 items in total).
 
 <br>
 We can use the following R code to generate a stimulus list like this with LexOPS:
@@ -55,7 +55,7 @@ library(LexOPS)
 stim <- lexops |>
   subset(PK.Brysbaert >= 0.9) |>
   split_by(CNC.Brysbaert, 1:2 ~ 4:5) |>
-  split_by(BG.SUBTLEX_UK, 0:0.003 ~ 0.009:0.013) |>
+  split_by(PoS.SUBTLEX_UK, "noun" ~ "verb") |>
   control_for(Length, 0:0) |>
   control_for(Zipf.SUBTLEX_UK, -0.2:0.2) |>
   generate(n = 25)
@@ -67,9 +67,11 @@ Important notes on LexOPS (non-standard) syntax:
 
 * As in the tidyverse, variables in the dataframe can be referenced outside of quotation marks.
 
-* The `:` character is used in `split_by()` to specify numeric boundaries (e.g. `0.009:0.013` means any number from 0.009 to 0.013 is acceptable for this level of the variable), and in `control_for()` to specify tolerances (e.g. `-0.2:0.2` means controls will be acceptable if within ±0.2 of the match null).
+* The `:` character is used in `split_by()` to specify numeric boundaries (e.g. `1:2` means any number between 1 and 2 is acceptable for this level of the variable), and in `control_for()` to specify tolerances (e.g. `-0.2:0.2` means controls will be acceptable if within ±0.2 of the match null).
 
 * The `~` character is used in `split_by()` to specify different levels of an independent variable (e.g. `1.5:2.5 ~ 3.5:4.5 ~ 5.5:6.5` would specify three levels).
+
+* Categorical (character vector) splits are supported by giving levels in quotations (e.g., `"noun" ~ "verb"`). Note that categorical controls are also supported by `control_for()` (e.g., we could have used `control_for(PoS.SUBTLEX_UK)` to control for part of speech).
 ```
 <br>
 
