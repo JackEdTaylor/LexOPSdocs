@@ -179,10 +179,10 @@ Imagine that we're not sure how many stimuli we could generate using our design.
 
 
 ``` r
-possible_stim <- LexOPS::lexops |>
+possible_stim <- lexops |>
   subset(PK.Brysbaert >= 0.9) |>
   split_by(CNC.Brysbaert, 1:2 ~ 4:5) |>
-  split_by(BG.SUBTLEX_UK, 0:0.003 ~ 0.009:0.013) |>
+  split_by(PoS.SUBTLEX_UK, "noun" ~ "verb") |>
   control_for(Length, 0:0) |>
   control_for(Zipf.SUBTLEX_UK, -0.2:0.2) |>
   generate(n = "all", match_null = "inclusive")
@@ -190,9 +190,9 @@ possible_stim <- LexOPS::lexops |>
 
 This is slower, as LexOPS will continue trying to generate combinations of items until it has exhausted all the possibilities. We're also more conservative, and set `match_null = "inclusive"`, which means that each factorial cell is matched to each other factorial cell (see [What is a Match Null?](faq.html#what-is-a-match-null) for an explanation of how this is different from the default).
 
-We actually generated 105 words generated per condition with the code above. This number is likely to change slightly each time we run the pipeline, as different combinations are randomly made from all the possible combinations. That said, it is probably a good *indication* of the number of possible stimuli we could generate.
+We actually generated 270 words generated per condition with the code above. This number is likely to change slightly each time we run the pipeline, as different combinations are randomly made from all the possible combinations. That said, it is probably a good *indication* of the number of possible stimuli we could generate.
 
-The 105 words we've managed to generate per condition here is quite a bit higher than the 25 we originally generated. Does this mean we should just request a larger stimulus list, such as `n = 80`, or even `n = 100`? Well, it depends. If we want as many stimuli as are possible, then it may make sense to just set `n = "all"`, but often we only want to use as many stimuli as we need to find our effect. For example, if we use as many combinations as possible, experimenters who want to replicate our effect using a different set of stimuli will likely have fewer novel combinations available to them.
+The 270 words we've managed to generate per condition here is quite a bit higher than the 25 we originally generated. Does this mean we should just request a larger stimulus list, such as `n = 250`? Well, it depends. If we need the largest set of items possible, then it may make sense to just set `n = "all"`, but often we only want to use as many stimuli as we need to find our effect. Also, if we use as many combinations as possible, experimenters who want to replicate our effect using a different set of stimuli will likely have fewer novel combinations available to them.
 
 <div class="danger">
 <p>Note that when <code>n = "all"</code>, you will get a warning if you
