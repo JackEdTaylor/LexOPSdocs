@@ -28,7 +28,7 @@ and controls</p>
 
 ### A Practical Example {-}
 
-Imagine we want to generate stimuli for a 2x2 factorial design in a Lexical Decision Task, examining whether a possible effect of bigram probability interacts with concreteness.
+Imagine we want to generate stimuli for a 2x2 factorial design in a Lexical Decision Task, examining whether a possible effect of (doinant) part of speech interacts with concreteness.
 
 For this, we might decide we want a stimulus set with the following features:
 
