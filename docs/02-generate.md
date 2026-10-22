@@ -4,7 +4,7 @@
 
 ## Generating Stimuli
 
-LexOPS can generate controlled stimuli for factorial designs. This can be done in a pipeline using 3 main functions:
+LexOPS can generate lists of controlled stimuli for factorial designs. This can be done in a pipeline using 3 main functions:
 
 <br>
 <div class="float-third-left">
